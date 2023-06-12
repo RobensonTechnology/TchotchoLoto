@@ -1,0 +1,511 @@
+﻿@using TchotchoLoto.Models
+
+@{
+
+    Compagnie compagnie = (Compagnie)Session["compagnieData"];
+    Application application = (Application)Session["applicationData"];
+
+
+
+    User currentUser = (User)Session["userData"];
+
+
+    int idUser = -1;
+
+    if (currentUser != null)
+    {
+        idUser = currentUser.UserId;
+    }
+
+
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0078d7">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>
+        @ViewBag.Title | @if (compagnie != null)
+        {@compagnie.NomCompagnie}
+    </title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/theme.min.css">
+
+    <style type="text/css">
+        .custom-combobox {
+            position: relative;
+            display: inline-block;
+        }
+
+        .custom-combobox-toggle {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            margin-left: -1px;
+            padding: 0;
+        }
+
+        .custom-combobox-input {
+            margin: 0;
+            padding: 5px 10px;
+        }
+    </style>
+</head>
+
+<body id="body">
+
+    <noscript>
+        <div style="position:fixed; width:100%; height:100%; text-align:center;background:#fff; z-index: 20000;top: 0; left: 0;bottom: 0;right: 0;">
+            <h1 class="text-danger" style="transform:translateY(60%);">This Application needs Javascript to Run Correctly...</h1>
+        </div>
+    </noscript>
+
+    @{
+        try
+        {
+            if (Session == null || Session["userLogedIn"] == null || (Boolean)Session["userLogedIn"] == false) { Response.Redirect("~/Account/Login"); }
+        }
+        catch (System.Web.HttpException webex)
+        {
+            <script>alert('Session Expired');</script>
+        }
+    }
+
+
+    <div class="ly-overlay-loading overlay-loading">
+        <img src="~/Content/images/loading-gif.gif" alt="Loading" width="50" height="50" />
+    </div>
+
+    <div class="row">
+
+        <div class="navbar navbar-fixed-top" style="background-color: #0078d7;">
+
+            <div class="">
+
+                <button id="btn-main-menu" class="navbar-btn pull-left" style="line-height:2.5; color:#ffffff; margin-left:10px; background:transparent; font-size:1.3rem; font-weight:normal; border:none;">
+                    <span class="glyphicon glyphicon-menu-hamburger"></span>
+                </button>
+
+                <div class="navbar-header">
+                    <a class="navbar-brand" style="font-family:Helvetica; font-weight:bold;" href="@Url.Action("Home", "Account")">
+
+
+                        <span class="glyphicon glyphicon-registration-mark brand-glyph"></span>
+
+                        @if (compagnie != null && application != null)
+                        {
+                            <span class="hide-on-mobile">
+                                @application.Description
+
+
+
+                            </span>
+
+                            <span class="show-on-mobile" style="display:none;">
+                                @application.Description
+                            </span>
+
+                        }
+                        else
+                        {
+                            <span class="hide-on-mobile">
+                                TCHOTCHO PARYAJ
+
+                            </span>
+
+                            <span class="show-on-mobile" style="display:none;">
+                                TCHOTCHO PARYAJ
+                            </span>
+
+                        }
+
+
+                        @*<span class="hide-on-mobile">
+                            @if (compagnie != null)
+                            {
+                                if (application != null)
+                                {
+                                    @application.ApplicationName
+                                }
+                                <span>-</span>
+                                @compagnie.NomCompagnie
+
+                            }
+                            else
+                            {
+                                <span class="hide-on-mobile" style="display:none;">PARYAJ LOTO</span>
+
+                            }
+                        </span>
+
+                        <span class="show-on-mobile" style="display:none;">
+                            @if (compagnie != null)
+                            {
+                                if (application != null)
+                                {
+                                    @application.Description
+                                }
+
+                            }
+                            else
+                            {
+                                <span class="show-on-mobile" style="display:none;">PARYAJ LOTO</span>
+
+                            }
+                        </span>*@
+                        
+                    </a>
+                </div>
+                @* where was the search form *@
+
+                <div class="navbar-right" style="margin-right:0;">
+
+                    <div style="display:inline-block;" class="pull-right">
+
+                        <ul class="nav navbar-nav user-name-dropdown">
+
+
+                            <li class="dropdown usrsm">
+                                <a style="min-height:50px;" href="#" class="dropdown-toggle current-user-info md" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                    <span class="glyphicon glyphicon-user"></span>
+                                    <span style="margin:5px; font: bold 14px arial, verdana;">
+                                        @if (currentUser != null)
+                                        {
+                                            @currentUser.FirstName<span>&nbsp;</span>@currentUser.LastName
+                                        }
+                                    </span>
+                                </a>
+
+                                <a class="current-user-info sm" style="text-align:center;">
+                                    <span class="current-user-info-btn" style="color:#ffffff; height:50px; width:50px; border-radius:50px; border:1px solid #ffffff; padding:3px;"><span class="glyphicon glyphicon-user"></span></span>
+                                </a>
+
+                                <ul id="Ul1" class="dropdown-menu" style="margin-top: 5px; min-width: 200px;">
+                                    <li class="active stretch-out-on-hover">@Html.ActionLink("Logout", "Login", "Account")</li>
+
+                                    @if (compagnie != null)
+                                    {
+                                        <li class="divider"></li>
+                                        <li class="stretch-out-on-hover" style="cursor:pointer;"><a class="account-user-btn" data-url="@Url.Action("_Account", "Account", new { id = @idUser })">Account</a></li>
+
+                                        if (currentUser != null && currentUser.UserCompagnies.Count() > 1)
+                                        {
+                                            <li class="divider"></li>
+                                            <li class="stretch-out-on-hover" style="cursor:pointer;"><a class="change-comp-btn" data-url="@Url.Action("_ChangeComp", "Account", new { id = compagnie.CompagnieId })">Change Company</a></li>
+                                        }
+
+                                    }
+
+
+
+
+                                </ul>
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                    <div id="notif-block" style="display:inline-block;" class="pull-right">
+
+                        <input type="hidden" id="old-notif" />
+
+                        <ul class="nav navbar-nav notification-dropdown" style="display:none;">
+
+                            <li class="dropdown sm noticonsm">
+                                <a href="#" class="dropdown-toggle notif-icon md" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                    <span class="badge" style="background:#b90000; margin-top: -25px; margin-right: -7px;"></span>
+                                    <span class="glyphicon glyphicon-bell" style="color:#ffd800; font-size:2rem;"></span>
+                                </a>
+
+                                <a class="notif-icon sm">
+                                    <span class="badge" style="background:#b90000; margin-top: -25px; margin-right: -7px;"></span>
+                                    <span class="glyphicon glyphicon-bell" style="color:#ffd800; font-size:2rem;"></span>
+                                </a>
+
+                                <ul class="dropdown-menu" style="padding:0; padding-bottom:10px; margin-top: 5px; border-radius: 5px; min-width:300px;">
+
+                                    <li style="display:block; width:100%; font-weight:bold; padding:5px;">
+                                        Notifications
+                                    </li>
+                                    <li style="">
+                                        <a style="cursor:pointer; min-height:60px; padding:8px;" title="Cliquez pour voir les détails">
+                                            <span style="display:inline-block; width:12%; margin-right:8px; top:50%; float:left;">
+                                                <span style="text-align:center; display:inline-block; background:#0aafca; border-radius:50px; height:35px; width:35px;">
+                                                    <span class="glyphicon glyphicon-calendar" style="transform:translateY(50%);"></span>
+                                                </span>
+                                            </span>
+                                            <span style="display:inline-block; width:85%;">
+                                                : <strong class="text-danger"></strong>
+                                            </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                        </ul>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+        </div>
+
+
+    </div>
+
+
+    <div class="container-fluid">
+
+        <div class="main-menu">
+
+            <div class="btn-iconify-main-menu row">
+                <button id="btn-iconify-main-menu" style="line-height:2.5; color:#0078d7; background:transparent; font-size:1.6rem; font-weight:normal; border:none;">
+                    <span class="glyphicon glyphicon-menu-hamburger"></span>
+                </button>
+            </div>
+
+            <div class="main-menu-menu">
+                @if (Session != null || Session["userLogedIn"] != null || (Boolean)Session["userLogedIn"] == true)
+                {
+
+
+                    var roles = new List<RolePermission> { };
+                    var appNavigations = new List<AppNavigationPermission> { };
+                    var appNavigationChildren = new List<AppNavigationPermission> { };
+                    if (currentUser != null)
+                    {
+                        roles = currentUser.Role.RolePermissions.ToList();
+                    }
+
+
+                    foreach (RolePermission role in roles)
+                    {
+                        foreach (AppNavigationPermission nav in role.Permission.AppNavigationPermissions)
+                        {
+
+
+                            if (!appNavigationChildren.Exists(n => n.PermissionId == nav.PermissionId))
+                            {
+                                appNavigationChildren.Add(nav);
+                            }
+
+                            if (!appNavigations.Exists(n => n.AppNavigationId == nav.AppNavigationId))
+                            {
+                                appNavigations.Add(nav);
+                            }
+
+
+                        }
+                    }
+
+
+                    foreach (var navigation in appNavigations.OrderBy(an => an.AppNavigation.NavigationOrder))
+                    {
+
+                        if (navigation.AppNavigation.NavigationLevel == 1 && navigation.AppNavigation.NavigationOrder == 1)
+                        {
+
+                            <ul class="nav nav-sidebar" title="@navigation.AppNavigation.NavigationLabel">
+                                <li id="option-liste" class="header"><a href="#"><span class="glyphicon glyphicon-bookmark"></span>&nbsp;&nbsp; @navigation.AppNavigation.NavigationLabel <span id="chevron-liste" class="glyphicon chevron glyphicon-chevron-down"></span><span class="sr-only">(current)</span></a></li>
+                            </ul>
+
+                            <ul class="nav  nav-sub" id="menu-liste">
+                                @foreach (var item in appNavigationChildren.Where(an => an.AppNavigationId == navigation.AppNavigationId).OrderBy(an => an.PermissionOrder).ToList())
+                                {
+                                    if (roles.Exists(r => r.PermissionId == item.PermissionId))
+                                    {
+                                        <li>@Html.ActionLink(item.Permission.Label, item.Permission.ObjectName, item.Permission.ParentName)</li>
+                                    }
+
+                                }
+                            </ul>
+                        }
+
+
+                        if (navigation.AppNavigation.NavigationLevel == 1 && navigation.AppNavigation.NavigationOrder == 2)
+                        {
+
+                            <ul class="nav nav-sidebar" title="@navigation.AppNavigation.NavigationLabel">
+                                <li id="option-operation" class="header"><a href="#"><span class="icon-container"></span>&nbsp;&nbsp; @navigation.AppNavigation.NavigationLabel <span id="chevron-operation" class="glyphicon chevron glyphicon-chevron-down"></span><span class="sr-only">(current)</span></a></li>
+                            </ul>
+
+                            <ul class="nav  nav-sub" id="menu-operation">
+                                @foreach (var item in appNavigationChildren.Where(an => an.AppNavigationId == navigation.AppNavigationId).OrderBy(an => an.Permission.Label).ToList())
+                                {
+                                    if (roles.Exists(r => r.PermissionId == item.PermissionId))
+                                    {
+                                        <li>@Html.ActionLink(item.Permission.Label, item.Permission.ObjectName, item.Permission.ParentName)</li>
+                                    }
+
+                                }
+                            </ul>
+                        }
+
+
+
+                        if (navigation.AppNavigation.NavigationLevel == 1 && navigation.AppNavigation.NavigationOrder == 3)
+                        {
+
+                            <ul class="nav nav-sidebar" title="@navigation.AppNavigation.NavigationLabel">
+                                <li id="option-verification" class="header"><a href="#"><span class="icon-verification"></span>&nbsp;&nbsp; @navigation.AppNavigation.NavigationLabel <span id="chevron-verification" class="glyphicon chevron glyphicon-chevron-down"></span><span class="sr-only">(current)</span></a></li>
+                            </ul>
+
+                            <ul class="nav  nav-sub" id="menu-verification">
+                                @foreach (var item in appNavigationChildren.Where(an => an.AppNavigationId == navigation.AppNavigationId).OrderBy(an => an.Permission.PermissionId).ToList())
+                                {
+                                    if (roles.Exists(r => r.PermissionId == item.PermissionId))
+                                    {
+                                        <li>@Html.ActionLink(item.Permission.Label, item.Permission.ObjectName, item.Permission.ParentName)</li>
+                                    }
+
+                                }
+                            </ul>
+                        }
+
+
+
+                        if (navigation.AppNavigation.NavigationLevel == 1 && navigation.AppNavigation.NavigationOrder == 4)
+                        {
+
+                            <ul class="nav nav-sidebar" title="@navigation.AppNavigation.NavigationLabel">
+                                <li id="option-import" class="header"><a href="#"><span class="icon-cargo-ship"></span>&nbsp;&nbsp; @navigation.AppNavigation.NavigationLabel <span id="chevron-import" class="glyphicon chevron glyphicon-chevron-down"></span><span class="sr-only">(current)</span></a></li>
+                            </ul>
+
+                            <ul class="nav  nav-sub" id="menu-import">
+                                @foreach (var item in appNavigationChildren.Where(an => an.AppNavigationId == navigation.AppNavigationId).OrderBy(an => an.Permission.PermissionId).ToList())
+                                {
+                                    if (roles.Exists(r => r.PermissionId == item.PermissionId))
+                                    {
+                                        <li>@Html.ActionLink(item.Permission.Label, item.Permission.ObjectName, item.Permission.ParentName)</li>
+                                    }
+
+                                }
+                            </ul>
+                        }
+
+
+
+
+                        if (navigation.AppNavigation.NavigationLevel == 1 && navigation.AppNavigation.NavigationOrder == 5)
+                        {
+
+                            <ul class="nav nav-sidebar" title="@navigation.AppNavigation.NavigationLabel">
+                                <li id="option-invoicing" class="header"><a href="#"><span class="icon-invoice"></span>&nbsp; @navigation.AppNavigation.NavigationLabel <span id="chevron-invoicing" class="glyphicon chevron glyphicon-chevron-down"></span><span class="sr-only">(current)</span></a></li>
+                            </ul>
+
+                            <ul class="nav  nav-sub" id="menu-invoicing">
+                                @foreach (var item in appNavigationChildren.Where(an => an.AppNavigationId == navigation.AppNavigationId).OrderBy(an => an.AppNavigationPermissionId).ToList())
+                                {
+                                    if (roles.Exists(r => r.PermissionId == item.PermissionId))
+                                    {
+                                        <li>@Html.ActionLink(item.Permission.Label, item.Permission.ObjectName, item.Permission.ParentName)</li>
+                                    }
+
+                                }
+                            </ul>
+                        }
+
+
+                        if (navigation.AppNavigation.NavigationLevel == 1 && navigation.AppNavigation.NavigationOrder == 6)
+                        {
+
+                            <ul class="nav nav-sidebar" title="@navigation.AppNavigation.NavigationLabel">
+                                <li id="option-dispatch" class="header"><a href="#"><span class="icon-logistics-delivery-truck-in-movement"></span>&nbsp; @navigation.AppNavigation.NavigationLabel <span id="chevron-dispatch" class="glyphicon chevron glyphicon-chevron-down"></span><span class="sr-only">(current)</span></a></li>
+                            </ul>
+
+                            <ul class="nav nav-sub" id="menu-dispatch">
+                                @foreach (var item in appNavigationChildren.Where(an => an.AppNavigationId == navigation.AppNavigationId).OrderBy(an => an.Permission.PermissionId).ToList())
+                                {
+                                    if (roles.Exists(r => r.PermissionId == item.PermissionId))
+                                    {
+                                        <li>@Html.ActionLink(item.Permission.Label, item.Permission.ObjectName, item.Permission.ParentName)</li>
+                                    }
+
+                                }
+                            </ul>
+                        }
+
+
+
+                        if (navigation.AppNavigation.NavigationLevel == 1 && navigation.AppNavigation.NavigationOrder == 20)
+                        {
+
+                            <ul class="nav nav-sidebar" title="Security">
+                                <li id="option-securite" class="header"><a href="#"><span class="glyphicon glyphicon-lock"></span>&nbsp;&nbsp; @navigation.AppNavigation.NavigationLabel <span id="chevron-securite" class="glyphicon chevron glyphicon-chevron-down"></span><span class="sr-only">(current)</span></a></li>
+                            </ul>
+
+                            <ul class="nav  nav-sub" id="menu-securite">
+                                @foreach (var item in appNavigationChildren.Where(an => an.AppNavigationId == navigation.AppNavigationId).OrderBy(an => an.PermissionOrder).ToList())
+                                {
+                                    if (roles.Exists(r => r.PermissionId == item.PermissionId))
+                                    {
+                                        <li>@Html.ActionLink(item.Permission.Label, item.Permission.ObjectName, item.Permission.ParentName)</li>
+                                    }
+
+                                }
+                            </ul>
+                        }
+
+                    }
+
+
+
+
+
+                }
+
+            </div>
+
+
+        </div>
+
+        <div id="account-user-modal" class="modal fade" role="dialog" data-backdrop="static">
+            <div class="modal-dialog modal-md">
+
+
+            </div>
+        </div>
+
+        <div id="change-comp-modal" class="modal fade" role="dialog" data-backdrop="static">
+            <div class="modal-dialog modal-sm">
+
+
+            </div>
+        </div>
+
+
+        <input id="home-page" type="hidden" data-homepage="true" />
+
+        <div class="body-content">
+            @RenderBody()
+           
+
+         
+            
+        </div>
+
+    </div>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/DataTables")
+    @Scripts.Render("~/bundles/bootstrap-multiselect")
+    @Scripts.Render("~/bundles/chart-js")
+    @Scripts.Render("~/bundles/site")
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

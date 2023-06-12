@@ -1,0 +1,53 @@
+﻿
+@model TchotchoLoto.Models.PointDeVente
+
+<div class="modal-content">
+    <div class="modal-header text-center bg-primary">
+        <h4 class="modal-title w-100 font-weight-bold pull-left" style="display: inline-block;">Edit Agency</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="display: inline-block;color:white;">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="row modal-body">
+        @using (Html.BeginForm("_Index", "PointdeVentes", FormMethod.Post, htmlAttributes: new { id = "Edit-Agence-Form" }))
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.HiddenFor(model => model.AgenceId, htmlAttributes: new { @class = "id-resetable" })
+
+            <div class="form">
+
+                <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                    @Html.LabelFor(model => model.CodeAgence, "Code", htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.CodeAgence, new { htmlAttributes = new { @class = "form-control editor-resetable" } })
+                </div>
+
+                <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                    @Html.LabelFor(model => model.NomAgence, "Name", htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.NomAgence, new { htmlAttributes = new { @class = "form-control editor-resetable" } })
+                </div>
+
+                <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                    @Html.LabelFor(model => model.Adresse, "Address", htmlAttributes: new { @class = "control-label" })
+                    @Html.TextAreaFor(model => model.Adresse, new { @class = "form-control editor-resetable", style = "width:100%; max-width: 100%;", rows = "1" })
+                </div>
+
+            </div>
+
+            <div class="col-md-12 col-sm-12 col-xs-12" style="border-top:1px solid #d7d7d7; padding-top:10px; text-align:right;">
+
+                <button type="submit" class="btn btn-sm btn-info submit"><span class="glyphicon glyphicon-save-file"></span> Save <span class="glyphicon glyphicon-refresh loader" style="display:none;"></span> </button>
+                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Close</button>
+
+            </div>
+
+        }
+
+    </div>
+</div>
+
+
+
+
+

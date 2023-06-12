@@ -1,0 +1,68 @@
+﻿
+@model TchotchoLoto.Models.User
+
+<div class="modal-content">
+    <div class="modal-header" style="background-color: #0078d7; border-radius:5px 5px 0 0;">
+
+        <h4 style="display: inline;">Edit Navigation</h4>
+
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+    </div>
+    <div class="modal-body row" style="padding:3%;">
+
+        @using (Html.BeginForm("_Index", "Users", FormMethod.Post, htmlAttributes: new { id = "Edit-User-Form" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.UserId, htmlAttributes: new { @class = "id-resetable" })
+
+            <div class="form">
+
+                <div class="form-group col-md-6 col-sm-6">
+                    @Html.LabelFor(model => model.FirstName, "First Name", htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control editor-resetable" } })
+                </div>
+
+                <div class="form-group col-md-6 col-sm-6">
+                    @Html.LabelFor(model => model.LastName, "Last Name", htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control editor-resetable" } })
+                </div>
+
+                @*<div class="form-group col-md-6 col-sm-6">
+                        @Html.LabelFor(model => model.UserName, "UserName", htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control editor-resetable" } })
+                    </div>*@
+
+                <div class="form-group col-md-6 col-sm-6">
+                    @Html.LabelFor(model => model.Email, "Email", htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control editor-resetable" } })
+                </div>
+
+
+                <div class="form-group col-md-6 col-sm-6">
+                    @Html.LabelFor(model => model.RoleId, "Role", htmlAttributes: new { @class = "control-label" })
+                    @Html.DropDownList("RoleId", null, "Select a Role", htmlAttributes: new { @class = "form-control ", id = "ddlRoleId" })
+                </div>
+
+
+
+                <div class="col-md-12 col-sm-12 col-xs-12" style="border-top:1px solid #d7d7d7; padding-top:10px; text-align:right;">
+
+                    <button type="submit" class="btn btn-sm btn-info submit"><span class="glyphicon glyphicon-save-file"></span> Save <span class="glyphicon glyphicon-refresh loader" style="display:none;"></span> </button>
+                    <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Close</button>
+
+                </div>
+
+            </div>
+
+        }
+
+
+    </div>
+
+
+
+
+
+
+

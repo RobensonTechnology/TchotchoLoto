@@ -1,0 +1,1180 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="TchotchoLoto.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AccessTimeApplication">
+          <Key>
+            <PropertyRef Name="AccessTimeApplicationId" />
+          </Key>
+          <Property Name="AccessTimeApplicationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ApplicationId" Type="int" Nullable="false" />
+          <Property Name="DateDebut" Type="datetime" Nullable="false" />
+          <Property Name="DateFin" Type="datetime" Nullable="false" />
+          <Property Name="NbreJours" Type="int" />
+          <Property Name="Statut" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Agence">
+          <Key>
+            <PropertyRef Name="AgenceId" />
+          </Key>
+          <Property Name="AgenceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompagnieId" Type="int" Nullable="false" />
+          <Property Name="CodeAgence" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="NomAgence" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Adresse" Type="nvarchar" MaxLength="256" />
+          <Property Name="Statut" Type="bit" Nullable="false" />
+          <Property Name="ModifiePar" Type="varchar" MaxLength="128" />
+          <Property Name="ModifieDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Application">
+          <Key>
+            <PropertyRef Name="ApplicationId" />
+          </Key>
+          <Property Name="ApplicationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompagnieId" Type="int" Nullable="false" />
+          <Property Name="ApplicationName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="EmailApplication" Type="nvarchar" MaxLength="128" />
+          <Property Name="PasswordEmailApplication" Type="nvarchar" MaxLength="128" />
+          <Property Name="SignatureResponsable" Type="varbinary(max)" />
+          <Property Name="LogoApplication" Type="varbinary(max)" />
+          <Property Name="DevelopperPar" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Version" Type="varchar" MaxLength="128" />
+          <Property Name="ModifiePar" Type="varchar" MaxLength="128" />
+          <Property Name="ModifieDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="AppNavigation">
+          <Key>
+            <PropertyRef Name="AppNavigationId" />
+          </Key>
+          <Property Name="AppNavigationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NavigationLabel" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="NavigationLevel" Type="int" Nullable="false" />
+          <Property Name="NavigationOrder" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AppNavigationApplication">
+          <Key>
+            <PropertyRef Name="AppNavigationApplicationId" />
+          </Key>
+          <Property Name="AppNavigationApplicationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ApplicationId" Type="int" Nullable="false" />
+          <Property Name="AppNavigationId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AppNavigationPermission">
+          <Key>
+            <PropertyRef Name="AppNavigationPermissionId" />
+          </Key>
+          <Property Name="AppNavigationPermissionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AppNavigationId" Type="int" Nullable="false" />
+          <Property Name="PermissionId" Type="int" Nullable="false" />
+          <Property Name="PermissionOrder" Type="int" />
+        </EntityType>
+        <EntityType Name="Compagnie">
+          <Key>
+            <PropertyRef Name="CompagnieId" />
+          </Key>
+          <Property Name="CompagnieId" Type="int" Nullable="false" />
+          <Property Name="NomCompagnie" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="PersonneResponsable" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Adresse" Type="nvarchar" MaxLength="256" />
+          <Property Name="Telephone1" Type="nvarchar" MaxLength="128" />
+          <Property Name="Telephone2" Type="nvarchar" MaxLength="128" />
+          <Property Name="AdresseElectronique" Type="nvarchar" MaxLength="128" />
+          <Property Name="PasswordEmail" Type="nvarchar" MaxLength="128" />
+          <Property Name="JourAvantResetPassword" Type="int" />
+          <Property Name="Latitude" Type="nvarchar" MaxLength="128" />
+          <Property Name="Longitude" Type="nvarchar" MaxLength="128" />
+          <Property Name="NIF" Type="nvarchar" MaxLength="128" />
+          <Property Name="SignatureResponsable" Type="varbinary(max)" />
+          <Property Name="LogoCompagnie" Type="varbinary(max)" />
+          <Property Name="ModifiePar" Type="nvarchar" MaxLength="128" />
+          <Property Name="ModifieDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Permission">
+          <Key>
+            <PropertyRef Name="PermissionId" />
+          </Key>
+          <Property Name="PermissionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ObjectName" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ParentName" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Label" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PointDeVente">
+          <Key>
+            <PropertyRef Name="PointDeVenteId" />
+          </Key>
+          <Property Name="PointDeVenteId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompagnieId" Type="int" Nullable="false" />
+          <Property Name="CodePointDeVente" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="NomPointDeVente" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Adresse" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Ville" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="CodePostal" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="DateCreation" Type="datetime" Nullable="false" />
+          <Property Name="Statut" Type="bit" Nullable="false" />
+          <Property Name="ModifiePar" Type="varchar" MaxLength="128" />
+          <Property Name="ModifieDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="LoweredRoleName" Type="nvarchar" MaxLength="256" />
+          <Property Name="Description" Type="nvarchar" MaxLength="256" />
+          <Property Name="ApplicationId" Type="int" />
+          <Property Name="SuperRole" Type="bit" Nullable="false" />
+          <Property Name="ModifiePar" Type="nvarchar" MaxLength="128" />
+          <Property Name="ModifieDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="RolePermission">
+          <Key>
+            <PropertyRef Name="RolePermissionId" />
+          </Key>
+          <Property Name="RolePermissionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="PermissionId" Type="int" Nullable="false" />
+          <Property Name="FullPermission" Type="bit" Nullable="false" />
+          <Property Name="ModifiePar" Type="nvarchar" MaxLength="128" />
+          <Property Name="ModifieDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="LoweredUserName" Type="nvarchar" MaxLength="256" />
+          <Property Name="Password" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="LoweredEmail" Type="nvarchar" MaxLength="128" />
+          <Property Name="IsLockedOut" Type="bit" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="LastLoginDate" Type="datetime" />
+          <Property Name="FailedPasswordAttemptCount" Type="int" Nullable="false" />
+          <Property Name="ProfilPhoto" Type="varbinary(max)" />
+          <Property Name="SuperUser" Type="bit" Nullable="false" />
+          <Property Name="SessionId" Type="nvarchar" MaxLength="256" />
+          <Property Name="OTP" Type="nvarchar" MaxLength="128" />
+          <Property Name="Authenticated" Type="bit" />
+          <Property Name="AuthenticationDate" Type="datetime" />
+          <Property Name="ModifiePar" Type="nvarchar" MaxLength="128" />
+          <Property Name="ModifieDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="UserCompagnie">
+          <Key>
+            <PropertyRef Name="UserCompagnieId" />
+          </Key>
+          <Property Name="UserCompagnieId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="CompagnieId" Type="int" Nullable="false" />
+          <Property Name="ModifiePar" Type="nvarchar" MaxLength="128" />
+          <Property Name="ModifieDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="UserPointDeVente">
+          <Key>
+            <PropertyRef Name="UserPointDeVenteId" />
+          </Key>
+          <Property Name="UserPointDeVenteId" Type="int" Nullable="false" />
+          <Property Name="PointDeVenteId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="ModifiePar" Type="varchar" MaxLength="128" />
+          <Property Name="ModifieDate" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_AccessTimeApplication_Application">
+          <End Role="Application" Type="Self.Application" Multiplicity="1" />
+          <End Role="AccessTimeApplication" Type="Self.AccessTimeApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Application">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="AccessTimeApplication">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Agence_Compagnie">
+          <End Role="Compagnie" Type="Self.Compagnie" Multiplicity="1" />
+          <End Role="Agence" Type="Self.Agence" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Compagnie">
+              <PropertyRef Name="CompagnieId" />
+            </Principal>
+            <Dependent Role="Agence">
+              <PropertyRef Name="CompagnieId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Application_Compagnie">
+          <End Role="Compagnie" Type="Self.Compagnie" Multiplicity="1" />
+          <End Role="Application" Type="Self.Application" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Compagnie">
+              <PropertyRef Name="CompagnieId" />
+            </Principal>
+            <Dependent Role="Application">
+              <PropertyRef Name="CompagnieId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AppNavigationApplication_Application">
+          <End Role="Application" Type="Self.Application" Multiplicity="1" />
+          <End Role="AppNavigationApplication" Type="Self.AppNavigationApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Application">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="AppNavigationApplication">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AppNavigationApplication_AppNavigation">
+          <End Role="AppNavigation" Type="Self.AppNavigation" Multiplicity="1" />
+          <End Role="AppNavigationApplication" Type="Self.AppNavigationApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppNavigation">
+              <PropertyRef Name="AppNavigationId" />
+            </Principal>
+            <Dependent Role="AppNavigationApplication">
+              <PropertyRef Name="AppNavigationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AppNavigationPermission_AppNavigation">
+          <End Role="AppNavigation" Type="Self.AppNavigation" Multiplicity="1" />
+          <End Role="AppNavigationPermission" Type="Self.AppNavigationPermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppNavigation">
+              <PropertyRef Name="AppNavigationId" />
+            </Principal>
+            <Dependent Role="AppNavigationPermission">
+              <PropertyRef Name="AppNavigationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AppNavigationPermission_Permission">
+          <End Role="Permission" Type="Self.Permission" Multiplicity="1" />
+          <End Role="AppNavigationPermission" Type="Self.AppNavigationPermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Permission">
+              <PropertyRef Name="PermissionId" />
+            </Principal>
+            <Dependent Role="AppNavigationPermission">
+              <PropertyRef Name="PermissionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PointDeVente_Compagnie">
+          <End Role="Compagnie" Type="Self.Compagnie" Multiplicity="1" />
+          <End Role="PointDeVente" Type="Self.PointDeVente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Compagnie">
+              <PropertyRef Name="CompagnieId" />
+            </Principal>
+            <Dependent Role="PointDeVente">
+              <PropertyRef Name="CompagnieId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Role_Application">
+          <End Role="Application" Type="Self.Application" Multiplicity="0..1" />
+          <End Role="Role" Type="Self.Role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Application">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="Role">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RolePermission_Permission">
+          <End Role="Permission" Type="Self.Permission" Multiplicity="1" />
+          <End Role="RolePermission" Type="Self.RolePermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Permission">
+              <PropertyRef Name="PermissionId" />
+            </Principal>
+            <Dependent Role="RolePermission">
+              <PropertyRef Name="PermissionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RolePermission_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="RolePermission" Type="Self.RolePermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="RolePermission">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserCompagnie_Compagnie">
+          <End Role="Compagnie" Type="Self.Compagnie" Multiplicity="1" />
+          <End Role="UserCompagnie" Type="Self.UserCompagnie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Compagnie">
+              <PropertyRef Name="CompagnieId" />
+            </Principal>
+            <Dependent Role="UserCompagnie">
+              <PropertyRef Name="CompagnieId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserCompagnie_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserCompagnie" Type="Self.UserCompagnie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserCompagnie">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserPointDeVente_PointDeVente">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserPointDeVente" Type="Self.UserPointDeVente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserPointDeVente">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserPointDeVente_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserPointDeVente" Type="Self.UserPointDeVente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserPointDeVente">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TchotchoLotoStoreContainer">
+          <EntitySet Name="AccessTimeApplication" EntityType="Self.AccessTimeApplication" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Agence" EntityType="Self.Agence" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Application" EntityType="Self.Application" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AppNavigation" EntityType="Self.AppNavigation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AppNavigationApplication" EntityType="Self.AppNavigationApplication" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AppNavigationPermission" EntityType="Self.AppNavigationPermission" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Compagnie" EntityType="Self.Compagnie" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Permission" EntityType="Self.Permission" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PointDeVente" EntityType="Self.PointDeVente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RolePermission" EntityType="Self.RolePermission" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserCompagnie" EntityType="Self.UserCompagnie" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserPointDeVente" EntityType="Self.UserPointDeVente" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AccessTimeApplication_Application" Association="Self.FK_AccessTimeApplication_Application">
+            <End Role="Application" EntitySet="Application" />
+            <End Role="AccessTimeApplication" EntitySet="AccessTimeApplication" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Agence_Compagnie" Association="Self.FK_Agence_Compagnie">
+            <End Role="Compagnie" EntitySet="Compagnie" />
+            <End Role="Agence" EntitySet="Agence" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Application_Compagnie" Association="Self.FK_Application_Compagnie">
+            <End Role="Compagnie" EntitySet="Compagnie" />
+            <End Role="Application" EntitySet="Application" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AppNavigationApplication_Application" Association="Self.FK_AppNavigationApplication_Application">
+            <End Role="Application" EntitySet="Application" />
+            <End Role="AppNavigationApplication" EntitySet="AppNavigationApplication" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AppNavigationApplication_AppNavigation" Association="Self.FK_AppNavigationApplication_AppNavigation">
+            <End Role="AppNavigation" EntitySet="AppNavigation" />
+            <End Role="AppNavigationApplication" EntitySet="AppNavigationApplication" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AppNavigationPermission_AppNavigation" Association="Self.FK_AppNavigationPermission_AppNavigation">
+            <End Role="AppNavigation" EntitySet="AppNavigation" />
+            <End Role="AppNavigationPermission" EntitySet="AppNavigationPermission" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AppNavigationPermission_Permission" Association="Self.FK_AppNavigationPermission_Permission">
+            <End Role="Permission" EntitySet="Permission" />
+            <End Role="AppNavigationPermission" EntitySet="AppNavigationPermission" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PointDeVente_Compagnie" Association="Self.FK_PointDeVente_Compagnie">
+            <End Role="Compagnie" EntitySet="Compagnie" />
+            <End Role="PointDeVente" EntitySet="PointDeVente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Role_Application" Association="Self.FK_Role_Application">
+            <End Role="Application" EntitySet="Application" />
+            <End Role="Role" EntitySet="Role" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RolePermission_Permission" Association="Self.FK_RolePermission_Permission">
+            <End Role="Permission" EntitySet="Permission" />
+            <End Role="RolePermission" EntitySet="RolePermission" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RolePermission_Role" Association="Self.FK_RolePermission_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="RolePermission" EntitySet="RolePermission" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserCompagnie_Compagnie" Association="Self.FK_UserCompagnie_Compagnie">
+            <End Role="Compagnie" EntitySet="Compagnie" />
+            <End Role="UserCompagnie" EntitySet="UserCompagnie" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserCompagnie_User" Association="Self.FK_UserCompagnie_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserCompagnie" EntitySet="UserCompagnie" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserPointDeVente_PointDeVente" Association="Self.FK_UserPointDeVente_PointDeVente">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserPointDeVente" EntitySet="UserPointDeVente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserPointDeVente_User" Association="Self.FK_UserPointDeVente_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserPointDeVente" EntitySet="UserPointDeVente" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TchotchoLoto" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AccessTimeApplication">
+          <Key>
+            <PropertyRef Name="AccessTimeApplicationId" />
+          </Key>
+          <Property Name="AccessTimeApplicationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ApplicationId" Type="Int32" Nullable="false" />
+          <Property Name="DateDebut" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateFin" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="NbreJours" Type="Int32" />
+          <Property Name="Statut" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Application" Relationship="Self.FK_AccessTimeApplication_Application" FromRole="AccessTimeApplication" ToRole="Application" />
+        </EntityType>
+        <EntityType Name="Agence">
+          <Key>
+            <PropertyRef Name="AgenceId" />
+          </Key>
+          <Property Name="AgenceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompagnieId" Type="Int32" Nullable="false" />
+          <Property Name="CodeAgence" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NomAgence" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Adresse" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Statut" Type="Boolean" Nullable="false" />
+          <Property Name="ModifiePar" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="ModifieDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Compagnie" Relationship="Self.FK_Agence_Compagnie" FromRole="Agence" ToRole="Compagnie" />
+        </EntityType>
+        <EntityType Name="Application">
+          <Key>
+            <PropertyRef Name="ApplicationId" />
+          </Key>
+          <Property Name="ApplicationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompagnieId" Type="Int32" Nullable="false" />
+          <Property Name="ApplicationName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EmailApplication" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordEmailApplication" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="SignatureResponsable" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="LogoApplication" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="DevelopperPar" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Version" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiePar" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="ModifieDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="AccessTimeApplications" Relationship="Self.FK_AccessTimeApplication_Application" FromRole="Application" ToRole="AccessTimeApplication" />
+          <NavigationProperty Name="Compagnie" Relationship="Self.FK_Application_Compagnie" FromRole="Application" ToRole="Compagnie" />
+          <NavigationProperty Name="AppNavigationApplications" Relationship="Self.FK_AppNavigationApplication_Application" FromRole="Application" ToRole="AppNavigationApplication" />
+          <NavigationProperty Name="Roles" Relationship="Self.FK_Role_Application" FromRole="Application" ToRole="Role" />
+        </EntityType>
+        <EntityType Name="AppNavigation">
+          <Key>
+            <PropertyRef Name="AppNavigationId" />
+          </Key>
+          <Property Name="AppNavigationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NavigationLabel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NavigationLevel" Type="Int32" Nullable="false" />
+          <Property Name="NavigationOrder" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AppNavigationApplications" Relationship="Self.FK_AppNavigationApplication_AppNavigation" FromRole="AppNavigation" ToRole="AppNavigationApplication" />
+          <NavigationProperty Name="AppNavigationPermissions" Relationship="Self.FK_AppNavigationPermission_AppNavigation" FromRole="AppNavigation" ToRole="AppNavigationPermission" />
+        </EntityType>
+        <EntityType Name="AppNavigationApplication">
+          <Key>
+            <PropertyRef Name="AppNavigationApplicationId" />
+          </Key>
+          <Property Name="AppNavigationApplicationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ApplicationId" Type="Int32" Nullable="false" />
+          <Property Name="AppNavigationId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Application" Relationship="Self.FK_AppNavigationApplication_Application" FromRole="AppNavigationApplication" ToRole="Application" />
+          <NavigationProperty Name="AppNavigation" Relationship="Self.FK_AppNavigationApplication_AppNavigation" FromRole="AppNavigationApplication" ToRole="AppNavigation" />
+        </EntityType>
+        <EntityType Name="AppNavigationPermission">
+          <Key>
+            <PropertyRef Name="AppNavigationPermissionId" />
+          </Key>
+          <Property Name="AppNavigationPermissionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AppNavigationId" Type="Int32" Nullable="false" />
+          <Property Name="PermissionId" Type="Int32" Nullable="false" />
+          <Property Name="PermissionOrder" Type="Int32" />
+          <NavigationProperty Name="AppNavigation" Relationship="Self.FK_AppNavigationPermission_AppNavigation" FromRole="AppNavigationPermission" ToRole="AppNavigation" />
+          <NavigationProperty Name="Permission" Relationship="Self.FK_AppNavigationPermission_Permission" FromRole="AppNavigationPermission" ToRole="Permission" />
+        </EntityType>
+        <EntityType Name="Compagnie">
+          <Key>
+            <PropertyRef Name="CompagnieId" />
+          </Key>
+          <Property Name="CompagnieId" Type="Int32" Nullable="false" />
+          <Property Name="NomCompagnie" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PersonneResponsable" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Adresse" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Telephone1" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Telephone2" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="AdresseElectronique" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordEmail" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="JourAvantResetPassword" Type="Int32" />
+          <Property Name="Latitude" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Longitude" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="NIF" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="SignatureResponsable" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="LogoCompagnie" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ModifiePar" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ModifieDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Agences" Relationship="Self.FK_Agence_Compagnie" FromRole="Compagnie" ToRole="Agence" />
+          <NavigationProperty Name="Applications" Relationship="Self.FK_Application_Compagnie" FromRole="Compagnie" ToRole="Application" />
+          <NavigationProperty Name="PointDeVentes" Relationship="Self.FK_PointDeVente_Compagnie" FromRole="Compagnie" ToRole="PointDeVente" />
+          <NavigationProperty Name="UserCompagnies" Relationship="Self.FK_UserCompagnie_Compagnie" FromRole="Compagnie" ToRole="UserCompagnie" />
+        </EntityType>
+        <EntityType Name="Permission">
+          <Key>
+            <PropertyRef Name="PermissionId" />
+          </Key>
+          <Property Name="PermissionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ObjectName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ParentName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Label" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AppNavigationPermissions" Relationship="Self.FK_AppNavigationPermission_Permission" FromRole="Permission" ToRole="AppNavigationPermission" />
+          <NavigationProperty Name="RolePermissions" Relationship="Self.FK_RolePermission_Permission" FromRole="Permission" ToRole="RolePermission" />
+        </EntityType>
+        <EntityType Name="PointDeVente">
+          <Key>
+            <PropertyRef Name="PointDeVenteId" />
+          </Key>
+          <Property Name="PointDeVenteId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompagnieId" Type="Int32" Nullable="false" />
+          <Property Name="NomPointDeVente" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Adresse" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Ville" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CodePostal" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DateCreation" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Statut" Type="Boolean" Nullable="false" />
+          <Property Name="ModifiePar" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="ModifieDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Compagnie" Relationship="Self.FK_PointDeVente_Compagnie" FromRole="PointDeVente" ToRole="Compagnie" />
+          <Property Name="CodePointDeVente" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LoweredRoleName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="ApplicationId" Type="Int32" />
+          <Property Name="SuperRole" Type="Boolean" Nullable="false" />
+          <Property Name="ModifiePar" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ModifieDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Application" Relationship="Self.FK_Role_Application" FromRole="Role" ToRole="Application" />
+          <NavigationProperty Name="RolePermissions" Relationship="Self.FK_RolePermission_Role" FromRole="Role" ToRole="RolePermission" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_User_Role" FromRole="Role" ToRole="User" />
+        </EntityType>
+        <EntityType Name="RolePermission">
+          <Key>
+            <PropertyRef Name="RolePermissionId" />
+          </Key>
+          <Property Name="RolePermissionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="PermissionId" Type="Int32" Nullable="false" />
+          <Property Name="FullPermission" Type="Boolean" Nullable="false" />
+          <Property Name="ModifiePar" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ModifieDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Permission" Relationship="Self.FK_RolePermission_Permission" FromRole="RolePermission" ToRole="Permission" />
+          <NavigationProperty Name="Role" Relationship="Self.FK_RolePermission_Role" FromRole="RolePermission" ToRole="Role" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LoweredUserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LoweredEmail" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="IsLockedOut" Type="Boolean" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastLoginDate" Type="DateTime" Precision="3" />
+          <Property Name="FailedPasswordAttemptCount" Type="Int32" Nullable="false" />
+          <Property Name="ProfilPhoto" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="SuperUser" Type="Boolean" Nullable="false" />
+          <Property Name="SessionId" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="OTP" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Authenticated" Type="Boolean" />
+          <Property Name="AuthenticationDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiePar" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ModifieDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Role" Relationship="Self.FK_User_Role" FromRole="User" ToRole="Role" />
+          <NavigationProperty Name="UserCompagnies" Relationship="Self.FK_UserCompagnie_User" FromRole="User" ToRole="UserCompagnie" />
+          <NavigationProperty Name="UserPointDeVentes" Relationship="Self.FK_UserPointDeVente_PointDeVente" FromRole="User" ToRole="UserPointDeVente" />
+          <NavigationProperty Name="UserPointDeVentes1" Relationship="Self.FK_UserPointDeVente_User" FromRole="User" ToRole="UserPointDeVente" />
+        </EntityType>
+        <EntityType Name="UserCompagnie">
+          <Key>
+            <PropertyRef Name="UserCompagnieId" />
+          </Key>
+          <Property Name="UserCompagnieId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="CompagnieId" Type="Int32" Nullable="false" />
+          <Property Name="ModifiePar" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ModifieDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Compagnie" Relationship="Self.FK_UserCompagnie_Compagnie" FromRole="UserCompagnie" ToRole="Compagnie" />
+          <NavigationProperty Name="User" Relationship="Self.FK_UserCompagnie_User" FromRole="UserCompagnie" ToRole="User" />
+        </EntityType>
+        <EntityType Name="UserPointDeVente">
+          <Key>
+            <PropertyRef Name="UserPointDeVenteId" />
+          </Key>
+          <Property Name="UserPointDeVenteId" Type="Int32" Nullable="false" />
+          <Property Name="PointDeVenteId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="ModifiePar" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="ModifieDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="User" Relationship="Self.FK_UserPointDeVente_PointDeVente" FromRole="UserPointDeVente" ToRole="User" />
+          <NavigationProperty Name="User1" Relationship="Self.FK_UserPointDeVente_User" FromRole="UserPointDeVente" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_AccessTimeApplication_Application">
+          <End Role="Application" Type="Self.Application" Multiplicity="1" />
+          <End Role="AccessTimeApplication" Type="Self.AccessTimeApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Application">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="AccessTimeApplication">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Agence_Compagnie">
+          <End Role="Compagnie" Type="Self.Compagnie" Multiplicity="1" />
+          <End Role="Agence" Type="Self.Agence" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Compagnie">
+              <PropertyRef Name="CompagnieId" />
+            </Principal>
+            <Dependent Role="Agence">
+              <PropertyRef Name="CompagnieId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Application_Compagnie">
+          <End Role="Compagnie" Type="Self.Compagnie" Multiplicity="1" />
+          <End Role="Application" Type="Self.Application" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Compagnie">
+              <PropertyRef Name="CompagnieId" />
+            </Principal>
+            <Dependent Role="Application">
+              <PropertyRef Name="CompagnieId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AppNavigationApplication_Application">
+          <End Role="Application" Type="Self.Application" Multiplicity="1" />
+          <End Role="AppNavigationApplication" Type="Self.AppNavigationApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Application">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="AppNavigationApplication">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Role_Application">
+          <End Role="Application" Type="Self.Application" Multiplicity="0..1" />
+          <End Role="Role" Type="Self.Role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Application">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="Role">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AppNavigationApplication_AppNavigation">
+          <End Role="AppNavigation" Type="Self.AppNavigation" Multiplicity="1" />
+          <End Role="AppNavigationApplication" Type="Self.AppNavigationApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppNavigation">
+              <PropertyRef Name="AppNavigationId" />
+            </Principal>
+            <Dependent Role="AppNavigationApplication">
+              <PropertyRef Name="AppNavigationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AppNavigationPermission_AppNavigation">
+          <End Role="AppNavigation" Type="Self.AppNavigation" Multiplicity="1" />
+          <End Role="AppNavigationPermission" Type="Self.AppNavigationPermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppNavigation">
+              <PropertyRef Name="AppNavigationId" />
+            </Principal>
+            <Dependent Role="AppNavigationPermission">
+              <PropertyRef Name="AppNavigationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AppNavigationPermission_Permission">
+          <End Role="Permission" Type="Self.Permission" Multiplicity="1" />
+          <End Role="AppNavigationPermission" Type="Self.AppNavigationPermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Permission">
+              <PropertyRef Name="PermissionId" />
+            </Principal>
+            <Dependent Role="AppNavigationPermission">
+              <PropertyRef Name="PermissionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PointDeVente_Compagnie">
+          <End Role="Compagnie" Type="Self.Compagnie" Multiplicity="1" />
+          <End Role="PointDeVente" Type="Self.PointDeVente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Compagnie">
+              <PropertyRef Name="CompagnieId" />
+            </Principal>
+            <Dependent Role="PointDeVente">
+              <PropertyRef Name="CompagnieId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserCompagnie_Compagnie">
+          <End Role="Compagnie" Type="Self.Compagnie" Multiplicity="1" />
+          <End Role="UserCompagnie" Type="Self.UserCompagnie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Compagnie">
+              <PropertyRef Name="CompagnieId" />
+            </Principal>
+            <Dependent Role="UserCompagnie">
+              <PropertyRef Name="CompagnieId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RolePermission_Permission">
+          <End Role="Permission" Type="Self.Permission" Multiplicity="1" />
+          <End Role="RolePermission" Type="Self.RolePermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Permission">
+              <PropertyRef Name="PermissionId" />
+            </Principal>
+            <Dependent Role="RolePermission">
+              <PropertyRef Name="PermissionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RolePermission_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="RolePermission" Type="Self.RolePermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="RolePermission">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserCompagnie_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserCompagnie" Type="Self.UserCompagnie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserCompagnie">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserPointDeVente_PointDeVente">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserPointDeVente" Type="Self.UserPointDeVente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserPointDeVente">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserPointDeVente_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserPointDeVente" Type="Self.UserPointDeVente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserPointDeVente">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AccessTimeApplications" EntityType="Self.AccessTimeApplication" />
+          <EntitySet Name="Agences" EntityType="Self.Agence" />
+          <EntitySet Name="Applications" EntityType="Self.Application" />
+          <EntitySet Name="AppNavigations" EntityType="Self.AppNavigation" />
+          <EntitySet Name="AppNavigationApplications" EntityType="Self.AppNavigationApplication" />
+          <EntitySet Name="AppNavigationPermissions" EntityType="Self.AppNavigationPermission" />
+          <EntitySet Name="Compagnies" EntityType="Self.Compagnie" />
+          <EntitySet Name="Permissions" EntityType="Self.Permission" />
+          <EntitySet Name="PointDeVentes" EntityType="Self.PointDeVente" />
+          <EntitySet Name="Roles" EntityType="Self.Role" />
+          <EntitySet Name="RolePermissions" EntityType="Self.RolePermission" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="UserCompagnies" EntityType="Self.UserCompagnie" />
+          <EntitySet Name="UserPointDeVentes" EntityType="Self.UserPointDeVente" />
+          <AssociationSet Name="FK_AccessTimeApplication_Application" Association="Self.FK_AccessTimeApplication_Application">
+            <End Role="Application" EntitySet="Applications" />
+            <End Role="AccessTimeApplication" EntitySet="AccessTimeApplications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Agence_Compagnie" Association="Self.FK_Agence_Compagnie">
+            <End Role="Compagnie" EntitySet="Compagnies" />
+            <End Role="Agence" EntitySet="Agences" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Application_Compagnie" Association="Self.FK_Application_Compagnie">
+            <End Role="Compagnie" EntitySet="Compagnies" />
+            <End Role="Application" EntitySet="Applications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AppNavigationApplication_Application" Association="Self.FK_AppNavigationApplication_Application">
+            <End Role="Application" EntitySet="Applications" />
+            <End Role="AppNavigationApplication" EntitySet="AppNavigationApplications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Role_Application" Association="Self.FK_Role_Application">
+            <End Role="Application" EntitySet="Applications" />
+            <End Role="Role" EntitySet="Roles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AppNavigationApplication_AppNavigation" Association="Self.FK_AppNavigationApplication_AppNavigation">
+            <End Role="AppNavigation" EntitySet="AppNavigations" />
+            <End Role="AppNavigationApplication" EntitySet="AppNavigationApplications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AppNavigationPermission_AppNavigation" Association="Self.FK_AppNavigationPermission_AppNavigation">
+            <End Role="AppNavigation" EntitySet="AppNavigations" />
+            <End Role="AppNavigationPermission" EntitySet="AppNavigationPermissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AppNavigationPermission_Permission" Association="Self.FK_AppNavigationPermission_Permission">
+            <End Role="Permission" EntitySet="Permissions" />
+            <End Role="AppNavigationPermission" EntitySet="AppNavigationPermissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PointDeVente_Compagnie" Association="Self.FK_PointDeVente_Compagnie">
+            <End Role="Compagnie" EntitySet="Compagnies" />
+            <End Role="PointDeVente" EntitySet="PointDeVentes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserCompagnie_Compagnie" Association="Self.FK_UserCompagnie_Compagnie">
+            <End Role="Compagnie" EntitySet="Compagnies" />
+            <End Role="UserCompagnie" EntitySet="UserCompagnies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RolePermission_Permission" Association="Self.FK_RolePermission_Permission">
+            <End Role="Permission" EntitySet="Permissions" />
+            <End Role="RolePermission" EntitySet="RolePermissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RolePermission_Role" Association="Self.FK_RolePermission_Role">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="RolePermission" EntitySet="RolePermissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserCompagnie_User" Association="Self.FK_UserCompagnie_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserCompagnie" EntitySet="UserCompagnies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserPointDeVente_PointDeVente" Association="Self.FK_UserPointDeVente_PointDeVente">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserPointDeVente" EntitySet="UserPointDeVentes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserPointDeVente_User" Association="Self.FK_UserPointDeVente_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserPointDeVente" EntitySet="UserPointDeVentes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TchotchoLotoStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="AccessTimeApplications">
+            <EntityTypeMapping TypeName="TchotchoLoto.AccessTimeApplication">
+              <MappingFragment StoreEntitySet="AccessTimeApplication">
+                <ScalarProperty Name="AccessTimeApplicationId" ColumnName="AccessTimeApplicationId" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+                <ScalarProperty Name="DateDebut" ColumnName="DateDebut" />
+                <ScalarProperty Name="DateFin" ColumnName="DateFin" />
+                <ScalarProperty Name="NbreJours" ColumnName="NbreJours" />
+                <ScalarProperty Name="Statut" ColumnName="Statut" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Agences">
+            <EntityTypeMapping TypeName="TchotchoLoto.Agence">
+              <MappingFragment StoreEntitySet="Agence">
+                <ScalarProperty Name="AgenceId" ColumnName="AgenceId" />
+                <ScalarProperty Name="CompagnieId" ColumnName="CompagnieId" />
+                <ScalarProperty Name="CodeAgence" ColumnName="CodeAgence" />
+                <ScalarProperty Name="NomAgence" ColumnName="NomAgence" />
+                <ScalarProperty Name="Adresse" ColumnName="Adresse" />
+                <ScalarProperty Name="Statut" ColumnName="Statut" />
+                <ScalarProperty Name="ModifiePar" ColumnName="ModifiePar" />
+                <ScalarProperty Name="ModifieDate" ColumnName="ModifieDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Applications">
+            <EntityTypeMapping TypeName="TchotchoLoto.Application">
+              <MappingFragment StoreEntitySet="Application">
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+                <ScalarProperty Name="CompagnieId" ColumnName="CompagnieId" />
+                <ScalarProperty Name="ApplicationName" ColumnName="ApplicationName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="EmailApplication" ColumnName="EmailApplication" />
+                <ScalarProperty Name="PasswordEmailApplication" ColumnName="PasswordEmailApplication" />
+                <ScalarProperty Name="SignatureResponsable" ColumnName="SignatureResponsable" />
+                <ScalarProperty Name="LogoApplication" ColumnName="LogoApplication" />
+                <ScalarProperty Name="DevelopperPar" ColumnName="DevelopperPar" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="ModifiePar" ColumnName="ModifiePar" />
+                <ScalarProperty Name="ModifieDate" ColumnName="ModifieDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AppNavigations">
+            <EntityTypeMapping TypeName="TchotchoLoto.AppNavigation">
+              <MappingFragment StoreEntitySet="AppNavigation">
+                <ScalarProperty Name="AppNavigationId" ColumnName="AppNavigationId" />
+                <ScalarProperty Name="NavigationLabel" ColumnName="NavigationLabel" />
+                <ScalarProperty Name="NavigationLevel" ColumnName="NavigationLevel" />
+                <ScalarProperty Name="NavigationOrder" ColumnName="NavigationOrder" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AppNavigationApplications">
+            <EntityTypeMapping TypeName="TchotchoLoto.AppNavigationApplication">
+              <MappingFragment StoreEntitySet="AppNavigationApplication">
+                <ScalarProperty Name="AppNavigationApplicationId" ColumnName="AppNavigationApplicationId" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+                <ScalarProperty Name="AppNavigationId" ColumnName="AppNavigationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AppNavigationPermissions">
+            <EntityTypeMapping TypeName="TchotchoLoto.AppNavigationPermission">
+              <MappingFragment StoreEntitySet="AppNavigationPermission">
+                <ScalarProperty Name="AppNavigationPermissionId" ColumnName="AppNavigationPermissionId" />
+                <ScalarProperty Name="AppNavigationId" ColumnName="AppNavigationId" />
+                <ScalarProperty Name="PermissionId" ColumnName="PermissionId" />
+                <ScalarProperty Name="PermissionOrder" ColumnName="PermissionOrder" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Compagnies">
+            <EntityTypeMapping TypeName="TchotchoLoto.Compagnie">
+              <MappingFragment StoreEntitySet="Compagnie">
+                <ScalarProperty Name="CompagnieId" ColumnName="CompagnieId" />
+                <ScalarProperty Name="NomCompagnie" ColumnName="NomCompagnie" />
+                <ScalarProperty Name="PersonneResponsable" ColumnName="PersonneResponsable" />
+                <ScalarProperty Name="Adresse" ColumnName="Adresse" />
+                <ScalarProperty Name="Telephone1" ColumnName="Telephone1" />
+                <ScalarProperty Name="Telephone2" ColumnName="Telephone2" />
+                <ScalarProperty Name="AdresseElectronique" ColumnName="AdresseElectronique" />
+                <ScalarProperty Name="PasswordEmail" ColumnName="PasswordEmail" />
+                <ScalarProperty Name="JourAvantResetPassword" ColumnName="JourAvantResetPassword" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="NIF" ColumnName="NIF" />
+                <ScalarProperty Name="SignatureResponsable" ColumnName="SignatureResponsable" />
+                <ScalarProperty Name="LogoCompagnie" ColumnName="LogoCompagnie" />
+                <ScalarProperty Name="ModifiePar" ColumnName="ModifiePar" />
+                <ScalarProperty Name="ModifieDate" ColumnName="ModifieDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Permissions">
+            <EntityTypeMapping TypeName="TchotchoLoto.Permission">
+              <MappingFragment StoreEntitySet="Permission">
+                <ScalarProperty Name="PermissionId" ColumnName="PermissionId" />
+                <ScalarProperty Name="ObjectName" ColumnName="ObjectName" />
+                <ScalarProperty Name="ParentName" ColumnName="ParentName" />
+                <ScalarProperty Name="Label" ColumnName="Label" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PointDeVentes">
+            <EntityTypeMapping TypeName="TchotchoLoto.PointDeVente">
+              <MappingFragment StoreEntitySet="PointDeVente">
+                <ScalarProperty Name="CodePointDeVente" ColumnName="CodePointDeVente" />
+                <ScalarProperty Name="PointDeVenteId" ColumnName="PointDeVenteId" />
+                <ScalarProperty Name="CompagnieId" ColumnName="CompagnieId" />
+                <ScalarProperty Name="NomPointDeVente" ColumnName="NomPointDeVente" />
+                <ScalarProperty Name="Adresse" ColumnName="Adresse" />
+                <ScalarProperty Name="Ville" ColumnName="Ville" />
+                <ScalarProperty Name="CodePostal" ColumnName="CodePostal" />
+                <ScalarProperty Name="DateCreation" ColumnName="DateCreation" />
+                <ScalarProperty Name="Statut" ColumnName="Statut" />
+                <ScalarProperty Name="ModifiePar" ColumnName="ModifiePar" />
+                <ScalarProperty Name="ModifieDate" ColumnName="ModifieDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="TchotchoLoto.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="LoweredRoleName" ColumnName="LoweredRoleName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+                <ScalarProperty Name="SuperRole" ColumnName="SuperRole" />
+                <ScalarProperty Name="ModifiePar" ColumnName="ModifiePar" />
+                <ScalarProperty Name="ModifieDate" ColumnName="ModifieDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RolePermissions">
+            <EntityTypeMapping TypeName="TchotchoLoto.RolePermission">
+              <MappingFragment StoreEntitySet="RolePermission">
+                <ScalarProperty Name="RolePermissionId" ColumnName="RolePermissionId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="PermissionId" ColumnName="PermissionId" />
+                <ScalarProperty Name="FullPermission" ColumnName="FullPermission" />
+                <ScalarProperty Name="ModifiePar" ColumnName="ModifiePar" />
+                <ScalarProperty Name="ModifieDate" ColumnName="ModifieDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="TchotchoLoto.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="LoweredUserName" ColumnName="LoweredUserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="LoweredEmail" ColumnName="LoweredEmail" />
+                <ScalarProperty Name="IsLockedOut" ColumnName="IsLockedOut" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
+                <ScalarProperty Name="FailedPasswordAttemptCount" ColumnName="FailedPasswordAttemptCount" />
+                <ScalarProperty Name="ProfilPhoto" ColumnName="ProfilPhoto" />
+                <ScalarProperty Name="SuperUser" ColumnName="SuperUser" />
+                <ScalarProperty Name="SessionId" ColumnName="SessionId" />
+                <ScalarProperty Name="OTP" ColumnName="OTP" />
+                <ScalarProperty Name="Authenticated" ColumnName="Authenticated" />
+                <ScalarProperty Name="AuthenticationDate" ColumnName="AuthenticationDate" />
+                <ScalarProperty Name="ModifiePar" ColumnName="ModifiePar" />
+                <ScalarProperty Name="ModifieDate" ColumnName="ModifieDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserCompagnies">
+            <EntityTypeMapping TypeName="TchotchoLoto.UserCompagnie">
+              <MappingFragment StoreEntitySet="UserCompagnie">
+                <ScalarProperty Name="UserCompagnieId" ColumnName="UserCompagnieId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="CompagnieId" ColumnName="CompagnieId" />
+                <ScalarProperty Name="ModifiePar" ColumnName="ModifiePar" />
+                <ScalarProperty Name="ModifieDate" ColumnName="ModifieDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserPointDeVentes">
+            <EntityTypeMapping TypeName="TchotchoLoto.UserPointDeVente">
+              <MappingFragment StoreEntitySet="UserPointDeVente">
+                <ScalarProperty Name="UserPointDeVenteId" ColumnName="UserPointDeVenteId" />
+                <ScalarProperty Name="PointDeVenteId" ColumnName="PointDeVenteId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ModifiePar" ColumnName="ModifiePar" />
+                <ScalarProperty Name="ModifieDate" ColumnName="ModifieDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

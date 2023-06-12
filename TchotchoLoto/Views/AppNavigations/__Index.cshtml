@@ -1,0 +1,70 @@
+﻿
+<input type="hidden" id="nbre-app-navigation" value="@if (ViewBag.appNavigations != null) { @ViewBag.appNavigations.Count}else{ Write(0); }" />
+
+<div id="pv-overlay-loading" class="overlay-loading" style="display:none;">
+    <img src="~/Content/images/loading-gif.gif" alt="Loading" width="50" height="50" />
+</div>
+
+
+<div class="table-responsive">
+    <table id="datatable" class="table table-hover display" style="width:100%;">
+
+        <thead class="bg-success">
+
+            <tr>
+                <th>
+                    Label
+                </th>
+                <th>
+                    Level
+                </th>
+                <th>
+                    Order
+                </th>
+                <th style="text-align:center;">
+                    Actions
+                </th>
+            </tr>
+
+        </thead>
+
+        <tbody class="big-table-height">
+            @if (ViewBag.appNavigations != null)
+            {
+                foreach (var item in ViewBag.appNavigations)
+                {
+                    <tr>
+                        <td>
+                            @item.NavigationLabel
+                        </td>
+                        <td>
+                            @item.NavigationLevel
+                        </td>
+                        <td>
+                            @item.NavigationOrder
+                        </td>
+
+                        <td style="text-align:center;">
+
+                            <button id="@item.AppNavigationId" data-toggle="collapse" data-target="#action-button-collapse-@item.AppNavigationId" class="btn btn-xs btn-warning view-action-button-collapse-btn" style="min-width:120px;">Select &nbsp;&nbsp;<span class="glyphicon glyphicon-menu-down"></span></button>
+
+                            <div id="action-button-collapse-@item.AppNavigationId" class="action-button-collapse collapse" style="right:4.6%;">
+
+                                <button data-url="@Url.Action("Index", "AppNavigationApplications", new { id = item.AppNavigationId })" class="btn btn-xs sub-view btn-primary"><span class="glyphicon"></span> Application</button>
+
+                                <button data-url="@Url.Action("Index", "AppNavigationPermissions", new { id = item.AppNavigationId })" class="btn btn-xs sub-view btn-warning"><span class="glyphicon"></span> Sub Menu</button>
+
+                                <button data-url="@Url.Action("_Edit", "AppNavigations", new { id = item.AppNavigationId })" class="edit-app-navigation-btn btn btn-xs btn-info"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+
+                                <button id="@item.AppNavigationId" class="delete-link-app-navigation btn btn-xs btn-danger" data-toggle="modal" data-target="#delete-modal"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+
+                            </div>
+
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+
+    </table>
+</div>

@@ -1,0 +1,119 @@
+﻿
+<input type="hidden" id="nbre-user" value="@if (ViewBag.users != null) { @ViewBag.users.Count}else{ Write(0); }" />
+
+<div id="pv-overlay-loading" class="overlay-loading" style="display:none;">
+    <img src="~/Content/images/loading-gif.gif" alt="Loading" width="50" height="50" />
+</div>
+
+
+<div class="table-responsive">
+    <table id="datatable" class="table table-hover display" style="width:100%;">
+
+        <thead class="bg-success">
+
+            <tr>
+
+                <th>
+                    First Name
+                </th>
+                <th>
+                    Last Name
+                </th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    Role
+                </th>
+                <th>
+                    Locked
+                </th>
+                <th>
+                    Last Login Date
+                </th>
+
+                <th style="text-align:center;">
+                    Actions
+                </th>
+            </tr>
+
+        </thead>
+
+        <tbody>
+            @if (ViewBag.users != null)
+            {
+                foreach (var item in (List<TchotchoLoto.Models.User>)ViewBag.users)
+                {
+                    <tr>
+
+                        <td>
+                            @item.FirstName
+                        </td>
+
+                        <td>
+                            @item.LastName
+                        </td>
+
+                        <td>
+                            @item.Email
+                        </td>
+
+                        <td>
+                            @item.Role.RoleName
+                        </td>
+
+
+                        <td>
+                            <center>
+                                @if (item.IsLockedOut != null && item.IsLockedOut)
+                                {
+                                    <span> Yes</span>}
+
+                                else if (item.IsLockedOut != null && !item.IsLockedOut)
+                                { <span> No </span> }
+
+                                else
+                                { <span>Null</span>}
+
+                            </center>
+                        </td>
+
+                        <td>
+                            @item.LastLoginDate
+                        </td>
+                        <td style="text-align:center;">
+
+                            <button id="@item.UserId" data-toggle="collapse" data-target="#action-button-collapse-@item.UserId" class="btn btn-xs btn-warning view-action-button-collapse-btn" style="min-width:120px;">Select &nbsp;&nbsp;<span class="glyphicon glyphicon-menu-down"></span></button>
+
+                            <div id="action-button-collapse-@item.UserId" class="action-button-collapse collapse" style="right:4.6%;">
+
+                                <button data-url="@Url.Action("_Edit", "Users", new { id = item.UserId })" class="edit-user-btn btn btn-xs btn-info"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+
+                                @if (item.IsLockedOut)
+                                {
+                                    <button id="@item.UserId" class="btn btn-xs btn-warning lock-link-usr btn btn-xs" data-toggle="modal" data-target="#unlock-Modal">
+                                        <span> Unlock </span>
+                                    </button>
+                                }
+                                else
+                                {
+                                    <button id="@item.UserId" class="btn btn-xs btn-warning lock-link-usr btn btn-xs" data-toggle="modal" data-target="#lock-Modal">
+
+                                        <span> Lock </span>
+                                    </button>
+                                }
+
+                                <button id="@item.UserId" class="delete-link-usr btn btn-xs btn-danger" data-toggle="modal" data-target="#delete-modal"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+
+                            </div>
+
+                        </td>
+
+
+                    </tr>
+                }
+            }
+        </tbody>
+
+    </table>
+</div>

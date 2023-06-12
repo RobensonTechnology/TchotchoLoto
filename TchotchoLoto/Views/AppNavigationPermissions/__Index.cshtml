@@ -1,0 +1,50 @@
+﻿
+<input type="hidden" id="nbre-app-navigation-permission" value="@if (ViewBag.appNavigationPermissions != null) { @ViewBag.appNavigationPermissions.Count}else{ Write(0); }" />
+
+<div id="pv-overlay-loading" class="overlay-loading" style="display:none;">
+    <img src="~/Content/images/loading-gif.gif" alt="Loading" width="50" height="50" />
+
+</div>
+
+
+<div class="table-responsive">
+    <table id="datatable" class="table table-hover display" style="width:100%;">
+
+        <thead class="bg-success">
+
+            <tr>
+                <th>
+                    Permission
+                </th>
+                
+                <th style="text-align:center;">
+                    Action
+                </th>
+            </tr>
+
+        </thead>
+
+        <tbody class="big-table-height">
+            @if (ViewBag.appNavigationPermissions != null)
+            {
+                foreach (var item in ViewBag.appNavigationPermissions)
+                {
+                    <tr>
+                        <td>
+                            @item.Permission.Label
+                        </td>
+                       
+                        <td style="text-align:center;">
+
+                            <button id="@item.AppNavigationPermissionId" class="delete-link-app-navigation-permission btn btn-xs btn-danger" data-toggle="modal" data-target="#delete-modal"><span class="glyphicon glyphicon-trash"></span> Delete </button>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+
+    </table>
+</div>
+
+@Html.DropDownList("PermissionId", (MultiSelectList)ViewBag.PermissionIds, htmlAttributes: new { id = "ddlPermissionIdFilled", style = "display: none;" })
+

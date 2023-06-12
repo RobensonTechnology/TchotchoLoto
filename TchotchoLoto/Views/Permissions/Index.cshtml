@@ -1,0 +1,178 @@
+﻿@model TchotchoLoto.Models.Permission
+
+@{
+
+    ViewBag.Title = "Permission";
+    Layout = null;
+}
+
+<input type="hidden" class="title" data-title="Permission" />
+
+<div class="indicator">
+    Security  &nbsp;&nbsp; <span class="glyphicon glyphicon-chevron-right"></span> &nbsp; &nbsp; Permission
+
+</div>
+<div class="header-body">
+    <p style="display:inline-block;">
+        &nbsp;&nbsp;Permission (<span id="hb-nbre-permission">
+            @if (ViewBag.permissions != null)
+            {@ViewBag.permissions.Count}
+        else { Write(0); }
+        </span>)
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon star glyphicon-star text-success"></span>
+
+    </p>
+
+<div style="display:inline-block;" class="header-buttons">
+    <button class="add-after-edit add-after-edit btn btn-success btn-sm pull-right" data-toggle="modal" data-target="#create-permission-modal">
+        <span class="glyphicon glyphicon-plus"></span> Add Permission
+    </button>
+</div>
+</div>
+
+<br />
+
+<div class="page-scroll-content" id="permission-list-pv">
+
+    @Html.Partial("__Index")
+
+</div>
+
+<input id="url-get-permission-list" type="hidden" data-url="@Url.Action("__Index", "Permissions")" />
+
+<div id="create-permission-modal" class="modal fade" role"dialog" data-backdrop="static">
+    <div class="modal-dialog modal-sm">
+
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #0078d7; border-radius:5px 5px 0 0;">
+
+                <h4 style="display: inline;">Add Permission</h4>
+
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+            <div class="modal-body row" style="padding:6%;">
+
+                @using (Html.BeginForm("_Index", "Permissions", FormMethod.Post, htmlAttributes: new { id = "Add-Permission-Form" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    @Html.HiddenFor(model => model.PermissionId, htmlAttributes: new { @class = "id-resetable" })
+
+                    <div class="form">
+
+                        <div class="form-group col-md-12 col-sm-12">
+                            @Html.LabelFor(model => model.ObjectName, "Object Name", htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.ObjectName, new { htmlAttributes = new { @class = "form-control editor-resetable" } })
+                        </div>
+
+                        <div class="form-group col-md-12 col-sm-12">
+                            @Html.LabelFor(model => model.ParentName, "Parent Name", htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.ParentName, new { htmlAttributes = new { @class = "form-control editor-resetable" } })
+                        </div>
+
+                        <div class="form-group col-md-12 col-sm-12">
+                            @Html.LabelFor(model => model.Label, "Label", htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.Label, new { htmlAttributes = new { @class = "form-control editor-resetable" } })
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-12 col-sm-12 col-xs-12" style="border-top:1px solid #d7d7d7; padding-top:10px; text-align:right;">
+
+                        <button type="submit" class="btn btn-sm btn-info submit"><span class="glyphicon glyphicon-save-file"></span> Save <span class="glyphicon glyphicon-refresh loader" style="display:none;"></span> </button>
+                        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Close</button>
+
+                    </div>
+
+
+                }
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<div id="edit-permission-modal" class="modal fade" role="dialog" data-backdrop="static">
+    <div class="modal-dialog modal-sm">
+
+        
+    </div>
+</div>
+
+
+
+<!-- Modal 2 Dialog for delete option -->
+<div id="delete-modal" class="modal fade" role="dialog" data-backdrop="static">
+    <div class="modal-dialog modal-sm">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+
+            <div class="modal-header" style="background-color: #0078d7; border-radius:5px 5px 0 0;">
+
+                <h4 style="display: inline;">Delete</h4>
+
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+
+            <div class="modal-body row" style="padding:7%; text-align:center;">
+
+                <span class="glyphicon glyphicon-alert" style="display:block; font-size: 20px;"></span>
+                <h5 class="text-warning" style="display:block;">Do you really want to Delete this Permission ?</h5>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <a class="delete-confirmed btn btn-sm btn-danger" href="#">
+                    YES
+                </a>
+
+                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">
+                    NO
+                </button>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+<a id="validation-link" data-toggle="modal" data-target="#modal-dialog-message"></a>
+
+<div id="modal-dialog-message" class="modal fade" role="dialog" data-backdrop="static">
+    <div class="modal-dialog modal-sm">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #0078d7; border-radius:5px 5px 0 0;">
+
+                <h4 style="display: inline;">Message</h4>
+
+            </div>
+            <div class="modal-body row" style="padding:7%; text-align:center;">
+
+                <span class="glyphicon glyphicon-info-sign" style="display:block; font-size: 20px;"></span>
+                <h5 class="text-info" style="display:block;">@ViewBag.message</h5>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">
+                    OK
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="pv-overlay-loading" class="overlay-loading bc-overlay-loading" style="display:none;">
+    <img src="~/Content/images/loading-gif.gif" alt="Loading" width="50" height="50" />
+</div>

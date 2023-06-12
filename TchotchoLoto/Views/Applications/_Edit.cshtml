@@ -1,0 +1,124 @@
+﻿
+@model TchotchoLoto.Models.Application
+
+
+<div class="modal-content">
+    <div class="modal-header" style="background-color: #0078d7; border-radius:5px 5px 0 0;">
+
+        <h4 style="display: inline;">Edit Application</h4>
+
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+    </div>
+    <div class="modal-body row" style="padding:3%;">
+
+        @using (Html.BeginForm("_Index", "Applications", FormMethod.Post, htmlAttributes: new { id = "Edit-Application-Form" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.ApplicationId, htmlAttributes: new { @class = "id-resetable" })
+
+            <div class="form">
+
+                
+
+                <div class="form-group col-md-6 col-sm-12">
+                    @Html.LabelFor(model => model.ApplicationName, "Application Name", htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.ApplicationName, new { htmlAttributes = new { @class = "form-control editor-resetable" } })
+                </div>
+
+                <div class="form-group col-md-6 col-sm-12">
+                    @Html.LabelFor(model => model.Version, "Version", htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.Version, new { htmlAttributes = new { @class = "form-control editor-resetable" } })
+                </div>
+
+                <div class="form-group col-md-12 col-sm-12">
+                    @Html.LabelFor(model => model.Description, "Description", htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control editor-resetable" } })
+                </div>
+
+                <div class="form-group col-md-6 col-sm-12">
+                    @Html.LabelFor(model => model.EmailApplication, "Email Application", htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.EmailApplication, new { htmlAttributes = new { @class = "form-control editor-resetable" } })
+                </div>
+
+                <div class="form-group col-md-6 col-sm-12">
+                    @Html.LabelFor(model => model.PasswordEmailApplication, "Password Application Email", htmlAttributes: new { @class = "control-label" })
+                    @*@Html.EditorFor(model => model.PasswordEmailApplication, new { htmlAttributes = new { @class = "form-control editor-resetable" } })*@
+                    @{
+                        var password = new TchotchoLoto.Controllers.AccountController().Decrypt(Model.PasswordEmailApplication);
+                    }
+
+                    <input type="text" class="form-control editor-resetable" name="PasswordEmailApplication" value="@password">
+                </div>
+
+                @* col-lg-4 *@
+
+
+                <div class="form-group col-md-6 col-sm-12">
+                    @Html.LabelFor(model => model.DevelopperPar, "Developper", htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.DevelopperPar, new { htmlAttributes = new { @class = "form-control editor-resetable" } })
+                </div>
+
+
+                <div class="form-group col-md-6 col-sm-12 col-xs-12">
+                    <label class="control-label pull-left">Logo Application</label>
+                    <input type="file" name="LogoApplication" , id="LogoApplication" class="form-control editor-resetable" />
+                </div>
+
+                <center>
+                    <div class="form-group col-md-12 col-sm-12 col-xs-12" style="height:40%;" id="LogoApplication-photo-preview">
+
+                        @if (Model.LogoApplication != null)
+                        {
+                            <img src="data:image/png;base64, @Convert.ToBase64String(Model.LogoApplication, 0, Model.LogoApplication.Length)" class="glyphicon" alt="Red dot" width="80" height="80" />
+
+
+                        }
+                        else
+                        {
+                            <img src="data:image/png;base64, @ViewBag.LogoApplication" />
+
+
+                        }
+
+
+
+                    </div>
+                </center>
+
+
+
+                @*<div class="form-group col-md-6 col-sm-12 col-xs-12">
+                        <label class="control-label pull-left">Logo Application</label>
+                        <input type="file" name="SignatureResponsableApplication" , id="SignatureResponsableApplication" class="form-control editor-resetable" />
+                    </div>
+
+
+                    <div class="form-group col-md-12 col-sm-12 col-xs-12" style="height:40%;" id="SignatureResponsableApplication-photo-preview">
+
+                        <center>
+                            <img src="data:image/png;base64, @ViewBag.profilPictureData" />
+
+                        </center>
+                    </div>*@
+
+
+                @* alt="Red dot" *@
+
+            </div>
+
+            <div class="col-md-12 col-sm-12 col-xs-12" style="border-top:1px solid #d7d7d7; padding-top:10px; text-align:right;">
+
+                <button type="submit" class="btn btn-sm btn-info submit"><span class="glyphicon glyphicon-save-file"></span> Save <span class="glyphicon glyphicon-refresh loader" style="display:none;"></span> </button>
+                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Close</button>
+
+            </div>
+
+        }
+
+    </div>
+
+</div>
+
+
+

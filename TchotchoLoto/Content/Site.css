@@ -1,0 +1,3343 @@
+﻿@import url('bootstrap.min.css');
+
+@font-face {
+    font-family: Lato-Regular;
+    src: url(../fonts/Lato/Lato-Regular.ttf);
+}
+
+@font-face {
+    font-family: 'smartware';
+    src: url('../fonts/Smartware/smartware-icon.eot?xbtexq');
+    src: url('../fonts/Smartware/smartware-icon.eot?xbtexq#iefix') format('embedded-opentype'), url('../fonts/Smartware/smartware-icon.ttf?xbtexq') format('truetype'), url('../fonts/Smartware/smartware-icon.woff?xbtexq') format('woff'), url('../fonts/Smartware/smartware-icon.svg?xbtexq#smartware') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+
+[class^="icon-"], [class*=" icon-"] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'smartware' !important;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+
+.icon-cargo-ship:before {
+    content: "\e900";
+}
+
+.icon-clipboard:before {
+    content: "\e901";
+}
+
+.icon-container:before {
+    content: "\e902";
+}
+
+.icon-container-damage:before {
+    content: "\e903";
+}
+
+.icon-invoice:before {
+    content: "\e904";
+}
+
+.icon-logistics-delivery-truck-in-movement:before {
+    content: "\e905";
+}
+
+.icon-parking:before {
+    content: "\e906";
+}
+
+.icon-repairing-service:before {
+    content: "\e907";
+}
+
+.icon-verification:before {
+    content: "\e908";
+}
+
+.icon-warehouse:before {
+    content: "\e909";
+}
+
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #0078d7 rgba(255,255,255,0);
+}
+
+body {
+    padding-top: 50px;
+    background: #f4f4f4;
+    letter-spacing: 1px;
+    font-family: Lato-Regular, 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    overflow-x: hidden;
+}
+
+.main-body {
+    padding-left: 2.2%;
+    padding-right: 2.2%;
+    height: 100%;
+}
+
+.login-body {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+}
+
+/*Grand Image BG Login*/
+.login-bg {
+    position: absolute;
+    /*background: url(images/home-bg-2.jpg) no-repeat center fixed;*/
+    background: url(images/Tchotcho2.jpg) no-repeat center fixed;
+    /*opacity: 0.90;*/
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+}
+
+
+/*Grand Image BG Login Home after login*/
+.bg-image {
+    background: url(images/home-background.jpg) no-repeat center;
+    background-size: cover;
+}
+
+#imgs-preview .img-box {
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+    #imgs-preview .img-box .button-box {
+        transform: translate(10px, -32px);
+    }
+
+
+#imgs-preview img {
+    height: 125px;
+    width: 125px;
+    margin-left: 4px;
+    margin-right: 4px;
+    object-fit: cover;
+}
+
+#profile-photo-preview img {
+    object-fit: cover;
+}
+
+
+.paymentBefore {
+    color: white;
+    background-color: #26a906;
+}
+
+.margin-facture-form {
+    margin-top: 20px;
+}
+
+.big-table-height {
+    max-height: 10em;
+    overflow: auto;
+}
+
+@media (min-width: 768px) {
+    body {
+        overflow-y: hidden;
+    }
+
+    /* Set width on the form input elements since they're 100% wide by default */
+    input,
+    select,
+    textarea {
+        /*max-width: 280px;*/
+    }
+
+    .search-navbar {
+        margin-left: 50px;
+    }
+
+    .navbar-brand {
+        font-family: Helvetica,Arial,sans-serif !important;
+        font-size: 1.2rem !important;
+    }
+
+    .body-content {
+        left: 18.1%;
+        width: 81.8%;
+    }
+
+    .main-menu {
+        /* Set padding to keep content from hitting the edges */
+        width: 18%;
+        display: block !important;
+        transition: width ease 0.3s;
+    }
+
+    #btn-main-menu {
+        display: none;
+    }
+
+    .side-nav-header {
+        height: 40px;
+        padding-left: 16px;
+        padding-top: 10px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #e6e6f6;
+        margin-bottom: 40px;
+    }
+
+    .navbar-nav > li > a {
+        padding-bottom: 10px;
+    }
+
+    .navbar-collapse.collapse {
+        overflow-y: auto !important;
+    }
+
+    .header-buttons {
+        float: right;
+        display: inline-block;
+    }
+
+    .qt-dataTable {
+        padding-top: 10px;
+        float: left;
+        display: inline-block;
+    }
+
+    .header-filter-control {
+        margin-left: 200px;
+    }
+
+
+    .iconify-side-menu > .nav-sidebar > .header {
+        width: 50px !important;
+        height: 40px !important;
+        overflow: hidden !important;
+    }
+
+    .iconify-side-menu {
+        width: 50px !important;
+        overflow: hidden !important;
+        border: none;
+    }
+
+        .iconify-side-menu > .btn-iconify-main-menu {
+            width: 50px !important;
+            overflow: hidden !important;
+            transition: width ease 0.3s;
+        }
+
+    .maximize-body-content-width {
+        width: 96.3%;
+        left: 50px;
+    }
+
+        .maximize-body-content-width > .indicator {
+            width: 96.3%;
+            left: 50px;
+        }
+
+    .pn-container {
+        position: absolute !important;
+        width: 98% !important;
+        height: 80% !important;
+    }
+
+    .pn-container-demurage {
+        position: absolute !important;
+        width: 98% !important;
+        height: 80% !important;
+        margin-top: 0;
+    }
+
+    .pn-container-demurage-0 {
+        width: 98% !important;
+        height: 50% !important;
+    }
+
+
+    .espace-td-no-container {
+        width: 37%;
+    }
+
+    .pn-container-payment {
+        height: 48%;
+        width: 100%;
+    }
+
+    .pn-container-facture-List {
+        height: 48%;
+        width: 100%;
+        margin-top: 5%;
+    }
+
+
+
+
+    .pn-container-right {
+        height: 100%;
+        width: 49%;
+        float: right;
+    }
+
+
+    .pn-container-right-demurrage {
+        height: 40%;
+        width: 49%;
+        float: right;
+    }
+
+
+    .pn-container-payment-detay-amount {
+        width: 49%;
+        height: 90%;
+        float: left;
+    }
+
+    .pn-container-payment-formulaire {
+        width: 49%;
+        height: 111%;
+        float: right;
+        /*height: 111% !important;*/
+    }
+
+
+
+    .pn-container-left {
+        height: 100%;
+        width: 49%;
+        float: left;
+    }
+
+
+    .pn-container-left-demurrage {
+        height: 40%;
+        width: 49%;
+        float: left;
+    }
+
+    .tbody-invoice {
+        overflow-y: auto;
+        display: block;
+        max-height: 11em;
+    }
+
+    .tbody-invoice-extra {
+        overflow-y: auto;
+        display: block;
+        max-height: 12.6em;
+    }
+
+    .new-tbody-invoice {
+        overflow-y: auto;
+        display: block;
+        max-height: 11em;
+    }
+
+    .tbody-invoice15 {
+        overflow-y: auto;
+        display: block;
+        max-height: 15em;
+    }
+
+
+
+    .tbody-invoice-facture {
+        overflow-y: auto;
+        display: block;
+        max-height: 11em;
+    }
+
+    .pn-container-facturation {
+        position: absolute !important;
+        width: 98% !important;
+        height: 38% !important;
+    }
+
+    .pn-container-invoicing {
+        position: absolute !important;
+        width: 49% !important;
+        height: 80% !important;
+    }
+
+    .pn-container-facturation-two {
+        position: absolute !important;
+        width: 98% !important;
+        height: 33% !important;
+        margin-top: 27%;
+    }
+
+    .pn {
+        height: 100% !important;
+        margin-bottom: 7%;
+    }
+
+    .notif-icon.sm {
+        display: none !important;
+    }
+
+    .notif-icon.md {
+        display: block;
+    }
+
+
+    .current-user-info.sm {
+        display: none !important;
+    }
+
+    .current-user-info.md {
+        display: block;
+    }
+
+    .show-on-mobile {
+        display: none !important;
+    }
+
+    .hide-on-mobile {
+        display: inline;
+    }
+
+    .left-pan {
+        background: url("images/main-banner.jpg") no-repeat center;
+        opacity: 0.81;
+        background-size: cover;
+        width: 40%;
+        float: left;
+        height: 100%;
+        position: absolute;
+        border-radius: 8px 0 0 8px;
+    }
+
+    .right-pan {
+        width: 60%;
+        float: right;
+    }
+}
+
+@media (min-height: 788px) {
+
+    .pn-container {
+        height: 80% !important;
+    }
+
+    .pn-container-invoicing {
+        height: 80% !important;
+    }
+
+    .pn-container-facturation {
+        height: 40% !important;
+    }
+
+    .pn-container-payment-detay-amount {
+        height: 45% !important;
+    }
+
+    .pn-container-payment-formulaire {
+        height: 50% !important;
+    }
+
+
+    .pn-container-facturation-two {
+        height: 40% !important;
+    }
+
+    .pn {
+        height: 80% !important;
+    }
+}
+
+@media (max-width: 920px) {
+
+
+    .new-tbody-invoice {
+        overflow-y: auto;
+        display: block;
+        max-height: 19em;
+    }
+
+    /*.tbody-invoice-extra {
+        overflow-y: auto;
+        display: block;
+        max-height: 19em;
+    }*/
+
+    .search-navbar {
+        display: none !important;
+    }
+
+    .navbar-right {
+        display: inline !important;
+    }
+
+    .pn-container-payment {
+        height: 48%;
+        width: 100%;
+    }
+
+    .pn-container-payment2 {
+        height: 48%;
+        width: 100%;
+    }
+
+    .pn-container-payment-detay-amount {
+        width: 100%;
+    }
+
+    .pn-container-payment-formulaire {
+        width: 100%;
+        height: 100% !important;
+        margin-top: 10%;
+        margin-bottom: 10%;
+    }
+
+    .pn-container-facture-List {
+        margin-top: 50%;
+    }
+
+    .pn {
+        margin-bottom: 7%;
+        height: auto !important;
+    }
+}
+
+@media (max-width: 440px) {
+
+    .form-group-mobile-render {
+        width: 50% !important;
+        padding-top: 0 !important;
+    }
+
+    .form-group-mobile-render-parent {
+        width: 100% !important;
+    }
+
+    .mobile-scroll-content {
+        overflow: auto !important;
+    }
+
+    .body-content table, .header-body .form-control, .header-body {
+        font-size: 1.2rem !important;
+    }
+
+        .header-body .form-control, .header-body .btn {
+            height: 28px;
+        }
+
+    .login-block {
+        width: 80% !important;
+    }
+
+    .open-sm .dropdown-menu {
+        transform: translateX(-72%);
+    }
+
+    .open-sm.usrsm .dropdown-menu {
+        transform: translateX(-80%);
+    }
+
+    .left-pan {
+        transform: translateY(-70px);
+        height: 130px;
+    }
+
+        .left-pan .app-info {
+            display: none !important;
+        }
+
+        .left-pan .credit-info {
+            display: none !important;
+        }
+
+    .right-pan {
+        transform: translateY(-40%);
+    }
+
+    .login-block {
+        max-height: 60%;
+    }
+
+    .dropdown.sm {
+        margin-right: 10px;
+        padding: 8px;
+    }
+
+    .dropdown.usrsm {
+        margin-left: 10px;
+        padding: 10px;
+        margin-right: 15px;
+    }
+
+    .notif-icon.sm {
+        padding: 0;
+    }
+
+    .current-user-info.sm {
+        padding: 0;
+    }
+
+    .header-body > p {
+        width: 100%;
+        text-align: justify;
+        font-size: 1.3rem;
+    }
+
+
+
+    .header-body .param-control div {
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+    .header-body .header-buttons {
+        width: 100%;
+        text-align: left;
+        margin-top: 8px;
+        padding-top: 5px;
+        border-top: 1px solid lightgrey;
+    }
+
+
+
+    #modal-dialog-message.modal.in .modal-dialog {
+        transform: translateY(50%);
+    }
+
+    .s-o-m-t {
+        display: block !important;
+        padding-bottom: 5px;
+        margin-bottom: 5px;
+    }
+
+    .h-o-m-t {
+        display: none;
+    }
+
+    .indicator {
+        font-size: 1.2rem;
+    }
+
+    .modal-footer.row {
+        padding-top: 5px;
+    }
+
+    .reduce-font-size-on-mobile {
+        font-size: 1.07rem !important;
+    }
+
+    .header-body div.mobile-style {
+        margin: 0 auto !important;
+    }
+
+    .page-scroll-content.mobile-style {
+        margin: 0 auto !important;
+        width: 96% !important;
+    }
+
+
+    .page-scroll-content .row-panel-mobile-style {
+        height: auto !important;
+    }
+
+    #voyage-sequence-pv .panel-heading .panel-title, #voyage-sequence-pv .panel-heading .header-buttons {
+        width: 100% !important;
+    }
+
+    .table-fixed-head-foot thead {
+        display: table-header-group !important;
+        table-layout: auto !important;
+    }
+
+    .table-fixed-head-foot tfoot {
+        display: table-footer-group !important;
+        table-layout: auto !important;
+    }
+
+    .table-fixed-head-foot tbody tr {
+        display: table-row !important;
+        table-layout: auto !important;
+    }
+
+    .table-fixed-head-foot tbody {
+        display: table-row-group !important;
+        height: auto !important;
+    }
+
+
+    .action-button-collapse {
+        right: 0 !important;
+    }
+}
+
+
+
+@media (max-width: 768px) {
+
+
+    body {
+        overflow-y: auto;
+    }
+
+    .pn-container-payment-formulaire {
+        height: auto !important;
+    }
+
+
+
+    .pn-container-left {
+        height: auto !important;
+        width: 100%;
+    }
+
+
+    .pn-container-left-demurrage {
+        height: auto !important;
+        width: 100%;
+        margin-bottom: 2%;
+    }
+
+    .pn-container-right {
+        height: auto !important;
+        width: 100%;
+    }
+
+    .pn-container-right-demurrage {
+        height: auto !important;
+        width: 100%;
+    }
+
+    .pn-container-facture-List {
+        margin-top: 25%;
+        height: auto !important;
+    }
+
+
+    .notif-icon.sm {
+        display: block !important;
+    }
+
+    .notif-icon.md {
+        display: none;
+    }
+
+    .current-user-info.sm {
+        display: block !important;
+    }
+
+    .current-user-info.md {
+        display: none;
+    }
+
+    #datatable_wrapper .row:first-child {
+        display: none;
+    }
+
+    #datatableMS_wrapper .row:first-child {
+        display: none;
+    }
+
+    .modal-body {
+        padding: 5% !important;
+    }
+
+    input,
+    select,
+    textarea {
+        max-width: 100%;
+    }
+
+    .table-responsive {
+        border: none;
+        overflow-x: unset;
+    }
+
+        .table-responsive::-webkit-scrollbar {
+            height: 1px;
+        }
+
+        .table-responsive::-webkit-scrollbar-thumb {
+        }
+
+
+    .navbar {
+        height: 50px;
+    }
+
+
+    .body-content {
+        left: 0;
+        width: 100%;
+    }
+
+    .indicator {
+        left: 0 !important;
+        width: 100% !important;
+    }
+
+
+    .choose-compagnie-form {
+        width: 55% !important;
+        margin: 0 auto !important;
+    }
+
+    .navbar-brand {
+        font-size: 1rem !important;
+    }
+
+    #btn-main-menu {
+        display: inline;
+    }
+
+    .main-menu {
+        display: none !important;
+        max-width: 70%;
+        min-width: 30%;
+        z-index: 200;
+        left: 0 !important;
+        margin: 0 !important;
+    }
+
+        .main-menu > .main-menu-menu {
+            margin-top: 0 !important;
+        }
+
+    .btn-iconify-main-menu {
+        display: none !important;
+    }
+
+    .user-info-header {
+        position: relative;
+        width: 100% !important;
+        max-width: 100% !important;
+        text-align: center;
+        bottom: 0 !important;
+        margin-top: 50px !important;
+    }
+
+    .user-avatar {
+        position: relative;
+        margin: 0 auto;
+        float: none !important;
+        clear: both;
+    }
+
+    .user-profil-login-info {
+        position: relative;
+        margin: 0 auto;
+        width: 100%;
+        float: none !important;
+        clear: both;
+        max-width: inherit !important;
+    }
+
+    .user-profil-header {
+        margin-left: -4.1% !important;
+        margin-right: -4.1% !important;
+    }
+
+    .pn-container {
+        position: relative !important;
+        width: 100% !important;
+        height: auto !important;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .pn-container-invoicing {
+        position: relative !important;
+        width: 100% !important;
+        height: auto !important;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .new-tbody-invoice {
+        overflow-y: auto;
+        display: block;
+        max-height: 17em;
+    }
+
+
+    .pn-container-facturation {
+        position: relative !important;
+        width: 100% !important;
+        height: 45% !important;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .pn-container-facturation-two {
+        position: relative !important;
+        width: 100% !important;
+        height: 45% !important;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .pn {
+        height: auto !important;
+        margin-bottom: 5%;
+    }
+
+    .pn-invoicing {
+        height: auto !important;
+    }
+
+    .show-on-mobile {
+        display: inline !important;
+    }
+
+    .hide-on-mobile {
+        display: none;
+    }
+
+    .body-content::-webkit-scrollbar {
+        display: none;
+    }
+
+    .page-scroll-content::-webkit-scrollbar {
+        width: 1px;
+    }
+}
+
+
+@media (max-width:830px) {
+
+    .pn-container-left {
+        height: auto !important;
+        width: 100%;
+    }
+
+
+    .pn-container-left-demurrage {
+        height: auto !important;
+        width: 100%;
+    }
+
+    .pn-container-right {
+        height: auto !important;
+        width: 100%;
+    }
+
+
+    .pn-container-right-demurrage {
+        height: auto !important;
+        width: 100%;
+    }
+}
+
+.s-o-m-t {
+    display: none;
+}
+
+.disabled-control {
+    background-color: #dadada !important;
+    pointer-events: none;
+}
+
+.open-sm > .dropdown-menu {
+    display: block;
+}
+
+.body-content {
+    position: absolute;
+    padding-left: 2%;
+    padding-right: 2%;
+    padding-bottom: 3%;
+    float: right;
+    height: 95%;
+    overflow-y: auto;
+    background-color: #fff;
+    transition: 0.3s;
+    border-top: 1px solid #e6e6f6;
+}
+
+.page-scroll-content {
+    position: absolute;
+    width: 96%;
+    height: 79%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.page-scroll-content-plus {
+    position: absolute;
+    width: 96%;
+    height: 70%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+
+
+.main-menu {
+    position: absolute;
+    float: left;
+    left: 0;
+    height: 95%;
+    overflow-y: hidden !important;
+    transition: 0.3s;
+    color: black;
+    background-color: #f4f4f4;
+    border-right: 1px solid lightgrey;
+}
+
+    .main-menu > .main-menu-menu {
+        position: relative;
+        margin-top: 40px;
+        min-height: 74%;
+        height: 74%;
+        overflow-y: auto !important;
+    }
+
+
+
+.btn-iconify-main-menu {
+    position: fixed;
+    display: block;
+    height: 42px;
+    width: 18%;
+    border-bottom: 1px solid lightgrey;
+    border-right: 1px solid lightgrey;
+    margin: 0;
+    background: #f4f4f4;
+    z-index: 40;
+}
+
+    .btn-iconify-main-menu > #btn-iconify-main-menu {
+        margin-left: 15px;
+        padding: 0;
+        padding-top: 2px;
+    }
+
+
+
+.other-module > ul {
+    background: #98cef8;
+    border-bottom: 1px solid #c3c1c1;
+}
+
+    .other-module > ul > li > a {
+        font-family: Arial;
+        color: #0078d7;
+        font-weight: bold;
+    }
+
+        .other-module > ul > li > a:hover {
+            color: #0078d7;
+        }
+
+.hide-other-module {
+    display: none;
+}
+
+button:focus, .btn:focus {
+    border: none !important;
+    outline: none !important;
+}
+
+.other-module-disabled {
+}
+
+    .other-module-disabled > li > a {
+        color: #b2b2b2 !important;
+    }
+
+    .other-module-disabled:hover, .other-module-disabled > li:hover, .other-module-disabled:hover, .other-module-disabled > li:focus {
+    }
+
+    .other-module-disabled > li > a:hover, .other-module-disabled > li > a:focus {
+        color: #b2b2b2 !important;
+        cursor: not-allowed !important;
+        background: #98cef8;
+    }
+
+.login-block {
+    position: relative;
+    min-height: 330px;
+    width: 500px;
+    margin: 0 auto;
+    transform: translateY(50%);
+    background-color: rgba(0, 118, 214, 0.82);
+    border-radius: 8px;
+    border: 1px solid #8acdff;
+}
+
+.input-search:focus {
+    border: none !important;
+    outline: none !important;
+}
+
+.login-form {
+    padding: 10px;
+}
+
+    .login-form .form-control {
+        width: 100%;
+    }
+
+.nav-sidebar li.header {
+    width: 100%;
+    font-weight: normal;
+    font-size: 14px;
+}
+
+    .nav-sidebar li.header .chevron {
+        float: right;
+    }
+
+.main-menu .nav-sub {
+    padding-left: 20px;
+    color: black;
+}
+
+
+.nav-sidebar > .active > a,
+.nav-sidebar > .active > a:hover,
+.nav-sidebar > .active > a:focus {
+    color: #fff;
+    background-color: #428bca;
+}
+
+.side-nav-header {
+    top: 3vmax;
+    position: fixed;
+    font-size: 14px;
+    width: 14.9%;
+    height: 50px;
+    padding-top: 15px;
+    background-color: #f4f4f4;
+    border-bottom: 1px solid #e6e6f6;
+}
+
+    .side-nav-header a:hover,
+    .side-nav-header a:focus {
+        text-decoration: none;
+    }
+
+
+#modal-dialog-message .text-info {
+    word-break: break-word;
+}
+
+.table-fixed-head-foot thead, .table-fixed-head-foot tfoot, .table-fixed-head-foot tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.table-fixed-head-foot tbody {
+    display: block;
+    overflow-y: auto;
+}
+
+#current-user-info-dropdown-menu {
+    position: absolute;
+    display: none;
+    background: rgba(255, 255, 255, 0.81);
+    color: black;
+    border-radius: 0 0 5px 5px;
+    border: 1px solid lightgrey;
+    padding: 0;
+    top: 100%;
+    right: 1%;
+}
+
+.show {
+    display: block !important;
+}
+
+.hide {
+    display: none;
+}
+
+.pn .dataTables_wrapper .row {
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.pn-invoicing {
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+
+.pn .dataTables_wrapper .row .col-sm-12 {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+
+.blur {
+    filter: blur(3px);
+    background-size: cover;
+}
+
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+
+::-webkit-scrollbar-thumb {
+    background: #0078d7;
+    border-radius: 50px;
+}
+
+#logo-preview, #profile-photo-preview {
+    text-align: center;
+}
+
+
+    #logo-preview img, #profile-photo-preview img {
+        border: 1px solid lightgrey;
+        padding: 2px;
+    }
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+dd, dt {
+    line-height: 30px;
+}
+
+.indicator {
+    z-index: 100;
+    min-height: 40px;
+    position: fixed;
+    left: 18%;
+    width: 82%;
+    padding: 10px;
+    font-weight: 600;
+    border-bottom: 1px solid lightgrey;
+    background-color: #f4f4f4;
+    transition: left linear 0.3s;
+}
+
+.header-body {
+    position: relative;
+    display: block;
+    min-height: 40px;
+    margin-top: 50px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #C1C8D3;
+}
+
+.header-body-autorisation {
+    position: relative;
+    display: block;
+    min-height: 20px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    /*border-bottom: 1px solid #C1C8D3;*/
+}
+
+
+
+
+
+.header-body-double {
+    position: relative;
+    display: block;
+    min-height: 40px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #C1C8D3;
+}
+
+    .header-body-double .star {
+        font-size: 16px;
+    }
+
+    .header-body-double p {
+        margin: 0 !important;
+        font-weight: bold;
+    }
+
+
+
+.header-body .star {
+    font-size: 16px;
+}
+
+.header-body p {
+    margin: 0 !important;
+    font-weight: bold;
+}
+
+.header-body .form-control {
+    border: none;
+    display: inline-block;
+    padding: 0 12px;
+}
+
+.navbar-header a b,
+.navbar-header span,
+.dropdown-toggle span,
+.btn-danger a,
+.btn-success a,
+.btn-warning a,
+.btn-info a {
+    color: #fff;
+}
+
+
+.nav .open > a, .nav .open > a:focus, .nav .open > a:hover, .nav .dropdown > a:focus, .nav .dropdown > a:hover {
+    background-color: #006bbf;
+}
+
+
+.navbar-header {
+    display: inline-block;
+}
+
+.cart-row {
+    color: whitesmoke;
+}
+
+.login-link {
+    float: right;
+}
+
+.left-pan .icon {
+    background: url(images/unlock-icon-4.png) no-repeat center;
+    background-size: cover;
+    width: 120px;
+    height: 120px;
+    display: block;
+    margin: 0 auto;
+    border-radius: 50%;
+    margin-top: 10px;
+}
+
+.left-pan .app-info {
+    display: block;
+    text-align: center;
+    color: #ffffff;
+    text-shadow: 3px 2px 9px #00080c;
+    margin-top: 25px;
+    transform: translateY(-18%);
+}
+
+    .left-pan .app-info .app-name {
+        display: block;
+        font-size: 3.4rem;
+        border-top: 1px solid #00080c;
+    }
+
+    .left-pan .app-info .app-version {
+        display: block;
+        font-size: 1rem;
+    }
+
+.left-pan .credit-info {
+    position: absolute;
+    display: block;
+    width: 100%;
+    bottom: 0;
+    text-align: center;
+    color: #ffffff;
+    text-shadow: 3px 2px 4px #00080c;
+    font-size: 0.65rem;
+    white-space: normal;
+    padding: 10px;
+    letter-spacing: 2px;
+}
+
+.user-profil-header {
+    background: url(images/main-banner-2.png) no-repeat center;
+    background-size: cover;
+    padding: 1.5%;
+    margin-left: -3.5%;
+    margin-right: -3.5%;
+    border-bottom: 1px solid #e6e6f6;
+    margin-bottom: 80px;
+}
+
+.welcome-text {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #fff;
+    letter-spacing: 2px;
+    font-family: Calibri, Corbel;
+    text-shadow: 20px 6px 2px #000000;
+}
+
+.user-avatar {
+    float: left;
+}
+
+    .user-avatar img {
+        border: solid 4px white;
+        border-radius: 100px;
+        box-shadow: inset 10px black;
+        background: silver;
+    }
+
+.user-profil-login-info {
+    position: relative;
+    max-width: 300px;
+    color: #fff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    float: right;
+}
+
+.user-info-header {
+    position: relative;
+    max-width: 500px;
+    margin-right: 20px;
+    bottom: -50px;
+    margin-top: -40px;
+}
+
+.panel-personal-info {
+    position: relative;
+    width: 75%;
+    margin: 0 auto;
+    border: 1px solid #b1b1b1;
+    border-radius: 10px;
+}
+
+.navbar-right > ul > li > a:hover, .navbar-right > ul > li > a:focus {
+    background: rgb(0, 78, 142) !important;
+}
+
+
+.dash-board-panel-box {
+    padding: 8px;
+    height: 48%;
+}
+
+.dash-board-panel {
+    height: 100%;
+    background: #f5f3f3;
+    border-radius: 5px 5px 0px 0px;
+}
+
+    .dash-board-panel .panel-title {
+        text-align: center;
+        font-weight: bold;
+        margin-top: 0;
+        margin-bottom: 0;
+        font-size: 1.4rem;
+    }
+
+.home-body {
+    width: 100%;
+}
+
+.compagnie-welcome {
+    background: rgba(0, 118, 214, 0.6);
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 20%;
+    border-radius: 20px;
+    padding: 3%;
+}
+
+.modal {
+    transition: ease-in-out 0.5s;
+}
+
+.choose-compagnie-form {
+    min-height: 8vmax;
+    padding: 20px;
+    width: 380px;
+    margin: 0 auto;
+    border-radius: 10px;
+    border: 1px solid #b1b1b1;
+    background: whitesmoke;
+}
+
+.modal-header > h4 {
+    color: #fff;
+}
+
+.multiselect {
+    display: block;
+    width: 100%;
+    text-align: left;
+}
+
+
+button.multiselect.dropdown-toggle {
+    overflow-x: hidden !important;
+}
+
+
+.multiselect-selected-text {
+    width: 98% !important;
+    overflow-x: hidden;
+    color: #000000 !important;
+}
+
+.multiselect-native-select .btn-group {
+    width: 100%;
+    word-wrap: break-word;
+}
+
+
+.multiselect-container {
+    max-height: 15vmax !important;
+    overflow-y: auto !important;
+}
+
+.password-strong-tooltip {
+    position: absolute;
+    min-height: 10px;
+    background: rgba(0, 0, 0, 0.82);
+    z-index: 1000;
+    border-radius: 5px;
+    left: -24%;
+    top: 50px
+}
+
+
+    .password-strong-tooltip > .glyphicon-play {
+        position: absolute;
+        vertical-align: middle;
+        right: 0px;
+        margin-top: 60%;
+    }
+
+    .password-strong-tooltip > ul {
+        padding-left: 0;
+    }
+
+        .password-strong-tooltip > ul li {
+            padding: 8px;
+            color: wheat;
+            list-style: none;
+            font-size: 1.3rem;
+            font-weight: normal;
+        }
+
+.password-strong-tooltip-item-bg-success {
+    background: #22b000;
+}
+
+tbody > tr.odd.selected > .sorting_1, tbody > tr.even.selected > .sorting_1 {
+    background: none !important;
+}
+
+tbody > tr > td {
+    color: black !important
+}
+
+tbody > tr > .selected, .odd.selected {
+    background: #e2f1fc !important;
+}
+
+.even.selected {
+    background: #e2f1fc !important;
+}
+
+tbody td.select-checkbox {
+    color: black !important
+}
+
+table.dataTable tbody td.select-checkbox,
+table.dataTable tbody th.select-checkbox,
+table.dataTable thead th.select-checkbox {
+    position: relative;
+}
+
+    table.dataTable tbody td.select-checkbox:before, table.dataTable tbody td.select-checkbox:after,
+    table.dataTable tbody th.select-checkbox:before,
+    table.dataTable thead th.select-checkbox:before,
+    table.dataTable thead th.select-checkbox:after,
+    table.dataTable tbody th.select-checkbox:after {
+        display: block;
+        position: absolute;
+        top: 1.2em;
+        left: 50%;
+        width: 12px;
+        height: 12px;
+        box-sizing: border-box;
+    }
+
+    table.dataTable tbody td.select-checkbox:before,
+    table.dataTable tbody th.select-checkbox:before,
+    table.dataTable thead th.select-checkbox:before {
+        content: ' ';
+        margin-top: -6px;
+        margin-left: -6px;
+        border: 1px solid black;
+        border-radius: 3px;
+    }
+
+
+table.dataTable tr th.selected.select-checkbox:after {
+    content: '\2714';
+    margin-top: -11px;
+    margin-left: -4px;
+    text-align: center;
+    text-shadow: 1px 1px #B0BED9, -1px -1px #B0BED9, 1px -1px #B0BED9, -1px 1px #B0BED9;
+}
+
+#datatableMSCVFE_wrapper .row:last-child div:last-child {
+    width: 100%;
+    padding: 0;
+}
+
+#datatableMSCVFE_paginate {
+    text-align: center;
+}
+
+    #datatableMSCVFE_paginate ul.pagination {
+        width: auto;
+        margin: auto;
+    }
+
+
+#datatableMSCVE_wrapper .row:last-child div:last-child {
+    width: 100%;
+    padding: 0;
+}
+
+#datatableMSCVE_paginate {
+    text-align: center;
+}
+
+    #datatableMSCVE_paginate ul.pagination {
+        width: auto;
+        margin: auto;
+    }
+
+#overlay-loading {
+    position: fixed;
+    z-index: 99999;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(255,255,255,0.98);
+    transition: 1s 0.4s;
+    align-content: center;
+}
+
+
+.overlay-loading {
+    position: absolute;
+    z-index: 999;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(255,255,255,0.5);
+    transition: 1s 0.4s;
+    align-content: center;
+}
+
+    .overlay-loading img {
+        display: block;
+        position: absolute;
+        top: 45%;
+        left: 45%;
+    }
+
+#invoice-container-voyage-list-pv .invoice-overlay-loading {
+    position: absolute;
+    z-index: 999;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    padding-top: 20%;
+    transition: 1s 0.4s;
+    align-content: center;
+    text-align: center;
+    float: right;
+}
+
+.loadingM {
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    margin-left: 200px;
+    height: 100%;
+    width: 100%;
+    margin-top: 200px;
+}
+
+.ly-overlay-loading {
+    background: rgba(255,255,255,0.98);
+}
+
+    .ly-overlay-loading img {
+        top: 45%;
+        left: 50%;
+    }
+
+.form-overlay-loading {
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-bottom: 15px;
+}
+
+
+    .form-overlay-loading img {
+        display: block;
+        position: absolute;
+        top: 40%;
+        left: 41%;
+    }
+
+tr.disabled, .pointer-evt {
+    pointer-events: none;
+}
+
+
+
+.action-button-collapse {
+    position: fixed;
+    z-index: 300;
+    background: #f2f2f2;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid lightgrey;
+    margin: 0 auto;
+    margin-top: -7.6%;
+    min-width: 140px;
+}
+
+    .action-button-collapse button {
+        display: block;
+        margin-bottom: 8px;
+        width: 100%;
+    }
+
+.stretch-out-on-hover:hover {
+    letter-spacing: 2px;
+    transition: letter-spacing linear 0.3s;
+}
+
+#date-floor-psf-form .btn-group .multiselect {
+    background: #31b0d5;
+}
+
+.btn:focus,
+.btn:active:focus,
+.btn.active:focus,
+.btn.focus,
+.btn:active.focus,
+.btn.active.focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+
+.icon {
+    width: 18px;
+    color: #337ab7 !important;
+    transform: translate(0, -4px);
+    fill: #337ab7;
+}
+
+.button-processing {
+    pointer-events: none;
+    filter: grayscale(100%);
+}
+
+    .button-processing .loader {
+        display: inline-block !important;
+        animation: spin 0.8s linear infinite;
+    }
+
+.show-phone-2 {
+    right: 0;
+    position: absolute;
+    transform: translateY(240%);
+    margin-right: 20px;
+    border-radius: 50px;
+    z-index: 200;
+    color: #12b000;
+}
+
+    .show-phone-2:hover {
+        cursor: pointer;
+        color: #313131;
+    }
+
+#phone-2 {
+    position: absolute;
+    z-index: 210;
+    background: whitesmoke;
+    width: 90%;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+
+/*
+    Nofication Bell Animation
+*/
+.bell-ring-animation {
+    animation: ring 1.5s infinite linear;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes ring {
+    0% {
+        transform: rotate(-10deg);
+    }
+
+    12.5% {
+        transform: rotate(15deg);
+    }
+
+    25% {
+        transform: rotate(-20deg);
+    }
+
+    37.5% {
+        transform: rotate(30deg);
+    }
+
+    50% {
+        transform: rotate(10deg);
+    }
+
+    62.5% {
+        transform: rotate(-20deg);
+    }
+
+    75% {
+        transform: rotate(15deg);
+    }
+
+    100% {
+        transform: rotate(-15deg);
+    }
+}
+
+
+
+/* Pure CSS (SCSS) Bootstrap compatible circular progress bar
+*/
+.progress {
+    width: 150px;
+    height: 150px;
+    line-height: 150px;
+    background: none;
+    margin: 0 auto;
+    box-shadow: none;
+    position: relative;
+}
+
+    .progress:after {
+        content: "";
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        border: 7px solid #eee;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    .progress > span {
+        width: 50%;
+        height: 100%;
+        overflow: hidden;
+        position: absolute;
+        top: 0;
+        z-index: 1;
+    }
+
+    .progress .progress-left {
+        left: 0;
+    }
+
+    .progress .progress-bar {
+        width: 100%;
+        height: 100%;
+        background: none;
+        border-width: 7px;
+        border-style: solid;
+        position: absolute;
+        top: 0;
+        border-color: #ffb43e;
+    }
+
+    .progress .progress-left .progress-bar {
+        left: 100%;
+        border-top-right-radius: 75px;
+        border-bottom-right-radius: 75px;
+        border-left: 0;
+        -webkit-transform-origin: center left;
+        transform-origin: center left;
+    }
+
+    .progress .progress-right {
+        right: 0;
+    }
+
+        .progress .progress-right .progress-bar {
+            left: -100%;
+            border-top-left-radius: 75px;
+            border-bottom-left-radius: 75px;
+            border-right: 0;
+            -webkit-transform-origin: center right;
+            transform-origin: center right;
+        }
+
+    .progress .progress-value {
+        display: flex;
+        border-radius: 50%;
+        font-size: 36px;
+        text-align: center;
+        line-height: 20px;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        font-weight: 300;
+    }
+
+        .progress .progress-value div {
+            margin-top: 10px;
+        }
+
+        .progress .progress-value span {
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+
+    /* This for loop creates the 	necessary css animation names 
+Due to the split circle of progress-left and progress right, we must use the animations on each side. 
+*/
+    .progress[data-percentage="1"] .progress-right .progress-bar {
+        animation: loading-1 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="1"] .progress-left .progress-bar {
+        animation: 0;
+    }
+
+    .progress[data-percentage="2"] .progress-right .progress-bar {
+        animation: loading-2 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="2"] .progress-left .progress-bar {
+        animation: 0;
+    }
+
+    .progress[data-percentage="3"] .progress-right .progress-bar {
+        animation: loading-3 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="3"] .progress-left .progress-bar {
+        animation: 0;
+    }
+
+    .progress[data-percentage="4"] .progress-right .progress-bar {
+        animation: loading-4 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="4"] .progress-left .progress-bar {
+        animation: 0;
+    }
+
+    .progress[data-percentage="5"] .progress-right .progress-bar {
+        animation: loading-5 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="5"] .progress-left .progress-bar {
+        animation: 0;
+    }
+
+    .progress[data-percentage="6"] .progress-right .progress-bar {
+        animation: loading-6 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="6"] .progress-left .progress-bar {
+        animation: 0;
+    }
+
+    .progress[data-percentage="7"] .progress-right .progress-bar {
+        animation: loading-7 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="7"] .progress-left .progress-bar {
+        animation: 0;
+    }
+
+    .progress[data-percentage="8"] .progress-right .progress-bar {
+        animation: loading-8 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="8"] .progress-left .progress-bar {
+        animation: 0;
+    }
+
+    .progress[data-percentage="9"] .progress-right .progress-bar {
+        animation: loading-9 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="9"] .progress-left .progress-bar {
+        animation: 0;
+    }
+
+    .progress[data-percentage="10"] .progress-right .progress-bar {
+        animation: loading-10 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="10"] .progress-left .progress-bar {
+        animation: 0;
+    }
+
+    .progress[data-percentage="11"] .progress-right .progress-bar {
+        animation: loading-11 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="11"] .progress-left .progress-bar {
+        animation: 0;
+    }
+
+    .progress[data-percentage="12"] .progress-right .progress-bar {
+        animation: loading-12 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="12"] .progress-left .progress-bar {
+        animation: 0;
+    }
+
+    .progress[data-percentage="13"] .progress-right .progress-bar {
+        animation: loading-13 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="13"] .progress-left .progress-bar {
+        animation: 0;
+    }
+
+    .progress[data-percentage="14"] .progress-right .progress-bar {
+        animation: loading-14 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="14"] .progress-left .progress-bar {
+        animation: 0;
+    }
+
+    .progress[data-percentage="15"] .progress-right .progress-bar {
+        animation: loading-15 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="15"] .progress-left .progress-bar {
+        animation: 0;
+    }
+
+    .progress[data-percentage="16"] .progress-right .progress-bar {
+        animation: loading-16 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="16"] .progress-left .progress-bar {
+        animation: 0;
+    }
+
+    .progress[data-percentage="17"] .progress-right .progress-bar {
+        animation: loading-17 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="17"] .progress-left .progress-bar {
+        animation: 0;
+    }
+
+    .progress[data-percentage="18"] .progress-right .progress-bar {
+        animation: loading-18 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="18"] .progress-left .progress-bar {
+        animation: 0;
+    }
+
+    .progress[data-percentage="19"] .progress-right .progress-bar {
+        animation: loading-19 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="19"] .progress-left .progress-bar {
+        animation: 0;
+    }
+
+    .progress[data-percentage="20"] .progress-right .progress-bar {
+        animation: loading-20 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="20"] .progress-left .progress-bar {
+        animation: 0;
+    }
+
+    .progress[data-percentage="21"] .progress-right .progress-bar {
+        animation: loading-21 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="21"] .progress-left .progress-bar {
+        animation: 0;
+    }
+
+    .progress[data-percentage="22"] .progress-right .progress-bar {
+        animation: loading-22 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="22"] .progress-left .progress-bar {
+        animation: 0;
+    }
+
+    .progress[data-percentage="23"] .progress-right .progress-bar {
+        animation: loading-23 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="23"] .progress-left .progress-bar {
+        animation: 0;
+    }
+
+    .progress[data-percentage="24"] .progress-right .progress-bar {
+        animation: loading-24 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="24"] .progress-left .progress-bar {
+        animation: 0;
+    }
+
+    .progress[data-percentage="25"] .progress-right .progress-bar {
+        animation: loading-25 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="25"] .progress-left .progress-bar {
+        animation: 0;
+    }
+
+    .progress[data-percentage="26"] .progress-right .progress-bar {
+        animation: loading-26 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="26"] .progress-left .progress-bar {
+        animation: 0;
+    }
+
+    .progress[data-percentage="27"] .progress-right .progress-bar {
+        animation: loading-27 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="27"] .progress-left .progress-bar {
+        animation: 0;
+    }
+
+    .progress[data-percentage="28"] .progress-right .progress-bar {
+        animation: loading-28 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="28"] .progress-left .progress-bar {
+        animation: 0;
+    }
+
+    .progress[data-percentage="29"] .progress-right .progress-bar {
+        animation: loading-29 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="29"] .progress-left .progress-bar {
+        animation: 0;
+    }
+
+    .progress[data-percentage="30"] .progress-right .progress-bar {
+        animation: loading-30 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="30"] .progress-left .progress-bar {
+        animation: 0;
+    }
+
+    .progress[data-percentage="31"] .progress-right .progress-bar {
+        animation: loading-31 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="31"] .progress-left .progress-bar {
+        animation: 0;
+    }
+
+    .progress[data-percentage="32"] .progress-right .progress-bar {
+        animation: loading-32 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="32"] .progress-left .progress-bar {
+        animation: 0;
+    }
+
+    .progress[data-percentage="33"] .progress-right .progress-bar {
+        animation: loading-33 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="33"] .progress-left .progress-bar {
+        animation: 0;
+    }
+
+    .progress[data-percentage="34"] .progress-right .progress-bar {
+        animation: loading-34 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="34"] .progress-left .progress-bar {
+        animation: 0;
+    }
+
+    .progress[data-percentage="35"] .progress-right .progress-bar {
+        animation: loading-35 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="35"] .progress-left .progress-bar {
+        animation: 0;
+    }
+
+    .progress[data-percentage="36"] .progress-right .progress-bar {
+        animation: loading-36 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="36"] .progress-left .progress-bar {
+        animation: 0;
+    }
+
+    .progress[data-percentage="37"] .progress-right .progress-bar {
+        animation: loading-37 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="37"] .progress-left .progress-bar {
+        animation: 0;
+    }
+
+    .progress[data-percentage="38"] .progress-right .progress-bar {
+        animation: loading-38 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="38"] .progress-left .progress-bar {
+        animation: 0;
+    }
+
+    .progress[data-percentage="39"] .progress-right .progress-bar {
+        animation: loading-39 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="39"] .progress-left .progress-bar {
+        animation: 0;
+    }
+
+    .progress[data-percentage="40"] .progress-right .progress-bar {
+        animation: loading-40 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="40"] .progress-left .progress-bar {
+        animation: 0;
+    }
+
+    .progress[data-percentage="41"] .progress-right .progress-bar {
+        animation: loading-41 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="41"] .progress-left .progress-bar {
+        animation: 0;
+    }
+
+    .progress[data-percentage="42"] .progress-right .progress-bar {
+        animation: loading-42 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="42"] .progress-left .progress-bar {
+        animation: 0;
+    }
+
+    .progress[data-percentage="43"] .progress-right .progress-bar {
+        animation: loading-43 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="43"] .progress-left .progress-bar {
+        animation: 0;
+    }
+
+    .progress[data-percentage="44"] .progress-right .progress-bar {
+        animation: loading-44 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="44"] .progress-left .progress-bar {
+        animation: 0;
+    }
+
+    .progress[data-percentage="45"] .progress-right .progress-bar {
+        animation: loading-45 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="45"] .progress-left .progress-bar {
+        animation: 0;
+    }
+
+    .progress[data-percentage="46"] .progress-right .progress-bar {
+        animation: loading-46 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="46"] .progress-left .progress-bar {
+        animation: 0;
+    }
+
+    .progress[data-percentage="47"] .progress-right .progress-bar {
+        animation: loading-47 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="47"] .progress-left .progress-bar {
+        animation: 0;
+    }
+
+    .progress[data-percentage="48"] .progress-right .progress-bar {
+        animation: loading-48 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="48"] .progress-left .progress-bar {
+        animation: 0;
+    }
+
+    .progress[data-percentage="49"] .progress-right .progress-bar {
+        animation: loading-49 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="49"] .progress-left .progress-bar {
+        animation: 0;
+    }
+
+    .progress[data-percentage="50"] .progress-right .progress-bar {
+        animation: loading-50 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="50"] .progress-left .progress-bar {
+        animation: 0;
+    }
+
+    .progress[data-percentage="51"] .progress-right .progress-bar {
+        animation: loading-50 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="51"] .progress-left .progress-bar {
+        animation: loading-1 1.5s linear forwards 1.5s;
+    }
+
+    .progress[data-percentage="52"] .progress-right .progress-bar {
+        animation: loading-50 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="52"] .progress-left .progress-bar {
+        animation: loading-2 1.5s linear forwards 1.5s;
+    }
+
+    .progress[data-percentage="53"] .progress-right .progress-bar {
+        animation: loading-50 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="53"] .progress-left .progress-bar {
+        animation: loading-3 1.5s linear forwards 1.5s;
+    }
+
+    .progress[data-percentage="54"] .progress-right .progress-bar {
+        animation: loading-50 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="54"] .progress-left .progress-bar {
+        animation: loading-4 1.5s linear forwards 1.5s;
+    }
+
+    .progress[data-percentage="55"] .progress-right .progress-bar {
+        animation: loading-50 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="55"] .progress-left .progress-bar {
+        animation: loading-5 1.5s linear forwards 1.5s;
+    }
+
+    .progress[data-percentage="56"] .progress-right .progress-bar {
+        animation: loading-50 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="56"] .progress-left .progress-bar {
+        animation: loading-6 1.5s linear forwards 1.5s;
+    }
+
+    .progress[data-percentage="57"] .progress-right .progress-bar {
+        animation: loading-50 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="57"] .progress-left .progress-bar {
+        animation: loading-7 1.5s linear forwards 1.5s;
+    }
+
+    .progress[data-percentage="58"] .progress-right .progress-bar {
+        animation: loading-50 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="58"] .progress-left .progress-bar {
+        animation: loading-8 1.5s linear forwards 1.5s;
+    }
+
+    .progress[data-percentage="59"] .progress-right .progress-bar {
+        animation: loading-50 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="59"] .progress-left .progress-bar {
+        animation: loading-9 1.5s linear forwards 1.5s;
+    }
+
+    .progress[data-percentage="60"] .progress-right .progress-bar {
+        animation: loading-50 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="60"] .progress-left .progress-bar {
+        animation: loading-10 1.5s linear forwards 1.5s;
+    }
+
+    .progress[data-percentage="61"] .progress-right .progress-bar {
+        animation: loading-50 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="61"] .progress-left .progress-bar {
+        animation: loading-11 1.5s linear forwards 1.5s;
+    }
+
+    .progress[data-percentage="62"] .progress-right .progress-bar {
+        animation: loading-50 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="62"] .progress-left .progress-bar {
+        animation: loading-12 1.5s linear forwards 1.5s;
+    }
+
+    .progress[data-percentage="63"] .progress-right .progress-bar {
+        animation: loading-50 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="63"] .progress-left .progress-bar {
+        animation: loading-13 1.5s linear forwards 1.5s;
+    }
+
+    .progress[data-percentage="64"] .progress-right .progress-bar {
+        animation: loading-50 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="64"] .progress-left .progress-bar {
+        animation: loading-14 1.5s linear forwards 1.5s;
+    }
+
+    .progress[data-percentage="65"] .progress-right .progress-bar {
+        animation: loading-50 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="65"] .progress-left .progress-bar {
+        animation: loading-15 1.5s linear forwards 1.5s;
+    }
+
+    .progress[data-percentage="66"] .progress-right .progress-bar {
+        animation: loading-50 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="66"] .progress-left .progress-bar {
+        animation: loading-16 1.5s linear forwards 1.5s;
+    }
+
+    .progress[data-percentage="67"] .progress-right .progress-bar {
+        animation: loading-50 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="67"] .progress-left .progress-bar {
+        animation: loading-17 1.5s linear forwards 1.5s;
+    }
+
+    .progress[data-percentage="68"] .progress-right .progress-bar {
+        animation: loading-50 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="68"] .progress-left .progress-bar {
+        animation: loading-18 1.5s linear forwards 1.5s;
+    }
+
+    .progress[data-percentage="69"] .progress-right .progress-bar {
+        animation: loading-50 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="69"] .progress-left .progress-bar {
+        animation: loading-19 1.5s linear forwards 1.5s;
+    }
+
+    .progress[data-percentage="70"] .progress-right .progress-bar {
+        animation: loading-50 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="70"] .progress-left .progress-bar {
+        animation: loading-20 1.5s linear forwards 1.5s;
+    }
+
+    .progress[data-percentage="71"] .progress-right .progress-bar {
+        animation: loading-50 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="71"] .progress-left .progress-bar {
+        animation: loading-21 1.5s linear forwards 1.5s;
+    }
+
+    .progress[data-percentage="72"] .progress-right .progress-bar {
+        animation: loading-50 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="72"] .progress-left .progress-bar {
+        animation: loading-22 1.5s linear forwards 1.5s;
+    }
+
+    .progress[data-percentage="73"] .progress-right .progress-bar {
+        animation: loading-50 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="73"] .progress-left .progress-bar {
+        animation: loading-23 1.5s linear forwards 1.5s;
+    }
+
+    .progress[data-percentage="74"] .progress-right .progress-bar {
+        animation: loading-50 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="74"] .progress-left .progress-bar {
+        animation: loading-24 1.5s linear forwards 1.5s;
+    }
+
+    .progress[data-percentage="75"] .progress-right .progress-bar {
+        animation: loading-50 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="75"] .progress-left .progress-bar {
+        animation: loading-25 1.5s linear forwards 1.5s;
+    }
+
+    .progress[data-percentage="76"] .progress-right .progress-bar {
+        animation: loading-50 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="76"] .progress-left .progress-bar {
+        animation: loading-26 1.5s linear forwards 1.5s;
+    }
+
+    .progress[data-percentage="77"] .progress-right .progress-bar {
+        animation: loading-50 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="77"] .progress-left .progress-bar {
+        animation: loading-27 1.5s linear forwards 1.5s;
+    }
+
+    .progress[data-percentage="78"] .progress-right .progress-bar {
+        animation: loading-50 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="78"] .progress-left .progress-bar {
+        animation: loading-28 1.5s linear forwards 1.5s;
+    }
+
+    .progress[data-percentage="79"] .progress-right .progress-bar {
+        animation: loading-50 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="79"] .progress-left .progress-bar {
+        animation: loading-29 1.5s linear forwards 1.5s;
+    }
+
+    .progress[data-percentage="80"] .progress-right .progress-bar {
+        animation: loading-50 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="80"] .progress-left .progress-bar {
+        animation: loading-30 1.5s linear forwards 1.5s;
+    }
+
+    .progress[data-percentage="81"] .progress-right .progress-bar {
+        animation: loading-50 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="81"] .progress-left .progress-bar {
+        animation: loading-31 1.5s linear forwards 1.5s;
+    }
+
+    .progress[data-percentage="82"] .progress-right .progress-bar {
+        animation: loading-50 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="82"] .progress-left .progress-bar {
+        animation: loading-32 1.5s linear forwards 1.5s;
+    }
+
+    .progress[data-percentage="83"] .progress-right .progress-bar {
+        animation: loading-50 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="83"] .progress-left .progress-bar {
+        animation: loading-33 1.5s linear forwards 1.5s;
+    }
+
+    .progress[data-percentage="84"] .progress-right .progress-bar {
+        animation: loading-50 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="84"] .progress-left .progress-bar {
+        animation: loading-34 1.5s linear forwards 1.5s;
+    }
+
+    .progress[data-percentage="85"] .progress-right .progress-bar {
+        animation: loading-50 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="85"] .progress-left .progress-bar {
+        animation: loading-35 1.5s linear forwards 1.5s;
+    }
+
+    .progress[data-percentage="86"] .progress-right .progress-bar {
+        animation: loading-50 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="86"] .progress-left .progress-bar {
+        animation: loading-36 1.5s linear forwards 1.5s;
+    }
+
+    .progress[data-percentage="87"] .progress-right .progress-bar {
+        animation: loading-50 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="87"] .progress-left .progress-bar {
+        animation: loading-37 1.5s linear forwards 1.5s;
+    }
+
+    .progress[data-percentage="88"] .progress-right .progress-bar {
+        animation: loading-50 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="88"] .progress-left .progress-bar {
+        animation: loading-38 1.5s linear forwards 1.5s;
+    }
+
+    .progress[data-percentage="89"] .progress-right .progress-bar {
+        animation: loading-50 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="89"] .progress-left .progress-bar {
+        animation: loading-39 1.5s linear forwards 1.5s;
+    }
+
+    .progress[data-percentage="90"] .progress-right .progress-bar {
+        animation: loading-50 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="90"] .progress-left .progress-bar {
+        animation: loading-40 1.5s linear forwards 1.5s;
+    }
+
+    .progress[data-percentage="91"] .progress-right .progress-bar {
+        animation: loading-50 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="91"] .progress-left .progress-bar {
+        animation: loading-41 1.5s linear forwards 1.5s;
+    }
+
+    .progress[data-percentage="92"] .progress-right .progress-bar {
+        animation: loading-50 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="92"] .progress-left .progress-bar {
+        animation: loading-42 1.5s linear forwards 1.5s;
+    }
+
+    .progress[data-percentage="93"] .progress-right .progress-bar {
+        animation: loading-50 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="93"] .progress-left .progress-bar {
+        animation: loading-43 1.5s linear forwards 1.5s;
+    }
+
+    .progress[data-percentage="94"] .progress-right .progress-bar {
+        animation: loading-50 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="94"] .progress-left .progress-bar {
+        animation: loading-44 1.5s linear forwards 1.5s;
+    }
+
+    .progress[data-percentage="95"] .progress-right .progress-bar {
+        animation: loading-50 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="95"] .progress-left .progress-bar {
+        animation: loading-45 1.5s linear forwards 1.5s;
+    }
+
+    .progress[data-percentage="96"] .progress-right .progress-bar {
+        animation: loading-50 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="96"] .progress-left .progress-bar {
+        animation: loading-46 1.5s linear forwards 1.5s;
+    }
+
+    .progress[data-percentage="97"] .progress-right .progress-bar {
+        animation: loading-50 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="97"] .progress-left .progress-bar {
+        animation: loading-47 1.5s linear forwards 1.5s;
+    }
+
+    .progress[data-percentage="98"] .progress-right .progress-bar {
+        animation: loading-50 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="98"] .progress-left .progress-bar {
+        animation: loading-48 1.5s linear forwards 1.5s;
+    }
+
+    .progress[data-percentage="99"] .progress-right .progress-bar {
+        animation: loading-50 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="99"] .progress-left .progress-bar {
+        animation: loading-49 1.5s linear forwards 1.5s;
+    }
+
+    .progress[data-percentage="100"] .progress-right .progress-bar {
+        animation: loading-50 1.5s linear forwards;
+    }
+
+    .progress[data-percentage="100"] .progress-left .progress-bar {
+        animation: loading-50 1.5s linear forwards 1.5s;
+    }
+
+@keyframes loading-1 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(3.6);
+        transform: rotate(3.6deg);
+    }
+}
+
+@keyframes loading-2 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(7.2);
+        transform: rotate(7.2deg);
+    }
+}
+
+@keyframes loading-3 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(10.8);
+        transform: rotate(10.8deg);
+    }
+}
+
+@keyframes loading-4 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(14.4);
+        transform: rotate(14.4deg);
+    }
+}
+
+@keyframes loading-5 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(18);
+        transform: rotate(18deg);
+    }
+}
+
+@keyframes loading-6 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(21.6);
+        transform: rotate(21.6deg);
+    }
+}
+
+@keyframes loading-7 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(25.2);
+        transform: rotate(25.2deg);
+    }
+}
+
+@keyframes loading-8 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(28.8);
+        transform: rotate(28.8deg);
+    }
+}
+
+@keyframes loading-9 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(32.4);
+        transform: rotate(32.4deg);
+    }
+}
+
+@keyframes loading-10 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(36);
+        transform: rotate(36deg);
+    }
+}
+
+@keyframes loading-11 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(39.6);
+        transform: rotate(39.6deg);
+    }
+}
+
+@keyframes loading-12 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(43.2);
+        transform: rotate(43.2deg);
+    }
+}
+
+@keyframes loading-13 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(46.8);
+        transform: rotate(46.8deg);
+    }
+}
+
+@keyframes loading-14 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(50.4);
+        transform: rotate(50.4deg);
+    }
+}
+
+@keyframes loading-15 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(54);
+        transform: rotate(54deg);
+    }
+}
+
+@keyframes loading-16 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(57.6);
+        transform: rotate(57.6deg);
+    }
+}
+
+@keyframes loading-17 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(61.2);
+        transform: rotate(61.2deg);
+    }
+}
+
+@keyframes loading-18 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(64.8);
+        transform: rotate(64.8deg);
+    }
+}
+
+@keyframes loading-19 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(68.4);
+        transform: rotate(68.4deg);
+    }
+}
+
+@keyframes loading-20 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(72);
+        transform: rotate(72deg);
+    }
+}
+
+@keyframes loading-21 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(75.6);
+        transform: rotate(75.6deg);
+    }
+}
+
+@keyframes loading-22 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(79.2);
+        transform: rotate(79.2deg);
+    }
+}
+
+@keyframes loading-23 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(82.8);
+        transform: rotate(82.8deg);
+    }
+}
+
+@keyframes loading-24 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(86.4);
+        transform: rotate(86.4deg);
+    }
+}
+
+@keyframes loading-25 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(90);
+        transform: rotate(90deg);
+    }
+}
+
+@keyframes loading-26 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(93.6);
+        transform: rotate(93.6deg);
+    }
+}
+
+@keyframes loading-27 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(97.2);
+        transform: rotate(97.2deg);
+    }
+}
+
+@keyframes loading-28 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(100.8);
+        transform: rotate(100.8deg);
+    }
+}
+
+@keyframes loading-29 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(104.4);
+        transform: rotate(104.4deg);
+    }
+}
+
+@keyframes loading-30 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(108);
+        transform: rotate(108deg);
+    }
+}
+
+@keyframes loading-31 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(111.6);
+        transform: rotate(111.6deg);
+    }
+}
+
+@keyframes loading-32 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(115.2);
+        transform: rotate(115.2deg);
+    }
+}
+
+@keyframes loading-33 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(118.8);
+        transform: rotate(118.8deg);
+    }
+}
+
+@keyframes loading-34 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(122.4);
+        transform: rotate(122.4deg);
+    }
+}
+
+@keyframes loading-35 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(126);
+        transform: rotate(126deg);
+    }
+}
+
+@keyframes loading-36 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(129.6);
+        transform: rotate(129.6deg);
+    }
+}
+
+@keyframes loading-37 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(133.2);
+        transform: rotate(133.2deg);
+    }
+}
+
+@keyframes loading-38 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(136.8);
+        transform: rotate(136.8deg);
+    }
+}
+
+@keyframes loading-39 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(140.4);
+        transform: rotate(140.4deg);
+    }
+}
+
+@keyframes loading-40 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(144);
+        transform: rotate(144deg);
+    }
+}
+
+@keyframes loading-41 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(147.6);
+        transform: rotate(147.6deg);
+    }
+}
+
+@keyframes loading-42 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(151.2);
+        transform: rotate(151.2deg);
+    }
+}
+
+@keyframes loading-43 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(154.8);
+        transform: rotate(154.8deg);
+    }
+}
+
+@keyframes loading-44 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(158.4);
+        transform: rotate(158.4deg);
+    }
+}
+
+@keyframes loading-45 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(162);
+        transform: rotate(162deg);
+    }
+}
+
+@keyframes loading-46 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(165.6);
+        transform: rotate(165.6deg);
+    }
+}
+
+@keyframes loading-47 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(169.2);
+        transform: rotate(169.2deg);
+    }
+}
+
+@keyframes loading-48 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(172.8);
+        transform: rotate(172.8deg);
+    }
+}
+
+@keyframes loading-49 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(176.4);
+        transform: rotate(176.4deg);
+    }
+}
+
+@keyframes loading-50 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(180);
+        transform: rotate(180deg);
+    }
+}
+
+.progress {
+    margin-bottom: 1em;
+}

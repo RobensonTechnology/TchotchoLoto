@@ -1,0 +1,50 @@
+﻿
+@model TchotchoLoto.Models.Permission
+
+<div class="modal-content">
+    <div class="modal-header" style="background-color: #0078d7; border-radius:5px 5px 0 0;">
+
+        <h4 style="display: inline;">Edit Permission</h4>
+
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+    </div>
+    <div class="modal-body row" style="padding:6%;">
+
+        @using (Html.BeginForm("_Index", "Permissions", FormMethod.Post, htmlAttributes: new { id = "Edit-Permission-Form" }))
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.HiddenFor(model => model.PermissionId, htmlAttributes: new { @class = "id-resetable" })
+
+            <div class="form">
+
+                <div class="form-group col-md-12 col-sm-12">
+                    @Html.LabelFor(model => model.ObjectName, "Object Name", htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.ObjectName, new { htmlAttributes = new { @class = "form-control editor-resetable" } })
+                </div>
+
+                <div class="form-group col-md-12 col-sm-12">
+                    @Html.LabelFor(model => model.ParentName, "Parent Name", htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.ParentName, new { htmlAttributes = new { @class = "form-control editor-resetable" } })
+                </div>
+
+                <div class="form-group col-md-12 col-sm-12">
+                    @Html.LabelFor(model => model.Label, "Label", htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.Label, new { htmlAttributes = new { @class = "form-control editor-resetable" } })
+                </div>
+
+            </div>
+
+            <div class="col-md-12 col-sm-12 col-xs-12" style="border-top:1px solid #d7d7d7; padding-top:10px; text-align:right;">
+
+                <button type="submit" class="btn btn-sm btn-info submit"><span class="glyphicon glyphicon-save-file"></span> Save <span class="glyphicon glyphicon-refresh loader" style="display:none;"></span> </button>
+                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Close</button>
+
+            </div>
+
+        }
+
+    </div>
+
+</div>

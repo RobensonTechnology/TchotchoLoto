@@ -1,0 +1,404 @@
+﻿@model TchotchoLoto.Models.User
+
+@{
+
+    ViewBag.Title = "User";
+    Layout = null;
+}
+
+<input type="hidden" class="title" data-title="User" />
+
+<div class="indicator">
+    Security  &nbsp;&nbsp; <span class="glyphicon glyphicon-chevron-right"></span> &nbsp; &nbsp; User
+
+</div>
+
+
+<div class="header-body">
+    <p style="display:inline-block;">
+        &nbsp;&nbsp;User (<span id="hb-nbre-user">
+            @if (ViewBag.users != null)
+            {@ViewBag.users.Count}
+        else { Write(0); }
+        </span>)
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon star glyphicon-star text-success"></span>
+
+    </p>
+
+    <div style="display:inline-block;" class="header-buttons">
+        <button class="add-after-edit add-after-edit btn btn-success btn-sm pull-right" data-toggle="modal" data-target="#create-user-modal">
+            <span class="glyphicon glyphicon-plus"></span> Add User
+        </button>
+    </div>
+</div>
+
+<br />
+
+<div class="page-scroll-content" id="user-list-pv">
+
+    @Html.Partial("__Index")
+
+</div>
+
+<input id="url-get-user-list" type="hidden" data-url="@Url.Action("__Index", "Users")" />
+
+<div id="create-user-modal" class="modal fade" app-navigation="dialog" data-backdrop="static">
+    <div class="modal-dialog modal-md">
+
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #0078d7; border-radius:5px 5px 0 0;">
+
+                <h4 style="display: inline;">Add User</h4>
+
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+            <div class="modal-body row" style="padding:3%;">
+
+                @using (Html.BeginForm("_Index", "Users", FormMethod.Post, htmlAttributes: new { id = "Create-User-Form" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    @Html.HiddenFor(model => model.UserId, htmlAttributes: new { @class = "id-resetable" })
+
+                    <div class="form">
+
+
+                        <div class="form-group col-md-6 col-sm-6">
+                            @Html.LabelFor(model => model.FirstName, "First Name", htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control editor-resetable" } })
+                        </div>
+
+                        <div class="form-group col-md-6 col-sm-6">
+                            @Html.LabelFor(model => model.LastName, "Last Name", htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control editor-resetable" } })
+                        </div>
+
+                        @*<div class="form-group col-md-6 col-sm-6">
+                            @Html.LabelFor(model => model.UserName, "UserName", htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control editor-resetable" } })
+                        </div>*@
+
+                        <div class="form-group col-md-6 col-sm-6">
+                            @Html.LabelFor(model => model.Email, "Email", htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control editor-resetable" } })
+                        </div>
+
+
+                        <div class="form-group col-md-6 col-sm-6">
+                            @Html.LabelFor(model => model.RoleId, "Role", htmlAttributes: new { @class = "control-label" })
+                            @Html.DropDownList("RoleId", null, "Select a Role", htmlAttributes: new { @class = "form-control ", id = "ddlRoleId" })
+                        </div>
+
+                        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                            @Html.LabelFor(model => model.Password, "Password", htmlAttributes: new { @class = "control-label" })
+                            @Html.PasswordFor(model => model.Password, new { @class = "form-control editor-resetable" })
+                        </div>
+
+                        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                            <label class="control-label" for="cnfrm">Confirm Password</label>
+                            <input class="form-control resetable text-box single-line editor-resetable" type="password" id="cnfrm" name="passwordConfirm" value="" />
+                        </div>
+
+
+
+                    </div>
+
+                    <div class="col-md-12 col-sm-12 col-xs-12" style="border-top:1px solid #d7d7d7; padding-top:10px; text-align:right;">
+
+                        <button type="submit" class="btn btn-sm btn-info submit"><span class="glyphicon glyphicon-save-file"></span> Save <span class="glyphicon glyphicon-refresh loader" style="display:none;"></span> </button>
+                        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Close</button>
+
+                    </div>
+
+
+                }
+
+                <div class="password-strong-tooltip">
+                    <span class="glyphicon glyphicon-play"></span>
+                    <ul>
+                        <li id="digit-criteria"><span class="glyphicon" style="height:15px; width:15px; border:1px solid lightgrey; border-radius:50px; "></span> Digit</li>
+                        <li id="uc-letter-criteria"><span class="glyphicon" style="height:15px; width:15px; border:1px solid lightgrey; border-radius:50px;"></span> Upper Case Letter</li>
+                        <li id="lc-letter-criteria"><span class="glyphicon" style="height:15px; width:15px; border:1px solid lightgrey; border-radius:50px;"></span> Lower Case Letter</li>
+                        <li id="schar-criteria"><span class="glyphicon" style="height:15px; width:15px; border:1px solid lightgrey; border-radius:50px;"></span> Special Character</li>
+                        <li id="minchar-criteria"><span class="glyphicon" style="height:15px; width:15px; border:1px solid lightgrey; border-radius:50px;"></span> 8 Characters Min</li>
+                        <li id="maxchar-criteria"><span class="glyphicon" style="height:15px; width:15px; border:1px solid lightgrey; border-radius:50px;"></span> 32 Characters Max</li>
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<div id="edit-user-modal" class="modal fade" role="dialog" data-backdrop="static">
+    <div class="modal-dialog modal-md">
+
+
+    </div>
+</div>
+
+
+
+<div id="unlock-Modal" class="modal fade" role="dialog" data-backdrop="static">
+    <div class="modal-dialog modal-sm">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+
+            <div class="modal-header" style="background-color: #0078d7; border-radius:5px 5px 0 0;">
+
+                <h4 style="display: inline;">Unlocking</h4>
+
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+
+            <div class="modal-body row" style="padding:7%; text-align:center;">
+
+                <span class="glyphicon glyphicon-alert" style="display:block; font-size: 20px;"></span>
+                <h5 class="text-warning" style="display:block;">Do you really want to Unlock this User Account ?</h5>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <a class="lock-confirmed btn btn-sm btn-danger" href="#">
+                    YES
+                </a>
+
+                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">
+                    NO
+                </button>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div id="unlock-Modal" class="modal fade" role="dialog" data-backdrop="static">
+    <div class="modal-dialog modal-sm">
+
+        <div class="modal-content">
+
+            <div class="modal-header" style="background-color: #0078d7; border-radius:5px 5px 0 0;">
+
+                <h4 style="display: inline;">Unlock</h4>
+
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+
+            <div class="modal-body row" style="padding:7%; text-align:center;">
+
+                <span class="glyphicon glyphicon-alert" style="display:block; font-size: 20px;"></span>
+                <h5 class="text-warning" style="display:block;">Do You really Want to Unlock this Account ?</h5>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <a class="lock-confirmed btn btn-sm btn-danger" href="#">
+                    YES
+                </a>
+
+                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">
+                    NO
+                </button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="lock-modal" class="modal fade" role="dialog" data-backdrop="static">
+    <div class="modal-dialog modal-sm">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+
+            <div class="modal-header" style="background-color: #0078d7; border-radius:5px 5px 0 0;">
+
+                <h4 style="display: inline;">Unlocking</h4>
+
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+
+            <div class="modal-body row" style="padding:7%; text-align:center;">
+
+                <span class="glyphicon glyphicon-alert" style="display:block; font-size: 20px;"></span>
+                <h5 class="text-warning" style="display:block;">Do you really want to unlock this User Account ?</h5>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <a class="lock-confirmed btn btn-sm btn-danger" href="#">
+                    YES
+                </a>
+
+                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">
+                    NO
+                </button>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+<!-- Modal 2 Dialog for delete option -->
+<div id="lock-Modal" class="modal fade" role="dialog" data-backdrop="static">
+    <div class="modal-dialog modal-sm">
+
+        <div class="modal-content">
+
+            <div class="modal-header" style="background-color: #0078d7; border-radius:5px 5px 0 0;">
+
+                <h4 style="display: inline;">Lock Out</h4>
+
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+
+            <div class="modal-body row" style="padding:7%; text-align:center;">
+
+                <span class="glyphicon glyphicon-alert" style="display:block; font-size: 20px;"></span>
+                <h5 class="text-warning" style="display:block;">Do You really Want to Lock this Account ?</h5>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <a class="lock-confirmed btn btn-sm btn-danger" href="#">
+                    YES
+                </a>
+
+                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">
+                    NO
+                </button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal 2 Dialog for delete option -->
+<div id="unlock-Modal" class="modal fade" role="dialog" data-backdrop="static">
+    <div class="modal-dialog modal-sm">
+
+        <div class="modal-content">
+
+            <div class="modal-header" style="background-color: #0078d7; border-radius:5px 5px 0 0;">
+
+                <h4 style="display: inline;">Unlock</h4>
+
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+
+            <div class="modal-body row" style="padding:7%; text-align:center;">
+
+                <span class="glyphicon glyphicon-alert" style="display:block; font-size: 20px;"></span>
+                <h5 class="text-warning" style="display:block;">Do You really Want to Unlock this Account ?</h5>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <a class="lock-confirmed btn btn-sm btn-danger" href="#">
+                    YES
+                </a>
+
+                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">
+                    NO
+                </button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modal 2 Dialog for delete option -->
+<div id="delete-modal" class="modal fade" role="dialog" data-backdrop="static">
+    <div class="modal-dialog modal-sm">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+
+            <div class="modal-header" style="background-color: #0078d7; border-radius:5px 5px 0 0;">
+
+                <h4 style="display: inline;">Deletion</h4>
+
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+
+            <div class="modal-body row" style="padding:7%; text-align:center;">
+
+                <span class="glyphicon glyphicon-alert" style="display:block; font-size: 20px;"></span>
+                <h5 class="text-warning" style="display:block;">Do you really want to Delete this User ?</h5>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <a class="delete-confirmed btn btn-sm btn-danger" href="#">
+                    YES
+                </a>
+
+                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">
+                    NO
+                </button>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+<a id="validation-link" data-toggle="modal" data-target="#modal-dialog-message"></a>
+
+<div id="modal-dialog-message" class="modal fade" app-navigation="dialog" data-backdrop="static">
+    <div class="modal-dialog modal-sm">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #0078d7; border-radius:5px 5px 0 0;">
+
+                <h4 style="display: inline;">Message</h4>
+
+            </div>
+            <div class="modal-body row" style="padding:7%; text-align:center;">
+
+                <span class="glyphicon glyphicon-info-sign" style="display:block; font-size: 20px;"></span>
+                <h5 class="text-info" style="display:block;">@ViewBag.message</h5>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">
+                    OK
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="pv-overlay-loading" class="overlay-loading bc-overlay-loading" style="display:none;">
+    <img src="~/Content/images/loading-gif.gif" alt="Loading" width="50" height="50" />
+</div>

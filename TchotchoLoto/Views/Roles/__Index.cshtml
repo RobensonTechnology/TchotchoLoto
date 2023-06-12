@@ -1,0 +1,76 @@
+﻿
+<input type="hidden" id="nbre-role" value="@if (ViewBag.roles != null) { @ViewBag.roles.Count}else{ Write(0); }" />
+
+<div id="pv-overlay-loading" class="overlay-loading" style="display:none;">
+    <img src="~/Content/images/loading-gif.gif" alt="Loading" width="50" height="50" />
+</div>
+
+
+<div class="table-responsive">
+    <table id="datatable" class="table table-hover display" style="width:100%;">
+
+        <thead class="bg-success">
+
+            <tr>
+                <th>
+                    Role Name
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>
+                    Super Role
+                </th>
+                <th style="text-align:center;">
+                    Actions
+                </th>
+            </tr>
+
+        </thead>
+
+        <tbody>
+            @if (ViewBag.roles != null)
+            {
+                foreach (var item in ViewBag.roles)
+                {
+                    <tr>
+                        <td>
+                            @item.RoleName
+                        </td>
+                        <td>
+                            @item.Description
+                        </td>
+                        <td>
+
+                            @if (item.SuperRole)
+                            {
+                                <span> Yes</span>}
+
+                            else
+                            { <span> No </span>}
+
+                        </td>
+
+                        <td style="text-align:center;">
+
+                            <button id="@item.RoleId" data-toggle="collapse" data-target="#action-button-collapse-@item.RoleId" class="btn btn-xs btn-warning view-action-button-collapse-btn" style="min-width:120px;">Select &nbsp;&nbsp;<span class="glyphicon glyphicon-menu-down"></span></button>
+
+                            <div id="action-button-collapse-@item.RoleId" class="action-button-collapse collapse" style="right:4.6%;">
+
+                                <button data-url="@Url.Action("Index", "RolePermissions", new { id = item.RoleId })" class="btn btn-xs btn-success sub-view"><span class="glyphicon"></span> Permission</button>
+
+                                <button data-url="@Url.Action("_Edit", "Roles", new { id = item.RoleId })" class="edit-role-btn btn btn-xs btn-info"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+
+                                <button id="@item.RoleId" class="delete-link-rol btn btn-xs btn-danger" data-toggle="modal" data-target="#delete-modal"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+                }
+            }
+        </tbody>
+
+    </table>
+</div>

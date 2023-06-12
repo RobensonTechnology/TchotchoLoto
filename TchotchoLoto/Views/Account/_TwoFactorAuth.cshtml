@@ -1,0 +1,39 @@
+﻿
+<div class="modal-content">
+    <div class="modal-header" style="background-color: #0078d7; border-radius:5px 5px 0 0;">
+
+        <h4 style="display: inline;">Authentication</h4>
+
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+    </div>
+    <div class="modal-body row" style="padding:6%;">
+
+        @using (Html.BeginForm("TwoFactorAuth", "Account", FormMethod.Post, htmlAttributes: new { id = "Two-Factor-Auth-Form" }))
+        {
+            @Html.AntiForgeryToken()
+
+
+            <div class="form-group col-md-12 col-sm-12 col-xs-12 text-center">
+                <h5 style="display: inline;">Please enter the code that was sent to your email here</h5>
+            </div>
+
+            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                @Html.Label("Code", htmlAttributes: new { @class = "control-label" })
+                <input name="OTP" class = "form-control editor-resetable" />
+            </div>
+
+            <div class="col-md-12 col-sm-12 col-xs-12" style="border-top:1px solid #d7d7d7; padding-top:10px; text-align:right;">
+
+                <button type="submit" class="btn btn-sm btn-info submit"><span class="glyphicon glyphicon-save-file"></span> Ok <span class="glyphicon glyphicon-refresh loader" style="display:none;"></span> </button>
+                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Close</button>
+
+            </div>
+
+        }
+
+    </div>
+
+</div>
+
+

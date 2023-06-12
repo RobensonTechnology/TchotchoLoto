@@ -1,0 +1,160 @@
+﻿@using TchotchoLoto.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "TchotchoLoto";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+
+    Application currentApplicationDetails = new TchotchoLoto.Controllers.AccountController().CurrentApplication();
+}
+
+<div class="login-bg">
+
+</div>
+
+<div class="login-block">
+
+    <div class="left-pan">
+
+        <span class="icon"></span>
+
+        <span class="app-info">
+            @if (currentApplicationDetails != null)
+            {
+                <span class="app-name"> @currentApplicationDetails.ApplicationName.ToUpper()</span>
+
+                if (currentApplicationDetails.Version != null)
+                {
+                    <span class="app-version">Version @currentApplicationDetails.Version</span>
+
+                }
+                else
+                {
+                    <span class="app-version">Version 1.0</span>
+                }
+
+            }
+            else
+            {
+                <span class="app-name">TTL</span>
+                <span class="app-version">Version 1.0</span>
+
+            }
+
+        </span>
+
+        @if (currentApplicationDetails != null && currentApplicationDetails.DevelopperPar != null)
+        {
+            <span class="credit-info">Copyright © 2023 by <strong style="font-size: 0.9rem;">@currentApplicationDetails.DevelopperPar</strong>. <i>All Rights Reserved.</i></span>
+
+
+        }
+        else
+        {
+    <span class="credit-info">Copyright © 2023 by <strong style="font-size: 0.9rem;">TECHNOLOGY S.A</strong>. <i>All Rights Reserved.</i></span>
+
+
+        }
+
+    </div>
+
+
+
+
+    <div class="right-pan">
+
+        <div id="pv-overlay-loading" class="overlay-loading" style="display:none; border-radius: 8px;">
+            <img src="~/Content/images/loading-gif.gif" alt="Loading" width="50" height="50" />
+        </div>
+
+        @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { id = "Login-Form", @class = "login-form", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <h4 class="text-center" style="margin-bottom: 15px; color: #fff; border-bottom: 1px solid #8acdff; padding-bottom: 15px;">Account Login</h4>
+
+            <div class="form-group">
+                @Html.Label("E-mail", new { @class = "control-label" })
+                <div class="input-group">
+
+                    <span class="input-group-addon glyphicon glyphicon-user" style="padding:8px; border:none; top:0; color: #007dc2;">
+                    </span>
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+
+                </div>
+
+            </div>
+
+            <div class="form-group" style="margin-bottom:0;">
+                @Html.Label("Password", new { @class = "control-label" })
+                <div class="input-group">
+
+                    <span class="input-group-addon glyphicon glyphicon-lock" style="padding:8px; border:none; top:0; color: #007dc2;">
+                    </span>
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", style = "" })
+
+                </div>
+            </div>
+
+            <div class="form-group pull-right login-btn-block" style="padding-top:10px; margin-top:15px;">
+                <button type="submit" class="submit btn btn-success btn-md"><span class="glyphicon glyphicon-refresh loader" style="display:none;"></span> Login  <span class="glyphicon glyphicon-log-in"></span></button>
+            </div>
+
+        }
+
+
+
+        <div class="form-group col-md-12 col-sm-12 col-xs-12 reset-password-link" style="font-size:1.0rem;">
+            <a style="color: #ffffff;text-shadow: 0 0 6px black;letter-spacing: 2px;cursor: pointer;" class="password-forgotten-btn" data-url="@Url.Action("ResetPassword", "Account")">Forgot your password?</a>
+        </div>
+
+    </div>
+
+</div>
+
+<div id="account-user-modal" class="modal fade" role="dialog" data-backdrop="static">
+    <div class="modal-dialog modal-md">
+
+
+    </div>
+</div>
+
+<div id="two-factor-auth-modal" class="modal fade" role="dialog" data-backdrop="static">
+    <div class="modal-dialog modal-sm">
+
+
+    </div>
+</div>
+
+@if (ViewBag.message != null)
+{
+    <p class="validation-message"></p>
+}
+
+<a id="validation-link" data-toggle="modal" data-target="#modal-dialog-message"></a>
+
+<div id="modal-dialog-message" class="modal fade" role="dialog" data-backdrop="static">
+    <div class="modal-dialog modal-sm">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #0078d7; border-radius:5px 5px 0 0;">
+
+                <h4 style="display: inline;">Message</h4>
+
+            </div>
+            <div class="modal-body row" style="padding:6%; text-align:center;">
+
+                <span class="glyphicon glyphicon-info-sign" style="display:block; font-size: 20px;"></span>
+                <h5 class="text-info" style="display:block;">@ViewBag.message</h5>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">
+                    OK
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+

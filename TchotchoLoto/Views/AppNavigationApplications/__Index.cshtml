@@ -1,0 +1,54 @@
+﻿<input type="hidden" id="nbre-app-navigation-application" value="@if (ViewBag.appNavigationApplications != null) { @ViewBag.appNavigationApplications.Count}else{ Write(0); }" />
+
+<div id="pv-overlay-loading" class="overlay-loading" style="display:none;">
+    <img src="~/Content/images/loading-gif.gif" alt="Loading" width="50" height="50" />
+
+</div>
+
+
+<div class="table-responsive">
+    <table id="datatable" class="table table-hover display" style="width:100%;">
+
+        <thead class="bg-success">
+
+            <tr>
+                <th>
+                    Application
+                </th>
+                <th>
+                    Description
+                </th>
+
+                <th style="text-align:center;">
+                    Action
+                </th>
+            </tr>
+
+        </thead>
+
+        <tbody class="big-table-height">
+            @if (ViewBag.appNavigationApplications != null)
+            {
+                foreach (var item in (List<TchotchoLoto.Models.AppNavigationApplication>)ViewBag.appNavigationApplications)
+                {
+                    <tr>
+                        <td>
+                            @item.Application.ApplicationName
+                        </td>
+                        <td>
+                            @item.Application.Description
+                        </td>
+
+                        <td style="text-align:center;">
+
+                            <button id="@item.AppNavigationApplicationId" class="delete-link-app-navigation-application btn btn-xs btn-danger" data-toggle="modal" data-target="#delete-modal"><span class="glyphicon glyphicon-trash"></span> Delete </button>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+
+    </table>
+</div>
+
+@Html.DropDownList("ApplicationId", null, "Select an Application", htmlAttributes: new { @class = "form-control select select-resetable", id = "ddlApplicationIdFilled", style = "display:none;" })

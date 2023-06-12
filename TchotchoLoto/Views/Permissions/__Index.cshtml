@@ -1,0 +1,68 @@
+﻿
+<input type="hidden" id="nbre-permission" value="@if (ViewBag.permissions != null) { @ViewBag.permissions.Count}else{ Write(0); }" />
+
+<div id="pv-overlay-loading" class="overlay-loading" style="display:none;">
+    <img src="~/Content/images/loading-gif.gif" alt="Loading" width="50" height="50" />
+</div>
+
+
+<div class="table-responsive">
+    <table id="datatable" class="table table-hover display" style="width:100%;">
+
+        <thead class="bg-success">
+
+            <tr>
+                <th>
+                    Object Name
+                </th>
+                <th>
+                    Parent Name
+                </th>
+                <th>
+                    Label
+                </th>
+                <th style="text-align:center;">
+                    Actions
+                </th>
+            </tr>
+
+        </thead>
+
+        <tbody class="big-table-height">
+
+            @if (ViewBag.permissions != null)
+            {
+                foreach (var item in ViewBag.permissions)
+                {
+                    <tr>
+                        <td>
+                            @item.ObjectName
+                        </td>
+                        <td>
+                            @item.ParentName
+                        </td>
+                        <td>
+                            @item.Label
+                        </td>
+
+                        <td style="text-align:center;">
+
+                            <button id="@item.PermissionId" data-toggle="collapse" data-target="#action-button-collapse-@item.PermissionId" class="btn btn-xs btn-warning view-action-button-collapse-btn" style="min-width:120px;">Select &nbsp;&nbsp;<span class="glyphicon glyphicon-menu-down"></span></button>
+
+                            <div id="action-button-collapse-@item.PermissionId" class="action-button-collapse collapse" style="right:4.6%;">
+
+
+                                <button data-url="@Url.Action("_Edit", "Permissions", new { id = item.PermissionId})" class="edit-permission-btn btn btn-xs btn-info"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+
+                                <button id="@item.PermissionId" class="delete-link-permission btn btn-xs btn-danger" data-toggle="modal" data-target="#delete-modal"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+
+                            </div>
+
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+
+    </table>
+</div>

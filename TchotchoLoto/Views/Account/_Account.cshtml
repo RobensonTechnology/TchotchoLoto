@@ -1,0 +1,126 @@
+﻿
+@model TchotchoLoto.Models.User
+
+<div class="modal-content">
+    <div class="modal-header" style="background-color: #0078d7; border-radius:5px 5px 0 0;">
+
+        <h4 style="display: inline;">@if (Model != null) { Write(Model.FirstName + " " + Model.LastName); } Account</h4>
+
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+    </div>
+    <div class="modal-body row" style="padding:3%;">
+
+        <div style="border-bottom:1px solid #d7d7d7;  padding-left:0; padding-right:0; padding-bottom:10px; margin-bottom:10px;" class="col-md-12">
+
+            <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                @Html.Label("First Name", htmlAttributes: new { @class = "control-label" })
+                <div class="form-control control-text-resetable" readonly="readonly">
+                    @if (Model != null)
+                    {
+                        @Model.FirstName
+                    }
+                </div>
+            </div>
+
+            <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                @Html.Label("Last Name", htmlAttributes: new { @class = "control-label" })
+                <div class="form-control control-text-resetable" readonly="readonly">
+                    @if (Model != null)
+                    {
+                        @Model.LastName
+                    }
+                </div>
+            </div>
+
+            <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                @Html.Label("E-mail", htmlAttributes: new { @class = "control-label" })
+                <div class="form-control control-text-resetable" readonly="readonly">
+                    @if (Model != null)
+                    {
+                        @Model.Email
+                    }
+                </div>
+            </div>
+
+
+            <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                @Html.Label("Created Date", htmlAttributes: new { @class = "control-label" })
+                <div class="form-control control-text-resetable" readonly="readonly">
+                    @if (Model != null && Model.CreateDate != null)
+                    {
+                        @Model.CreateDate.ToString("dd-MMM-yyyy")
+                    }
+                </div>
+            </div>
+
+            <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                @Html.Label("Last Login", htmlAttributes: new { @class = "control-label" })
+                <div class="form-control control-text-resetable" readonly="readonly">
+                    @if (Model != null && Model.LastLoginDate != null)
+                    {
+                        @Model.LastLoginDate.Value.ToString("dd-MM-yy hh:mm:ss tt")
+                    }
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="col-md-12 col-sm-12 show-form-account-user-btn-block" style="text-align:right; margin-bottom: 10px;">
+            <button class="show-form-account-user-btn btn btn-primary btn-sm">
+                Change Password <span class="glyphicon glyphicon-arrow-down"></span>
+            </button>
+
+            <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Close</button>
+
+        </div>
+
+        @using (Html.BeginForm("UserAccount", "Account", FormMethod.Post, htmlAttributes: new { id = "Account-User-Form", style = "display:none;" }))
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.HiddenFor(model => model.UserId, htmlAttributes: new { @class = "id-resetable" })
+
+            <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                @Html.LabelFor(model => model.Password, "Password", htmlAttributes: new { @class = "control-label" })
+                @Html.PasswordFor(model => model.Password, new { @class = "form-control editor-resetable" })
+            </div>
+
+
+            <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                <label class="control-label" for="cnfrm">Confirm Password</label>
+                <input class="form-control resetable text-box single-line editor-resetable" type="password" id="cnfrm" name="passwordConfirm" value="" />
+            </div>
+
+            <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                <label class="control-label" for="cnfrm">Old Password</label>
+                <input class="form-control resetable text-box single-line editor-resetable" type="password" name="OldPassword" value="" />
+            </div>
+
+            <div class="col-md-12 col-sm-12 col-xs-12" style="border-top:1px solid #d7d7d7; padding-top:10px; text-align:right;">
+
+                <button type="submit" class="btn btn-sm btn-info submit"><span class="glyphicon glyphicon-save-file"></span> Save <span class="glyphicon glyphicon-refresh loader" style="display:none;"></span> </button>
+                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Close</button>
+
+            </div>
+
+            <div class="password-strong-tooltip" style="bottom:50px; top:auto; display:none;">
+                <span class="glyphicon glyphicon-play"></span>
+                <ul>
+                    <li id="digit-criteria"><span class="glyphicon" style="height:15px; width:15px; border:1px solid lightgrey; border-radius:50px; "></span> Digit</li>
+                    <li id="uc-letter-criteria"><span class="glyphicon" style="height:15px; width:15px; border:1px solid lightgrey; border-radius:50px;"></span> Upper Case Letter</li>
+                    <li id="lc-letter-criteria"><span class="glyphicon" style="height:15px; width:15px; border:1px solid lightgrey; border-radius:50px;"></span> Lower Case Letter</li>
+                    <li id="schar-criteria"><span class="glyphicon" style="height:15px; width:15px; border:1px solid lightgrey; border-radius:50px;"></span> Special Character</li>
+                    <li id="minchar-criteria"><span class="glyphicon" style="height:15px; width:15px; border:1px solid lightgrey; border-radius:50px;"></span> 8 Characters Min</li>
+                    <li id="maxchar-criteria"><span class="glyphicon" style="height:15px; width:15px; border:1px solid lightgrey; border-radius:50px;"></span> 32 Characters Max</li>
+                </ul>
+            </div>
+
+        }
+
+
+        
+    </div>
+
+</div>

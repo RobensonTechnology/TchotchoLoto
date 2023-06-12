@@ -1,0 +1,67 @@
+﻿
+<input type="hidden" id="nbre-application" value="@if (ViewBag.applications != null) { @ViewBag.applications.Count}else{ Write(0); }" />
+
+<div id="pv-overlay-loading" class="overlay-loading" style="display:none;">
+    <img src="~/Content/images/loading-gif.gif" alt="Loading" width="50" height="50" />
+</div>
+
+
+<div class="table-responsive">
+    <table id="datatable" class="table table-hover display" style="width:100%;">
+
+        <thead class="bg-success">
+
+            <tr>
+                <th>
+                    Company
+                </th>
+                <th>
+                    Application Name
+                </th>
+                <th>
+                    Description
+                </th>
+                <th style="text-align:center;">
+                    Actions
+                </th>
+            </tr>
+
+        </thead>
+
+        <tbody class="big-table-height">
+            @if (ViewBag.applications != null)
+            {
+                foreach (var item in (List<TchotchoLoto.Models.Application>)ViewBag.applications)
+                {
+                    <tr>
+                        <td>
+                            @item.Compagnie.NomCompagnie
+                        </td>
+                        <td>
+                            @item.ApplicationName
+                        </td>
+                        <td>
+                            @item.Description
+                        </td>
+
+                        <td style="text-align:center;">
+
+                            <button data-url="@Url.Action("_Edit", "Applications", new { id = item.ApplicationId })" class="edit-application-btn btn btn-xs btn-info"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+
+                            @*<button id="@item.ApplicationId" class="btn btn-xs btn-warning view-action-button-collapse-btn" data-toggle="collapse" data-target="#action-button-collapse-@item.ApplicationId" style="min-width:120px;">Select <span class="glyphicon glyphicon-menu-down"></span></button>
+
+                            <div class="action-button-collapse collapse" id="action-button-collapse-@item.ApplicationId">
+
+                                <button data-url="@Url.Action("_Edit", "Applications", new { id = item.ApplicationId })" class="edit-application-btn btn btn-xs btn-info"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+
+
+                            </div>*@
+
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+
+    </table>
+</div>
