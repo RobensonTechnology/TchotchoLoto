@@ -17,9 +17,10 @@ namespace TchotchoLoto.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public User()
         {
-            this.UserCompagnies = new HashSet<UserCompagnie>();
             this.UserPointDeVentes = new HashSet<UserPointDeVente>();
+            this.UserCompagnies = new HashSet<UserCompagnie>();
             this.UserPointDeVentes1 = new HashSet<UserPointDeVente>();
+            this.UserPointDeVentes2 = new HashSet<UserPointDeVente>();
         }
     
         public int UserId { get; set; }
@@ -46,10 +47,12 @@ namespace TchotchoLoto.Models
     
         public virtual Role Role { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserCompagnie> UserCompagnies { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserPointDeVente> UserPointDeVentes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserCompagnie> UserCompagnies { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserPointDeVente> UserPointDeVentes1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserPointDeVente> UserPointDeVentes2 { get; set; }
     }
 }

@@ -5,32 +5,12 @@
     Layout = null;
 }
 
-<input type="hidden" class="title" data-title="Client" />
+<input type="hidden" class="title" data-title="Point of Sale" />
 
 <div class="indicator">
     List  &nbsp;&nbsp; <span class="glyphicon glyphicon-chevron-right"></span> &nbsp; &nbsp; Point Of Sale
 
 </div>
-
-<div class="header-body">
-    <p style="display:inline-block;">
-        Point of Sale (<span id="hb-nbre-pointDeVente">
-            @if (ViewBag.PointDeVentes != null)
-            {@ViewBag.PointDeVentes.Count}
-        else { Write(0); }
-        </span>)
-        &nbsp;&nbsp;<span class="glyphicon star glyphicon-star text-success"></span>
-    </p>
-
-    <div style="display:inline-block;" class="header-buttons">
-        <button class="add-after-edit btn btn-success btn-sm pull-right" data-toggle="modal" data-target="#create-pointDeVente-modal">
-            <span class="glyphicon glyphicon-plus"></span> New Point Of Sale
-        </button>
-    </div>
-
-</div>
-
-<br />
 
 
 <div class="header-body">
@@ -49,7 +29,7 @@
         {
             <div class="combobox-auto-select" style="width:200px;">
                 <input class="input-search" type="text" style="text-transform:capitalize; padding-left:15px; position:absolute; margin:2px; height:30px; background:none;  width:auto; color:none; border:none;" />
-                @Html.DropDownList("StatutPointDeVenteId", null, "Select Status", htmlAttributes: new { @class = "form-control ddl-to-filter colorSelectListBG", id = "ddlStatutPointDeVenteId", Style = "width: 250px; border: 1px solid black;" })
+                @Html.DropDownList("StatutId", null, "Select Status", htmlAttributes: new { @class = "form-control ddl-to-filter colorSelectListBG", id = "ddlStatutId", Style = "width: 250px; border: 1px solid black;" })
             </div>
         }
     </div>
@@ -88,7 +68,7 @@
         <div class="modal-content">
             <div class="modal-header" style="background-color: #0078d7; border-radius:5px 5px 0 0;">
 
-                <h4 class="title-conditionned" style="display: inline;">Add Agency</h4>
+                <h4 class="title-conditionned" style="display: inline;">Add Point of Sale</h4>
 
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
 
@@ -114,17 +94,32 @@
                             @Html.EditorFor(model => model.NomPointDeVente, new { htmlAttributes = new { @class = "form-control editor-resetable" } })
                         </div>
 
+                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                            @Html.LabelFor(model => model.Adresse, "Adress", htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.Adresse, new { htmlAttributes = new { @class = "form-control editor-resetable" } })
+                        </div>
+
                         <div class="form-group col-md-6 col-sm-6 col-xs-12">
                             @Html.LabelFor(model => model.Ville, "City", htmlAttributes: new { @class = "control-label" })
                             @Html.EditorFor(model => model.Ville, new { htmlAttributes = new { @class = "form-control editor-resetable" } })
                         </div>
 
-
-
-                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                         <div class="form-group col-md-6 col-sm-6 col-xs-12">
                             @Html.LabelFor(model => model.CodePostal, "Postal Code", htmlAttributes: new { @class = "control-label" })
-                            @Html.TextAreaFor(model => model.CodePostal, new { @class = "form-control editor-resetable", style = "width:100%; max-width: 100%; ", rows = "1" })
+                            @Html.EditorFor(model => model.CodePostal, new { htmlAttributes = new { @class = "form-control editor-resetable" } })
                         </div>
+                        
+                         <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                            @Html.LabelFor(model => model.Longitude, "Latitude", htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.Longitude, new { htmlAttributes = new { @class = "form-control editor-resetable" } })
+                        </div>
+
+                        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                            @Html.LabelFor(model => model.Latitude, "Latitude", htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.Latitude, new { htmlAttributes = new { @class = "form-control editor-resetable" } })
+                        </div>
+
+
 
                     </div>
 

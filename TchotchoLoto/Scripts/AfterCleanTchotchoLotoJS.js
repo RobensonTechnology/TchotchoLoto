@@ -3872,8 +3872,6 @@
                 }
                 else if (data["authForm"] != null && data["authForm"] == true) {
 
-                    currentBtn.removeClass('button-processing');
-
                     ShowTwoFactorAuthForm(data["url"]);
 
                 }

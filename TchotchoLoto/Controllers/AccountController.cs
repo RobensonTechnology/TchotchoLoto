@@ -11,7 +11,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
-
+using System.Net.Sockets;
 
 namespace TchotchoLoto.Controllers
 {
@@ -21,6 +21,8 @@ namespace TchotchoLoto.Controllers
         // GET: Accounts
 
 
+        [AllowAnonymous]
+        [Compress]
         public ActionResult Home()
         {
             User currentUser = (User)Session["userData"];
@@ -30,12 +32,84 @@ namespace TchotchoLoto.Controllers
 
             }
 
+            Tirage dernierTirage = db.Tirages.OrderByDescending(d => d.TirageId).FirstOrDefault(t => !t.Statut && t.GagnantLotteries.Count() > 0);
+
+            if (dernierTirage != null)
+            {
+                ViewBag.GagnantLotteries = db.GagnantLotteries.Where(g => g.TirageId == dernierTirage.TirageId).OrderByDescending(o=> o.MontantGagner).Take(5).ToList();
+
+            }
+
 
             return View();
 
         }
 
 
+        [Compress]
+        [AjaxOnly]
+        public ActionResult __HomeDraw()
+        {
+
+            User currentUser = (User)Session["userData"];
+            Compagnie currentCompagnie = (Compagnie)Session["compagnieData"];
+
+
+
+            if (currentUser == null || currentCompagnie == null)
+            {
+                return Json(new { returnToLogin = true }, JsonRequestBehavior.AllowGet);
+
+            }
+
+            new AccountController().AddUserActionLog(currentUser, currentCompagnie, "Account/__HomeDraw", "Button View Last Draw [Home]");
+
+
+            int sessionIdExist = db.Users.Where(u => u.SessionId == HttpContext.Session.SessionID).Count();
+
+            if (sessionIdExist == 0)
+            {
+                HttpContext.Session.Abandon();
+                string message1 = "You have lost this connection because a new one has been detected!";
+                return Json(new { newSession = true, message1 }, JsonRequestBehavior.AllowGet);
+
+            }
+
+            //string message = null;
+
+            //Tirage tirage = db.Tirages.FirstOrDefault(t => t.Statut && t.TirageEnExecutions.Count(e => e.Statut) > 0);
+
+            //if (tirage != null)
+            //{
+
+            //    DateTime dateTirage = tirage.DateTirage;
+            //    var heureTirage = tirage.Heure;
+            //    var dateHeureTirage = dateTirage + heureTirage;
+
+            //    var totalSecondeRestant = (dateHeureTirage - DateTime.Now).TotalSeconds;
+            //    int totalSeconde = (int)totalSecondeRestant;
+
+
+            //    message = "This Draw is running...!";
+            //    return Json(new { drawInExecution = true, totalSeconde, message }, JsonRequestBehavior.AllowGet);
+            //}
+
+
+
+            ViewBag.LastlotterieTirage = db.LotterieTirages.OrderByDescending(l => l.LotterieTirageId).FirstOrDefault();
+
+            return PartialView();
+
+
+        }
+
+
+
+
+        [AddLog]
+        [AllowAnonymous]
+        [HttpGet]
+        [Compress]
         public ActionResult Login()
         {
             if (Session != null)
@@ -76,10 +150,44 @@ namespace TchotchoLoto.Controllers
             return View();
         }
 
+
+
+        [AllowAnonymous]
         [HttpPost]
+        [Compress]
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginViewModel model)
         {
+
+            try
+            {
+
+                string clientIP = HttpContext.Request.ServerVariables["REMOTE_ADDR"];
+
+
+                AddUserActionLog addUserActionLog = new AddUserActionLog();
+
+                addUserActionLog.UserId = 0;
+                addUserActionLog.Info = (!string.IsNullOrWhiteSpace(clientIP) ? "client_IP:" + clientIP : "") + "" + (model != null ? "e-mail:" + model.Email : "");
+                addUserActionLog.Action = "Account/Login";
+                addUserActionLog.ActionDesc = "Login Botton";
+                addUserActionLog.DateModif = DateTime.Now;
+
+
+
+                db.AddUserActionLogs.Add(addUserActionLog);
+
+
+                db.SaveChanges();
+
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.InnerException);
+            }
+
+
+
             string message = null;
             if (ModelState.IsValid)
             {
@@ -192,7 +300,9 @@ namespace TchotchoLoto.Controllers
         }
 
 
-
+        [AjaxOnly]
+        [Compress]
+        [AllowAnonymous]
         public ActionResult _TwoFactorAuth()
         {
             User currentUser = (User)Session["userData"];
@@ -202,8 +312,19 @@ namespace TchotchoLoto.Controllers
 
             if (currentUser == null || currentCompagnie == null)
             {
-                return RedirectToAction("Login", "Account");
+
+                return Json(new { returnToLogin = true }, JsonRequestBehavior.AllowGet);
+
             }
+
+
+            //if (currentUser == null || currentCompagnie == null)
+            //{
+
+            //    return RedirectToAction("Login", "Account");
+            //}
+
+
             try
             {
                 string[] allowedCaracters = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" };
@@ -214,11 +335,10 @@ namespace TchotchoLoto.Controllers
 
                 } while (db.Users.Where(us => us.OTP == otp).Count() > 0);
 
-                //MailMessage mailMessage = new MailMessage();
-                //mailMessage.From = new MailAddress("churchmanagerinfos@gmail.com", "CHURCH-MANAGER");
-
                 string contenuMessage = "<p>Hi " + currentUser.FirstName + ", </p>";
                 contenuMessage += "<p>Your OTP code is: <strong>" + otp + " </strong></p>";
+
+                string passwordEmail = null;
                 //................................................................................
 
                 MailMessage mailMessage = new MailMessage();
@@ -226,8 +346,10 @@ namespace TchotchoLoto.Controllers
                 if (currentApplication != null && currentApplication.EmailApplication != null)
                 {
 
-                    //mailMessage.From = new MailAddress("churchmanagerinfos@gmail.com", "CHURCH-MANAGER");
+
                     mailMessage.From = new MailAddress(currentApplication.EmailApplication.Trim().ToLower(), currentApplication.Description.Trim().ToUpper());
+
+                    passwordEmail = Decrypt(currentApplication.PasswordEmailApplication);
                 }
                 else
                 {
@@ -248,7 +370,7 @@ namespace TchotchoLoto.Controllers
                 smtpClient.EnableSsl = true;
                 smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
                 smtpClient.UseDefaultCredentials = true;
-                smtpClient.Credentials = new NetworkCredential(mailMessage.From.Address, "tfabtzehxrlhagtk");
+                smtpClient.Credentials = new NetworkCredential(mailMessage.From.Address, passwordEmail);
                 smtpClient.Host = "smtp.gmail.com";
                 smtpClient.Send(mailMessage);
 
@@ -275,6 +397,12 @@ namespace TchotchoLoto.Controllers
 
         }
 
+
+        [AjaxOnly]
+        [HttpPost]
+        [Compress]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
         public ActionResult TwoFactorAuth(string OTP)
         {
             string message = null;
@@ -329,6 +457,11 @@ namespace TchotchoLoto.Controllers
 
         }
 
+
+
+        [AjaxOnly]
+        [Compress]
+        [AllowAnonymous]
         public ActionResult _Account(int? id)
         {
 
@@ -367,6 +500,13 @@ namespace TchotchoLoto.Controllers
 
         }
 
+
+
+
+
+        [AjaxOnly]
+        [Compress]
+        [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult UserAccount([Bind(Include = "UserId, Password")] User user, string passwordConfirm, string OldPassword)
@@ -508,11 +648,16 @@ namespace TchotchoLoto.Controllers
             }
         }
 
+
+
+        [HttpPost]
+        [AllowAnonymous]
         public ActionResult ResetPassword(string email)
         {
             string message = null;
             if (!string.IsNullOrWhiteSpace(email))
             {
+
                 User user = db.Users.FirstOrDefault(u => u.Email.Trim().ToLower() == email.Trim().ToLower() && u.UserCompagnies.Count() > 0);
 
                 if (user != null && user.IsLockedOut == false)
@@ -677,6 +822,74 @@ namespace TchotchoLoto.Controllers
             Application application = db.Applications.FirstOrDefault(a => a.ApplicationName.Trim().ToLower() == "ttl");
             return application;
         }
+
+
+
+
+        [AllowAnonymous]
+        public void AddUserActionLog(User currentUser, Compagnie currentCompagnie, string action, string actionDesc)
+        {
+
+            try
+            {
+                //........................................................
+                //string host = Dns.GetHostName();
+
+                //// Récupérer l'adresse IP
+                //string ip = Dns.GetHostByName(host).AddressList[0].ToString();
+                // ";  HostName: " + host + ";  IP: " + ip + ";  HostName: " + host + 
+                //.......................................................................
+                string info = "User: " + currentUser.FirstName + " " + currentUser.LastName + ";  E-mail: " + currentUser.Email + "; Role: " + currentUser.Role.RoleName + "; Company: " + currentCompagnie.NomCompagnie;
+
+                AddUserActionLog addUserActionLog = new AddUserActionLog();
+                addUserActionLog.UserId = currentUser.UserId;
+                addUserActionLog.Info = info;
+                addUserActionLog.Action = action;
+                addUserActionLog.ActionDesc = actionDesc;
+                addUserActionLog.DateModif = DateTime.Now;
+
+
+
+                db.AddUserActionLogs.Add(addUserActionLog);
+
+                db.SaveChanges();
+
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.InnerException);
+            }
+
+        }
+
+
+
+        [AjaxOnly]
+        [Compress]
+        [AllowAnonymous]
+        public ActionResult GetNotifInfo()
+        {
+
+
+            User currentUser = (User)Session["userData"];
+            Compagnie currentCompagnie = (Compagnie)Session["compagnieData"];
+
+            if (currentUser != null && currentCompagnie != null)
+            {
+
+                List<NotificationViewModel> notifications = new List<NotificationViewModel>();
+
+                return Json(new { notifInfo = new { notifications } }, JsonRequestBehavior.AllowGet);
+
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+
+
 
 
 

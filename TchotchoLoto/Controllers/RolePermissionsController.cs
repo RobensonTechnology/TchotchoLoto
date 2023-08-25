@@ -26,6 +26,10 @@ namespace TchotchoLoto.Controllers
                 return Json(new { returnToLogin = true }, JsonRequestBehavior.AllowGet);
             }
 
+
+            new AccountController().AddUserActionLog(currentUser, currentCompagnie, "RolePermissions/Index", "Button Permission [RolePermissions]");
+
+
             int sessionIdExist = db.Users.Where(u => u.SessionId == HttpContext.Session.SessionID).Count();
 
             if (sessionIdExist == 0)
@@ -87,6 +91,9 @@ namespace TchotchoLoto.Controllers
                 return Json(new { returnToLogin = true }, JsonRequestBehavior.AllowGet);
             }
 
+
+            new AccountController().AddUserActionLog(currentUser, currentCompagnie, "RolePermissions/__Index", "Button Permission [RolePermissions]");
+
             int sessionIdExist = db.Users.Where(u => u.SessionId == HttpContext.Session.SessionID).Count();
 
             if (sessionIdExist == 0)
@@ -144,6 +151,9 @@ namespace TchotchoLoto.Controllers
             {
                 return Json(new { returnToLogin = true }, JsonRequestBehavior.AllowGet);
             }
+
+
+            new AccountController().AddUserActionLog(currentUser, currentCompagnie, "RolePermissions/GetPermissionId", "Button  Select a Navigation in Form [RolePermissions]");
 
             int sessionIdExist = db.Users.Where(u => u.SessionId == HttpContext.Session.SessionID).Count();
 
@@ -213,6 +223,10 @@ namespace TchotchoLoto.Controllers
             {
                 return Json(new { returnToLogin = true }, JsonRequestBehavior.AllowGet);
             }
+
+
+
+            new AccountController().AddUserActionLog(currentUser, currentCompagnie, "RolePermissions/_Index", "Button  Add Permission [RolePermissions]");
 
             int sessionIdExist = db.Users.Where(u => u.SessionId == HttpContext.Session.SessionID).Count();
 
@@ -327,6 +341,10 @@ namespace TchotchoLoto.Controllers
                 return Json(new { returnToLogin = true }, JsonRequestBehavior.AllowGet);
             }
 
+
+
+            new AccountController().AddUserActionLog(currentUser, currentCompagnie, "RolePermissions/Delete", "Button Delete [RolePermissions]");
+
             int sessionIdExist = db.Users.Where(u => u.SessionId == HttpContext.Session.SessionID).Count();
 
             if (sessionIdExist == 0)
@@ -381,7 +399,7 @@ namespace TchotchoLoto.Controllers
         }
 
 
-
+         
 
 
 

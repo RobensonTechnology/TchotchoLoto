@@ -1,0 +1,172 @@
+﻿@using TchotchoLoto.Models
+
+@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+
+
+}
+
+<div class="home-body">
+    <div class="container">
+        <div class="main">
+
+            <div class="cards">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="number">100</div>
+                        <div class="card-name">Vendeur</div>
+                    </div>
+                    <div class="icon-box">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-content">
+                        <div class="number">1200</div>
+                        <div class="card-name">Tickets</div>
+                    </div>
+                    <div class="icon-box">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-content">
+                        <div class="number">130,000</div>
+                        <div class="card-name">Jackpot</div>
+                    </div>
+                    <div class="icon-box">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="ban">
+                <img src="~/Content/images/Tcho.jpg" class="img" />
+                <div class="banner">
+
+                    <div class="text-box">
+                        <h1>Reg jwet la</h1>
+                        <span></span>
+                        <p>
+                            LE JEU TCHOTCHO LOTTO CONTIENDRA CENT BOULES <br />PREALABLEMENT, LORS DU
+                            TIRAGE SI UN JOUEUR ARRIVERA <br />A IMAGINER CINQ BOULES ET LA SIXIEME QUI EST :
+                                                         <br />« MANMAN BOUL LA», IL GAGNERA LE JACKPOT.
+                        </p>
+                    </div>
+                </div>
+                <div class="banner1">
+                    <div class="text-box">
+                        <h1>Reg jwet la</h1>
+                        <span></span>
+                        <p>
+                            LE JEU TCHOTCHO LOTTO CONTIENDRA CENT BOULES <br />PREALABLEMENT, LORS DU
+                            TIRAGE SI UN JOUEUR ARRIVERA <br />A IMAGINER CINQ BOULES ET LA SIXIEME QUI EST :
+                                                         <br />« MANMAN BOUL LA», IL GAGNERA LE JACKPOT.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="banner2">
+                    <div class="text-box">
+                        <h1>Reg jwet la</h1>
+                        <span></span>
+                        <p>
+                            LE JEU TCHOTCHO LOTTO CONTIENDRA CENT BOULES <br />PREALABLEMENT, LORS DU
+                            TIRAGE SI UN JOUEUR ARRIVERA <br />A IMAGINER CINQ BOULES ET LA SIXIEME QUI EST :
+                                                         <br />« MANMAN BOUL LA», IL GAGNERA LE JACKPOT.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="banner3">
+                    <div class="text-box">
+                        <h1>Reg jwet la</h1>
+                        <span></span>
+                        <p>
+                            LE JEU TCHOTCHO LOTTO CONTIENDRA CENT BOULES <br /> PREALABLEMENT, LORS DU
+                            TIRAGE SI UN JOUEUR ARRIVERA <br />A IMAGINER CINQ BOULES ET LA SIXIEME QUI EST :
+                                                         <br />« MANMAN BOUL LA», IL GAGNERA LE JACKPOT.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="banner4">
+                    <div class="text-box">
+                        <h1>Reg jwet la</h1>
+                        <span></span>
+                        <p>
+                            LE JEU TCHOTCHO LOTTO CONTIENDRA CENT BOULES<br /> PREALABLEMENT, LORS DU
+                            TIRAGE SI UN JOUEUR ARRIVERA <br />A IMAGINER CINQ BOULES ET LA SIXIEME QUI EST :
+                                                         <br />« MANMAN BOUL LA», IL GAGNERA LE JACKPOT.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+      
+        <div class="row">
+            <div id="foot" class="col-md-3">
+                <div class="content-footer">
+                <h1>Pieds</h1></div>
+            </div>
+            <div id="foot1" class="col-md-3">
+                <div class="content-footer">
+                <h1>Pieds</h1></div>
+            </div>
+            <div id="foot2" class="col-md-3">
+                <div class="content-footer"><h1>Pieds</h1></div>
+            </div>
+            <div id="foot3" class="col-md-3">
+                <div class="content-footer"><h1>Pieds</h1></div>
+            </div>
+        </div>
+        
+
+    </div>
+        </div>
+
+@if (ViewBag.message != null)
+{
+    <p class="validation-message"></p>
+}
+
+
+<a id="validation-link" data-toggle="modal" data-target="#modal-dialog-message"></a>
+
+<div id="modal-dialog-message" class="modal fade" role="dialog" data-backdrop="static">
+    <div class="modal-dialog modal-sm">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #0078d7; border-radius:5px 5px 0 0;">
+
+                <h4 style="display: inline;">Message</h4>
+
+            </div>
+            <div class="modal-body row" style="padding:6%; text-align:center;">
+
+                <span class="glyphicon glyphicon-info-sign" style="display:block; font-size: 20px;"></span>
+                <h5 class="text-info" style="display:block;">@ViewBag.message</h5>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">
+                    OK
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div id="pv-overlay-loading" class="overlay-loading bc-overlay-loading" style="display:none;">
+    <img src="~/Content/images/loading-gif.gif" alt="Loading" width="50" height="50" />
+</div>

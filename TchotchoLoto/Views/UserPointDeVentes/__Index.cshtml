@@ -1,0 +1,107 @@
+﻿
+
+
+<input type="hidden" id="nbre-userPointDeVente" value="@if (ViewBag.UserPointDeVentes != null) {@ViewBag.UserPointDeVentes.Count }else{ Write(0); }" />
+
+<div id="pv-overlay-loading" class="overlay-loading" style="display:none;">
+    <img src="~/Content/images/loading-gif.gif" alt="Loading" width="50" height="50" />
+</div>
+
+<div class="table-responsive">
+    <table id="datatable" class="table table-hover display" style="width:100%;">
+
+        <thead class="bg-success">
+
+            <tr>
+                <th>
+                    User
+                </th>
+                <th>
+                    Point of Sale
+                </th>
+
+                <th>
+                    Affectation Date
+                </th>
+                <th>
+                    Status
+                </th>
+                <th>
+                    Last Point of Sale
+                </th>
+
+                <th style="text-align:center;">
+                    Actions
+                </th>
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            @if (ViewBag.UserPointDeVentes != null)
+            {
+                foreach (var item in (List<TchotchoLoto.Models.UserPointDeVente>)ViewBag.UserPointDeVentes)
+                {
+                    <tr>
+                        <td>
+                            @item.User.FirstName <span> @item.User.LastName</span>
+                        </td>
+                        <td>
+                            @item.PointDeVente.NomPointDeVente
+                        </td>
+
+                        <td>
+                            @item.AffectionDate.ToString("dd/MM/yyyy")
+                        </td>
+
+                        <td>
+                            @if (item.Statut)
+                            {
+                                <button class="btn btn-xs change-statut-user-pointDeVente-btn btn-success" href="@Url.Action("StatutToggle", "UserPointDeVentes", new { id = item.UserPointDeVenteId })">
+                                    <span class="glyphicon glyphicon-refresh"> </span> &nbsp; Active
+                                </button>
+
+                            }
+                            else
+                            {
+                                <button class="btn btn-xs change-statut-user-pointDeVente-btn  btn-warning" href="@Url.Action("StatutToggle", "UserPointDeVentes", new { id = item.UserPointDeVenteId })">
+                                    <span class="glyphicon glyphicon-refresh "> </span> &nbsp; Inactive
+                                </button>
+                            }
+                        </td>
+
+
+
+
+
+                        <td>
+                            @item.LastPointDeVenteName
+                        </td>
+
+
+                        <td style="text-align:center;">
+
+                            <button id="@item.UserPointDeVenteId" class="btn btn-xs btn-warning view-action-button-collapse-btn" data-toggle="collapse" data-target="#action-button-collapse-@item.UserPointDeVenteId" style="min-width:120px;">Select &nbsp;&nbsp;<span class="glyphicon glyphicon-menu-down"></span></button>
+
+                            <div class="action-button-collapse collapse " id="action-button-collapse-@item.UserPointDeVenteId">
+
+                                <button data-url="@Url.Action("_Edit", "UserPointDeVentes", new { id = item.UserPointDeVenteId})" class="edit-user-pointDeVente-btn btn btn-xs btn-info"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+                                <button id="@item.UserPointDeVenteId" class="delete-link-user-pointDeVente btn btn-xs btn-danger" data-toggle="modal" data-target="#delete-modal"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+
+                            </div>
+
+
+                        </td>
+                    </tr>
+                }
+            }
+
+        </tbody>
+
+    </table>
+</div>
+
+
+@Html.DropDownList("PointDeVenteId", null, "Select point of sale", htmlAttributes: new { @class = "form-control ddl-to-filter dropdown-resetable", id = "ddlPointDeVenteIdFilled", style = "display:none;" })
+@Html.DropDownList("UserId", null, "Select User", htmlAttributes: new { @class = "form-control ddl-to-filter dropdown-resetable", id = "ddlUserIdFilled", style = "display:none;" })

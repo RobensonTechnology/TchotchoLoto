@@ -51,7 +51,13 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="isendpro, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\iSendProSMS.1.1.3\lib\isendpro.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="RestSharp.Net2, Version=102.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.Net2.1.1.11\lib\net20\RestSharp.Net2.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -130,16 +136,29 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccessTimeApplicationsController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AddLogAttribute.cs" />
+    <Compile Include="Controllers\AddUserActionLogsController.cs" />
+    <Compile Include="Controllers\CompagniesController.cs" />
+    <Compile Include="Controllers\CompressAttribute.cs" />
     <Compile Include="Controllers\AjaxOnlyAttribute.cs" />
     <Compile Include="Controllers\ApplicationsController.cs" />
     <Compile Include="Controllers\AppNavigationApplicationsController.cs" />
     <Compile Include="Controllers\AppNavigationPermissionsController.cs" />
     <Compile Include="Controllers\AppNavigationsController.cs" />
+    <Compile Include="Controllers\BoulesController.cs" />
     <Compile Include="Controllers\EmailsController.cs" />
+    <Compile Include="Controllers\GagnantLotteriesController.cs" />
+    <Compile Include="Controllers\LivJwetLaController.cs" />
     <Compile Include="Controllers\PermissionsController.cs" />
     <Compile Include="Controllers\PointDeVentesController.cs" />
+    <Compile Include="Controllers\RapportDeVentesController.cs" />
     <Compile Include="Controllers\RolePermissionsController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
+    <Compile Include="Controllers\SocketsController.cs" />
+    <Compile Include="Controllers\TicketDetailsController.cs" />
+    <Compile Include="Controllers\TicketsController.cs" />
+    <Compile Include="Controllers\TiragesController.cs" />
+    <Compile Include="Controllers\UserPointDeVentesController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -148,6 +167,12 @@
       <DependentUpon>Models.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModel.cs" />
+    <Compile Include="Models\AddAppAccessLog.cs">
+      <DependentUpon>Models.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AddUserActionLog.cs">
+      <DependentUpon>Models.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Agence.cs">
       <DependentUpon>Models.tt</DependentUpon>
     </Compile>
@@ -163,7 +188,19 @@
     <Compile Include="Models\AppNavigationPermission.cs">
       <DependentUpon>Models.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Boule.cs">
+      <DependentUpon>Models.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Compagnie.cs">
+      <DependentUpon>Models.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GagnantLotterie.cs">
+      <DependentUpon>Models.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LivJwetla.cs">
+      <DependentUpon>Models.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LotterieTirage.cs">
       <DependentUpon>Models.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Models.Context.cs">
@@ -181,16 +218,39 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Models.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\NotificationViewModel.cs" />
+    <Compile Include="Models\OperationModel.cs" />
+    <Compile Include="Models\Paiement.cs">
+      <DependentUpon>Models.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Permission.cs">
       <DependentUpon>Models.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PointDeVente.cs">
       <DependentUpon>Models.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\RapportDeVente.cs">
+      <DependentUpon>Models.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RapportTirage.cs">
+      <DependentUpon>Models.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Role.cs">
       <DependentUpon>Models.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\RolePermission.cs">
+      <DependentUpon>Models.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Ticket.cs">
+      <DependentUpon>Models.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TicketDetail.cs">
+      <DependentUpon>Models.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Tirage.cs">
+      <DependentUpon>Models.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TirageEnExecution.cs">
       <DependentUpon>Models.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\User.cs">
@@ -205,6 +265,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\TchotchoLoto.mdf" />
+    <Content Include="App_Data\TchotchoLoto_log.ldf">
+      <DependentUpon>TchotchoLoto.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\awesome-markers\images\markers-matte%402x.png" />
     <Content Include="Content\awesome-markers\images\markers-matte.png" />
     <Content Include="Content\awesome-markers\images\markers-plain.png" />
@@ -345,6 +409,8 @@
     <Content Include="Content\leaflet\leaflet.css" />
     <Content Include="Content\leaflet\leaflet.js" />
     <Content Include="Content\leaflet\plugins\leaflet.ajax.min.js" />
+    <Content Include="Content\OpenLayers-6.9.0\ol.css" />
+    <Content Include="Content\OpenLayers-6.9.0\ol.js" />
     <Content Include="Content\PDF-Make\pdfmake.js" />
     <Content Include="Content\PDF-Make\pdfmake.min.js" />
     <Content Include="Content\PDF-Make\vfs_fonts.js" />
@@ -373,6 +439,7 @@
     <Content Include="Content\Select-1.3.1\js\select.jqueryui.min.js" />
     <Content Include="Content\Select-1.3.1\js\select.semanticui.js" />
     <Content Include="Content\Select-1.3.1\js\select.semanticui.min.js" />
+    <Content Include="Content\SiteStevenson.css" />
     <Content Include="Content\sounds\notif-sound-1.mp3" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -421,6 +488,8 @@
     <Content Include="Scripts\AfterCleanTchotchoLotoJS.js" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
+    <Content Include="Content\OpenLayers-6.9.0\ol.css.map" />
+    <Content Include="Content\OpenLayers-6.9.0\ol.js.map" />
     <EntityDeploy Include="Models\Models.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Models.Designer.cs</LastGenOutput>
@@ -443,9 +512,17 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\mapcontrol.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\shp2geojson\lib\jszip-utils-ie.js" />
+    <Content Include="Scripts\shp2geojson\lib\jszip-utils.js" />
+    <Content Include="Scripts\shp2geojson\lib\jszip.js" />
+    <Content Include="Scripts\shp2geojson\lib\proj4.js" />
+    <Content Include="Scripts\shp2geojson\preprocess.js" />
+    <Content Include="Scripts\shp2geojson\preview.js" />
     <Content Include="Scripts\Site1.js" />
+    <Content Include="Views\Tirages\LotterieTicketPerdantVendeur.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -487,10 +564,100 @@
     <Content Include="Views\AppNavigations\__Index.cshtml" />
     <Content Include="Views\PointDeVentes\Index.cshtml" />
     <Content Include="Views\PointDeVentes\_Edit.cshtml" />
+    <Content Include="Views\PointDeVentes\__Index.cshtml" />
+    <Content Include="Views\Boules\Index.cshtml" />
+    <Content Include="Views\Boules\__Index.cshtml" />
+    <Content Include="Views\Boules\_Edit.cshtml" />
+    <Content Include="Views\PointDeVentes\Maps.cshtml" />
+    <Content Include="Views\PointDeVentes\MapIndex.cshtml" />
+    <Content Include="Views\UserPointDeVentes\Index.cshtml" />
+    <Content Include="Views\UserPointDeVentes\__Index.cshtml" />
+    <Content Include="Views\UserPointDeVentes\_Edit.cshtml" />
+    <Content Include="Views\Tickets\Index.cshtml" />
+    <Content Include="Views\Tickets\__Index.cshtml" />
+    <Content Include="Views\Tickets\_Edit.cshtml" />
+    <Content Include="Views\Tickets\IndexVendeur.cshtml" />
+    <Content Include="Views\Tickets\__IndexVendeur.cshtml" />
+    <Content Include="Views\TicketDetails\__IndexVendeurPrinter.cshtml" />
+    <Content Include="Views\TicketDetails\Index.cshtml" />
+    <Content Include="Views\TicketDetails\__Index.cshtml" />
+    <Content Include="Views\TicketDetails\PendingTicketVendeur.cshtml" />
+    <Content Include="Views\TicketDetails\__PendingTicketVendeur.cshtml" />
+    <Content Include="Views\TicketDetails\_Edit.cshtml" />
+    <Content Include="Views\TicketDetails\__AllPendingTicket.cshtml" />
+    <Content Include="Views\TicketDetails\AllPendingTicket.cshtml" />
+    <Content Include="Views\Tirages\Index.cshtml" />
+    <Content Include="Views\Tirages\__Index.cshtml" />
+    <Content Include="Views\Tirages\_Edit.cshtml" />
+    <Content Include="Views\Tirages\Lotterie.cshtml" />
+    <Content Include="Views\Tirages\__Lotterie.cshtml" />
+    <Content Include="Views\Tirages\TirageLotterie.cshtml" />
+    <Content Include="Views\Tirages\__TirageLotterie.cshtml" />
+    <Content Include="Views\TicketDetails\TicketGagnant.cshtml" />
+    <Content Include="Views\TicketDetails\__TicketGagnant.cshtml" />
+    <Content Include="Views\Tirages\LotterieTicketGagnant.cshtml" />
+    <Content Include="Views\Tirages\__LotterieTicketGagnant.cshtml" />
+    <Content Include="Views\Tickets\IndexTicketBouleVendeurs.cshtml" />
+    <Content Include="Views\Tickets\__IndexTicketBouleVendeurs.cshtml" />
+    <Content Include="Views\Tickets\_EditTicketBouleVendeurs.cshtml" />
+    <Content Include="Views\Tickets\__IndexVendeurPrinter.cshtml" />
+    <Content Include="Views\Tickets\PendingTicketVendeur.cshtml" />
+    <Content Include="Views\Tickets\__PendingTicketVendeur.cshtml" />
+    <Content Include="Views\Tickets\__AllPendingTicket.cshtml" />
+    <Content Include="Views\Tickets\AllPendingTicket.cshtml" />
+    <Content Include="Views\Tickets\TicketGagnant.cshtml" />
+    <Content Include="Views\Tickets\__TicketGagnant.cshtml" />
+    <Content Include="Views\Tirages\__LotterieListe.cshtml" />
+    <Content Include="Views\Boules\BoulePlayInNextDraw.cshtml" />
+    <Content Include="Views\Boules\__BoulePlayInNextDraw.cshtml" />
+    <Content Include="Views\LivJwetLa\Index.cshtml" />
+    <Content Include="Views\LivJwetLa\__Index.cshtml" />
+    <Content Include="Views\LivJwetLa\_Edit.cshtml" />
+    <Content Include="Views\RapportDeVentes\Index.cshtml" />
+    <Content Include="Views\RapportDeVentes\__Index.cshtml" />
+    <Content Include="Views\RapportDeVentes\IndexRapportVendeur.cshtml" />
+    <Content Include="Views\RapportDeVentes\__IndexRapportVendeur.cshtml" />
+    <Content Include="Views\RapportDeVentes\IndexAllRapportVendeur.cshtml" />
+    <Content Include="Views\RapportDeVentes\__IndexAllRapportVendeur.cshtml" />
+    <Content Include="Views\RapportDeVentes\__IndexTirageListRapportVendeur.cshtml" />
+    <Content Include="Views\RapportDeVentes\AllRapport.cshtml" />
+    <Content Include="Views\RapportDeVentes\__TirageListRapport.cshtml" />
+    <Content Include="Views\RapportDeVentes\__AllRapport.cshtml" />
+    <Content Include="Views\Tirages\LotterieTicketPerdant.cshtml" />
+    <Content Include="Views\Tirages\__LotterieTicketPerdant.cshtml" />
+    <Content Include="Views\Tirages\__LotterieListePerdant.cshtml" />
+    <Content Include="Views\Tirages\__LotterieListePerdantVendeur.cshtml" />
+    <Content Include="Views\Tirages\__LotterieTicketPerdantVendeur.cshtml" />
+    <Content Include="Views\Tirages\LotterieTicketGagnantVendeur.cshtml" />
+    <Content Include="Views\Tirages\__LotterieTicketGagnantVendeur.cshtml" />
+    <Content Include="Views\Tirages\__LotterieListeVendeur.cshtml" />
+    <Content Include="Views\Tirages\TirageRapport.cshtml" />
+    <Content Include="Views\Tirages\__TirageRapport.cshtml" />
+    <Content Include="Views\Tirages\__LotterieListeRapport.cshtml" />
+    <Content Include="Views\GagnantLotteries\Index.cshtml" />
+    <Content Include="Views\GagnantLotteries\__Index.cshtml" />
+    <Content Include="Views\GagnantLotteries\PendingWinnerSalesman.cshtml" />
+    <Content Include="Views\GagnantLotteries\__PendingWinnerSalesman.cshtml" />
+    <Content Include="Views\GagnantLotteries\GagnantPayerVendeur.cshtml" />
+    <Content Include="Views\GagnantLotteries\__GagnantPayerVendeur.cshtml" />
+    <Content Include="Views\GagnantLotteries\__GagnantPayer.cshtml" />
+    <Content Include="Views\GagnantLotteries\GagnantPayer.cshtml" />
+    <Content Include="Views\AddUserActionLogs\Index.cshtml" />
+    <Content Include="Views\AddUserActionLogs\__Index.cshtml" />
+    <Content Include="Views\Emails\Index.cshtml" />
+    <Content Include="Views\Emails\__Index.cshtml" />
+    <Content Include="Views\Account\__HomeDraw.cshtml" />
+    <Content Include="Views\Tickets\__AllTicketHistories.cshtml" />
+    <Content Include="Views\Tickets\AllTicketHistories.cshtml" />
+    <Content Include="Views\Tickets\AllTicketVendeurHistories.cshtml" />
+    <Content Include="Views\Tickets\__AllTicketVendeurHistories.cshtml" />
+    <Content Include="Views\Compagnies\Index.cshtml" />
+    <Content Include="Views\Compagnies\__Index.cshtml" />
+    <Content Include="Views\Compagnies\_Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Content\Uploads\Temp-File\" />
+    <Folder Include="Views\Sockets\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

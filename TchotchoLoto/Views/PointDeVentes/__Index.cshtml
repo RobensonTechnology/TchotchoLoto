@@ -1,0 +1,90 @@
+﻿
+
+<input type="hidden" id="nbre-pointDeVente" value="@if (ViewBag.PointDeVentes != null) { @ViewBag.PointDeVentes.Count}else{ Write(0); }" />
+
+<div id="pv-overlay-loading" class="overlay-loading" style="display:none;">
+    <img src="~/Content/images/loading-gif.gif" alt="Loading" width="50" height="50" />
+</div>
+
+
+<div class="table-responsive">
+    <table id="datatable" class="table table-hover display" style="width:100%;">
+
+        <thead class="bg-success">
+
+            <tr>
+                <th>
+                    Code
+                </th>
+                
+                <th>
+                    Name
+                </th>
+
+                <th>
+                    Adresse
+                </th>
+
+                <th>
+                    Postal code
+                </th>
+
+                <th>
+                    City
+                </th>
+
+                <th style="text-align:center;">
+                    Actions
+                </th>
+            </tr>
+
+        </thead>
+
+        <tbody class="big-table-height">
+            @if (ViewBag.PointDeVentes != null)
+            {
+                foreach (var item in (List<TchotchoLoto.Models.PointDeVente>)ViewBag.PointDeVentes)
+                {
+                    <tr>
+                        <td>
+                            @item.CodePointDeVente
+                        </td>
+                        
+                        <td>
+                            @item.NomPointDeVente
+                        </td>
+
+                        <td>
+
+
+                            @item.Adresse
+                           
+                        </td>
+
+                        <td>
+                            @item.CodePostal
+                        </td>
+                        <td>
+                            @item.Ville
+                        </td>
+
+                        <td style="text-align:center;">
+
+                            <button id="@item.PointDeVenteId" data-toggle="collapse" data-target="#action-button-collapse-@item.PointDeVenteId" class="btn btn-xs btn-warning view-action-button-collapse-btn" style="min-width:120px;">Select &nbsp;&nbsp;<span class="glyphicon glyphicon-menu-down"></span></button>
+
+                            <div id="action-button-collapse-@item.PointDeVenteId" class="action-button-collapse collapse" style="right:4.6%;">
+
+                                <button data-url="@Url.Action("_Edit", "PointDeVentes", new { id = item.PointDeVenteId })" class="edit-pointDeVente-btn btn btn-xs btn-info"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+
+                                <button id="@item.PointDeVenteId" class="delete-link-pointDeVente btn btn-xs btn-danger" data-toggle="modal" data-target="#delete-modal"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+
+                            </div>
+
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+
+    </table>
+</div>

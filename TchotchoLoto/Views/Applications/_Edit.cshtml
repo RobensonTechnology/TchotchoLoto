@@ -19,7 +19,7 @@
 
             <div class="form">
 
-                
+
 
                 <div class="form-group col-md-6 col-sm-12">
                     @Html.LabelFor(model => model.ApplicationName, "Application Name", htmlAttributes: new { @class = "control-label" })
@@ -43,7 +43,6 @@
 
                 <div class="form-group col-md-6 col-sm-12">
                     @Html.LabelFor(model => model.PasswordEmailApplication, "Password Application Email", htmlAttributes: new { @class = "control-label" })
-                    @*@Html.EditorFor(model => model.PasswordEmailApplication, new { htmlAttributes = new { @class = "form-control editor-resetable" } })*@
                     @{
                         var password = new TchotchoLoto.Controllers.AccountController().Decrypt(Model.PasswordEmailApplication);
                     }
@@ -51,7 +50,6 @@
                     <input type="text" class="form-control editor-resetable" name="PasswordEmailApplication" value="@password">
                 </div>
 
-                @* col-lg-4 *@
 
 
                 <div class="form-group col-md-6 col-sm-12">
@@ -65,45 +63,47 @@
                     <input type="file" name="LogoApplication" , id="LogoApplication" class="form-control editor-resetable" />
                 </div>
 
-                <center>
-                    <div class="form-group col-md-12 col-sm-12 col-xs-12" style="height:40%;" id="LogoApplication-photo-preview">
 
-                        @if (Model.LogoApplication != null)
-                        {
-                            <img src="data:image/png;base64, @Convert.ToBase64String(Model.LogoApplication, 0, Model.LogoApplication.Length)" class="glyphicon" alt="Red dot" width="80" height="80" />
+                <div class="form-group col-md-12 col-sm-12 col-xs-12" style="height:40%;" id="LogoApplication-photo-preview">
 
-
-                        }
-                        else
-                        {
-                            <img src="data:image/png;base64, @ViewBag.LogoApplication" />
+                    @if (Model.LogoApplication != null)
+                    {
+                        <img src="data:image/png;base64, @Convert.ToBase64String(Model.LogoApplication, 0, Model.LogoApplication.Length)" class="glyphicon" alt="Red dot" width="80" height="80" />
 
 
-                        }
+                    }
+                    else
+                    {
+                        <img src="data:image/png;base64, @ViewBag.LogoApplication" />
 
 
+                    }
+                </div>
 
-                    </div>
-                </center>
-
-
-
-                @*<div class="form-group col-md-6 col-sm-12 col-xs-12">
-                        <label class="control-label pull-left">Logo Application</label>
-                        <input type="file" name="SignatureResponsableApplication" , id="SignatureResponsableApplication" class="form-control editor-resetable" />
-                    </div>
+                
+                <div class="form-group col-md-6 col-sm-12 col-xs-12">
+                    <label class="control-label pull-left">Responsible Signature</label>
+                    <input type="file" name="SignatureResponsable" , id="SignatureResponsable" class="form-control editor-resetable" />
+                </div>
 
 
-                    <div class="form-group col-md-12 col-sm-12 col-xs-12" style="height:40%;" id="SignatureResponsableApplication-photo-preview">
+                <div class="form-group col-md-12 col-sm-12 col-xs-12" style="height:40%;" id="SignatureResponsable-photo-preview">
 
-                        <center>
-                            <img src="data:image/png;base64, @ViewBag.profilPictureData" />
-
-                        </center>
-                    </div>*@
+                    @if (Model.SignatureResponsable != null)
+                    {
+                        <img src="data:image/png;base64, @Convert.ToBase64String(Model.SignatureResponsable, 0, Model.SignatureResponsable.Length)" class="glyphicon" alt="Red dot" width="80" height="80" />
 
 
-                @* alt="Red dot" *@
+                    }
+                    else
+                    {
+                        <img src="data:image/png;base64, @ViewBag.SignatureResponsable" />
+
+
+                    }
+                </div>
+
+
 
             </div>
 

@@ -1,0 +1,95 @@
+﻿
+
+
+<input type="hidden" id="nbre-rapport-tirage" value="@if (ViewBag.RapportTirages != null) { @ViewBag.RapportTirages.Count}else{ Write(0); }" />
+
+<div id="pv-overlay-loading" class="overlay-loading" style="display:none;">
+    <img src="~/Content/images/loading-gif.gif" alt="Loading" width="50" height="50" />
+</div>
+
+
+
+<div class="table-responsive">
+
+    <table id="datatableMSInvert" class="table table-hover display table-fixed-head-foot" style="width:100% !important; height:100% !important;">
+
+        <thead class="bg-success">
+
+            <tr>
+                <th class="espace-td-no-containermm">
+                    Draw Date
+                </th>
+
+                <th>
+                    Ticket Winners
+                </th>
+                <th>
+                    Ticket Losers
+                </th>
+
+                <th>
+                    Player Amount
+                </th>
+
+
+                <th>
+                    Amount to Pay
+                </th>
+
+
+
+            </tr>
+
+        </thead>
+        @if (ViewBag.RapportTirages != null)
+        {
+
+
+            <tbody style=" overflow-y: auto; max-height: 19em;">
+
+
+
+                @foreach (var item in (List<TchotchoLoto.Models.RapportTirage>)ViewBag.RapportTirages)
+                {
+
+
+                    <tr>
+                        <td class="espace-td-no-container">
+
+                            @item.Tirage.DateTirage.ToString("dd/MM/yyyy")
+
+                        </td>
+
+                        <td class="bg-info">
+                           @item.NbreTicketGagant
+                        </td>
+
+                        
+                        <td class="bg-primary">
+                           @item.NbreTicketPerdant
+                        </td>
+
+
+                        
+                        <td class="bg-danger">
+                           @item.MontantTTotalJouer
+                        </td>
+
+                        
+                        <td class="bg-warning">
+                           @item.MontantAPayer
+                        </td>
+
+
+
+                    </tr>
+                }
+
+            </tbody>
+        }
+    </table>
+
+
+</div>
+
+

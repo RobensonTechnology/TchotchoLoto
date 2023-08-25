@@ -1,0 +1,218 @@
+﻿
+
+<input type="hidden" id="nbre-allTicketHistories" value="@if (ViewBag.AllTicketHistories != null) { @ViewBag.AllTicketHistories.Count}else{ Write(0); }" />
+
+<div id="pv-overlay-loading" class="overlay-loading" style="display:none;">
+    <img src="~/Content/images/loading-gif.gif" alt="Loading" width="50" height="50" />
+</div>
+
+
+<div class="table-responsive">
+    <table id="datatable" class="table table-hover display" style="width:100%;">
+
+        <thead class="bg-success">
+
+            <tr>
+                <th>
+                    code
+
+                </th>
+                <th>
+                    Player Name
+                </th>
+                <th>
+                    Balls
+                </th>
+                <th class="bg-danger">
+                    Jacpot
+                </th>
+
+                <th class="bg-primary">
+                    Is Winner?
+                </th>
+
+                <th class="bg-success">
+                    Is Jacpot?
+                </th>
+
+                <th>
+                    Price
+                </th>
+                <th>
+                    sale Date
+                </th>
+
+                <th>
+                    Draw Date
+                </th>
+
+
+                <th>
+                    infos
+                </th>
+
+            </tr>
+
+        </thead>
+
+
+
+        <tbody class="big-table-height">
+            @if (ViewBag.AllTicketHistories != null)
+            {
+                foreach (var item in (List<TchotchoLoto.Models.Ticket>)ViewBag.AllTicketHistories)
+                {
+                    <tr>
+
+                        <td>
+                            @item.CodeTicket
+                        </td>
+
+                        <td>
+                            @item.NomJoueur
+
+                        </td>
+
+                        <td>
+
+                            @string.Join(", ", item.BouleListes)
+
+                        </td>
+
+                        <td class="bg-danger">
+                            @item.JacpotBoule
+
+                        </td>
+                        <td class="bg-primary">
+                            @if (item.IsGagnant)
+                            {
+                                <span>Yes</span>
+                            }
+                            else
+                            {
+                                <span>No</span>
+                            }
+
+                        </td>
+
+                        <td class="bg-success">
+                            @if (item.IsDjapot)
+                            {
+                                <span>Yes</span>
+                            }
+                            else
+                            {
+                                <span>No</span>
+                            }
+
+                        </td>
+
+                        <td>
+                            @item.Prix.Value HTG
+                        </td>
+
+
+                        <td>
+
+                            @if (item.DateVente.HasValue)
+                            {
+                                @item.DateVente.Value
+
+                            }
+
+
+                        </td>
+
+
+                        <td>
+
+                            @(item.Tirage.DateTirage + item.Tirage.Heure)
+
+
+                        </td>
+
+
+                        <td>
+                            <button id="info-@item.TicketId" class="btn btn-xs btn-primary ticket-info-action" data-toggle="modal" data-target="#ticket-info-modal">
+                                <span class="glyphicon glyphicon-eye-open"></span>&nbsp; View
+
+                            </button>
+
+                            <div style="display: none;" id="ticket-info-val-@item.TicketId">
+
+                                <div class="modal-content">
+                                    <div class="modal-header" style="background-color: #0078d7; border-radius:5px 5px 0 0;">
+
+                                        <h4 style="display: inline;">Info @item.CodeTicket</h4>
+
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+                                    <div class="row modal-body">
+                                        <div class="form">
+
+                                            <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                                @Html.Label("Sale", htmlAttributes: new { @class = "control-label" })
+
+                                                <div class="form-control" style="overflow-y:auto;" readonly="readonly">
+                                                    @if (item.IsVente)
+                                                    {
+                                                        <span>Yes</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>No</span>
+                                                    }
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                                @Html.Label("Salesman", htmlAttributes: new { @class = "control-label" })
+                                                <div class="form-control" style="overflow-y:auto;" readonly="readonly">
+                                                    @item.UserPointDeVente.User.FirstName   @item.UserPointDeVente.User.LastName
+                                                </div>
+                                            </div>
+
+
+
+                                            <div class="form-group col-md-8 col-sm-12 col-xs-12">
+                                                @Html.Label("Point of sale", htmlAttributes: new { @class = "control-label" })
+                                                <div class="form-control" style="overflow-y:auto;" readonly="readonly">
+
+                                                    @item.UserPointDeVente.PointDeVente.NomPointDeVente
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group col-md-8 col-sm-12 col-xs-12">
+                                                @Html.Label("Point of sale Adress", htmlAttributes: new { @class = "control-label" })
+                                                <div class="form-control" style="overflow-y:auto;" readonly="readonly">
+                                                    @item.UserPointDeVente.PointDeVente.Adresse
+                                                </div>
+                                            </div>
+
+
+
+
+
+
+                                            <div class="col-md-12 col-sm-12 col-xs-12" style="border-top:1px solid #d7d7d7; padding-top:10px; text-align:right;">
+
+                                                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Ok</button>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </td>
+
+                    </tr>
+                }
+            }
+        </tbody>
+
+    </table>
+</div>

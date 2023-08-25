@@ -1,0 +1,103 @@
+﻿@model TchotchoLoto.Models.TicketDetailB
+
+<div class="modal-content">
+    <div class="modal-header" style="background-color: #0078d7; border-radius:5px 5px 0 0;">
+
+        <h4 style="display: inline;">
+            @if (Model.IsVente)
+            {<span>Edit Ticket Balls </span>}
+            else
+            { <span>Add Ticket Balls </span>}
+        </h4>
+
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+    </div>
+    <div class="modal-body row" style="padding:6%;">
+
+        @using (Html.BeginForm("_IndexTicketBouleVendeurs", "Tickets", FormMethod.Post, htmlAttributes: new { id = "Edit-Boule-In-Ticket-Form" }))
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.HiddenFor(model => model.TicketId, htmlAttributes: new { @class = "id-resetable" })
+
+            <div class="form">
+
+
+                <div class="form-group col-md-3 col-sm-4 col-xs-6">
+                    @Html.LabelFor(model => model.Boule1, "1st", htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.Boule1, new { htmlAttributes = new { @class = "form-control editor-resetable" } })
+                </div>
+
+
+
+                <div class="form-group col-md-3 col-sm-4 col-xs-6">
+                    @Html.LabelFor(model => model.Boule2, "Two", htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.Boule2, new { htmlAttributes = new { @class = "form-control editor-resetable" } })
+                </div>
+
+
+
+                <div class="form-group col-md-3 col-sm-4 col-xs-6">
+                    @Html.LabelFor(model => model.Boule3, "Three", htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.Boule3, new { htmlAttributes = new { @class = "form-control editor-resetable" } })
+                </div>
+
+
+                <div class="form-group col-md-3 col-sm-4 col-xs-6">
+                    @Html.LabelFor(model => model.Boule4, "Four", htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.Boule4, new { htmlAttributes = new { @class = "form-control editor-resetable" } })
+                </div>
+
+
+
+                <div class="form-group col-md-3 col-sm-4 col-xs-6">
+                    @Html.LabelFor(model => model.Boule5, "Five", htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.Boule5, new { htmlAttributes = new { @class = "form-control editor-resetable" } })
+                </div>
+
+
+                <div class="form-group col-md-8 col-sm-6 col-xs-6">
+                    @Html.LabelFor(model => model.Boule6, "Jacpot Ball", htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.Boule6, new { htmlAttributes = new { @class = "form-control editor-resetable div-bg" } })
+                </div>
+
+                @if (Model.Prix > 0)
+                {
+                    <div class="form-group col-md-4 col-sm-6 col-xs-12" style="display:none;">
+                        @Html.LabelFor(model => model.Prix, "Unit Price (HTG)", htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.Prix, new { htmlAttributes = new { @class = "form-control editor-resetable" } })
+                    </div>
+                }
+                else
+                {
+
+                    <div class="form-group col-md-4 col-sm-6 col-xs-12">
+                        @Html.LabelFor(model => model.Prix, "Unit Price (HTG)", htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.Prix, new { htmlAttributes = new { @class = "form-control editor-resetable" } })
+                    </div>
+                }
+
+                <div class="form-group col-md-6 col-sm-12 col-xs-12">
+                    @Html.LabelFor(model => model.NomJoueur, "Player Name", htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.NomJoueur, new { htmlAttributes = new { @class = "form-control editor-resetable" } })
+
+                </div>
+
+
+            </div>
+
+            <div class="col-md-12 col-sm-12 col-xs-12" style="border-top:1px solid #d7d7d7; padding-top:10px; text-align:right;">
+
+                <button type="submit" class="btn btn-sm btn-info submit"><span class="glyphicon glyphicon-save-file"></span> Save <span class="glyphicon glyphicon-refresh loader" style="display:none;"></span> </button>
+                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Close</button>
+
+            </div>
+
+        }
+
+
+
+    </div>
+
+</div>

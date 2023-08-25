@@ -1,0 +1,125 @@
+﻿<input type="hidden" id="hb-nbre-tirage-list-Filled" value="@if (ViewBag.Tirages != null){@ViewBag.Tirages.Count}else { Write(0); }" />
+
+
+<div id="pv-overlay-loading" class="overlay-loading" style="display:none;">
+    <img src="~/Content/images/loading-gif.gif" alt="Loading" width="50" height="50" />
+</div>
+
+<div class="table-responsive" style="padding-top: 10px; width:100%;" id="containerDemande">
+    <table id="datatable" class="table table-hover display table-fixed-head-foot">
+
+        <thead class="bg-success">
+
+            <tr>
+
+
+                <th>
+                    Draw Date
+                </th>
+                <th>
+                    Tour
+                </th>
+
+                <th>
+                    Status
+                </th>
+
+                <th>
+                    Sold 50 HTG
+                </th>
+
+                <th>
+                    Sold 125 HTG
+                </th>
+
+                <th>
+                    Total Sold Ticket
+                </th>
+
+                <th>
+                    Sale Amount
+                </th>
+
+                <th style="text-align:center;">
+                    Actions
+                </th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+            @if (ViewBag.Tirages != null)
+            {
+                foreach (var item in (List<TchotchoLoto.Models.Tirage>)ViewBag.Tirages)
+                {
+                    <tr>
+
+                        <td>
+                            @(item.DateTirage + item.Heure)
+                        </td>
+
+                        <td>
+                            @item.Tour
+                        </td>
+
+
+
+
+                        <td>
+                            @if (item.Statut)
+                            {
+                                <button class="btn btn-xs change-statut-tirage-btn btn-primary">
+                                    <span class="glyphicon glyphicon-refresh"> </span> &nbsp; Active
+                                </button>
+
+                            }
+                            else
+                            {
+                                <button class="btn btn-xs change-statut-tirage-btn  btn-danger">
+                                    <span class="glyphicon glyphicon-refresh "> </span> &nbsp; Inactive
+                                </button>
+                            }
+                        </td>
+
+
+                        <td>
+                            @item.Tickets.Count(r => r.Prix.Value == 50) to 50 HTG, Amount: @item.Tickets.Where(w => w.Prix.Value == 50).Sum(r => r.Prix.Value) HTG
+                        </td>
+                        
+                        <td>
+                            @item.Tickets.Count(r => r.Prix.Value == 125) to 125 HTG, Amount: @item.Tickets.Where(w => w.Prix.Value == 125).Sum(r => r.Prix.Value) HTG
+                        </td>
+
+                        <td>
+                            @item.Tickets.Count()
+                        </td>
+
+                        <td>
+                            @item.Tickets.Sum(s => s.Prix.Value) HTG
+                        </td>
+
+
+                        <td style="text-align:center;">
+                            @if (item.Tickets.Count() == 0)
+                            {
+                                <button data-url="@Url.Action("_Edit", "Tirages", new { id = item.TirageId })" class="edit-tirage-btn btn btn-xs btn-info" title="Click to Edit"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+
+                            }
+                            else
+                            {
+                                <span>Unavailable</span>
+                            }
+
+                        </td>
+                    </tr>
+
+
+                }
+            }
+        </tbody>
+
+    </table>
+
+
+</div>

@@ -1,0 +1,94 @@
+﻿
+<input type="hidden" id="hb-nbre-tirage-list-Filled" value="@if (ViewBag.LotterieTirages != null){@ViewBag.LotterieTirages.Count}else { Write(0); }" />
+
+
+<div id="pv-overlay-loading" class="overlay-loading" style="display:none;">
+    <img src="~/Content/images/loading-gif.gif" alt="Loading" width="50" height="50" />
+</div>
+
+<div class="table-responsive" style="padding-top: 10px; width:auto;" id="">
+    <table id="datatable" class="table table-hover display table-fixed-head-foot">
+
+        <thead class="bg-success">
+
+            <tr>
+
+                <th>
+                    Date
+                </th>
+
+
+                <th>
+                    Balls
+                </th>
+
+
+                <th>
+                    Jacpot
+                </th>
+
+
+                <th>
+                    W. QT
+                </th>
+
+
+                <th style="text-align:center;">
+                    Actions
+                </th>
+
+            </tr>
+
+        </thead>
+
+        <tbody style=" overflow-y: auto; max-height: 19em;">
+            @if (ViewBag.LotterieTirages != null)
+            {
+                foreach (var item in (List<TchotchoLoto.Models.LotterieTirage>)ViewBag.LotterieTirages)
+                {
+                    <tr>
+
+                        <td>
+                            @item.Tirage.DateTirage.ToString("dd-MM-yyyy")
+                        </td>
+
+                        <td>
+                            @{
+
+                                var boule = new List<string>();
+                                boule.Add(item.Boule.Description);
+                                boule.Add(item.Boule1.Description);
+                                boule.Add(item.Boule2.Description);
+                                boule.Add(item.Boule3.Description);
+                                boule.Add(item.Boule4.Description);
+
+                            }
+
+                            @string.Join(", ", boule)
+                        </td>
+                        <td>
+                            @item.Boule5.Description
+                        </td>
+
+
+
+                        <td>
+                            @item.Tirage.Tickets.Count(t => t.GagnantLotteries.Count() > 0)
+                        </td>
+
+
+                        <td style="text-align:center;">
+                            <button data-url="@Url.Action("__LotterieTicketGagnant", "Tirages", new { id = item.TirageId})" class="liste-ticket-gagnant-btn btn btn-group-sm btn-primary" title="Click to View"><span class="glyphicon glyphicon-eye-open"></span> </button>
+                        </td>
+
+                    </tr>
+
+
+                }
+            }
+        </tbody>
+
+    </table>
+
+
+</div>

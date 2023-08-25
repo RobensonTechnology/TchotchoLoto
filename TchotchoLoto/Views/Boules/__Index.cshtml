@@ -1,0 +1,65 @@
+﻿
+
+<input type="hidden" id="nbre-boule" value="@if (ViewBag.Boules != null) { @ViewBag.Boules.Count}else{ Write(0); }" />
+
+<div id="pv-overlay-loading" class="overlay-loading" style="display:none;">
+    <img src="~/Content/images/loading-gif.gif" alt="Loading" width="50" height="50" />
+</div>
+
+
+<div class="table-responsive">
+    <table id="datatable" class="table table-hover display" style="width:100%;">
+
+        <thead class="bg-success">
+
+            <tr>
+                
+                <th>
+                    Description
+                </th>
+                <th>
+                    Status
+                </th>
+               
+            </tr>
+
+        </thead>
+
+        <tbody class="big-table-height">
+            @if (ViewBag.Boules != null)
+            {
+                foreach (var item in (List<TchotchoLoto.Models.Boule>)ViewBag.Boules)
+                {
+                    <tr>
+
+                        <td>
+                            @item.Description
+                        </td>
+
+                        <td>
+                            @if (item.Statut)
+                            {
+                                <button class="btn btn-xs change-statut-boule-btn btn-success" href="@Url.Action("StatutToggle", "Boules", new { id = item.BouleId })">
+                                    <span class="glyphicon glyphicon-refresh"> </span> &nbsp; Active
+                                </button>
+
+                            }
+                            else
+                            {
+                                <button class="btn btn-xs change-statut-boule-btn  btn-warning" href="@Url.Action("StatutToggle", "Boules", new { id = item.BouleId })">
+                                    <span class="glyphicon glyphicon-refresh "> </span> &nbsp; Inactive
+                                </button>
+                            }
+                        </td>
+
+
+
+
+
+                    </tr>
+                }
+            }
+        </tbody>
+
+    </table>
+</div>

@@ -3,34 +3,56 @@
 
 <div class="modal-content">
     <div class="modal-header text-center bg-primary">
-        <h4 class="modal-title w-100 font-weight-bold pull-left" style="display: inline-block;">Edit Agency</h4>
+        <h4 class="modal-title w-100 font-weight-bold pull-left" style="display: inline-block;">Edit Point of Sale</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="display: inline-block;color:white;">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
 
     <div class="row modal-body">
-        @using (Html.BeginForm("_Index", "PointdeVentes", FormMethod.Post, htmlAttributes: new { id = "Edit-Agence-Form" }))
+        @using (Html.BeginForm("_Index", "PointDeVentes", FormMethod.Post, htmlAttributes: new { id = "Edit-PointDeVente-Form" }))
         {
             @Html.AntiForgeryToken()
 
-            @Html.HiddenFor(model => model.AgenceId, htmlAttributes: new { @class = "id-resetable" })
+            @Html.HiddenFor(model => model.PointDeVenteId, htmlAttributes: new { @class = "id-resetable" })
 
             <div class="form">
 
                 <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                    @Html.LabelFor(model => model.CodeAgence, "Code", htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.CodeAgence, new { htmlAttributes = new { @class = "form-control editor-resetable" } })
+                    @Html.LabelFor(model => model.CodePointDeVente, "Code", htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.CodePointDeVente, new { htmlAttributes = new { @class = "form-control editor-resetable" } })
                 </div>
 
+
                 <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                    @Html.LabelFor(model => model.NomAgence, "Name", htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.NomAgence, new { htmlAttributes = new { @class = "form-control editor-resetable" } })
+                    @Html.LabelFor(model => model.NomPointDeVente, "Point Sale Name", htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.NomPointDeVente, new { htmlAttributes = new { @class = "form-control editor-resetable" } })
                 </div>
 
                 <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                    @Html.LabelFor(model => model.Adresse, "Address", htmlAttributes: new { @class = "control-label" })
-                    @Html.TextAreaFor(model => model.Adresse, new { @class = "form-control editor-resetable", style = "width:100%; max-width: 100%;", rows = "1" })
+                    @Html.LabelFor(model => model.Adresse, "Adress", htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.Adresse, new { htmlAttributes = new { @class = "form-control editor-resetable" } })
+                </div>
+
+                <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                    @Html.LabelFor(model => model.Ville, "City", htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.Ville, new { htmlAttributes = new { @class = "form-control editor-resetable" } })
+                </div>
+
+                <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                    @Html.LabelFor(model => model.CodePostal, "Postal Code", htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.CodePostal, new { htmlAttributes = new { @class = "form-control editor-resetable" } })
+                </div>
+
+
+                <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                    @Html.LabelFor(model => model.Longitude, "Longitude", htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.Longitude, new { htmlAttributes = new { @class = "form-control editor-resetable" } })
+                </div>
+
+                <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                    @Html.LabelFor(model => model.Latitude, "Latitude", htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.Latitude, new { htmlAttributes = new { @class = "form-control editor-resetable" } })
                 </div>
 
             </div>

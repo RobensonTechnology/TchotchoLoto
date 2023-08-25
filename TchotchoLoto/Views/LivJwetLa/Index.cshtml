@@ -1,0 +1,201 @@
+﻿@model TchotchoLoto.Models.LivJwetla
+
+@{
+    ViewBag.Title = "Book Player";
+    Layout = null;
+}
+
+<input type="hidden" class="title" data-title="book Player" />
+
+<div class="indicator">
+    Book  &nbsp;&nbsp; <span class="glyphicon glyphicon-chevron-right"></span> &nbsp; &nbsp; Book Player
+
+</div>
+<div class="header-body">
+    <p style="display:inline-block;">
+        &nbsp;&nbsp;Book  (<span id="hb-nbre-livJwetLa">
+            @if (ViewBag.LivJwetLa != null)
+            {@ViewBag.LivJwetLa.Count}
+        else { Write(0); }
+        </span>)
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon star glyphicon-star text-success"></span>
+
+    </p>
+
+    <div style="display:inline-block;" class="header-buttons">
+        <button class="add-after-edit add-after-edit btn btn-success btn-sm pull-right" data-toggle="modal" data-target="#create-livJwetLa-modal">
+            <span class="glyphicon glyphicon-plus"></span> Add Book Player
+        </button>
+    </div>
+</div>
+
+<br />
+
+<div class="page-scroll-content" id="livJwetLa-list-pv">
+
+    @Html.Partial("__Index")
+
+</div>
+
+<input id="url-get-livJwetLa-list" type="hidden" data-url="@Url.Action("__Index", "LivJwetLa")" />
+
+<div id="create-livJwetLa-modal" class="modal fade" role"dialog" data-backdrop="static">
+    <div class="modal-dialog modal-sm">
+
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #0078d7; border-radius:5px 5px 0 0;">
+
+                <h4 style="display: inline;">Add Book Player</h4>
+
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+            <div class="modal-body row" style="padding:6%;">
+
+                @using (Html.BeginForm("_Index", "LivJwetLa", FormMethod.Post, htmlAttributes: new { id = "Add-LivJwetLa-Form" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    @Html.HiddenFor(model => model.LivJwetlaId, htmlAttributes: new { @class = "id-resetable" })
+
+                <div class="form">
+
+                    <div class="form-group col-md-12 col-sm-12">
+                        @Html.LabelFor(model => model.NbreBouleGagner, "Quantity of ball won", htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.NbreBouleGagner, new { htmlAttributes = new { @class = "form-control editor-resetable" } })
+                    </div>
+
+
+
+                    <div class="form-group col-md-12 col-sm-12">
+
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                @Html.CheckBox("IsManmanBoulLa", false, htmlAttributes: new { @class = "btn btn-default check-box-resetable" })
+                            </div>
+                            <div class="form-control">
+                                <label class="control-label">Is jacpot</label>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="form-group col-md-12 col-sm-12">
+                        @Html.LabelFor(model => model.PrixTicket, "Ticket Price", htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.PrixTicket, new { htmlAttributes = new { @class = "form-control editor-resetable" } })
+                    </div>
+
+
+                    <div class="form-group col-md-12 col-sm-12">
+                        @Html.LabelFor(model => model.MontantAPayer, "Amount to Pay", htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.MontantAPayer, new { htmlAttributes = new { @class = "form-control editor-resetable" } })
+                    </div>
+
+
+
+
+
+                </div>
+
+                    <div class="col-md-12 col-sm-12 col-xs-12" style="border-top:1px solid #d7d7d7; padding-top:10px; text-align:right;">
+
+                        <button type="submit" class="btn btn-sm btn-info submit"><span class="glyphicon glyphicon-save-file"></span> Save <span class="glyphicon glyphicon-refresh loader" style="display:none;"></span> </button>
+                        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Close</button>
+
+                    </div>
+
+
+                }
+
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<div id="edit-livJwetLa-modal" class="modal fade" role="dialog" data-backdrop="static">
+    <div class="modal-dialog modal-sm">
+
+
+    </div>
+</div>
+
+
+
+<!-- Modal 2 Dialog for delete option -->
+<div id="delete-modal" class="modal fade" role="dialog" data-backdrop="static">
+    <div class="modal-dialog modal-sm">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+
+            <div class="modal-header" style="background-color: #0078d7; border-radius:5px 5px 0 0;">
+
+                <h4 style="display: inline;">Delete</h4>
+
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+
+            <div class="modal-body row" style="padding:7%; text-align:center;">
+
+                <span class="glyphicon glyphicon-alert" style="display:block; font-size: 20px;"></span>
+                <h5 class="text-warning" style="display:block;">Do you really want to Delete this Book Player ?</h5>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <a class="delete-confirmed btn btn-sm btn-danger" href="#">
+                    YES
+                </a>
+
+                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">
+                    NO
+                </button>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+<a id="validation-link" data-toggle="modal" data-target="#modal-dialog-message"></a>
+
+<div id="modal-dialog-message" class="modal fade" role="dialog" data-backdrop="static">
+    <div class="modal-dialog modal-sm">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #0078d7; border-radius:5px 5px 0 0;">
+
+                <h4 style="display: inline;">Message</h4>
+
+            </div>
+            <div class="modal-body row" style="padding:7%; text-align:center;">
+
+                <span class="glyphicon glyphicon-info-sign" style="display:block; font-size: 20px;"></span>
+                <h5 class="text-info" style="display:block;">@ViewBag.message</h5>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">
+                    OK
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="pv-overlay-loading" class="overlay-loading bc-overlay-loading" style="display:none;">
+    <img src="~/Content/images/loading-gif.gif" alt="Loading" width="50" height="50" />
+</div>

@@ -1,0 +1,66 @@
+﻿
+<input type="hidden" id="nbre-ticket-vendeur" value="@if (ViewBag.TicketVendeurs != null) { @ViewBag.TicketVendeurs.Count}else{ Write(0); }" />
+
+<div id="pv-overlay-loading" class="overlay-loading" style="display:none;">
+    <img src="~/Content/images/loading-gif.gif" alt="Loading" width="50" height="50" />
+</div>
+
+
+<div class="table-responsive">
+    <table id="datatable" class="table table-hover display" style="width:100%;">
+
+        <thead class="bg-success">
+
+            <tr>
+                <th>
+                    code
+
+                </th>
+
+                <th>
+                    Create Date
+                </th>
+
+
+
+                <th style="text-align:center;">
+                    Actions
+                </th>
+            </tr>
+
+        </thead>
+
+
+
+        <tbody class="big-table-height">
+            @if (ViewBag.TicketVendeurs != null)
+            {
+                foreach (var item in (List<TchotchoLoto.Models.Ticket>)ViewBag.TicketVendeurs)
+                {
+                    <tr>
+
+                        <td>
+                            @item.CodeTicket
+                        </td>
+
+                        <td>
+                            @item.DateCreation.ToString("dd/MM/yyyy")
+                        </td>
+
+
+                        <td style="text-align:center;">
+
+
+                            <button data-url="@Url.Action("_EditTicketBouleVendeurs", "Tickets", new { id = item.TicketId })" class="edit-boule-in-ticket-btn btn btn-xs btn-primary"> <span class="glyphicon glyphicon-import"></span> Sale</button>
+                           
+
+
+
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+
+    </table>
+</div>

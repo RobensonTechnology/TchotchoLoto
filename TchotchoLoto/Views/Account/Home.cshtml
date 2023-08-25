@@ -4,17 +4,29 @@
     ViewBag.Title = "Home";
     Layout = "~/Views/Shared/_MainLayout.cshtml";
 
+
 }
 
 <div class="home-body">
 
+
+    <div class="page-scroll-content" id="view-last-draw">
+
+        @Html.Partial("__HomeDraw")
+
+    </div>
+
+
+
 </div>
 
 
-@if (ViewBag.message != null)
+
+@*@if (ViewBag.message != null)
 {
     <p class="validation-message"></p>
-}
+}*@
+
 
 <a id="validation-link" data-toggle="modal" data-target="#modal-dialog-message"></a>
 

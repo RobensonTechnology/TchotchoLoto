@@ -26,6 +26,11 @@ namespace TchotchoLoto.Controllers
                 return Json(new { returnToLogin = true }, JsonRequestBehavior.AllowGet);
             }
 
+
+
+            new AccountController().AddUserActionLog(currentUser, currentCompagnie, "AppNavigationPermissions/Index", "Button Sub Menu [Navigation > Permissions]");
+
+
             int sessionIdExist = db.Users.Where(u => u.SessionId == HttpContext.Session.SessionID).Count();
 
             if (sessionIdExist == 0)
@@ -140,6 +145,10 @@ namespace TchotchoLoto.Controllers
                 return Json(new { returnToLogin = true }, JsonRequestBehavior.AllowGet);
             }
 
+
+            new AccountController().AddUserActionLog(currentUser, currentCompagnie, "AppNavigationPermissions/_Index", "Button Add Permission [Navigation > Permissions]");
+
+
             int sessionIdExist = db.Users.Where(u => u.SessionId == HttpContext.Session.SessionID).Count();
 
             if (sessionIdExist == 0)
@@ -245,6 +254,12 @@ namespace TchotchoLoto.Controllers
             {
                 return Json(new { returnToLogin = true }, JsonRequestBehavior.AllowGet);
             }
+
+
+
+            new AccountController().AddUserActionLog(currentUser, currentCompagnie, "AppNavigationPermissions/Delete", "Button Delete [Navigation > Permissions]");
+
+
 
             int sessionIdExist = db.Users.Where(u => u.SessionId == HttpContext.Session.SessionID).Count();
 

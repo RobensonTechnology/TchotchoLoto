@@ -1,0 +1,121 @@
+﻿@model TchotchoLoto.Models.Tirage
+@{
+    ViewBag.Title = "Draw";
+    Layout = null;
+}
+
+
+<input type="hidden" class="title" data-title="Draw" />
+
+<div class="indicator">
+    Draw  &nbsp;&nbsp; <span class="glyphicon glyphicon-chevron-right"></span> &nbsp; &nbsp; Lottery Winner
+</div>
+
+
+
+<div class="header-body-autorisation">
+
+</div>
+
+<br />
+
+
+
+<div class="row" style="height: 90%;">
+    <div class="pn-container-left">
+
+        <div class="panel-default table-panel" style="height: 88%;">
+            <div class="panel-heading" style="background: #31708e; color:white; border-radius: 8px 8px 0 0;">
+                <h4 class="panel-title" style="display:inline-block;">
+
+                    Lottery List( <span id="hb-nbre-lotterie">
+                        @if (ViewBag.LotterieTirages != null)
+                        {@ViewBag.LotterieTirages.Count}
+                    else { Write(0); }
+                    </span> )
+
+                </h4>
+               
+            </div>
+            <div class="panel-body" style="border :1px solid #0088d7; border-radius: 0 0 8px 8px; position:relative; background: none; padding:0; height:100%;">
+
+
+
+                <div id="lotterie-list-pv" style="margin-top: -10px; overflow-y:hidden !important;">
+                    @Html.Partial("__LotterieListe")
+                  
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+    </div>
+
+
+    <div class="pn-container-right">
+
+        <div class="panel-default table-panel" style="width:100%; height: 88%;">
+            <div class="panel-heading" style="background: #41683c; color:white; border-radius: 8px 8px 0 0;">
+                <h4 class="panel-title" style="display:inline-block;">
+
+                    Ticket Winner  ( <span id="hb-nbre-ticket-gagnant">
+                        @if (ViewBag.TicketLotterieWinnes != null)
+                        {@ViewBag.TicketLotterieWinnes.Count}
+                    else { Write(0); }
+                    </span> )
+
+                </h4>
+            </div>
+
+            <div class="panel-bodysss" style="border :1px solid #0088d7; border-radius: 0 0 8px 8px; position:relative; background: none; height:100%;">
+
+                <div id="ticket-gagnant-list-pv" style="overflow-y:auto;">
+                    @Html.Partial("__LotterieTicketGagnant")
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+<a id="validation-link" data-toggle="modal" data-target="#modal-dialog-message"></a>
+
+<div id="modal-dialog-message" class="modal fade" app-navigation="dialog" data-backdrop="static">
+    <div class="modal-dialog modal-sm">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #0078d7; border-radius:5px 5px 0 0;">
+
+                <h4 style="display: inline;">Message</h4>
+
+            </div>
+            <div class="modal-body row" style="padding:7%; text-align:center;">
+
+                <span class="glyphicon glyphicon-info-sign" style="display:block; font-size: 20px;"></span>
+                <h5 class="text-info" style="display:block;">@ViewBag.message</h5>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">
+                    OK
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="pv-overlay-loading" class="overlay-loading bc-overlay-loading" style="display:none;">
+    <img src="~/Content/images/loading-gif.gif" alt="Loading" width="50" height="50" />
+
+</div>
+
+
+
+

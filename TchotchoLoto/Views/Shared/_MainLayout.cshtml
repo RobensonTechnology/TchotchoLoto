@@ -17,8 +17,26 @@
         idUser = currentUser.UserId;
     }
 
+    int totalSeconde = 0;
+    Tirage prochainTirage = new TchotchoLoto.Controllers.TiragesController().ProchainTirage();
+
+    if (prochainTirage != null)
+    {
+
+
+        DateTime dateTirage = prochainTirage.DateTirage;
+        TimeSpan heureTirage = prochainTirage.Heure;
+        DateTime dateHeureTirage = dateTirage + heureTirage;
+
+        var totalSecondeRestant = (dateHeureTirage - DateTime.Now).TotalSeconds;
+        totalSeconde = (int)totalSecondeRestant;
+
+
+    }
+
 
 }
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -33,6 +51,9 @@
     </title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+
+
+
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/theme.min.css">
@@ -58,7 +79,7 @@
     </style>
 </head>
 
-<body id="body">
+<body id="bodyA">
 
     <noscript>
         <div style="position:fixed; width:100%; height:100%; text-align:center;background:#fff; z-index: 20000;top: 0; left: 0;bottom: 0;right: 0;">
@@ -95,71 +116,44 @@
                 <div class="navbar-header">
                     <a class="navbar-brand" style="font-family:Helvetica; font-weight:bold;" href="@Url.Action("Home", "Account")">
 
-
                         <span class="glyphicon glyphicon-registration-mark brand-glyph"></span>
 
                         @if (compagnie != null && application != null)
                         {
                             <span class="hide-on-mobile">
-                                @application.Description
+
+                                <img src="~/Content/images/tchotcholotologo.jpg" class="img-rounded" alt="logo" width="100" height="40" style="margin-top:-10px;" />
+                                @*@application.Description*@
 
 
 
                             </span>
 
                             <span class="show-on-mobile" style="display:none;">
-                                @application.Description
+
+                                <img src="~/Content/images/tchotcholotologo.jpg" alt="logo" width="100" height="50" />
+                                @*@application.Description*@
                             </span>
 
                         }
                         else
                         {
+
                             <span class="hide-on-mobile">
-                                TCHOTCHO PARYAJ
+                                @*TCHOTCHO PARYAJ*@
+                                <img src="~/Content/images/tchotcholotologo.jpg" alt="logo" width="100" height="50" />
 
                             </span>
 
                             <span class="show-on-mobile" style="display:none;">
-                                TCHOTCHO PARYAJ
+                                @*TCHOTCHO PARYAJ*@
+                                <img src="~/Content/images/tchotcholotologo.jpg" alt="logo" width="100" height="50" />
+
                             </span>
 
                         }
 
 
-                        @*<span class="hide-on-mobile">
-                            @if (compagnie != null)
-                            {
-                                if (application != null)
-                                {
-                                    @application.ApplicationName
-                                }
-                                <span>-</span>
-                                @compagnie.NomCompagnie
-
-                            }
-                            else
-                            {
-                                <span class="hide-on-mobile" style="display:none;">PARYAJ LOTO</span>
-
-                            }
-                        </span>
-
-                        <span class="show-on-mobile" style="display:none;">
-                            @if (compagnie != null)
-                            {
-                                if (application != null)
-                                {
-                                    @application.Description
-                                }
-
-                            }
-                            else
-                            {
-                                <span class="show-on-mobile" style="display:none;">PARYAJ LOTO</span>
-
-                            }
-                        </span>*@
-                        
                     </a>
                 </div>
                 @* where was the search form *@
@@ -172,6 +166,10 @@
 
 
                             <li class="dropdown usrsm">
+                                @*<button class="btn btn-md view-last-generate-tirage-btn btn-success" href="@Url.Action("__HomeDraw", "Account")">
+                                        <span class="glyphicon glyphicon-refresh"> </span> &nbsp; View Last Draw
+                                    </button>*@
+
                                 <a style="min-height:50px;" href="#" class="dropdown-toggle current-user-info md" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                                     <span class="glyphicon glyphicon-user"></span>
                                     <span style="margin:5px; font: bold 14px arial, verdana;">
@@ -216,7 +214,8 @@
 
                         <input type="hidden" id="old-notif" />
 
-                        <ul class="nav navbar-nav notification-dropdown" style="display:none;">
+                        <ul class="nav navbar-nav notification-dropdown">
+
 
                             <li class="dropdown sm noticonsm">
                                 <a href="#" class="dropdown-toggle notif-icon md" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -317,10 +316,29 @@
                         {
 
                             <ul class="nav nav-sidebar" title="@navigation.AppNavigation.NavigationLabel">
-                                <li id="option-liste" class="header"><a href="#"><span class="glyphicon glyphicon-bookmark"></span>&nbsp;&nbsp; @navigation.AppNavigation.NavigationLabel <span id="chevron-liste" class="glyphicon chevron glyphicon-chevron-down"></span><span class="sr-only">(current)</span></a></li>
+                                <li id="option-boule" class="header"><a href="#"><span class="glyphicon glyphicon-globe"></span>&nbsp;&nbsp; @navigation.AppNavigation.NavigationLabel <span id="chevron-boule" class="glyphicon chevron glyphicon-chevron-down"></span><span class="sr-only">(current)</span></a></li>
                             </ul>
 
-                            <ul class="nav  nav-sub" id="menu-liste">
+                            <ul class="nav  nav-sub" id="menu-boule">
+                                @foreach (var item in appNavigationChildren.Where(an => an.AppNavigationId == navigation.AppNavigationId).OrderBy(an => an.PermissionOrder).ToList())
+                                {
+                                    if (roles.Exists(r => r.PermissionId == item.PermissionId))
+                                    {
+                                        <li>@Html.ActionLink(item.Permission.Label, item.Permission.ObjectName, item.Permission.ParentName)</li>
+                                    }
+
+                                }
+                            </ul>
+                        }
+
+                        if (navigation.AppNavigation.NavigationLevel == 1 && navigation.AppNavigation.NavigationOrder == 2)
+                        {
+
+                            <ul class="nav nav-sidebar" title="@navigation.AppNavigation.NavigationLabel">
+                                <li id="option-ticket" class="header"><a href="#"><span class="glyphicon glyphicon-bookmark"></span>&nbsp;&nbsp; @navigation.AppNavigation.NavigationLabel <span id="chevron-ticket" class="glyphicon chevron glyphicon-chevron-down"></span><span class="sr-only">(current)</span></a></li>
+                            </ul>
+
+                            <ul class="nav  nav-sub" id="menu-ticket">
                                 @foreach (var item in appNavigationChildren.Where(an => an.AppNavigationId == navigation.AppNavigationId).OrderBy(an => an.PermissionOrder).ToList())
                                 {
                                     if (roles.Exists(r => r.PermissionId == item.PermissionId))
@@ -333,14 +351,14 @@
                         }
 
 
-                        if (navigation.AppNavigation.NavigationLevel == 1 && navigation.AppNavigation.NavigationOrder == 2)
+                        if (navigation.AppNavigation.NavigationLevel == 1 && navigation.AppNavigation.NavigationOrder == 3)
                         {
 
                             <ul class="nav nav-sidebar" title="@navigation.AppNavigation.NavigationLabel">
-                                <li id="option-operation" class="header"><a href="#"><span class="icon-container"></span>&nbsp;&nbsp; @navigation.AppNavigation.NavigationLabel <span id="chevron-operation" class="glyphicon chevron glyphicon-chevron-down"></span><span class="sr-only">(current)</span></a></li>
+                                <li id="option-pointDeVente" class="header"><a href="#"><span class="icon-container"></span>&nbsp;&nbsp; @navigation.AppNavigation.NavigationLabel <span id="chevron-pointDeVente" class="glyphicon chevron glyphicon-chevron-down"></span><span class="sr-only">(current)</span></a></li>
                             </ul>
 
-                            <ul class="nav  nav-sub" id="menu-operation">
+                            <ul class="nav  nav-sub" id="menu-pointDeVente">
                                 @foreach (var item in appNavigationChildren.Where(an => an.AppNavigationId == navigation.AppNavigationId).OrderBy(an => an.Permission.Label).ToList())
                                 {
                                     if (roles.Exists(r => r.PermissionId == item.PermissionId))
@@ -354,7 +372,7 @@
 
 
 
-                        if (navigation.AppNavigation.NavigationLevel == 1 && navigation.AppNavigation.NavigationOrder == 3)
+                        if (navigation.AppNavigation.NavigationLevel == 1 && navigation.AppNavigation.NavigationOrder == 4)
                         {
 
                             <ul class="nav nav-sidebar" title="@navigation.AppNavigation.NavigationLabel">
@@ -375,36 +393,14 @@
 
 
 
-                        if (navigation.AppNavigation.NavigationLevel == 1 && navigation.AppNavigation.NavigationOrder == 4)
-                        {
-
-                            <ul class="nav nav-sidebar" title="@navigation.AppNavigation.NavigationLabel">
-                                <li id="option-import" class="header"><a href="#"><span class="icon-cargo-ship"></span>&nbsp;&nbsp; @navigation.AppNavigation.NavigationLabel <span id="chevron-import" class="glyphicon chevron glyphicon-chevron-down"></span><span class="sr-only">(current)</span></a></li>
-                            </ul>
-
-                            <ul class="nav  nav-sub" id="menu-import">
-                                @foreach (var item in appNavigationChildren.Where(an => an.AppNavigationId == navigation.AppNavigationId).OrderBy(an => an.Permission.PermissionId).ToList())
-                                {
-                                    if (roles.Exists(r => r.PermissionId == item.PermissionId))
-                                    {
-                                        <li>@Html.ActionLink(item.Permission.Label, item.Permission.ObjectName, item.Permission.ParentName)</li>
-                                    }
-
-                                }
-                            </ul>
-                        }
-
-
-
-
                         if (navigation.AppNavigation.NavigationLevel == 1 && navigation.AppNavigation.NavigationOrder == 5)
                         {
 
                             <ul class="nav nav-sidebar" title="@navigation.AppNavigation.NavigationLabel">
-                                <li id="option-invoicing" class="header"><a href="#"><span class="icon-invoice"></span>&nbsp; @navigation.AppNavigation.NavigationLabel <span id="chevron-invoicing" class="glyphicon chevron glyphicon-chevron-down"></span><span class="sr-only">(current)</span></a></li>
+                                <li id="option-book" class="header"><a href="#"><span class="glyphicon glyphicon-book"></span>&nbsp; @navigation.AppNavigation.NavigationLabel <span id="chevron-book" class="glyphicon chevron glyphicon-chevron-down"></span><span class="sr-only">(current)</span></a></li>
                             </ul>
 
-                            <ul class="nav  nav-sub" id="menu-invoicing">
+                            <ul class="nav  nav-sub" id="menu-book">
                                 @foreach (var item in appNavigationChildren.Where(an => an.AppNavigationId == navigation.AppNavigationId).OrderBy(an => an.AppNavigationPermissionId).ToList())
                                 {
                                     if (roles.Exists(r => r.PermissionId == item.PermissionId))
@@ -421,10 +417,51 @@
                         {
 
                             <ul class="nav nav-sidebar" title="@navigation.AppNavigation.NavigationLabel">
-                                <li id="option-dispatch" class="header"><a href="#"><span class="icon-logistics-delivery-truck-in-movement"></span>&nbsp; @navigation.AppNavigation.NavigationLabel <span id="chevron-dispatch" class="glyphicon chevron glyphicon-chevron-down"></span><span class="sr-only">(current)</span></a></li>
+                                <li id="option-report" class="header"><a href="#"><span class="glyphicon glyphicon-registration-mark"></span>&nbsp; @navigation.AppNavigation.NavigationLabel <span id="chevron-report" class="glyphicon chevron glyphicon-chevron-down"></span><span class="sr-only">(current)</span></a></li>
                             </ul>
 
-                            <ul class="nav nav-sub" id="menu-dispatch">
+                            <ul class="nav nav-sub" id="menu-report">
+                                @foreach (var item in appNavigationChildren.Where(an => an.AppNavigationId == navigation.AppNavigationId).OrderBy(an => an.Permission.PermissionId).ToList())
+                                {
+                                    if (roles.Exists(r => r.PermissionId == item.PermissionId))
+                                    {
+                                        <li>@Html.ActionLink(item.Permission.Label, item.Permission.ObjectName, item.Permission.ParentName)</li>
+                                    }
+
+                                }
+                            </ul>
+                        }
+
+
+                        if (navigation.AppNavigation.NavigationLevel == 1 && navigation.AppNavigation.NavigationOrder == 7)
+                        {
+
+                            <ul class="nav nav-sidebar" title="@navigation.AppNavigation.NavigationLabel">
+                                <li id="option-payment" class="header"><a href="#"><span class="glyphicon glyphicon-usd"></span>&nbsp; @navigation.AppNavigation.NavigationLabel <span id="chevron-payment" class="glyphicon chevron glyphicon-chevron-down"></span><span class="sr-only">(current)</span></a></li>
+                            </ul>
+
+                            <ul class="nav nav-sub" id="menu-payment">
+                                @foreach (var item in appNavigationChildren.Where(an => an.AppNavigationId == navigation.AppNavigationId).OrderBy(an => an.Permission.PermissionId).ToList())
+                                {
+                                    if (roles.Exists(r => r.PermissionId == item.PermissionId))
+                                    {
+                                        <li>@Html.ActionLink(item.Permission.Label, item.Permission.ObjectName, item.Permission.ParentName)</li>
+                                    }
+
+                                }
+                            </ul>
+                        }
+
+
+
+                        if (navigation.AppNavigation.NavigationLevel == 1 && navigation.AppNavigation.NavigationOrder == 8)
+                        {
+
+                            <ul class="nav nav-sidebar" title="@navigation.AppNavigation.NavigationLabel">
+                                <li id="option-message" class="header"><a href="#"><span class="glyphicon glyphicon-envelope"></span>&nbsp; @navigation.AppNavigation.NavigationLabel <span id="chevron-message" class="glyphicon chevron glyphicon-chevron-down"></span><span class="sr-only">(current)</span></a></li>
+                            </ul>
+
+                            <ul class="nav nav-sub" id="menu-message">
                                 @foreach (var item in appNavigationChildren.Where(an => an.AppNavigationId == navigation.AppNavigationId).OrderBy(an => an.Permission.PermissionId).ToList())
                                 {
                                     if (roles.Exists(r => r.PermissionId == item.PermissionId))
@@ -468,6 +505,51 @@
             </div>
 
 
+
+
+            <input type="hidden" id="url-get-notif-info" data-url="@Url.Action("GetNotifInfo", "Account")" />
+
+            <input type="hidden" id="notif-sound-1" data-src="@Url.Content("~/Content/sounds/notif-sound-1.mp3")" />
+            <input type="hidden" id="bells" data-src="@Url.Content("~/Content/sounds/bells.mp3")" />
+            <input type="hidden" id="tolling" data-src="@Url.Content("~/Content/sounds/tolling.mp3")" />
+
+            <input type="hidden" id="secondeRestanteProchainTirage" value="@totalSeconde" />
+
+
+
+            <div style="background: #0373cc; padding: 5px;">
+                <span class="glyphicon glyphicon-bullhorn" style="color: #ffffff;font-size: 1.6rem;"></span>
+                <span style="font-weight: 500; color:#ffd800;">Time left Next Draw</span>
+
+            </div>
+
+            <div style="color: #0373cc; font-size: 1.6rem; margin: 5px;">
+                <span class="glyphicon glyphicon-time" > </span>
+                
+                <span id="tempsRestant"></span>
+
+            </div>
+
+            @*<div style="height:30%; background:#d9eeff; color:#0078d7; overflow-y:auto;" id="main-menu-resume-box">
+
+                    <div class="notif-resume-bell-box" style=" position: absolute; z-index: 2000; transform: translateY(-60%); width: 100%; text-align: center;">
+                        <span class="glyphicon glyphicon-bell bell-notif-resume" style="color:#ff6a00; font-size:3rem;"></span>
+                    </div>
+
+                </div>
+
+                <div style="background: #0373cc; padding: 5px;">
+                    <span class="glyphicon glyphicon-envelope" style="color: #ffffff;font-size: 1.6rem;"></span>
+                    <span style="font-weight: 500; color:#ffd800;">Reminder</span>
+                </div>
+                <div style="height:30%; background:#d9eeff; color:#0078d7; overflow-y:auto;" id="main-menu-resume-box">
+
+                    <div class="notif-resume-bell-box" style="display:none; position: absolute; z-index: 2000; transform: translateY(-60%); width: 100%; text-align: center;">
+                        <span class="glyphicon glyphicon-bell bell-notif-resume" style="color:#ff6a00; font-size:3rem;"></span>
+                    </div>
+
+                </div>*@
+
         </div>
 
         <div id="account-user-modal" class="modal fade" role="dialog" data-backdrop="static">
@@ -489,15 +571,16 @@
 
         <div class="body-content">
             @RenderBody()
-           
 
-         
-            
+
+
+
         </div>
 
     </div>
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")

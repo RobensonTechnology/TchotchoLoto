@@ -14,18 +14,26 @@ namespace TchotchoLoto.Models
     
     public partial class PointDeVente
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public PointDeVente()
+        {
+            this.UserPointDeVentes = new HashSet<UserPointDeVente>();
+        }
+    
         public int PointDeVenteId { get; set; }
-        public int CompagnieId { get; set; }
+        public string CodePointDeVente { get; set; }
         public string NomPointDeVente { get; set; }
         public string Adresse { get; set; }
         public string Ville { get; set; }
         public string CodePostal { get; set; }
         public System.DateTime DateCreation { get; set; }
+        public string Latitude { get; set; }
+        public string Longitude { get; set; }
         public bool Statut { get; set; }
         public string ModifiePar { get; set; }
         public Nullable<System.DateTime> ModifieDate { get; set; }
-        public string CodePointDeVente { get; set; }
     
-        public virtual Compagnie Compagnie { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserPointDeVente> UserPointDeVentes { get; set; }
     }
 }

@@ -1,0 +1,99 @@
+﻿@model TchotchoLoto.Models.Ticket
+@{
+    ViewBag.Title = "Ticket Histories";
+    Layout = null;
+}
+
+
+
+<input type="hidden" class="title" data-title="Ticket Histories" />
+
+<div class="indicator">
+    Ticket &nbsp;&nbsp; <span class="glyphicon glyphicon-chevron-right"></span>  &nbsp; &nbsp; Ticket Histories
+</div>
+
+
+<div class="header-body">
+
+    <p style="display:inline-block;" class="qt-dataTable">
+        &nbsp;&nbsp; Draw List(<span id="hb-nbre-allTicketHistories">
+            @if (ViewBag.AllTicketHistories != null)
+            {@ViewBag.AllTicketHistories.Count}
+        else { Write(0); }
+        </span>)
+        &nbsp;<span class="glyphicon star glyphicon-star text-success"></span>
+
+        @using (Html.BeginForm("__AllTicketVendeurHistories", "Tickets", FormMethod.Get, htmlAttributes: new { id = "allTicketHistories-list-form" }))
+        {
+
+            <div class="form-group col-md-3 col-sm-4 col-xs-4" title="Begin Date" style="padding-left:1px; width: 200px;">
+                <input type="date" name="dateDebut" id="dateDebut" class="form-control" style="border: 1px solid #31b0d5; background: #31b0d5; color:white;">
+            </div>
+
+            <div class="form-group col-md-3 col-sm-4 col-xs-4" title="End Date" style="margin-left:-25px; width: 200px;">
+                <input type="date" name="dateFin" id="dateFin" class="form-control" style="border: 1px solid #31b0d5; background: #31b0d5; color:white;">
+            </div>
+            <div class="form-group col-md-2 col-sm-2 col-xs-2" style="margin-left:-25px;">
+                <button style="margin-right:10px; background: #31b0d5; color: dimgrey; border: none; color:white;" class="btn btn-md  submit" title="Search for this Date">
+                    <span class="glyphicon glyphicon-search"></span>
+                </button>
+            </div>
+        }
+    </p>
+
+
+
+</div>
+
+<br />
+
+
+
+
+<div class="page-scroll-content" id="allTicketHistories-list-pv">
+
+    @Html.Partial("__AllTicketHistories")
+
+</div>
+
+
+
+
+
+
+<div id="ticket-info-modal" class="modal fade" role="dialog" data-backdrop="static">
+    <div class="modal-dialog modal-md">
+
+        <!-- Modal content-->
+    </div>
+</div>
+
+
+<a id="validation-link" data-toggle="modal" data-target="#modal-dialog-message"></a>
+
+<div id="modal-dialog-message" class="modal fade" role="dialog" data-backdrop="static">
+    <div class="modal-dialog modal-sm">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #0078d7; border-radius:5px 5px 0 0;">
+
+                <h4 style="display: inline;">Message</h4>
+
+            </div>
+            <div class="modal-body row" style="padding:7%; text-align:center;">
+
+                <span class="glyphicon glyphicon-info-sign" style="display:block; font-size: 20px;"></span>
+                <h5 class="text-info" style="display:block;">@ViewBag.message</h5>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">
+                    OK
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+

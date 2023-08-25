@@ -1,0 +1,87 @@
+﻿
+@{
+    var curUser = (TchotchoLoto.Models.User)Session["userData"];
+
+}
+
+<input type="hidden" id="nbre-livJwetLa" value="@if (ViewBag.LivJwetLa != null) { @ViewBag.LivJwetLa.Count}else{ Write(0); }" />
+
+<div id="pv-overlay-loading" class="overlay-loading" style="display:none;">
+    <img src="~/Content/images/loading-gif.gif" alt="Loading" width="50" height="50" />
+
+</div>
+
+
+<div class="table-responsive">
+    <table id="datatable" class="table table-hover display" style="width:100%;">
+
+        <thead class="bg-success">
+
+            <tr>
+                <th>
+                    Quamtity
+                </th>
+                <th>
+                    Is Jacpot
+                </th>
+                <th>
+                    Ticket Price
+                </th>
+                <th>
+                    Amount to Pay
+                </th>
+                @if (curUser != null && curUser.Role.RolePermissions.ToList().Exists(u => u.Permission.ParentName.Trim().ToLower() == "livjwetla" && (u.FullPermission || u.Permission.ObjectName.Trim().ToLower() == "edit")))
+                {
+                    <th style="text-align:center;">
+                        Action
+                    </th>
+                }
+            </tr>
+
+        </thead>
+
+        <tbody>
+            @if (ViewBag.LivJwetLa != null)
+            {
+                foreach (var item in (List<TchotchoLoto.Models.LivJwetla>)ViewBag.LivJwetLa)
+                {
+                    <tr>
+                        <td>
+                            @item.NbreBouleGagner
+                        </td>
+                        <td>
+                            @if (item.IsManmanBoulLa)
+                            {
+                                <span> Yes</span>}
+
+                            else
+                            { <span> No </span>}
+
+                        </td>
+
+
+                        <td>
+
+                            @item.PrixTicket HTG
+                        </td>
+
+                        <td>
+                            @item.MontantAPayer HTG
+                        </td>
+
+                        @if (curUser != null && curUser.Role.RolePermissions.ToList().Exists(u => u.Permission.ParentName.Trim().ToLower() == "livjwetla" && (u.FullPermission || u.Permission.ObjectName.Trim().ToLower() == "edit")))
+                        {
+                            <td style="text-align:center;">
+
+                                <button data-url="@Url.Action("_Edit", "LivJwetLa", new { id = item.LivJwetlaId })" class="edit-livJwetLa-btn btn btn-xs btn-info"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+
+                            </td>
+                        }
+
+                    </tr>
+                }
+            }
+        </tbody>
+
+    </table>
+</div>

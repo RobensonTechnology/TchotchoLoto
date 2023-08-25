@@ -1,0 +1,165 @@
+﻿
+
+<button style="margin-top: 10px;" class="btn btn-md view-last-generate-tirage-btn btn-warning pull-right" href="@Url.Action("__HomeDraw", "Account")">
+    <span class="glyphicon glyphicon-eye-open"> </span> &nbsp; View Last Draw &nbsp; <span class="glyphicon glyphicon-play"> </span>
+</button>
+
+
+<input id="url-get-waitingForTreadTirage" type="hidden" data-url="@Url.Action("__HomeDraw", "Account")" />
+
+
+@if (ViewBag.GagnantLotteries != null)
+{
+    foreach (var item in (List<TchotchoLoto.Models.GagnantLotterie>)ViewBag.GagnantLotteries)
+    {
+
+
+        <div class="row" style="background-color: white; color: black; display:inline-block; width:100%; height: 20px; text-align:center; margin:10px;">
+
+            <b>
+                Nom Joeur:
+            </b>
+
+            <span>
+                @item.Ticket.NomJoueur
+            </span>
+
+
+
+
+            <b>
+                Montant:
+            </b>
+
+            <span>
+                @item.MontantGagner HTG
+            </span>
+
+
+
+            <b>
+                Draw date:
+            </b>
+
+            <span>
+                @(item.Tirage.DateTirage + item.Tirage.Heure)
+            </span>
+        </div>
+
+
+    }
+}
+
+
+
+<div id="current-Tirage">
+
+
+    <input type="hidden" id="tirageEffectue" value="@if (ViewBag.LastlotterieTirage != null) { Write(1); }else{ Write(0); }" />
+
+
+    <center>
+
+        <div class="div-timer" style="margin-top: 5%;">
+
+            <div id="timer"></div>
+
+        </div>
+
+    </center>
+
+
+
+
+    @if (ViewBag.LastlotterieTirage != null)
+    {
+
+        var CurrentTirage = (TchotchoLoto.Models.LotterieTirage)ViewBag.LastlotterieTirage;
+
+
+
+        <div class="tirage-lotterie-bg">
+
+            <center>
+                <div style=" border-radius: 5px 5px 5px 5px; ">
+                    <h4 style="display: inline;">Info Draw Date: @CurrentTirage.Tirage.DateTirage.ToString("dd/MM/yyyy") Time: @CurrentTirage.Tirage.Heure</h4>
+                </div>
+            </center>
+
+            <center>
+
+                <h3 class="boule1" style="display:none;">
+                    <b>
+                        First lot:
+                    </b>
+
+                    <span class="cercleLottery">
+                        @CurrentTirage.Boule.Description
+                    </span>
+                </h3>
+
+
+
+                <h3 class="boule2" style="display:none;">
+                    <b>
+                        Second lot:
+                    </b>
+
+                    <span class="cercleLottery">
+                        @CurrentTirage.Boule1.Description
+                    </span>
+                </h3>
+
+
+                <h3 class="boule3" style="display:none;">
+                    <b>
+                        Third lot:
+                    </b>
+                    <span class="cercleLottery">
+                        @CurrentTirage.Boule2.Description
+                    </span>
+                </h3>
+
+
+                <h3 class="boule4" style="display:none;">
+                    <b>
+                        Fourth lot:
+                    </b>
+
+                    <span class="cercleLottery">
+                        @CurrentTirage.Boule3.Description
+                    </span>
+                </h3>
+
+                <h3 class="boule5" style="display:none;">
+                    <b>
+                        Fifth lot:
+                    </b>
+
+
+                    <span class="cercleLottery">
+                        @CurrentTirage.Boule4.Description
+                    </span>
+                </h3>
+
+
+
+                <h3 class="bouleJacpot" style="display:none;">
+                    <b>
+                        The Jacpot Ball:
+                    </b>
+
+                    <span class="cercleJacpot">
+                        @CurrentTirage.Boule5.Description
+                    </span>
+                </h3>
+
+
+
+            </center>
+        </div>
+
+
+
+    }
+</div>

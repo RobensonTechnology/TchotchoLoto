@@ -16,6 +16,25 @@
           <Property Name="NbreJours" Type="int" />
           <Property Name="Statut" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="AddAppAccessLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="clientInfo" Type="nvarchar" MaxLength="256" />
+          <Property Name="Date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="AddUserActionLog">
+          <Key>
+            <PropertyRef Name="AddUserActionLogId" />
+          </Key>
+          <Property Name="AddUserActionLogId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="Info" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Action" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="ActionDesc" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="DateModif" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="Agence">
           <Key>
             <PropertyRef Name="AgenceId" />
@@ -72,6 +91,15 @@
           <Property Name="PermissionId" Type="int" Nullable="false" />
           <Property Name="PermissionOrder" Type="int" />
         </EntityType>
+        <EntityType Name="Boule">
+          <Key>
+            <PropertyRef Name="BouleId" />
+          </Key>
+          <Property Name="BouleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Statut" Type="bit" Nullable="false" />
+          <Property Name="Disable" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="Compagnie">
           <Key>
             <PropertyRef Name="CompagnieId" />
@@ -93,6 +121,53 @@
           <Property Name="ModifiePar" Type="nvarchar" MaxLength="128" />
           <Property Name="ModifieDate" Type="datetime" />
         </EntityType>
+        <EntityType Name="GagnantLotterie">
+          <Key>
+            <PropertyRef Name="GagnantLotterieId" />
+          </Key>
+          <Property Name="GagnantLotterieId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TicketId" Type="int" Nullable="false" />
+          <Property Name="TirageId" Type="int" Nullable="false" />
+          <Property Name="BouleJouer" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="BouleGagner" Type="varchar" MaxLength="128" />
+          <Property Name="JacpotBoule" Type="varchar" MaxLength="128" />
+          <Property Name="MontantGagner" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LivJwetla">
+          <Key>
+            <PropertyRef Name="LivJwetlaId" />
+          </Key>
+          <Property Name="LivJwetlaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IsManmanBoulLa" Type="bit" Nullable="false" />
+          <Property Name="nbreBouleGagner" Type="int" Nullable="false" />
+          <Property Name="PrixTicket" Type="int" Nullable="false" />
+          <Property Name="MontantAPayer" Type="int" Nullable="false" />
+          <Property Name="ModifiePar" Type="varchar" MaxLength="128" />
+          <Property Name="ModifieDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="LotterieTirage">
+          <Key>
+            <PropertyRef Name="LotterieTirageId" />
+          </Key>
+          <Property Name="LotterieTirageId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TirageId" Type="int" Nullable="false" />
+          <Property Name="Boule1Id" Type="int" Nullable="false" />
+          <Property Name="Boule2Id" Type="int" Nullable="false" />
+          <Property Name="Boule3Id" Type="int" Nullable="false" />
+          <Property Name="Boule4Id" Type="int" Nullable="false" />
+          <Property Name="Boule5Id" Type="int" Nullable="false" />
+          <Property Name="JacpotBoule6Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Paiement">
+          <Key>
+            <PropertyRef Name="PaiementId" />
+          </Key>
+          <Property Name="PaiementId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GagnantLotterieId" Type="int" Nullable="false" />
+          <Property Name="DatePaiement" Type="datetime" Nullable="false" />
+          <Property Name="ModifiePar" Type="varchar" MaxLength="128" />
+          <Property Name="ModifieDate" Type="datetime" />
+        </EntityType>
         <EntityType Name="Permission">
           <Key>
             <PropertyRef Name="PermissionId" />
@@ -107,16 +182,42 @@
             <PropertyRef Name="PointDeVenteId" />
           </Key>
           <Property Name="PointDeVenteId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CompagnieId" Type="int" Nullable="false" />
           <Property Name="CodePointDeVente" Type="nvarchar" MaxLength="256" Nullable="false" />
           <Property Name="NomPointDeVente" Type="nvarchar" MaxLength="256" Nullable="false" />
           <Property Name="Adresse" Type="nvarchar" MaxLength="256" Nullable="false" />
           <Property Name="Ville" Type="nvarchar" MaxLength="256" Nullable="false" />
           <Property Name="CodePostal" Type="nvarchar" MaxLength="256" Nullable="false" />
-          <Property Name="DateCreation" Type="datetime" Nullable="false" />
+          <Property Name="DateCreation" Type="date" Nullable="false" />
+          <Property Name="Latitude" Type="nvarchar" MaxLength="128" />
+          <Property Name="Longitude" Type="nvarchar" MaxLength="128" />
           <Property Name="Statut" Type="bit" Nullable="false" />
           <Property Name="ModifiePar" Type="varchar" MaxLength="128" />
           <Property Name="ModifieDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="RapportDeVente">
+          <Key>
+            <PropertyRef Name="RepportDeVenteId" />
+          </Key>
+          <Property Name="RepportDeVenteId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TirageId" Type="int" Nullable="false" />
+          <Property Name="UserPointDeVenteId" Type="int" Nullable="false" />
+          <Property Name="NbreTicketVendu" Type="int" Nullable="false" />
+          <Property Name="Montant" Type="int" Nullable="false" />
+          <Property Name="ModifiePar" Type="varchar" MaxLength="128" />
+          <Property Name="ModifieDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="RapportTirage">
+          <Key>
+            <PropertyRef Name="RapportTirageId" />
+          </Key>
+          <Property Name="RapportTirageId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TirageId" Type="int" Nullable="false" />
+          <Property Name="NbreTicketGagant" Type="int" Nullable="false" />
+          <Property Name="NbreTicketPerdant" Type="int" Nullable="false" />
+          <Property Name="MontantTicketPerdant" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="MontantTicketGagnant" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="MontantTTotalJouer" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="MontantAPayer" Type="decimal" Precision="18" Scale="2" Nullable="false" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -140,6 +241,65 @@
           <Property Name="PermissionId" Type="int" Nullable="false" />
           <Property Name="FullPermission" Type="bit" Nullable="false" />
           <Property Name="ModifiePar" Type="nvarchar" MaxLength="128" />
+          <Property Name="ModifieDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="TicketDetails">
+          <Key>
+            <PropertyRef Name="TicketDetailId" />
+          </Key>
+          <Property Name="TicketDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TicketId" Type="int" Nullable="false" />
+          <Property Name="Boule1Id" Type="int" Nullable="false" />
+          <Property Name="Boule2Id" Type="int" Nullable="false" />
+          <Property Name="Boule3Id" Type="int" Nullable="false" />
+          <Property Name="Boule4Id" Type="int" Nullable="false" />
+          <Property Name="Boule5Id" Type="int" Nullable="false" />
+          <Property Name="Boule6Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tickets">
+          <Key>
+            <PropertyRef Name="TicketId" />
+          </Key>
+          <Property Name="TicketId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CodeTicket" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserPointDeVenteId" Type="int" Nullable="false" />
+          <Property Name="TirageId" Type="int" />
+          <Property Name="IsGagnant" Type="bit" Nullable="false" />
+          <Property Name="IsDjapot" Type="bit" Nullable="false" />
+          <Property Name="DateCreation" Type="datetime" Nullable="false" />
+          <Property Name="IsVente" Type="bit" Nullable="false" />
+          <Property Name="DateVente" Type="datetime" />
+          <Property Name="BouleListes" Type="varchar" MaxLength="128" />
+          <Property Name="DateTirage" Type="datetime" />
+          <Property Name="NomJoueur" Type="varchar" MaxLength="128" />
+          <Property Name="JacpotBoule" Type="varchar" MaxLength="128" />
+          <Property Name="Prix" Type="int" />
+          <Property Name="Tour" Type="int" />
+          <Property Name="ModifiePar" Type="varchar" MaxLength="128" />
+          <Property Name="ModifieDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Tirage">
+          <Key>
+            <PropertyRef Name="TirageId" />
+          </Key>
+          <Property Name="TirageId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Tour" Type="int" Nullable="false" />
+          <Property Name="DateTirage" Type="date" Nullable="false" />
+          <Property Name="Heure" Type="time" Precision="7" Nullable="false" />
+          <Property Name="Statut" Type="bit" Nullable="false" />
+          <Property Name="ModifiePar" Type="varchar" MaxLength="128" />
+          <Property Name="ModifieDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="TirageEnExecution">
+          <Key>
+            <PropertyRef Name="TirageEnExecutionId" />
+          </Key>
+          <Property Name="TirageEnExecutionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TirageId" Type="int" Nullable="false" />
+          <Property Name="Statut" Type="bit" Nullable="false" />
+          <Property Name="DateExecution" Type="datetime" Nullable="false" />
+          <Property Name="DateLancement" Type="datetime" />
+          <Property Name="ModifiePar" Type="varchar" MaxLength="128" />
           <Property Name="ModifieDate" Type="datetime" />
         </EntityType>
         <EntityType Name="User">
@@ -182,12 +342,64 @@
           <Key>
             <PropertyRef Name="UserPointDeVenteId" />
           </Key>
-          <Property Name="UserPointDeVenteId" Type="int" Nullable="false" />
+          <Property Name="UserPointDeVenteId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PointDeVenteId" Type="int" Nullable="false" />
+          <Property Name="LastPointDeVenteId" Type="int" />
+          <Property Name="LastPointDeVenteName" Type="varchar" MaxLength="128" />
           <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="AffectionDate" Type="date" Nullable="false" />
+          <Property Name="Statut" Type="bit" Nullable="false" />
           <Property Name="ModifiePar" Type="varchar" MaxLength="128" />
           <Property Name="ModifieDate" Type="datetime" />
         </EntityType>
+        <Association Name="FK_[RapportDeVente_Tirage">
+          <End Role="Tirage" Type="Self.Tirage" Multiplicity="1" />
+          <End Role="RapportDeVente" Type="Self.RapportDeVente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tirage">
+              <PropertyRef Name="TirageId" />
+            </Principal>
+            <Dependent Role="RapportDeVente">
+              <PropertyRef Name="TirageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_[RapportDeVente_UserPointDeVente">
+          <End Role="UserPointDeVente" Type="Self.UserPointDeVente" Multiplicity="1" />
+          <End Role="RapportDeVente" Type="Self.RapportDeVente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserPointDeVente">
+              <PropertyRef Name="UserPointDeVenteId" />
+            </Principal>
+            <Dependent Role="RapportDeVente">
+              <PropertyRef Name="UserPointDeVenteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_[UserPointDevente_PointDeVente">
+          <End Role="PointDeVente" Type="Self.PointDeVente" Multiplicity="1" />
+          <End Role="UserPointDeVente" Type="Self.UserPointDeVente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PointDeVente">
+              <PropertyRef Name="PointDeVenteId" />
+            </Principal>
+            <Dependent Role="UserPointDeVente">
+              <PropertyRef Name="PointDeVenteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_[UserPointDevente_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserPointDeVente" Type="Self.UserPointDeVente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserPointDeVente">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_AccessTimeApplication_Application">
           <End Role="Application" Type="Self.Application" Multiplicity="1" />
           <End Role="AccessTimeApplication" Type="Self.AccessTimeApplication" Multiplicity="*" />
@@ -272,15 +484,135 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PointDeVente_Compagnie">
-          <End Role="Compagnie" Type="Self.Compagnie" Multiplicity="1" />
-          <End Role="PointDeVente" Type="Self.PointDeVente" Multiplicity="*" />
+        <Association Name="FK_GagnantLotterie_Paiement">
+          <End Role="GagnantLotterie" Type="Self.GagnantLotterie" Multiplicity="1" />
+          <End Role="Paiement" Type="Self.Paiement" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Compagnie">
-              <PropertyRef Name="CompagnieId" />
+            <Principal Role="GagnantLotterie">
+              <PropertyRef Name="GagnantLotterieId" />
             </Principal>
-            <Dependent Role="PointDeVente">
-              <PropertyRef Name="CompagnieId" />
+            <Dependent Role="Paiement">
+              <PropertyRef Name="GagnantLotterieId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GagnantLotterie_Ticket">
+          <End Role="Tickets" Type="Self.Tickets" Multiplicity="1" />
+          <End Role="GagnantLotterie" Type="Self.GagnantLotterie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tickets">
+              <PropertyRef Name="TicketId" />
+            </Principal>
+            <Dependent Role="GagnantLotterie">
+              <PropertyRef Name="TicketId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GagnantLotterie_Tirage">
+          <End Role="Tirage" Type="Self.Tirage" Multiplicity="1" />
+          <End Role="GagnantLotterie" Type="Self.GagnantLotterie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tirage">
+              <PropertyRef Name="TirageId" />
+            </Principal>
+            <Dependent Role="GagnantLotterie">
+              <PropertyRef Name="TirageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lotterie_Boule1">
+          <End Role="Boule" Type="Self.Boule" Multiplicity="1" />
+          <End Role="LotterieTirage" Type="Self.LotterieTirage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Boule">
+              <PropertyRef Name="BouleId" />
+            </Principal>
+            <Dependent Role="LotterieTirage">
+              <PropertyRef Name="Boule1Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lotterie_Boule2">
+          <End Role="Boule" Type="Self.Boule" Multiplicity="1" />
+          <End Role="LotterieTirage" Type="Self.LotterieTirage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Boule">
+              <PropertyRef Name="BouleId" />
+            </Principal>
+            <Dependent Role="LotterieTirage">
+              <PropertyRef Name="Boule2Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lotterie_Boule3">
+          <End Role="Boule" Type="Self.Boule" Multiplicity="1" />
+          <End Role="LotterieTirage" Type="Self.LotterieTirage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Boule">
+              <PropertyRef Name="BouleId" />
+            </Principal>
+            <Dependent Role="LotterieTirage">
+              <PropertyRef Name="Boule3Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lotterie_Boule4">
+          <End Role="Boule" Type="Self.Boule" Multiplicity="1" />
+          <End Role="LotterieTirage" Type="Self.LotterieTirage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Boule">
+              <PropertyRef Name="BouleId" />
+            </Principal>
+            <Dependent Role="LotterieTirage">
+              <PropertyRef Name="Boule4Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lotterie_Boule5">
+          <End Role="Boule" Type="Self.Boule" Multiplicity="1" />
+          <End Role="LotterieTirage" Type="Self.LotterieTirage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Boule">
+              <PropertyRef Name="BouleId" />
+            </Principal>
+            <Dependent Role="LotterieTirage">
+              <PropertyRef Name="Boule5Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lotterie_Boule6">
+          <End Role="Boule" Type="Self.Boule" Multiplicity="1" />
+          <End Role="LotterieTirage" Type="Self.LotterieTirage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Boule">
+              <PropertyRef Name="BouleId" />
+            </Principal>
+            <Dependent Role="LotterieTirage">
+              <PropertyRef Name="JacpotBoule6Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lotterie_Tirage">
+          <End Role="Tirage" Type="Self.Tirage" Multiplicity="1" />
+          <End Role="LotterieTirage" Type="Self.LotterieTirage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tirage">
+              <PropertyRef Name="TirageId" />
+            </Principal>
+            <Dependent Role="LotterieTirage">
+              <PropertyRef Name="TirageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RapportTirage-Tirage">
+          <End Role="Tirage" Type="Self.Tirage" Multiplicity="1" />
+          <End Role="RapportTirage" Type="Self.RapportTirage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tirage">
+              <PropertyRef Name="TirageId" />
+            </Principal>
+            <Dependent Role="RapportTirage">
+              <PropertyRef Name="TirageId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -317,6 +649,126 @@
             </Principal>
             <Dependent Role="RolePermission">
               <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TicketDetails_Boule1">
+          <End Role="Boule" Type="Self.Boule" Multiplicity="1" />
+          <End Role="TicketDetails" Type="Self.TicketDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Boule">
+              <PropertyRef Name="BouleId" />
+            </Principal>
+            <Dependent Role="TicketDetails">
+              <PropertyRef Name="Boule1Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TicketDetails_Boule2">
+          <End Role="Boule" Type="Self.Boule" Multiplicity="1" />
+          <End Role="TicketDetails" Type="Self.TicketDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Boule">
+              <PropertyRef Name="BouleId" />
+            </Principal>
+            <Dependent Role="TicketDetails">
+              <PropertyRef Name="Boule2Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TicketDetails_Boule3">
+          <End Role="Boule" Type="Self.Boule" Multiplicity="1" />
+          <End Role="TicketDetails" Type="Self.TicketDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Boule">
+              <PropertyRef Name="BouleId" />
+            </Principal>
+            <Dependent Role="TicketDetails">
+              <PropertyRef Name="Boule3Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TicketDetails_Boule4">
+          <End Role="Boule" Type="Self.Boule" Multiplicity="1" />
+          <End Role="TicketDetails" Type="Self.TicketDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Boule">
+              <PropertyRef Name="BouleId" />
+            </Principal>
+            <Dependent Role="TicketDetails">
+              <PropertyRef Name="Boule4Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TicketDetails_Boule5">
+          <End Role="Boule" Type="Self.Boule" Multiplicity="1" />
+          <End Role="TicketDetails" Type="Self.TicketDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Boule">
+              <PropertyRef Name="BouleId" />
+            </Principal>
+            <Dependent Role="TicketDetails">
+              <PropertyRef Name="Boule5Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TicketDetails_Boule6">
+          <End Role="Boule" Type="Self.Boule" Multiplicity="1" />
+          <End Role="TicketDetails" Type="Self.TicketDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Boule">
+              <PropertyRef Name="BouleId" />
+            </Principal>
+            <Dependent Role="TicketDetails">
+              <PropertyRef Name="Boule6Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TicketDetails_Tickets">
+          <End Role="Tickets" Type="Self.Tickets" Multiplicity="1" />
+          <End Role="TicketDetails" Type="Self.TicketDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tickets">
+              <PropertyRef Name="TicketId" />
+            </Principal>
+            <Dependent Role="TicketDetails">
+              <PropertyRef Name="TicketId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tickets_Tirage">
+          <End Role="Tirage" Type="Self.Tirage" Multiplicity="0..1" />
+          <End Role="Tickets" Type="Self.Tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tirage">
+              <PropertyRef Name="TirageId" />
+            </Principal>
+            <Dependent Role="Tickets">
+              <PropertyRef Name="TirageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tickets_UserPointDeVente">
+          <End Role="UserPointDeVente" Type="Self.UserPointDeVente" Multiplicity="1" />
+          <End Role="Tickets" Type="Self.Tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserPointDeVente">
+              <PropertyRef Name="UserPointDeVenteId" />
+            </Principal>
+            <Dependent Role="Tickets">
+              <PropertyRef Name="UserPointDeVenteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TirageEnExecution_Tirage">
+          <End Role="Tirage" Type="Self.Tirage" Multiplicity="1" />
+          <End Role="TirageEnExecution" Type="Self.TirageEnExecution" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tirage">
+              <PropertyRef Name="TirageId" />
+            </Principal>
+            <Dependent Role="TirageEnExecution">
+              <PropertyRef Name="TirageId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -382,19 +834,48 @@
         </Association>
         <EntityContainer Name="TchotchoLotoStoreContainer">
           <EntitySet Name="AccessTimeApplication" EntityType="Self.AccessTimeApplication" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AddAppAccessLog" EntityType="Self.AddAppAccessLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AddUserActionLog" EntityType="Self.AddUserActionLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Agence" EntityType="Self.Agence" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Application" EntityType="Self.Application" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AppNavigation" EntityType="Self.AppNavigation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AppNavigationApplication" EntityType="Self.AppNavigationApplication" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AppNavigationPermission" EntityType="Self.AppNavigationPermission" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Boule" EntityType="Self.Boule" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Compagnie" EntityType="Self.Compagnie" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GagnantLotterie" EntityType="Self.GagnantLotterie" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LivJwetla" EntityType="Self.LivJwetla" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LotterieTirage" EntityType="Self.LotterieTirage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Paiement" EntityType="Self.Paiement" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Permission" EntityType="Self.Permission" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PointDeVente" EntityType="Self.PointDeVente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RapportDeVente" EntityType="Self.RapportDeVente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RapportTirage" EntityType="Self.RapportTirage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RolePermission" EntityType="Self.RolePermission" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TicketDetails" EntityType="Self.TicketDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tickets" EntityType="Self.Tickets" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tirage" EntityType="Self.Tirage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TirageEnExecution" EntityType="Self.TirageEnExecution" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserCompagnie" EntityType="Self.UserCompagnie" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserPointDeVente" EntityType="Self.UserPointDeVente" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_[RapportDeVente_Tirage" Association="Self.FK_[RapportDeVente_Tirage">
+            <End Role="Tirage" EntitySet="Tirage" />
+            <End Role="RapportDeVente" EntitySet="RapportDeVente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_[RapportDeVente_UserPointDeVente" Association="Self.FK_[RapportDeVente_UserPointDeVente">
+            <End Role="UserPointDeVente" EntitySet="UserPointDeVente" />
+            <End Role="RapportDeVente" EntitySet="RapportDeVente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_[UserPointDevente_PointDeVente" Association="Self.FK_[UserPointDevente_PointDeVente">
+            <End Role="PointDeVente" EntitySet="PointDeVente" />
+            <End Role="UserPointDeVente" EntitySet="UserPointDeVente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_[UserPointDevente_User" Association="Self.FK_[UserPointDevente_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserPointDeVente" EntitySet="UserPointDeVente" />
+          </AssociationSet>
           <AssociationSet Name="FK_AccessTimeApplication_Application" Association="Self.FK_AccessTimeApplication_Application">
             <End Role="Application" EntitySet="Application" />
             <End Role="AccessTimeApplication" EntitySet="AccessTimeApplication" />
@@ -423,9 +904,49 @@
             <End Role="Permission" EntitySet="Permission" />
             <End Role="AppNavigationPermission" EntitySet="AppNavigationPermission" />
           </AssociationSet>
-          <AssociationSet Name="FK_PointDeVente_Compagnie" Association="Self.FK_PointDeVente_Compagnie">
-            <End Role="Compagnie" EntitySet="Compagnie" />
-            <End Role="PointDeVente" EntitySet="PointDeVente" />
+          <AssociationSet Name="FK_GagnantLotterie_Paiement" Association="Self.FK_GagnantLotterie_Paiement">
+            <End Role="GagnantLotterie" EntitySet="GagnantLotterie" />
+            <End Role="Paiement" EntitySet="Paiement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GagnantLotterie_Ticket" Association="Self.FK_GagnantLotterie_Ticket">
+            <End Role="Tickets" EntitySet="Tickets" />
+            <End Role="GagnantLotterie" EntitySet="GagnantLotterie" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GagnantLotterie_Tirage" Association="Self.FK_GagnantLotterie_Tirage">
+            <End Role="Tirage" EntitySet="Tirage" />
+            <End Role="GagnantLotterie" EntitySet="GagnantLotterie" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lotterie_Boule1" Association="Self.FK_Lotterie_Boule1">
+            <End Role="Boule" EntitySet="Boule" />
+            <End Role="LotterieTirage" EntitySet="LotterieTirage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lotterie_Boule2" Association="Self.FK_Lotterie_Boule2">
+            <End Role="Boule" EntitySet="Boule" />
+            <End Role="LotterieTirage" EntitySet="LotterieTirage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lotterie_Boule3" Association="Self.FK_Lotterie_Boule3">
+            <End Role="Boule" EntitySet="Boule" />
+            <End Role="LotterieTirage" EntitySet="LotterieTirage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lotterie_Boule4" Association="Self.FK_Lotterie_Boule4">
+            <End Role="Boule" EntitySet="Boule" />
+            <End Role="LotterieTirage" EntitySet="LotterieTirage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lotterie_Boule5" Association="Self.FK_Lotterie_Boule5">
+            <End Role="Boule" EntitySet="Boule" />
+            <End Role="LotterieTirage" EntitySet="LotterieTirage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lotterie_Boule6" Association="Self.FK_Lotterie_Boule6">
+            <End Role="Boule" EntitySet="Boule" />
+            <End Role="LotterieTirage" EntitySet="LotterieTirage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lotterie_Tirage" Association="Self.FK_Lotterie_Tirage">
+            <End Role="Tirage" EntitySet="Tirage" />
+            <End Role="LotterieTirage" EntitySet="LotterieTirage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RapportTirage-Tirage" Association="Self.FK_RapportTirage-Tirage">
+            <End Role="Tirage" EntitySet="Tirage" />
+            <End Role="RapportTirage" EntitySet="RapportTirage" />
           </AssociationSet>
           <AssociationSet Name="FK_Role_Application" Association="Self.FK_Role_Application">
             <End Role="Application" EntitySet="Application" />
@@ -438,6 +959,46 @@
           <AssociationSet Name="FK_RolePermission_Role" Association="Self.FK_RolePermission_Role">
             <End Role="Role" EntitySet="Role" />
             <End Role="RolePermission" EntitySet="RolePermission" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TicketDetails_Boule1" Association="Self.FK_TicketDetails_Boule1">
+            <End Role="Boule" EntitySet="Boule" />
+            <End Role="TicketDetails" EntitySet="TicketDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TicketDetails_Boule2" Association="Self.FK_TicketDetails_Boule2">
+            <End Role="Boule" EntitySet="Boule" />
+            <End Role="TicketDetails" EntitySet="TicketDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TicketDetails_Boule3" Association="Self.FK_TicketDetails_Boule3">
+            <End Role="Boule" EntitySet="Boule" />
+            <End Role="TicketDetails" EntitySet="TicketDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TicketDetails_Boule4" Association="Self.FK_TicketDetails_Boule4">
+            <End Role="Boule" EntitySet="Boule" />
+            <End Role="TicketDetails" EntitySet="TicketDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TicketDetails_Boule5" Association="Self.FK_TicketDetails_Boule5">
+            <End Role="Boule" EntitySet="Boule" />
+            <End Role="TicketDetails" EntitySet="TicketDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TicketDetails_Boule6" Association="Self.FK_TicketDetails_Boule6">
+            <End Role="Boule" EntitySet="Boule" />
+            <End Role="TicketDetails" EntitySet="TicketDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TicketDetails_Tickets" Association="Self.FK_TicketDetails_Tickets">
+            <End Role="Tickets" EntitySet="Tickets" />
+            <End Role="TicketDetails" EntitySet="TicketDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tickets_Tirage" Association="Self.FK_Tickets_Tirage">
+            <End Role="Tirage" EntitySet="Tirage" />
+            <End Role="Tickets" EntitySet="Tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tickets_UserPointDeVente" Association="Self.FK_Tickets_UserPointDeVente">
+            <End Role="UserPointDeVente" EntitySet="UserPointDeVente" />
+            <End Role="Tickets" EntitySet="Tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TirageEnExecution_Tirage" Association="Self.FK_TirageEnExecution_Tirage">
+            <End Role="Tirage" EntitySet="Tirage" />
+            <End Role="TirageEnExecution" EntitySet="TirageEnExecution" />
           </AssociationSet>
           <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
             <End Role="Role" EntitySet="Role" />
@@ -475,6 +1036,25 @@
           <Property Name="NbreJours" Type="Int32" />
           <Property Name="Statut" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Application" Relationship="Self.FK_AccessTimeApplication_Application" FromRole="AccessTimeApplication" ToRole="Application" />
+        </EntityType>
+        <EntityType Name="AddAppAccessLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="clientInfo" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="AddUserActionLog">
+          <Key>
+            <PropertyRef Name="AddUserActionLogId" />
+          </Key>
+          <Property Name="AddUserActionLogId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="Info" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Action" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ActionDesc" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DateModif" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <EntityType Name="Agence">
           <Key>
@@ -543,6 +1123,27 @@
           <NavigationProperty Name="AppNavigation" Relationship="Self.FK_AppNavigationPermission_AppNavigation" FromRole="AppNavigationPermission" ToRole="AppNavigation" />
           <NavigationProperty Name="Permission" Relationship="Self.FK_AppNavigationPermission_Permission" FromRole="AppNavigationPermission" ToRole="Permission" />
         </EntityType>
+        <EntityType Name="Boule">
+          <Key>
+            <PropertyRef Name="BouleId" />
+          </Key>
+          <Property Name="BouleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Statut" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="LotterieTirages" Relationship="Self.FK_Lotterie_Boule1" FromRole="Boule" ToRole="LotterieTirage" />
+          <NavigationProperty Name="LotterieTirages1" Relationship="Self.FK_Lotterie_Boule2" FromRole="Boule" ToRole="LotterieTirage" />
+          <NavigationProperty Name="LotterieTirages2" Relationship="Self.FK_Lotterie_Boule3" FromRole="Boule" ToRole="LotterieTirage" />
+          <NavigationProperty Name="LotterieTirages3" Relationship="Self.FK_Lotterie_Boule4" FromRole="Boule" ToRole="LotterieTirage" />
+          <NavigationProperty Name="LotterieTirages4" Relationship="Self.FK_Lotterie_Boule5" FromRole="Boule" ToRole="LotterieTirage" />
+          <NavigationProperty Name="LotterieTirages5" Relationship="Self.FK_Lotterie_Boule6" FromRole="Boule" ToRole="LotterieTirage" />
+          <NavigationProperty Name="TicketDetails" Relationship="Self.FK_TicketDetails_Boule1" FromRole="Boule" ToRole="TicketDetails" />
+          <NavigationProperty Name="TicketDetails1" Relationship="Self.FK_TicketDetails_Boule2" FromRole="Boule" ToRole="TicketDetails" />
+          <NavigationProperty Name="TicketDetails2" Relationship="Self.FK_TicketDetails_Boule3" FromRole="Boule" ToRole="TicketDetails" />
+          <NavigationProperty Name="TicketDetails3" Relationship="Self.FK_TicketDetails_Boule4" FromRole="Boule" ToRole="TicketDetails" />
+          <NavigationProperty Name="TicketDetails4" Relationship="Self.FK_TicketDetails_Boule5" FromRole="Boule" ToRole="TicketDetails" />
+          <NavigationProperty Name="TicketDetails5" Relationship="Self.FK_TicketDetails_Boule6" FromRole="Boule" ToRole="TicketDetails" />
+          <Property Name="Disable" Type="Boolean" Nullable="false" />
+        </EntityType>
         <EntityType Name="Compagnie">
           <Key>
             <PropertyRef Name="CompagnieId" />
@@ -565,8 +1166,54 @@
           <Property Name="ModifieDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Agences" Relationship="Self.FK_Agence_Compagnie" FromRole="Compagnie" ToRole="Agence" />
           <NavigationProperty Name="Applications" Relationship="Self.FK_Application_Compagnie" FromRole="Compagnie" ToRole="Application" />
-          <NavigationProperty Name="PointDeVentes" Relationship="Self.FK_PointDeVente_Compagnie" FromRole="Compagnie" ToRole="PointDeVente" />
           <NavigationProperty Name="UserCompagnies" Relationship="Self.FK_UserCompagnie_Compagnie" FromRole="Compagnie" ToRole="UserCompagnie" />
+        </EntityType>
+        <EntityType Name="GagnantLotterie">
+          <Key>
+            <PropertyRef Name="GagnantLotterieId" />
+          </Key>
+          <Property Name="GagnantLotterieId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TicketId" Type="Int32" Nullable="false" />
+          <Property Name="TirageId" Type="Int32" Nullable="false" />
+          <Property Name="BouleJouer" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BouleGagner" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="JacpotBoule" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="MontantGagner" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Ticket" Relationship="Self.FK_GagnantLotterie_Ticket" FromRole="GagnantLotterie" ToRole="Tickets" />
+          <NavigationProperty Name="Tirage" Relationship="Self.FK_GagnantLotterie_Tirage" FromRole="GagnantLotterie" ToRole="Tirage" />
+          <NavigationProperty Name="Paiements" Relationship="TchotchoLoto.FK_GagnantLotterie_Paiement" FromRole="GagnantLotterie" ToRole="Paiement" />
+        </EntityType>
+        <EntityType Name="LivJwetla">
+          <Key>
+            <PropertyRef Name="LivJwetlaId" />
+          </Key>
+          <Property Name="LivJwetlaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IsManmanBoulLa" Type="Boolean" Nullable="false" />
+          <Property Name="NbreBouleGagner" Type="Int32" Nullable="false" />
+          <Property Name="PrixTicket" Type="Int32" Nullable="false" />
+          <Property Name="MontantAPayer" Type="Int32" Nullable="false" />
+          <Property Name="ModifiePar" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="ModifieDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="LotterieTirage">
+          <Key>
+            <PropertyRef Name="LotterieTirageId" />
+          </Key>
+          <Property Name="LotterieTirageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TirageId" Type="Int32" Nullable="false" />
+          <Property Name="Boule1Id" Type="Int32" Nullable="false" />
+          <Property Name="Boule2Id" Type="Int32" Nullable="false" />
+          <Property Name="Boule3Id" Type="Int32" Nullable="false" />
+          <Property Name="Boule4Id" Type="Int32" Nullable="false" />
+          <Property Name="Boule5Id" Type="Int32" Nullable="false" />
+          <Property Name="JacpotBoule6Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Boule" Relationship="Self.FK_Lotterie_Boule1" FromRole="LotterieTirage" ToRole="Boule" />
+          <NavigationProperty Name="Boule1" Relationship="Self.FK_Lotterie_Boule2" FromRole="LotterieTirage" ToRole="Boule" />
+          <NavigationProperty Name="Boule2" Relationship="Self.FK_Lotterie_Boule3" FromRole="LotterieTirage" ToRole="Boule" />
+          <NavigationProperty Name="Boule3" Relationship="Self.FK_Lotterie_Boule4" FromRole="LotterieTirage" ToRole="Boule" />
+          <NavigationProperty Name="Boule4" Relationship="Self.FK_Lotterie_Boule5" FromRole="LotterieTirage" ToRole="Boule" />
+          <NavigationProperty Name="Boule5" Relationship="Self.FK_Lotterie_Boule6" FromRole="LotterieTirage" ToRole="Boule" />
+          <NavigationProperty Name="Tirage" Relationship="Self.FK_Lotterie_Tirage" FromRole="LotterieTirage" ToRole="Tirage" />
         </EntityType>
         <EntityType Name="Permission">
           <Key>
@@ -584,17 +1231,46 @@
             <PropertyRef Name="PointDeVenteId" />
           </Key>
           <Property Name="PointDeVenteId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CompagnieId" Type="Int32" Nullable="false" />
+          <Property Name="CodePointDeVente" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="NomPointDeVente" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Adresse" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Ville" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="CodePostal" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="DateCreation" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateCreation" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Latitude" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Longitude" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Statut" Type="Boolean" Nullable="false" />
           <Property Name="ModifiePar" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
           <Property Name="ModifieDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Compagnie" Relationship="Self.FK_PointDeVente_Compagnie" FromRole="PointDeVente" ToRole="Compagnie" />
-          <Property Name="CodePointDeVente" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UserPointDeVentes" Relationship="Self.FK__UserPointDevente_PointDeVente" FromRole="PointDeVente" ToRole="UserPointDeVente" />
+        </EntityType>
+        <EntityType Name="RapportDeVente">
+          <Key>
+            <PropertyRef Name="RepportDeVenteId" />
+          </Key>
+          <Property Name="RepportDeVenteId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TirageId" Type="Int32" Nullable="false" />
+          <Property Name="UserPointDeVenteId" Type="Int32" Nullable="false" />
+          <Property Name="NbreTicketVendu" Type="Int32" Nullable="false" />
+          <Property Name="Montant" Type="Int32" Nullable="false" />
+          <Property Name="ModifiePar" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="ModifieDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Tirage" Relationship="Self.FK__RapportDeVente_Tirage" FromRole="RapportDeVente" ToRole="Tirage" />
+          <NavigationProperty Name="UserPointDeVente" Relationship="Self.FK__RapportDeVente_UserPointDeVente" FromRole="RapportDeVente" ToRole="UserPointDeVente" />
+        </EntityType>
+        <EntityType Name="RapportTirage">
+          <Key>
+            <PropertyRef Name="RapportTirageId" />
+          </Key>
+          <Property Name="RapportTirageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TirageId" Type="Int32" Nullable="false" />
+          <Property Name="NbreTicketGagant" Type="Int32" Nullable="false" />
+          <Property Name="NbreTicketPerdant" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Tirage" Relationship="Self.FK_RapportTirage_Tirage" FromRole="RapportTirage" ToRole="Tirage" />
+          <Property Name="MontantTicketPerdant" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="MontantTicketGagnant" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="MontantTTotalJouer" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="MontantAPayer" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -625,6 +1301,70 @@
           <NavigationProperty Name="Permission" Relationship="Self.FK_RolePermission_Permission" FromRole="RolePermission" ToRole="Permission" />
           <NavigationProperty Name="Role" Relationship="Self.FK_RolePermission_Role" FromRole="RolePermission" ToRole="Role" />
         </EntityType>
+        <EntityType Name="TicketDetail">
+          <Key>
+            <PropertyRef Name="TicketDetailId" />
+          </Key>
+          <Property Name="TicketDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TicketId" Type="Int32" Nullable="false" />
+          <Property Name="Boule1Id" Type="Int32" Nullable="false" />
+          <Property Name="Boule2Id" Type="Int32" Nullable="false" />
+          <Property Name="Boule3Id" Type="Int32" Nullable="false" />
+          <Property Name="Boule4Id" Type="Int32" Nullable="false" />
+          <Property Name="Boule5Id" Type="Int32" Nullable="false" />
+          <Property Name="Boule6Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Boule" Relationship="Self.FK_TicketDetails_Boule1" FromRole="TicketDetails" ToRole="Boule" />
+          <NavigationProperty Name="Boule1" Relationship="Self.FK_TicketDetails_Boule2" FromRole="TicketDetails" ToRole="Boule" />
+          <NavigationProperty Name="Boule2" Relationship="Self.FK_TicketDetails_Boule3" FromRole="TicketDetails" ToRole="Boule" />
+          <NavigationProperty Name="Boule3" Relationship="Self.FK_TicketDetails_Boule4" FromRole="TicketDetails" ToRole="Boule" />
+          <NavigationProperty Name="Boule4" Relationship="Self.FK_TicketDetails_Boule5" FromRole="TicketDetails" ToRole="Boule" />
+          <NavigationProperty Name="Boule5" Relationship="Self.FK_TicketDetails_Boule6" FromRole="TicketDetails" ToRole="Boule" />
+          <NavigationProperty Name="Ticket" Relationship="Self.FK_TicketDetails_Tickets" FromRole="TicketDetails" ToRole="Tickets" />
+        </EntityType>
+        <EntityType Name="Ticket">
+          <Key>
+            <PropertyRef Name="TicketId" />
+          </Key>
+          <Property Name="TicketId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CodeTicket" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserPointDeVenteId" Type="Int32" Nullable="false" />
+          <Property Name="TirageId" Type="Int32" />
+          <Property Name="IsGagnant" Type="Boolean" Nullable="false" />
+          <Property Name="IsDjapot" Type="Boolean" Nullable="false" />
+          <Property Name="DateCreation" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsVente" Type="Boolean" Nullable="false" />
+          <Property Name="DateVente" Type="DateTime" Precision="3" />
+          <Property Name="BouleListes" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="DateTirage" Type="DateTime" Precision="3" />
+          <Property Name="NomJoueur" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="JacpotBoule" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Prix" Type="Int32" />
+          <Property Name="Tour" Type="Int32" />
+          <Property Name="ModifiePar" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="ModifieDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="GagnantLotteries" Relationship="Self.FK_GagnantLotterie_Ticket" FromRole="Tickets" ToRole="GagnantLotterie" />
+          <NavigationProperty Name="TicketDetails" Relationship="Self.FK_TicketDetails_Tickets" FromRole="Tickets" ToRole="TicketDetails" />
+          <NavigationProperty Name="Tirage" Relationship="Self.FK_Tickets_Tirage" FromRole="Tickets" ToRole="Tirage" />
+          <NavigationProperty Name="UserPointDeVente" Relationship="Self.FK_Tickets_UserPointDeVente" FromRole="Tickets" ToRole="UserPointDeVente" />
+        </EntityType>
+        <EntityType Name="Tirage">
+          <Key>
+            <PropertyRef Name="TirageId" />
+          </Key>
+          <Property Name="TirageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tour" Type="Int32" Nullable="false" />
+          <Property Name="DateTirage" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Heure" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="Statut" Type="Boolean" Nullable="false" />
+          <Property Name="ModifiePar" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="ModifieDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="GagnantLotteries" Relationship="Self.FK_GagnantLotterie_Tirage" FromRole="Tirage" ToRole="GagnantLotterie" />
+          <NavigationProperty Name="LotterieTirages" Relationship="Self.FK_Lotterie_Tirage" FromRole="Tirage" ToRole="LotterieTirage" />
+          <NavigationProperty Name="RapportDeVentes" Relationship="Self.FK__RapportDeVente_Tirage" FromRole="Tirage" ToRole="RapportDeVente" />
+          <NavigationProperty Name="RapportTirages" Relationship="Self.FK_RapportTirage_Tirage" FromRole="Tirage" ToRole="RapportTirage" />
+          <NavigationProperty Name="Tickets" Relationship="Self.FK_Tickets_Tirage" FromRole="Tirage" ToRole="Tickets" />
+          <NavigationProperty Name="TirageEnExecutions" Relationship="TchotchoLoto.FK_TirageEnExecution_Tirage" FromRole="Tirage" ToRole="TirageEnExecution" />
+        </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="UserId" />
@@ -651,9 +1391,10 @@
           <Property Name="ModifiePar" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="ModifieDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Role" Relationship="Self.FK_User_Role" FromRole="User" ToRole="Role" />
+          <NavigationProperty Name="UserPointDeVentes" Relationship="Self.FK__UserPointDevente_User" FromRole="User" ToRole="UserPointDeVente" />
           <NavigationProperty Name="UserCompagnies" Relationship="Self.FK_UserCompagnie_User" FromRole="User" ToRole="UserCompagnie" />
-          <NavigationProperty Name="UserPointDeVentes" Relationship="Self.FK_UserPointDeVente_PointDeVente" FromRole="User" ToRole="UserPointDeVente" />
-          <NavigationProperty Name="UserPointDeVentes1" Relationship="Self.FK_UserPointDeVente_User" FromRole="User" ToRole="UserPointDeVente" />
+          <NavigationProperty Name="UserPointDeVentes1" Relationship="Self.FK_UserPointDeVente_PointDeVente" FromRole="User" ToRole="UserPointDeVente" />
+          <NavigationProperty Name="UserPointDeVentes2" Relationship="Self.FK_UserPointDeVente_User" FromRole="User" ToRole="UserPointDeVente" />
         </EntityType>
         <EntityType Name="UserCompagnie">
           <Key>
@@ -671,13 +1412,21 @@
           <Key>
             <PropertyRef Name="UserPointDeVenteId" />
           </Key>
-          <Property Name="UserPointDeVenteId" Type="Int32" Nullable="false" />
+          <Property Name="UserPointDeVenteId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="PointDeVenteId" Type="Int32" Nullable="false" />
+          <Property Name="LastPointDeVenteId" Type="Int32" />
+          <Property Name="LastPointDeVenteName" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="AffectionDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Statut" Type="Boolean" Nullable="false" />
           <Property Name="ModifiePar" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
           <Property Name="ModifieDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="User" Relationship="Self.FK_UserPointDeVente_PointDeVente" FromRole="UserPointDeVente" ToRole="User" />
-          <NavigationProperty Name="User1" Relationship="Self.FK_UserPointDeVente_User" FromRole="UserPointDeVente" ToRole="User" />
+          <NavigationProperty Name="PointDeVente" Relationship="Self.FK__UserPointDevente_PointDeVente" FromRole="UserPointDeVente" ToRole="PointDeVente" />
+          <NavigationProperty Name="RapportDeVentes" Relationship="Self.FK__RapportDeVente_UserPointDeVente" FromRole="UserPointDeVente" ToRole="RapportDeVente" />
+          <NavigationProperty Name="Tickets" Relationship="Self.FK_Tickets_UserPointDeVente" FromRole="UserPointDeVente" ToRole="Tickets" />
+          <NavigationProperty Name="User" Relationship="Self.FK__UserPointDevente_User" FromRole="UserPointDeVente" ToRole="User" />
+          <NavigationProperty Name="User1" Relationship="Self.FK_UserPointDeVente_PointDeVente" FromRole="UserPointDeVente" ToRole="User" />
+          <NavigationProperty Name="User2" Relationship="Self.FK_UserPointDeVente_User" FromRole="UserPointDeVente" ToRole="User" />
         </EntityType>
         <Association Name="FK_AccessTimeApplication_Application">
           <End Role="Application" Type="Self.Application" Multiplicity="1" />
@@ -775,15 +1524,147 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PointDeVente_Compagnie">
-          <End Role="Compagnie" Type="Self.Compagnie" Multiplicity="1" />
-          <End Role="PointDeVente" Type="Self.PointDeVente" Multiplicity="*" />
+        <Association Name="FK_Lotterie_Boule1">
+          <End Role="Boule" Type="Self.Boule" Multiplicity="1" />
+          <End Role="LotterieTirage" Type="Self.LotterieTirage" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Compagnie">
-              <PropertyRef Name="CompagnieId" />
+            <Principal Role="Boule">
+              <PropertyRef Name="BouleId" />
             </Principal>
-            <Dependent Role="PointDeVente">
-              <PropertyRef Name="CompagnieId" />
+            <Dependent Role="LotterieTirage">
+              <PropertyRef Name="Boule1Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lotterie_Boule2">
+          <End Role="Boule" Type="Self.Boule" Multiplicity="1" />
+          <End Role="LotterieTirage" Type="Self.LotterieTirage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Boule">
+              <PropertyRef Name="BouleId" />
+            </Principal>
+            <Dependent Role="LotterieTirage">
+              <PropertyRef Name="Boule2Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lotterie_Boule3">
+          <End Role="Boule" Type="Self.Boule" Multiplicity="1" />
+          <End Role="LotterieTirage" Type="Self.LotterieTirage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Boule">
+              <PropertyRef Name="BouleId" />
+            </Principal>
+            <Dependent Role="LotterieTirage">
+              <PropertyRef Name="Boule3Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lotterie_Boule4">
+          <End Role="Boule" Type="Self.Boule" Multiplicity="1" />
+          <End Role="LotterieTirage" Type="Self.LotterieTirage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Boule">
+              <PropertyRef Name="BouleId" />
+            </Principal>
+            <Dependent Role="LotterieTirage">
+              <PropertyRef Name="Boule4Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lotterie_Boule5">
+          <End Role="Boule" Type="Self.Boule" Multiplicity="1" />
+          <End Role="LotterieTirage" Type="Self.LotterieTirage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Boule">
+              <PropertyRef Name="BouleId" />
+            </Principal>
+            <Dependent Role="LotterieTirage">
+              <PropertyRef Name="Boule5Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lotterie_Boule6">
+          <End Role="Boule" Type="Self.Boule" Multiplicity="1" />
+          <End Role="LotterieTirage" Type="Self.LotterieTirage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Boule">
+              <PropertyRef Name="BouleId" />
+            </Principal>
+            <Dependent Role="LotterieTirage">
+              <PropertyRef Name="JacpotBoule6Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TicketDetails_Boule1">
+          <End Role="Boule" Type="Self.Boule" Multiplicity="1" />
+          <End Role="TicketDetails" Type="Self.TicketDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Boule">
+              <PropertyRef Name="BouleId" />
+            </Principal>
+            <Dependent Role="TicketDetails">
+              <PropertyRef Name="Boule1Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TicketDetails_Boule2">
+          <End Role="Boule" Type="Self.Boule" Multiplicity="1" />
+          <End Role="TicketDetails" Type="Self.TicketDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Boule">
+              <PropertyRef Name="BouleId" />
+            </Principal>
+            <Dependent Role="TicketDetails">
+              <PropertyRef Name="Boule2Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TicketDetails_Boule3">
+          <End Role="Boule" Type="Self.Boule" Multiplicity="1" />
+          <End Role="TicketDetails" Type="Self.TicketDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Boule">
+              <PropertyRef Name="BouleId" />
+            </Principal>
+            <Dependent Role="TicketDetails">
+              <PropertyRef Name="Boule3Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TicketDetails_Boule4">
+          <End Role="Boule" Type="Self.Boule" Multiplicity="1" />
+          <End Role="TicketDetails" Type="Self.TicketDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Boule">
+              <PropertyRef Name="BouleId" />
+            </Principal>
+            <Dependent Role="TicketDetails">
+              <PropertyRef Name="Boule4Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TicketDetails_Boule5">
+          <End Role="Boule" Type="Self.Boule" Multiplicity="1" />
+          <End Role="TicketDetails" Type="Self.TicketDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Boule">
+              <PropertyRef Name="BouleId" />
+            </Principal>
+            <Dependent Role="TicketDetails">
+              <PropertyRef Name="Boule5Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TicketDetails_Boule6">
+          <End Role="Boule" Type="Self.Boule" Multiplicity="1" />
+          <End Role="TicketDetails" Type="Self.TicketDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Boule">
+              <PropertyRef Name="BouleId" />
+            </Principal>
+            <Dependent Role="TicketDetails">
+              <PropertyRef Name="Boule6Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -799,6 +1680,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_GagnantLotterie_Ticket">
+          <End Role="Tickets" Type="Self.Ticket" Multiplicity="1" />
+          <End Role="GagnantLotterie" Type="Self.GagnantLotterie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tickets">
+              <PropertyRef Name="TicketId" />
+            </Principal>
+            <Dependent Role="GagnantLotterie">
+              <PropertyRef Name="TicketId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GagnantLotterie_Tirage">
+          <End Role="Tirage" Type="Self.Tirage" Multiplicity="1" />
+          <End Role="GagnantLotterie" Type="Self.GagnantLotterie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tirage">
+              <PropertyRef Name="TirageId" />
+            </Principal>
+            <Dependent Role="GagnantLotterie">
+              <PropertyRef Name="TirageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lotterie_Tirage">
+          <End Role="Tirage" Type="Self.Tirage" Multiplicity="1" />
+          <End Role="LotterieTirage" Type="Self.LotterieTirage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tirage">
+              <PropertyRef Name="TirageId" />
+            </Principal>
+            <Dependent Role="LotterieTirage">
+              <PropertyRef Name="TirageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_RolePermission_Permission">
           <End Role="Permission" Type="Self.Permission" Multiplicity="1" />
           <End Role="RolePermission" Type="Self.RolePermission" Multiplicity="*" />
@@ -808,6 +1725,54 @@
             </Principal>
             <Dependent Role="RolePermission">
               <PropertyRef Name="PermissionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserPointDevente_PointDeVente">
+          <End Role="PointDeVente" Type="Self.PointDeVente" Multiplicity="1" />
+          <End Role="UserPointDeVente" Type="Self.UserPointDeVente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PointDeVente">
+              <PropertyRef Name="PointDeVenteId" />
+            </Principal>
+            <Dependent Role="UserPointDeVente">
+              <PropertyRef Name="PointDeVenteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RapportDeVente_Tirage">
+          <End Role="Tirage" Type="Self.Tirage" Multiplicity="1" />
+          <End Role="RapportDeVente" Type="Self.RapportDeVente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tirage">
+              <PropertyRef Name="TirageId" />
+            </Principal>
+            <Dependent Role="RapportDeVente">
+              <PropertyRef Name="TirageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RapportDeVente_UserPointDeVente">
+          <End Role="UserPointDeVente" Type="Self.UserPointDeVente" Multiplicity="1" />
+          <End Role="RapportDeVente" Type="Self.RapportDeVente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserPointDeVente">
+              <PropertyRef Name="UserPointDeVenteId" />
+            </Principal>
+            <Dependent Role="RapportDeVente">
+              <PropertyRef Name="UserPointDeVenteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RapportTirage_Tirage">
+          <End Role="Tirage" Type="Self.Tirage" Multiplicity="1" />
+          <End Role="RapportTirage" Type="Self.RapportTirage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tirage">
+              <PropertyRef Name="TirageId" />
+            </Principal>
+            <Dependent Role="RapportTirage">
+              <PropertyRef Name="TirageId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -832,6 +1797,54 @@
             </Principal>
             <Dependent Role="User">
               <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TicketDetails_Tickets">
+          <End Role="Tickets" Type="Self.Ticket" Multiplicity="1" />
+          <End Role="TicketDetails" Type="Self.TicketDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tickets">
+              <PropertyRef Name="TicketId" />
+            </Principal>
+            <Dependent Role="TicketDetails">
+              <PropertyRef Name="TicketId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tickets_Tirage">
+          <End Role="Tirage" Type="Self.Tirage" Multiplicity="0..1" />
+          <End Role="Tickets" Type="Self.Ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tirage">
+              <PropertyRef Name="TirageId" />
+            </Principal>
+            <Dependent Role="Tickets">
+              <PropertyRef Name="TirageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tickets_UserPointDeVente">
+          <End Role="UserPointDeVente" Type="Self.UserPointDeVente" Multiplicity="1" />
+          <End Role="Tickets" Type="Self.Ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserPointDeVente">
+              <PropertyRef Name="UserPointDeVenteId" />
+            </Principal>
+            <Dependent Role="Tickets">
+              <PropertyRef Name="UserPointDeVenteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserPointDevente_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserPointDeVente" Type="Self.UserPointDeVente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserPointDeVente">
+              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -873,16 +1886,27 @@
         </Association>
         <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AccessTimeApplications" EntityType="Self.AccessTimeApplication" />
+          <EntitySet Name="AddAppAccessLogs" EntityType="Self.AddAppAccessLog" />
+          <EntitySet Name="AddUserActionLogs" EntityType="Self.AddUserActionLog" />
           <EntitySet Name="Agences" EntityType="Self.Agence" />
           <EntitySet Name="Applications" EntityType="Self.Application" />
           <EntitySet Name="AppNavigations" EntityType="Self.AppNavigation" />
           <EntitySet Name="AppNavigationApplications" EntityType="Self.AppNavigationApplication" />
           <EntitySet Name="AppNavigationPermissions" EntityType="Self.AppNavigationPermission" />
+          <EntitySet Name="Boules" EntityType="Self.Boule" />
           <EntitySet Name="Compagnies" EntityType="Self.Compagnie" />
+          <EntitySet Name="GagnantLotteries" EntityType="Self.GagnantLotterie" />
+          <EntitySet Name="LivJwetlas" EntityType="Self.LivJwetla" />
+          <EntitySet Name="LotterieTirages" EntityType="Self.LotterieTirage" />
           <EntitySet Name="Permissions" EntityType="Self.Permission" />
           <EntitySet Name="PointDeVentes" EntityType="Self.PointDeVente" />
+          <EntitySet Name="RapportDeVentes" EntityType="Self.RapportDeVente" />
+          <EntitySet Name="RapportTirages" EntityType="Self.RapportTirage" />
           <EntitySet Name="Roles" EntityType="Self.Role" />
           <EntitySet Name="RolePermissions" EntityType="Self.RolePermission" />
+          <EntitySet Name="TicketDetails" EntityType="Self.TicketDetail" />
+          <EntitySet Name="Tickets" EntityType="Self.Ticket" />
+          <EntitySet Name="Tirages" EntityType="Self.Tirage" />
           <EntitySet Name="Users" EntityType="Self.User" />
           <EntitySet Name="UserCompagnies" EntityType="Self.UserCompagnie" />
           <EntitySet Name="UserPointDeVentes" EntityType="Self.UserPointDeVente" />
@@ -918,17 +1942,89 @@
             <End Role="Permission" EntitySet="Permissions" />
             <End Role="AppNavigationPermission" EntitySet="AppNavigationPermissions" />
           </AssociationSet>
-          <AssociationSet Name="FK_PointDeVente_Compagnie" Association="Self.FK_PointDeVente_Compagnie">
-            <End Role="Compagnie" EntitySet="Compagnies" />
-            <End Role="PointDeVente" EntitySet="PointDeVentes" />
+          <AssociationSet Name="FK_Lotterie_Boule1" Association="Self.FK_Lotterie_Boule1">
+            <End Role="Boule" EntitySet="Boules" />
+            <End Role="LotterieTirage" EntitySet="LotterieTirages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lotterie_Boule2" Association="Self.FK_Lotterie_Boule2">
+            <End Role="Boule" EntitySet="Boules" />
+            <End Role="LotterieTirage" EntitySet="LotterieTirages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lotterie_Boule3" Association="Self.FK_Lotterie_Boule3">
+            <End Role="Boule" EntitySet="Boules" />
+            <End Role="LotterieTirage" EntitySet="LotterieTirages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lotterie_Boule4" Association="Self.FK_Lotterie_Boule4">
+            <End Role="Boule" EntitySet="Boules" />
+            <End Role="LotterieTirage" EntitySet="LotterieTirages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lotterie_Boule5" Association="Self.FK_Lotterie_Boule5">
+            <End Role="Boule" EntitySet="Boules" />
+            <End Role="LotterieTirage" EntitySet="LotterieTirages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lotterie_Boule6" Association="Self.FK_Lotterie_Boule6">
+            <End Role="Boule" EntitySet="Boules" />
+            <End Role="LotterieTirage" EntitySet="LotterieTirages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TicketDetails_Boule1" Association="Self.FK_TicketDetails_Boule1">
+            <End Role="Boule" EntitySet="Boules" />
+            <End Role="TicketDetails" EntitySet="TicketDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TicketDetails_Boule2" Association="Self.FK_TicketDetails_Boule2">
+            <End Role="Boule" EntitySet="Boules" />
+            <End Role="TicketDetails" EntitySet="TicketDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TicketDetails_Boule3" Association="Self.FK_TicketDetails_Boule3">
+            <End Role="Boule" EntitySet="Boules" />
+            <End Role="TicketDetails" EntitySet="TicketDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TicketDetails_Boule4" Association="Self.FK_TicketDetails_Boule4">
+            <End Role="Boule" EntitySet="Boules" />
+            <End Role="TicketDetails" EntitySet="TicketDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TicketDetails_Boule5" Association="Self.FK_TicketDetails_Boule5">
+            <End Role="Boule" EntitySet="Boules" />
+            <End Role="TicketDetails" EntitySet="TicketDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TicketDetails_Boule6" Association="Self.FK_TicketDetails_Boule6">
+            <End Role="Boule" EntitySet="Boules" />
+            <End Role="TicketDetails" EntitySet="TicketDetails" />
           </AssociationSet>
           <AssociationSet Name="FK_UserCompagnie_Compagnie" Association="Self.FK_UserCompagnie_Compagnie">
             <End Role="Compagnie" EntitySet="Compagnies" />
             <End Role="UserCompagnie" EntitySet="UserCompagnies" />
           </AssociationSet>
+          <AssociationSet Name="FK_GagnantLotterie_Ticket" Association="Self.FK_GagnantLotterie_Ticket">
+            <End Role="Tickets" EntitySet="Tickets" />
+            <End Role="GagnantLotterie" EntitySet="GagnantLotteries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GagnantLotterie_Tirage" Association="Self.FK_GagnantLotterie_Tirage">
+            <End Role="Tirage" EntitySet="Tirages" />
+            <End Role="GagnantLotterie" EntitySet="GagnantLotteries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lotterie_Tirage" Association="Self.FK_Lotterie_Tirage">
+            <End Role="Tirage" EntitySet="Tirages" />
+            <End Role="LotterieTirage" EntitySet="LotterieTirages" />
+          </AssociationSet>
           <AssociationSet Name="FK_RolePermission_Permission" Association="Self.FK_RolePermission_Permission">
             <End Role="Permission" EntitySet="Permissions" />
             <End Role="RolePermission" EntitySet="RolePermissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserPointDevente_PointDeVente" Association="Self.FK__UserPointDevente_PointDeVente">
+            <End Role="PointDeVente" EntitySet="PointDeVentes" />
+            <End Role="UserPointDeVente" EntitySet="UserPointDeVentes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RapportDeVente_Tirage" Association="Self.FK__RapportDeVente_Tirage">
+            <End Role="Tirage" EntitySet="Tirages" />
+            <End Role="RapportDeVente" EntitySet="RapportDeVentes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RapportDeVente_UserPointDeVente" Association="Self.FK__RapportDeVente_UserPointDeVente">
+            <End Role="UserPointDeVente" EntitySet="UserPointDeVentes" />
+            <End Role="RapportDeVente" EntitySet="RapportDeVentes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RapportTirage_Tirage" Association="Self.FK_RapportTirage_Tirage">
+            <End Role="Tirage" EntitySet="Tirages" />
+            <End Role="RapportTirage" EntitySet="RapportTirages" />
           </AssociationSet>
           <AssociationSet Name="FK_RolePermission_Role" Association="Self.FK_RolePermission_Role">
             <End Role="Role" EntitySet="Roles" />
@@ -937,6 +2033,22 @@
           <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
             <End Role="Role" EntitySet="Roles" />
             <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TicketDetails_Tickets" Association="Self.FK_TicketDetails_Tickets">
+            <End Role="Tickets" EntitySet="Tickets" />
+            <End Role="TicketDetails" EntitySet="TicketDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tickets_Tirage" Association="Self.FK_Tickets_Tirage">
+            <End Role="Tirage" EntitySet="Tirages" />
+            <End Role="Tickets" EntitySet="Tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tickets_UserPointDeVente" Association="Self.FK_Tickets_UserPointDeVente">
+            <End Role="UserPointDeVente" EntitySet="UserPointDeVentes" />
+            <End Role="Tickets" EntitySet="Tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserPointDevente_User" Association="Self.FK__UserPointDevente_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserPointDeVente" EntitySet="UserPointDeVentes" />
           </AssociationSet>
           <AssociationSet Name="FK_UserCompagnie_User" Association="Self.FK_UserCompagnie_User">
             <End Role="User" EntitySet="Users" />
@@ -950,7 +2062,65 @@
             <End Role="User" EntitySet="Users" />
             <End Role="UserPointDeVente" EntitySet="UserPointDeVentes" />
           </AssociationSet>
+          <EntitySet Name="Paiements" EntityType="TchotchoLoto.Paiement" />
+          <AssociationSet Name="FK_GagnantLotterie_Paiement" Association="TchotchoLoto.FK_GagnantLotterie_Paiement">
+            <End Role="GagnantLotterie" EntitySet="GagnantLotteries" />
+            <End Role="Paiement" EntitySet="Paiements" />
+          </AssociationSet>
+          <EntitySet Name="TirageEnExecutions" EntityType="TchotchoLoto.TirageEnExecution" />
+          <AssociationSet Name="FK_TirageEnExecution_Tirage" Association="TchotchoLoto.FK_TirageEnExecution_Tirage">
+            <End Role="Tirage" EntitySet="Tirages" />
+            <End Role="TirageEnExecution" EntitySet="TirageEnExecutions" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Paiement">
+          <Key>
+            <PropertyRef Name="PaiementId" />
+          </Key>
+          <Property Name="PaiementId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GagnantLotterieId" Type="Int32" Nullable="false" />
+          <Property Name="DatePaiement" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiePar" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="ModifieDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="GagnantLotterie" Relationship="TchotchoLoto.FK_GagnantLotterie_Paiement" FromRole="Paiement" ToRole="GagnantLotterie" />
+        </EntityType>
+        <Association Name="FK_GagnantLotterie_Paiement">
+          <End Type="TchotchoLoto.GagnantLotterie" Role="GagnantLotterie" Multiplicity="1" />
+          <End Type="TchotchoLoto.Paiement" Role="Paiement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GagnantLotterie">
+              <PropertyRef Name="GagnantLotterieId" />
+            </Principal>
+            <Dependent Role="Paiement">
+              <PropertyRef Name="GagnantLotterieId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TirageEnExecution">
+          <Key>
+            <PropertyRef Name="TirageEnExecutionId" />
+          </Key>
+          <Property Name="TirageEnExecutionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TirageId" Type="Int32" Nullable="false" />
+          <Property Name="Statut" Type="Boolean" Nullable="false" />
+          <Property Name="DateExecution" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateLancement" Type="DateTime" Precision="3" />
+          <Property Name="ModifiePar" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="ModifieDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Tirage" Relationship="TchotchoLoto.FK_TirageEnExecution_Tirage" FromRole="TirageEnExecution" ToRole="Tirage" />
+        </EntityType>
+        <Association Name="FK_TirageEnExecution_Tirage">
+          <End Type="TchotchoLoto.Tirage" Role="Tirage" Multiplicity="1" />
+          <End Type="TchotchoLoto.TirageEnExecution" Role="TirageEnExecution" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tirage">
+              <PropertyRef Name="TirageId" />
+            </Principal>
+            <Dependent Role="TirageEnExecution">
+              <PropertyRef Name="TirageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -966,6 +2136,27 @@
                 <ScalarProperty Name="DateFin" ColumnName="DateFin" />
                 <ScalarProperty Name="NbreJours" ColumnName="NbreJours" />
                 <ScalarProperty Name="Statut" ColumnName="Statut" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AddAppAccessLogs">
+            <EntityTypeMapping TypeName="TchotchoLoto.AddAppAccessLog">
+              <MappingFragment StoreEntitySet="AddAppAccessLog">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="clientInfo" ColumnName="clientInfo" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AddUserActionLogs">
+            <EntityTypeMapping TypeName="TchotchoLoto.AddUserActionLog">
+              <MappingFragment StoreEntitySet="AddUserActionLog">
+                <ScalarProperty Name="AddUserActionLogId" ColumnName="AddUserActionLogId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Info" ColumnName="Info" />
+                <ScalarProperty Name="Action" ColumnName="Action" />
+                <ScalarProperty Name="ActionDesc" ColumnName="ActionDesc" />
+                <ScalarProperty Name="DateModif" ColumnName="DateModif" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1030,6 +2221,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Boules">
+            <EntityTypeMapping TypeName="TchotchoLoto.Boule">
+              <MappingFragment StoreEntitySet="Boule">
+                <ScalarProperty Name="Disable" ColumnName="Disable" />
+                <ScalarProperty Name="BouleId" ColumnName="BouleId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Statut" ColumnName="Statut" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Compagnies">
             <EntityTypeMapping TypeName="TchotchoLoto.Compagnie">
               <MappingFragment StoreEntitySet="Compagnie">
@@ -1052,6 +2253,46 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="GagnantLotteries">
+            <EntityTypeMapping TypeName="TchotchoLoto.GagnantLotterie">
+              <MappingFragment StoreEntitySet="GagnantLotterie">
+                <ScalarProperty Name="GagnantLotterieId" ColumnName="GagnantLotterieId" />
+                <ScalarProperty Name="TicketId" ColumnName="TicketId" />
+                <ScalarProperty Name="TirageId" ColumnName="TirageId" />
+                <ScalarProperty Name="BouleJouer" ColumnName="BouleJouer" />
+                <ScalarProperty Name="BouleGagner" ColumnName="BouleGagner" />
+                <ScalarProperty Name="JacpotBoule" ColumnName="JacpotBoule" />
+                <ScalarProperty Name="MontantGagner" ColumnName="MontantGagner" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LivJwetlas">
+            <EntityTypeMapping TypeName="TchotchoLoto.LivJwetla">
+              <MappingFragment StoreEntitySet="LivJwetla">
+                <ScalarProperty Name="LivJwetlaId" ColumnName="LivJwetlaId" />
+                <ScalarProperty Name="IsManmanBoulLa" ColumnName="IsManmanBoulLa" />
+                <ScalarProperty Name="NbreBouleGagner" ColumnName="nbreBouleGagner" />
+                <ScalarProperty Name="PrixTicket" ColumnName="PrixTicket" />
+                <ScalarProperty Name="MontantAPayer" ColumnName="MontantAPayer" />
+                <ScalarProperty Name="ModifiePar" ColumnName="ModifiePar" />
+                <ScalarProperty Name="ModifieDate" ColumnName="ModifieDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LotterieTirages">
+            <EntityTypeMapping TypeName="TchotchoLoto.LotterieTirage">
+              <MappingFragment StoreEntitySet="LotterieTirage">
+                <ScalarProperty Name="LotterieTirageId" ColumnName="LotterieTirageId" />
+                <ScalarProperty Name="TirageId" ColumnName="TirageId" />
+                <ScalarProperty Name="Boule1Id" ColumnName="Boule1Id" />
+                <ScalarProperty Name="Boule2Id" ColumnName="Boule2Id" />
+                <ScalarProperty Name="Boule3Id" ColumnName="Boule3Id" />
+                <ScalarProperty Name="Boule4Id" ColumnName="Boule4Id" />
+                <ScalarProperty Name="Boule5Id" ColumnName="Boule5Id" />
+                <ScalarProperty Name="JacpotBoule6Id" ColumnName="JacpotBoule6Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Permissions">
             <EntityTypeMapping TypeName="TchotchoLoto.Permission">
               <MappingFragment StoreEntitySet="Permission">
@@ -1065,17 +2306,45 @@
           <EntitySetMapping Name="PointDeVentes">
             <EntityTypeMapping TypeName="TchotchoLoto.PointDeVente">
               <MappingFragment StoreEntitySet="PointDeVente">
-                <ScalarProperty Name="CodePointDeVente" ColumnName="CodePointDeVente" />
                 <ScalarProperty Name="PointDeVenteId" ColumnName="PointDeVenteId" />
-                <ScalarProperty Name="CompagnieId" ColumnName="CompagnieId" />
+                <ScalarProperty Name="CodePointDeVente" ColumnName="CodePointDeVente" />
                 <ScalarProperty Name="NomPointDeVente" ColumnName="NomPointDeVente" />
                 <ScalarProperty Name="Adresse" ColumnName="Adresse" />
                 <ScalarProperty Name="Ville" ColumnName="Ville" />
                 <ScalarProperty Name="CodePostal" ColumnName="CodePostal" />
                 <ScalarProperty Name="DateCreation" ColumnName="DateCreation" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
                 <ScalarProperty Name="Statut" ColumnName="Statut" />
                 <ScalarProperty Name="ModifiePar" ColumnName="ModifiePar" />
                 <ScalarProperty Name="ModifieDate" ColumnName="ModifieDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RapportDeVentes">
+            <EntityTypeMapping TypeName="TchotchoLoto.RapportDeVente">
+              <MappingFragment StoreEntitySet="RapportDeVente">
+                <ScalarProperty Name="RepportDeVenteId" ColumnName="RepportDeVenteId" />
+                <ScalarProperty Name="TirageId" ColumnName="TirageId" />
+                <ScalarProperty Name="UserPointDeVenteId" ColumnName="UserPointDeVenteId" />
+                <ScalarProperty Name="NbreTicketVendu" ColumnName="NbreTicketVendu" />
+                <ScalarProperty Name="Montant" ColumnName="Montant" />
+                <ScalarProperty Name="ModifiePar" ColumnName="ModifiePar" />
+                <ScalarProperty Name="ModifieDate" ColumnName="ModifieDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RapportTirages">
+            <EntityTypeMapping TypeName="TchotchoLoto.RapportTirage">
+              <MappingFragment StoreEntitySet="RapportTirage">
+                <ScalarProperty Name="MontantAPayer" ColumnName="MontantAPayer" />
+                <ScalarProperty Name="MontantTTotalJouer" ColumnName="MontantTTotalJouer" />
+                <ScalarProperty Name="MontantTicketGagnant" ColumnName="MontantTicketGagnant" />
+                <ScalarProperty Name="MontantTicketPerdant" ColumnName="MontantTicketPerdant" />
+                <ScalarProperty Name="RapportTirageId" ColumnName="RapportTirageId" />
+                <ScalarProperty Name="TirageId" ColumnName="TirageId" />
+                <ScalarProperty Name="NbreTicketGagant" ColumnName="NbreTicketGagant" />
+                <ScalarProperty Name="NbreTicketPerdant" ColumnName="NbreTicketPerdant" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1100,6 +2369,56 @@
                 <ScalarProperty Name="RoleId" ColumnName="RoleId" />
                 <ScalarProperty Name="PermissionId" ColumnName="PermissionId" />
                 <ScalarProperty Name="FullPermission" ColumnName="FullPermission" />
+                <ScalarProperty Name="ModifiePar" ColumnName="ModifiePar" />
+                <ScalarProperty Name="ModifieDate" ColumnName="ModifieDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TicketDetails">
+            <EntityTypeMapping TypeName="TchotchoLoto.TicketDetail">
+              <MappingFragment StoreEntitySet="TicketDetails">
+                <ScalarProperty Name="TicketDetailId" ColumnName="TicketDetailId" />
+                <ScalarProperty Name="TicketId" ColumnName="TicketId" />
+                <ScalarProperty Name="Boule1Id" ColumnName="Boule1Id" />
+                <ScalarProperty Name="Boule2Id" ColumnName="Boule2Id" />
+                <ScalarProperty Name="Boule3Id" ColumnName="Boule3Id" />
+                <ScalarProperty Name="Boule4Id" ColumnName="Boule4Id" />
+                <ScalarProperty Name="Boule5Id" ColumnName="Boule5Id" />
+                <ScalarProperty Name="Boule6Id" ColumnName="Boule6Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tickets">
+            <EntityTypeMapping TypeName="TchotchoLoto.Ticket">
+              <MappingFragment StoreEntitySet="Tickets">
+                <ScalarProperty Name="TicketId" ColumnName="TicketId" />
+                <ScalarProperty Name="CodeTicket" ColumnName="CodeTicket" />
+                <ScalarProperty Name="UserPointDeVenteId" ColumnName="UserPointDeVenteId" />
+                <ScalarProperty Name="TirageId" ColumnName="TirageId" />
+                <ScalarProperty Name="IsGagnant" ColumnName="IsGagnant" />
+                <ScalarProperty Name="IsDjapot" ColumnName="IsDjapot" />
+                <ScalarProperty Name="DateCreation" ColumnName="DateCreation" />
+                <ScalarProperty Name="IsVente" ColumnName="IsVente" />
+                <ScalarProperty Name="DateVente" ColumnName="DateVente" />
+                <ScalarProperty Name="BouleListes" ColumnName="BouleListes" />
+                <ScalarProperty Name="DateTirage" ColumnName="DateTirage" />
+                <ScalarProperty Name="NomJoueur" ColumnName="NomJoueur" />
+                <ScalarProperty Name="JacpotBoule" ColumnName="JacpotBoule" />
+                <ScalarProperty Name="Prix" ColumnName="Prix" />
+                <ScalarProperty Name="Tour" ColumnName="Tour" />
+                <ScalarProperty Name="ModifiePar" ColumnName="ModifiePar" />
+                <ScalarProperty Name="ModifieDate" ColumnName="ModifieDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tirages">
+            <EntityTypeMapping TypeName="TchotchoLoto.Tirage">
+              <MappingFragment StoreEntitySet="Tirage">
+                <ScalarProperty Name="TirageId" ColumnName="TirageId" />
+                <ScalarProperty Name="Tour" ColumnName="Tour" />
+                <ScalarProperty Name="DateTirage" ColumnName="DateTirage" />
+                <ScalarProperty Name="Heure" ColumnName="Heure" />
+                <ScalarProperty Name="Statut" ColumnName="Statut" />
                 <ScalarProperty Name="ModifiePar" ColumnName="ModifiePar" />
                 <ScalarProperty Name="ModifieDate" ColumnName="ModifieDate" />
               </MappingFragment>
@@ -1148,9 +2467,37 @@
               <MappingFragment StoreEntitySet="UserPointDeVente">
                 <ScalarProperty Name="UserPointDeVenteId" ColumnName="UserPointDeVenteId" />
                 <ScalarProperty Name="PointDeVenteId" ColumnName="PointDeVenteId" />
+                <ScalarProperty Name="LastPointDeVenteId" ColumnName="LastPointDeVenteId" />
+                <ScalarProperty Name="LastPointDeVenteName" ColumnName="LastPointDeVenteName" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="AffectionDate" ColumnName="AffectionDate" />
+                <ScalarProperty Name="Statut" ColumnName="Statut" />
                 <ScalarProperty Name="ModifiePar" ColumnName="ModifiePar" />
                 <ScalarProperty Name="ModifieDate" ColumnName="ModifieDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Paiements">
+            <EntityTypeMapping TypeName="TchotchoLoto.Paiement">
+              <MappingFragment StoreEntitySet="Paiement">
+                <ScalarProperty Name="ModifieDate" ColumnName="ModifieDate" />
+                <ScalarProperty Name="ModifiePar" ColumnName="ModifiePar" />
+                <ScalarProperty Name="DatePaiement" ColumnName="DatePaiement" />
+                <ScalarProperty Name="GagnantLotterieId" ColumnName="GagnantLotterieId" />
+                <ScalarProperty Name="PaiementId" ColumnName="PaiementId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TirageEnExecutions">
+            <EntityTypeMapping TypeName="TchotchoLoto.TirageEnExecution">
+              <MappingFragment StoreEntitySet="TirageEnExecution">
+                <ScalarProperty Name="ModifieDate" ColumnName="ModifieDate" />
+                <ScalarProperty Name="ModifiePar" ColumnName="ModifiePar" />
+                <ScalarProperty Name="DateLancement" ColumnName="DateLancement" />
+                <ScalarProperty Name="DateExecution" ColumnName="DateExecution" />
+                <ScalarProperty Name="Statut" ColumnName="Statut" />
+                <ScalarProperty Name="TirageId" ColumnName="TirageId" />
+                <ScalarProperty Name="TirageEnExecutionId" ColumnName="TirageEnExecutionId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

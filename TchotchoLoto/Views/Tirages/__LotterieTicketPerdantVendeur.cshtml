@@ -1,0 +1,86 @@
+﻿
+
+<input type="hidden" id="nbre-ticket-perdant" value="@if (ViewBag.TicketLotterieLosers != null) { @ViewBag.TicketLotterieLosers.Count}else{ Write(0); }" />
+
+<div id="pv-overlay-loading" class="overlay-loading" style="display:none;">
+    <img src="~/Content/images/loading-gif.gif" alt="Loading" width="50" height="50" />
+</div>
+
+
+
+<div class="table-responsive">
+
+    <table id="datatableMSNoSA" class="table table-hover display table-fixed-head-foot" style="width:100% !important; height:100% !important;">
+
+        <thead class="bg-success">
+
+            <tr>
+                <th>
+                    Code
+                </th>
+
+                <th>
+                    Ball Play
+                </th>
+               
+                <th>
+                    Jacpot
+                </th>
+
+                 <th>
+                    Price
+                </th>
+
+
+
+
+            </tr>
+
+        </thead>
+        @if (ViewBag.TicketLotterieLosers != null)
+        {
+
+
+            <tbody style=" overflow-y: auto; max-height: 19em;">
+
+
+
+                @foreach (var item in (List<TchotchoLoto.Models.TicketDetail>)ViewBag.TicketLotterieLosers)
+                {
+
+
+                    <tr>
+                        <td>
+
+                            @item.Ticket.CodeTicket
+
+                        </td>
+
+                        <td class="bg-info">
+                            @string.Join(", ", item.Ticket.BouleListes.Split(','))
+                        </td>
+
+
+
+                        <td class="bg-warning">
+
+                            @item.Boule5.Description
+
+                        </td>
+                         <td>
+
+                            @item.Ticket.Prix HTG
+
+                        </td>
+
+                    </tr>
+                }
+
+            </tbody>
+        }
+    </table>
+
+
+</div>
+
+

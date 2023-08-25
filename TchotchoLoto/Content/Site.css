@@ -15,6 +15,33 @@
 }
 
 
+/*
+.main-menu > .main-menu-menu > ul > li > a:hover, .navbar-right > ul > li > a:focus {
+    color: red;
+    background: rgb(252 217 8) !important;
+}
+
+
+
+.main-menu > .main-menu-menu > ul > li > a, .navbar-right > ul > li > a {
+    color: #fbae00;
+    background: rgb(0 0 0) !important;
+}
+*/
+
+/*
+.main-menu > .main-menu-menu > ul > li > a:hover, .navbar-right > ul > li > a:focus {
+    color: red;
+    background: rgb(252 217 8) !important;
+}
+
+
+
+.main-menu > .main-menu-menu > ul > li > a, .navbar-right > ul > li > a {
+    color: #fbae00;
+    background: rgb(0 0 0) !important;
+}
+*/
 [class^="icon-"], [class*=" icon-"] {
     /* use !important to prevent issues with browser extensions that change fonts */
     font-family: 'smartware' !important;
@@ -108,10 +135,99 @@ body {
     z-index: -1;
 }
 
+.div-bg {
+    background-color: red;
+    color: white;
+    border-radius: 10px;
+}
+
+
+.bg-print {
+    background: url(images/Tcho.jpg) no-repeat center 0 0 0 0;
+    background-size: cover;
+    color: black;
+    clear: both;
+    display: block;
+    /*opacity: 0.30;*/
+    /* height: 100%;
+    width: 100%;
+    z-index: -1;*/
+}
+
+
+.tirage-lotterie-bg {
+    width: 100%;
+    height: 60vh;
+
+    margin-top: 10px;
+    padding-top: 10px;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    color: white;
+    font-size: 2em;
+    border-radius: 50px;
+    background-image: url(images/I3.gif);
+}
+
+#timer {
+    font-weight: bold;
+    
+}
+
+.tirage-lotterie-bg-home {
+    width: 100%;
+    height: 70vh;
+    padding-top: 50px;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    color: white;
+    border-radius: 50px;
+    background-image: url(images/I1.gif);
+    /*background-image: url(images/I0.gif);*/
+}
+
+
+
+
+.cercleLottery {
+    width: 4em;
+    height: 4em;
+    border-radius: 2em;
+    background: green;
+}
+
+
+
+.cercleJacpot {
+    width: 6em;
+    height: 6em;
+    border-radius: 3em;
+    background: red;
+    animation-duration: 2s;
+    animation-name: clignoter;
+    animation-iteration-count: infinite;
+    transition: none;
+}
+
+
+@keyframes clignoter {
+    0% {
+        opacity: 1;
+    }
+
+    40% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
 
 /*Grand Image BG Login Home after login*/
 .bg-image {
-    background: url(images/home-background.jpg) no-repeat center;
+    background: url(images/Tchotcho3.jpg) no-repeat center;
+    /*background: url(images/home-background.jpg) no-repeat center;*/
     background-size: cover;
 }
 
@@ -270,7 +386,7 @@ body {
 
 
     .espace-td-no-container {
-        width: 37%;
+        width: 20%;
     }
 
     .pn-container-payment {
@@ -289,7 +405,7 @@ body {
 
     .pn-container-right {
         height: 100%;
-        width: 49%;
+        width: 54%;
         float: right;
     }
 
@@ -309,7 +425,7 @@ body {
 
     .pn-container-payment-formulaire {
         width: 49%;
-        height: 111%;
+        height: 100%;
         float: right;
         /*height: 111% !important;*/
     }
@@ -318,7 +434,7 @@ body {
 
     .pn-container-left {
         height: 100%;
-        width: 49%;
+        width: 45%;
         float: left;
     }
 
@@ -1424,6 +1540,8 @@ dd, dt {
 .navbar-right > ul > li > a:hover, .navbar-right > ul > li > a:focus {
     background: rgb(0, 78, 142) !important;
 }
+
+
 
 
 .dash-board-panel-box {

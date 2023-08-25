@@ -27,6 +27,9 @@ namespace TchotchoLoto.Controllers
                 return Json(new { returnToLogin = true }, JsonRequestBehavior.AllowGet);
             }
 
+            new AccountController().AddUserActionLog(currentUser, currentCompagnie, "Applications/Index", "Button Application [Security]");
+
+
             int sessionIdExist = db.Users.Where(u => u.SessionId == HttpContext.Session.SessionID).Count();
 
             if (sessionIdExist == 0)
@@ -66,6 +69,7 @@ namespace TchotchoLoto.Controllers
                 return Json(new { returnToLogin = true }, JsonRequestBehavior.AllowGet);
             }
 
+
             int sessionIdExist = db.Users.Where(u => u.SessionId == HttpContext.Session.SessionID).Count();
 
             if (sessionIdExist == 0)
@@ -100,7 +104,7 @@ namespace TchotchoLoto.Controllers
         [AjaxOnly]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult _Index([Bind(Include = "ApplicationId,CompagnieId,ApplicationName,Description,EmailApplication,PasswordEmailApplication,Version,DevelopperPar")] Application application, HttpPostedFileBase SignatureResponsableApplication, HttpPostedFileBase LogoApplication)
+        public ActionResult _Index([Bind(Include = "ApplicationId,CompagnieId,ApplicationName,Description,EmailApplication,PasswordEmailApplication,Version,DevelopperPar")] Application application, HttpPostedFileBase SignatureResponsable, HttpPostedFileBase LogoApplication)
         {
 
             User currentUser = (User)Session["userData"];
@@ -110,6 +114,10 @@ namespace TchotchoLoto.Controllers
             {
                 return Json(new { returnToLogin = true }, JsonRequestBehavior.AllowGet);
             }
+
+
+            new AccountController().AddUserActionLog(currentUser, currentCompagnie, "Applications/_Index", "Button Add Application [Security]");
+
 
             int sessionIdExist = db.Users.Where(u => u.SessionId == HttpContext.Session.SessionID).Count();
 
@@ -173,6 +181,17 @@ namespace TchotchoLoto.Controllers
                                 string base64String = Convert.ToBase64String(bytes, 0, bytes.Length);
 
                                 applicationEdit.LogoApplication = bytes;
+                            }
+                            
+
+                            if (SignatureResponsable != null && (SignatureResponsable.FileName.ToLower().EndsWith(".jpg") || SignatureResponsable.FileName.ToLower().EndsWith(".jpeg") || SignatureResponsable.FileName.ToLower().EndsWith(".png") || SignatureResponsable.FileName.ToLower().EndsWith(".ico")))
+                            {
+                                System.IO.Stream fs = SignatureResponsable.InputStream;
+                                System.IO.BinaryReader br = new System.IO.BinaryReader(fs);
+                                Byte[] bytes = br.ReadBytes((Int32)fs.Length);
+                                string base64String = Convert.ToBase64String(bytes, 0, bytes.Length);
+
+                                applicationEdit.SignatureResponsable = bytes;
                             }
 
                             db.Entry(applicationEdit).State = EntityState.Modified;
@@ -243,6 +262,11 @@ namespace TchotchoLoto.Controllers
                 return Json(new { returnToLogin = true }, JsonRequestBehavior.AllowGet);
             }
 
+
+
+            new AccountController().AddUserActionLog(currentUser, currentCompagnie, "Applications/_Edit", "Button Edit [Security]");
+
+
             int sessionIdExist = db.Users.Where(u => u.SessionId == HttpContext.Session.SessionID).Count();
 
             if (sessionIdExist == 0)
@@ -292,68 +316,71 @@ namespace TchotchoLoto.Controllers
 
 
 
-        [AjaxOnly]
-        public ActionResult Delete(int? id)
-        {
-            User currentUser = (User)Session["userData"];
-            Compagnie currentCompagnie = (Compagnie)Session["compagnieData"];
+        //[AjaxOnly]
+        //public ActionResult Delete(int? id)
+        //{
+        //    User currentUser = (User)Session["userData"];
+        //    Compagnie currentCompagnie = (Compagnie)Session["compagnieData"];
 
-            if (currentUser == null || currentCompagnie == null)
-            {
-                return Json(new { returnToLogin = true }, JsonRequestBehavior.AllowGet);
-            }
-
-            int sessionIdExist = db.Users.Where(u => u.SessionId == HttpContext.Session.SessionID).Count();
-
-            if (sessionIdExist == 0)
-            {
-                HttpContext.Session.Abandon();
-                string message1 = "You have lost this connection because a new one has been detected!";
-                return Json(new { newSession = true, message1 }, JsonRequestBehavior.AllowGet);
-
-            }
+        //    if (currentUser == null || currentCompagnie == null)
+        //    {
+        //        return Json(new { returnToLogin = true }, JsonRequestBehavior.AllowGet);
+        //    }
 
 
-            if (currentUser.SuperUser && currentUser.Role.RolePermissions.ToList().Exists(u => u.Permission.ParentName.Trim().ToLower() == "applications" && (u.FullPermission || u.Permission.ObjectName.Trim().ToLower() == "delete")))
-            {
-                string message = null;
-                if (id == null)
-                {
-                    message = "Id Application Not Found!";
-                    return Json(new { notFound = true, message }, JsonRequestBehavior.AllowGet);
+        //    new AccountController().AddUserActionLog(currentUser, currentCompagnie, "Applications/Delete", "Button Delete [Security]");
 
-                }
-                Application application = db.Applications.FirstOrDefault(a => a.ApplicationId == id);
+        //    int sessionIdExist = db.Users.Where(u => u.SessionId == HttpContext.Session.SessionID).Count();
 
-                if (application == null)
-                {
-                    message = "Application not Found!";
-                    return Json(new { notFound = true, message }, JsonRequestBehavior.AllowGet);
-                }
+        //    if (sessionIdExist == 0)
+        //    {
+        //        HttpContext.Session.Abandon();
+        //        string message1 = "You have lost this connection because a new one has been detected!";
+        //        return Json(new { newSession = true, message1 }, JsonRequestBehavior.AllowGet);
+
+        //    }
 
 
-                try
-                {
-                    message = "Application " + application.ApplicationName + " successfully deleted!";
-                    db.Applications.Remove(application);
-                    db.SaveChanges();
-                    return Json(new { saved = true, message, ctrlName = "Applications" }, JsonRequestBehavior.AllowGet);
+        //    if (currentUser.SuperUser && currentUser.Role.RolePermissions.ToList().Exists(u => u.Permission.ParentName.Trim().ToLower() == "applications" && (u.FullPermission || u.Permission.ObjectName.Trim().ToLower() == "delete")))
+        //    {
+        //        string message = null;
+        //        if (id == null)
+        //        {
+        //            message = "Id Application Not Found!";
+        //            return Json(new { notFound = true, message }, JsonRequestBehavior.AllowGet);
+
+        //        }
+        //        Application application = db.Applications.FirstOrDefault(a => a.ApplicationId == id);
+
+        //        if (application == null)
+        //        {
+        //            message = "Application not Found!";
+        //            return Json(new { notFound = true, message }, JsonRequestBehavior.AllowGet);
+        //        }
 
 
-                }
-                catch (Exception app)
-                {
-                    message = "Deletion not performed. This Application is used for other entities!";
-                    return Json(new { dbEx = true, message }, JsonRequestBehavior.AllowGet);
-                }
+        //        try
+        //        {
+        //            message = "Application " + application.ApplicationName + " successfully deleted!";
+        //            db.Applications.Remove(application);
+        //            db.SaveChanges();
+        //            return Json(new { saved = true, message, ctrlName = "Applications" }, JsonRequestBehavior.AllowGet);
 
-            }
-            else
-            {
-                return Json(new { noPermission = true }, JsonRequestBehavior.AllowGet);
-            }
 
-        }
+        //        }
+        //        catch (Exception app)
+        //        {
+        //            message = "Deletion not performed. This Application is used for other entities!";
+        //            return Json(new { dbEx = true, message }, JsonRequestBehavior.AllowGet);
+        //        }
+
+        //    }
+        //    else
+        //    {
+        //        return Json(new { noPermission = true }, JsonRequestBehavior.AllowGet);
+        //    }
+
+        //}
 
 
 

@@ -42,7 +42,7 @@ namespace TchotchoLoto.Models
         public int Id { get; set; }
         public string Description { get; set; }
 
-       
+
     }
 
 
@@ -50,6 +50,35 @@ namespace TchotchoLoto.Models
     public class UserInfo
     {
         public string FullName { get; set; }
+    }
+
+
+    public class TicketDetailB
+    {
+
+        //public int TicketDetailId { get; set; }
+        public int TicketId { get; set; }
+        public int TicketDetailId { get; set; }
+        public string Boule1 { get; set; }
+        public string Boule2 { get; set; }
+        public string Boule3 { get; set; }
+        public string Boule4 { get; set; }
+        public string Boule5 { get; set; }
+        public string Boule6 { get; set; }
+        public int Prix { get; set; }
+        public Boolean IsVente { get; set; }
+        public string NomJoueur { get; set; }
+        //public Ticket Ticket { get; set; }
+
+
+
+
+
+    }
+
+    public class BouleLotterie
+    {
+        public int Id { get; set; }
     }
 
     public class PeriodeRapport

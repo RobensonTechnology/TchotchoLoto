@@ -1,0 +1,115 @@
+﻿
+
+
+<input type="hidden" id="nbre-rapportDeVente" value="@if (ViewBag.RapportDeVentes != null) { @ViewBag.RapportDeVentes.Count}else{ Write(0); }" />
+
+<div id="pv-overlay-loading" class="overlay-loading" style="display:none;">
+    <img src="~/Content/images/loading-gif.gif" alt="Loading" width="50" height="50" />
+</div>
+
+
+<div class="table-responsive" id="imprimer">
+
+
+    <center>
+
+        <p style="color:black; clear: both; padding: 0; width: 100%; display: inline-block; font-size: 26px;  clear: both;">
+            <b>
+                <img src="~/Content/images/tchotcholotologo.jpg" class="img-rounded" alt="logo" style="margin-top:-10px; width:200px; height:100px;" />
+
+            </b>
+        </p>
+
+
+        <p style="color:black; clear: both; margin-top:-30px; padding: 0; display: inline-block; clear: both; ">
+            <b>
+
+                #5, duval 27, Croix-des-Bouquets Dirigée par PARYAJ LOTO <br />
+                Tél: (509) 0000- 0000
+
+                Dirigée par PARYAJ LOTO  <br>
+                T&eacute;l: (509) 0000- 0000
+            </b>
+        </p>
+    </center>
+    <span style="color:black; clear: both;">
+        <hr style="border:1px solid black; width: 100%; margin-top:-7px; display: inline-block;">
+    </span>
+
+    <center>
+
+        <table id="datatablePrint" class="table table-hover display">
+
+            <thead class="bg-success">
+
+                <tr>
+
+                    <th>
+                        Draw
+                    </th>
+                    <th>
+                        Salesman
+                    </th>
+
+                    <th>
+                        Point Of sale
+                    </th>
+
+                    <th>
+                        Ticket sold
+                    </th>
+                    <th>
+                        Amount
+                    </th>
+                    <th>
+                        Last sale
+                    </th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+                @if (ViewBag.RapportDeVentes != null)
+                {
+                    foreach (var item in (List<TchotchoLoto.Models.RapportDeVente>)ViewBag.RapportDeVentes)
+                    {
+                        <tr>
+
+                            <td>
+                                @(item.Tirage.DateTirage + item.Tirage.Heure)
+                            </td>
+
+
+                            <td>
+                                @item.UserPointDeVente.User.UserName
+                            </td>
+
+                            <td>
+                                @item.UserPointDeVente.PointDeVente.NomPointDeVente
+                            </td>
+
+                            <td>
+                                @item.NbreTicketVendu
+                            </td>
+
+                            <td>
+                                @item.Montant HTG
+                            </td>
+
+
+                            <td>
+                                @item.ModifieDate
+                            </td>
+
+
+                        </tr>
+                    }
+                }
+            </tbody>
+
+        </table>
+
+
+    </center>
+</div>

@@ -1,0 +1,75 @@
+﻿
+<input type="hidden" id="nbre-compagnie" value="@if (ViewBag.Compagnies != null) { @ViewBag.Compagnies.Count}else{ Write(0); }" />
+
+<div id="pv-overlay-loading" class="overlay-loading" style="display:none;">
+    <img src="~/Content/images/loading-gif.gif" alt="Loading" width="50" height="50" />
+</div>
+
+
+<div class="table-responsive">
+    <table id="datatable" class="table table-hover display" style="width:100%;">
+
+        <thead class="bg-success">
+
+            <tr>
+               
+                <th>
+                    Compagnie Name
+                </th>
+                <th>
+                    Adress
+                </th>
+                <th>
+                    NIF
+                </th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    Responsible Person
+                </th>
+                <th style="text-align:center;">
+                    Actions
+                </th>
+            </tr>
+
+        </thead>
+
+        <tbody class="big-table-height">
+            @if (ViewBag.Compagnies != null)
+            {
+                foreach (var item in (List<TchotchoLoto.Models.Compagnie>)ViewBag.Compagnies)
+                {
+                    <tr>
+                        <td>
+                            @item.NomCompagnie
+                        </td>
+                        <td>
+                            @item.Adresse
+                        </td>
+                        <td>
+                            @item.NIF
+                        </td>
+
+                       <td>
+                            @item.AdresseElectronique
+                        </td>
+
+                       <td>
+                            @item.PersonneResponsable
+                        </td>
+
+                        <td style="text-align:center;">
+
+                            <button data-url="@Url.Action("_Edit", "Compagnies", new { id = item.CompagnieId })" class="edit-compagnie-btn btn btn-xs btn-info"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+
+
+
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+
+    </table>
+</div>

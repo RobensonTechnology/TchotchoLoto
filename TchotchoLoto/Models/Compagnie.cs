@@ -19,7 +19,6 @@ namespace TchotchoLoto.Models
         {
             this.Agences = new HashSet<Agence>();
             this.Applications = new HashSet<Application>();
-            this.PointDeVentes = new HashSet<PointDeVente>();
             this.UserCompagnies = new HashSet<UserCompagnie>();
         }
     
@@ -44,8 +43,6 @@ namespace TchotchoLoto.Models
         public virtual ICollection<Agence> Agences { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Application> Applications { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PointDeVente> PointDeVentes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserCompagnie> UserCompagnies { get; set; }
     }

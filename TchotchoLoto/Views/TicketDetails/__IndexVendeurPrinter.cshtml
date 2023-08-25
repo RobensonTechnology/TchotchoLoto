@@ -1,0 +1,156 @@
+﻿<input type="hidden" id="nbre-ticket-vendeur" value="@if (ViewBag.TicketVendeurPrinters != null) { @ViewBag.TicketVendeurPrinters.Count}else{ Write(0); }" />
+
+<div id="pv-overlay-loading" class="overlay-loading" style="display:none;">
+    <img src="~/Content/images/loading-gif.gif" alt="Loading" width="50" height="50" />
+</div>
+
+
+<div class="table-responsive">
+    <table id="datatable" class="table table-hover display" style="width:100%;">
+
+        <thead class="bg-success">
+
+            <tr>
+
+                <th>
+                    Infos
+                </th>
+
+                <th>
+                    Details
+                </th>
+
+
+            </tr>
+
+        </thead>
+
+        <tbody class="big-table-height">
+            @if (ViewBag.TicketVendeurPrinters != null)
+            {
+                foreach (var item in (List<TchotchoLoto.Models.TicketDetail>)ViewBag.TicketVendeurPrinters)
+                {
+                    <tr>
+                        <td>
+                            Code
+                        </td>
+
+                        <td>
+                            @item.Ticket.CodeTicket
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            Ticket Date
+                        </td>
+
+                        <td>
+                            @item.Ticket.DateVente.Value.ToString("dd/MM/yyyy")
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            Ball 1
+                        </td>
+
+                        <td>
+                            @item.Boule1
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            Ball 2
+                        </td>
+
+                        <td>
+                            @item.Boule2
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            Ball 3
+                        </td>
+
+                        <td>
+                            @item.Boule3
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            Ball 4
+                        </td>
+
+                        <td>
+                            @item.Boule4
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            Ball 5
+                        </td>
+
+                        <td>
+                            @item.Boule5
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            Ball 6
+                        </td>
+
+                        <td>
+                            @item.Boule6
+                        </td>
+                    </tr>
+
+
+
+                    <tr>
+                        <td>
+                            Player Name
+                        </td>
+
+                        <td>
+                            @item.NomJoueur
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>
+                            Draw Date
+                        </td>
+
+                        <td>
+                            @item.Ticket.Tirage.DateTirage.Date.ToString("dd/MM/yyyy")
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>
+                            Time
+                        </td>
+
+                        <td>
+                            @item.Ticket.Tirage.Heure
+                        </td>
+                    </tr>
+
+
+
+
+
+                }
+            }
+        </tbody>
+
+    </table>
+</div>

@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Diagnostics;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 
 namespace TchotchoLoto.Controllers
 {
@@ -21,6 +21,15 @@ namespace TchotchoLoto.Controllers
 
             User currentUser = (User)Session["userData"];
             Compagnie currentCompagnie = (Compagnie)Session["compagnieData"];
+
+
+            if (currentUser == null || currentCompagnie == null)
+            {
+                return Json(new { returnToLogin = true }, JsonRequestBehavior.AllowGet);
+            }
+
+            new AccountController().AddUserActionLog(currentUser, currentCompagnie, "PointDeVentes/Index", "Button Point of Sale [Point of Sale]");
+
 
             int sessionIdExist = db.Users.Where(u => u.SessionId == HttpContext.Session.SessionID).Count();
 
@@ -38,7 +47,7 @@ namespace TchotchoLoto.Controllers
                 List<StatutEntite> currentStatutPointDeVente = (List<StatutEntite>)Session["statutEntiteData"];
                 if (currentStatutPointDeVente != null && currentStatutPointDeVente.Count() > 0)
                 {
-                    ViewBag.StatutPointDeVenteId = new SelectList(currentStatutPointDeVente, "Id", "Description");
+                    ViewBag.StatutId = new SelectList(currentStatutPointDeVente, "Id", "Description");
                 }
                 else
                 {
@@ -46,14 +55,14 @@ namespace TchotchoLoto.Controllers
                     currentStatutPointDeVente.Insert(1, new StatutEntite { Description = "Active", Id = 1 });
                     currentStatutPointDeVente.Insert(2, new StatutEntite { Description = "Inactive", Id = 0 });
 
-                    ViewBag.StatutPointDeVenteId = new SelectList(currentStatutPointDeVente, "Id", "Description");
+                    ViewBag.StatutId = new SelectList(currentStatutPointDeVente, "Id", "Description");
 
                 }
 
 
-                ViewBag.PointDeVentes = new List<PointDeVente>();
+                //ViewBag.PointDeVentes = new List<PointDeVente>();
 
-                //ViewBag.pointDeVentes = db.PointDeVentes.ToList();
+                ViewBag.pointDeVentes = db.PointDeVentes.Where(p=>p.Statut).ToList();
 
                 return View();
             }
@@ -72,6 +81,16 @@ namespace TchotchoLoto.Controllers
 
             User currentUser = (User)Session["userData"];
             Compagnie currentCompagnie = (Compagnie)Session["compagnieData"];
+
+
+
+            if (currentUser == null || currentCompagnie == null)
+            {
+                return Json(new { returnToLogin = true }, JsonRequestBehavior.AllowGet);
+            }
+
+            new AccountController().AddUserActionLog(currentUser, currentCompagnie, "PointDeVentes/__Index", "Button Select Status [Point of Sale]");
+
 
             int sessionIdExist = db.Users.Where(u => u.SessionId == HttpContext.Session.SessionID).Count();
 
@@ -92,7 +111,7 @@ namespace TchotchoLoto.Controllers
                 List<StatutEntite> currentStatutPointDeVente = (List<StatutEntite>)Session["statutEntiteData"];
                 if (currentStatutPointDeVente != null && currentStatutPointDeVente.Count() > 0)
                 {
-                    ViewBag.StatutPointDeVenteId = new SelectList(currentStatutPointDeVente, "Id", "Description");
+                    ViewBag.StatutId = new SelectList(currentStatutPointDeVente, "Id", "Description");
                 }
                 else
                 {
@@ -100,7 +119,7 @@ namespace TchotchoLoto.Controllers
                     currentStatutPointDeVente.Insert(1, new StatutEntite { Description = "Active", Id = 1 });
                     currentStatutPointDeVente.Insert(2, new StatutEntite { Description = "Inactive", Id = 0 });
 
-                    ViewBag.StatutPointDeVenteId = new SelectList(currentStatutPointDeVente, "Id", "Description");
+                    ViewBag.StatutId = new SelectList(currentStatutPointDeVente, "Id", "Description");
 
                 }
 
@@ -115,7 +134,7 @@ namespace TchotchoLoto.Controllers
 
                 if (id == 0)
                 {
-                    ViewBag.pointDeVentes = db.PointDeVentes.Where(p => !p.Statut).ToList();
+                    ViewBag.PintDeVentes = db.PointDeVentes.Where(p => !p.Statut).ToList();
                 }
                 else if (id == 1)
                 {
@@ -147,8 +166,9 @@ namespace TchotchoLoto.Controllers
         [AjaxOnly]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult _Index([Bind(Include = "PointDeVenteId, CompagnieId, CodePointDeVente, NomPointDeVente, Adresse, Ville, CodePostal, Statut")] PointDeVente pointDeVente)
+        public ActionResult _Index([Bind(Include = "PointDeVenteId, CodePointDeVente, NomPointDeVente, Adresse, Ville, CodePostal,Latitude,Longitude, Statut")] PointDeVente pointDeVente)
         {
+            
 
             User currentUser = (User)Session["userData"];
             Compagnie currentCompagnie = (Compagnie)Session["compagnieData"];
@@ -157,6 +177,12 @@ namespace TchotchoLoto.Controllers
             {
                 return Json(new { returnToLogin = true }, JsonRequestBehavior.AllowGet);
             }
+
+
+
+            new AccountController().AddUserActionLog(currentUser, currentCompagnie, "PointDeVentes/_Index", "Button Edit or New Point of sale => Save [Point of Sale]");
+
+
 
             int sessionIdExist = db.Users.Where(u => u.SessionId == HttpContext.Session.SessionID).Count();
 
@@ -198,6 +224,8 @@ namespace TchotchoLoto.Controllers
                         pointDeVenteEdit.Adresse = pointDeVente.Adresse;
                         pointDeVenteEdit.Ville = pointDeVente.Ville;
                         pointDeVenteEdit.CodePostal = pointDeVente.CodePostal;
+                        pointDeVenteEdit.Latitude = pointDeVente.Latitude;
+                        pointDeVenteEdit.Longitude = pointDeVente.Longitude;
                         pointDeVenteEdit.ModifiePar = currentUser.FirstName + " " + currentUser.LastName;
                         pointDeVenteEdit.ModifieDate = DateTime.Now;
                         db.Entry(pointDeVenteEdit).State = EntityState.Modified;
@@ -206,7 +234,7 @@ namespace TchotchoLoto.Controllers
                     else
                     {
 
-                        pointDeVente.CompagnieId = currentCompagnie.CompagnieId;
+                        
                         pointDeVente.DateCreation = DateTime.Now;
                         pointDeVente.Statut = true;
                         pointDeVente.ModifiePar = currentUser.LastName + " " + currentUser.FirstName;
@@ -235,23 +263,23 @@ namespace TchotchoLoto.Controllers
 
                 else if (string.IsNullOrWhiteSpace(pointDeVente.CodePointDeVente))
                 {
-                    message = "Please enter the Point of sale Code!";
+                    message = "Please enter the Code!";
                     return Json(new { validationError = true, message }, JsonRequestBehavior.AllowGet);
                 }
                 else if (pointDeVenteCodeExist > 0)
                 {
-                    message = "This Point of sale Code already exist!";
+                    message = "This Code is already exist!";
                     return Json(new { validationError = true, message }, JsonRequestBehavior.AllowGet);
                 }
                 else if (string.IsNullOrWhiteSpace(pointDeVente.NomPointDeVente))
                 {
-                    message = "Please enter the Point of sale Name!";
+                    message = "Please enter the Name!";
                     return Json(new { validationError = true, message }, JsonRequestBehavior.AllowGet);
 
                 }
                 else if (pointDeVenteNameExist > 0)
                 {
-                    message = "This Point of sale Name already exist!";
+                    message = "This Name is already exist!";
                     return Json(new { validationError = true, message }, JsonRequestBehavior.AllowGet);
                 }
                 else if (string.IsNullOrWhiteSpace(pointDeVente.Adresse))
@@ -308,6 +336,13 @@ namespace TchotchoLoto.Controllers
                 return Json(new { returnToLogin = true }, JsonRequestBehavior.AllowGet);
             }
 
+
+
+            new AccountController().AddUserActionLog(currentUser, currentCompagnie, "PointDeVentes/_Edit", "Button Edit [Point of Sale]");
+
+
+
+
             int sessionIdExist = db.Users.Where(u => u.SessionId == HttpContext.Session.SessionID).Count();
 
             if (sessionIdExist == 0)
@@ -363,6 +398,12 @@ namespace TchotchoLoto.Controllers
                 return Json(new { returnToLogin = true }, JsonRequestBehavior.AllowGet);
             }
 
+            
+
+            new AccountController().AddUserActionLog(currentUser, currentCompagnie, "PointDeVentes/Delete", "Button Delete [Point of Sale]");
+
+
+
             int sessionIdExist = db.Users.Where(u => u.SessionId == HttpContext.Session.SessionID).Count();
 
             if (sessionIdExist == 0)
@@ -389,7 +430,7 @@ namespace TchotchoLoto.Controllers
                     message = "Point of sale " + pointDeVente.NomPointDeVente + " successfully deleted!";
                     db.PointDeVentes.Remove(pointDeVente);
                     db.SaveChanges();
-                    return Json(new { saved = true, message, ctrlName = "Agences" }, JsonRequestBehavior.AllowGet);
+                    return Json(new { saved = true, message, ctrlName = "PointDeVentes" }, JsonRequestBehavior.AllowGet);
                 }
                 catch (Exception a)
                 {
@@ -418,6 +459,13 @@ namespace TchotchoLoto.Controllers
             {
                 return Json(new { returnToLogin = true }, JsonRequestBehavior.AllowGet);
             }
+
+
+            new AccountController().AddUserActionLog(currentUser, currentCompagnie, "PointDeVentes/StatutToggle", "Button Active or Inactive [Point of Sale]");
+
+
+
+
 
             int sessionIdExist = db.Users.Where(u => u.SessionId == HttpContext.Session.SessionID).Count();
 
@@ -474,6 +522,120 @@ namespace TchotchoLoto.Controllers
 
         }
 
+
+
+
+
+
+        [AjaxOnly]
+        public ActionResult Maps()
+        {
+
+            User currentUser = (User)Session["userData"];
+            Compagnie currentCompagnie = (Compagnie)Session["compagnieData"];
+
+            if (currentUser == null || currentCompagnie == null)
+            {
+                return Json(new { returnToLogin = true }, JsonRequestBehavior.AllowGet);
+            }
+
+
+            new AccountController().AddUserActionLog(currentUser, currentCompagnie, "PointDeVentes/Maps", "Button Map [Point of Sale]");
+
+
+
+            int sessionIdExist = db.Users.Where(u => u.SessionId == HttpContext.Session.SessionID).Count();
+
+            if (sessionIdExist == 0)
+            {
+                HttpContext.Session.Abandon();
+                string message1 = "You have lost this connection because a new one has been detected!";
+                return Json(new { newSession = true, message1 }, JsonRequestBehavior.AllowGet);
+
+            }
+
+            if (currentUser.Role.RolePermissions.ToList().Exists(u => u.Permission.ParentName.Trim().ToLower() == "pointdeventes" && (u.FullPermission || u.Permission.ObjectName.Trim().ToLower() == "index")))
+            {
+
+                string message = null;
+
+
+
+                var pointDeVente = db.PointDeVentes.ToList();
+
+                if (pointDeVente.Count() == 0)
+                {
+                    message = "No Point of Sale Found!";
+                    return Json(new { notFound = true, message }, JsonRequestBehavior.AllowGet);
+                }
+
+                return View();
+
+            }
+            else
+            {
+                return Json(new { noPermission = true }, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+
+
+
+
+
+        [AjaxOnly]
+        public ActionResult MapIndex()
+        {
+
+            User currentUser = (User)Session["userData"];
+            Compagnie currentCompagnie = (Compagnie)Session["compagnieData"];
+
+
+
+            if (currentUser == null || currentCompagnie == null)
+            {
+                return Json(new { returnToLogin = true }, JsonRequestBehavior.AllowGet);
+            }
+
+
+            new AccountController().AddUserActionLog(currentUser, currentCompagnie, "PointDeVentes/MapIndex", "Button Maps [Point of Sale]");
+
+
+
+            int sessionIdExist = db.Users.Where(u => u.SessionId == HttpContext.Session.SessionID).Count();
+
+            if (sessionIdExist == 0)
+            {
+                HttpContext.Session.Abandon();
+                string message1 = "You have lost this connection because a new one has been detected!";
+                return Json(new { newSession = true, message1 }, JsonRequestBehavior.AllowGet);
+
+            }
+
+            if (currentUser.Role.RolePermissions.ToList().Exists(u => u.Permission.ParentName.Trim().ToLower() == "pointdeventes" && (u.FullPermission || u.Permission.ObjectName.Trim().ToLower() == "index")))
+            {
+
+                string message = null;
+
+                var pointDeVentes = db.PointDeVentes.AsEnumerable().Where(p => !string.IsNullOrWhiteSpace(p.Latitude) && !string.IsNullOrWhiteSpace(p.Longitude)).Select(p => new { Juridiction = p.NomPointDeVente, Name = p.CodePointDeVente, Coords = new { p.Latitude, Longitude = p.Longitude }, Departement = p.Ville, Capacite = 4 }).ToList();
+
+                if (pointDeVentes.Count() == 0)
+                {
+                    message = "No point of Salñe!";
+                    return Json(new { notFound = true, message }, JsonRequestBehavior.AllowGet);
+                }
+                ViewBag.mapDatas = new JavaScriptSerializer().Serialize(pointDeVentes);
+
+                return View();
+
+
+            }
+            else
+            {
+                return Json(new { noPermission = true }, JsonRequestBehavior.AllowGet);
+            }
+
+        }
 
 
     }

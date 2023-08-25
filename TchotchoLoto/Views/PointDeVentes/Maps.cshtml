@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "Carte";
+    Layout = null;
+    string url = new UrlHelper(this.Request.RequestContext).Action("MapIndex", "PointDeVentes");
+}
+
+<input type="hidden" class="title" data-title="Carte" />
+
+
+<div class="indicator">
+    Point of Sale  &nbsp;&nbsp; <span class="glyphicon glyphicon-chevron-right"></span> &nbsp; &nbsp; Map
+</div>
+
+<div class="page-scroll-content" style="height:70%; margin-top:50px;">
+    <iframe onload="hideLoader()" src="@url" style="width: 100%; height: 100%; border: 1px solid transparent; background: #fff; left: 0; overflow: hidden !important;"></iframe>
+</div>
+
+<a id="validation-link" data-toggle="modal" data-target="#modal-dialog-message"></a>
+
+<div id="modal-dialog-message" class="modal fade" role="dialog" data-backdrop="static">
+    <div class="modal-dialog modal-sm">
+
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #0078d7; border-radius:5px 5px 0 0;">
+
+                <h4 style="display: inline;">Message</h4>
+
+            </div>
+            <div class="modal-body row" style="padding:7%; text-align:center;">
+
+                <span class="glyphicon glyphicon-info-sign" style="display:block; font-size: 20px;"></span>
+                <h5 class="text-info" style="display:block;">@ViewBag.message</h5>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">
+                    OK
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div id="pv-overlay-loading" class="overlay-loading bc-overlay-loading" style="display:none;">
+    <img src="~/Content/images/loading-gif.gif" alt="Loading" width="50" height="50" />
+</div>
+
+<script type="text/javascript">
+    function hideLoader() {
+        document.getElementById('pv-overlay-loading').style = "display:none;";
+    }
+</script>
+

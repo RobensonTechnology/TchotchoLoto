@@ -4,21 +4,32 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="9fdd05ce952c4e919299ac33018897f3" Name="Diagram1" ZoomLevel="26">
-        <EntityTypeShape EntityType="TchotchoLoto.AccessTimeApplication" Width="1.5" PointX="5.25" PointY="8.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="TchotchoLoto.Agence" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="TchotchoLoto.Application" Width="1.5" PointX="3" PointY="10.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="TchotchoLoto.AppNavigation" Width="1.5" PointX="3" PointY="1.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="TchotchoLoto.AppNavigationApplication" Width="1.5" PointX="5.25" PointY="12" IsExpanded="true" />
-        <EntityTypeShape EntityType="TchotchoLoto.AppNavigationPermission" Width="1.5" PointX="7.5" PointY="11" IsExpanded="true" />
-        <EntityTypeShape EntityType="TchotchoLoto.Compagnie" Width="1.5" PointX="0.75" PointY="10.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TchotchoLoto.Permission" Width="1.5" PointX="5.25" PointY="20.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="TchotchoLoto.PointDeVente" Width="1.5" PointX="3" PointY="18.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="TchotchoLoto.Role" Width="1.5" PointX="5.25" PointY="15.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="TchotchoLoto.RolePermission" Width="1.5" PointX="7.5" PointY="14" IsExpanded="true" />
-        <EntityTypeShape EntityType="TchotchoLoto.User" Width="1.5" PointX="7.5" PointY="17.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="TchotchoLoto.UserCompagnie" Width="1.5" PointX="9.75" PointY="15.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="TchotchoLoto.UserPointDeVente" Width="1.5" PointX="9.75" PointY="22.5" IsExpanded="true" />
+      <Diagram DiagramId="f445194644dd4e43a5ac53d36412e5b6" Name="Diagram1">
+        <EntityTypeShape EntityType="TchotchoLoto.AccessTimeApplication" Width="1.5" PointX="3.75" PointY="35.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TchotchoLoto.AddAppAccessLog" Width="1.5" PointX="5.5" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TchotchoLoto.AddUserActionLog" Width="1.5" PointX="7.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TchotchoLoto.Agence" Width="1.5" PointX="3.75" PointY="39.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TchotchoLoto.Application" Width="1.5" PointX="1.5" PointY="34.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TchotchoLoto.AppNavigation" Width="1.5" PointX="1.5" PointY="46.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TchotchoLoto.AppNavigationApplication" Width="1.5" PointX="3.75" PointY="32.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TchotchoLoto.AppNavigationPermission" Width="1.5" PointX="6.75" PointY="35.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TchotchoLoto.Boule" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TchotchoLoto.Compagnie" Width="1.5" PointX="1.5" PointY="40.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TchotchoLoto.GagnantLotterie" Width="1.5" PointX="6" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TchotchoLoto.LivJwetla" Width="1.5" PointX="8.75" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TchotchoLoto.LotterieTirage" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TchotchoLoto.Permission" Width="1.5" PointX="4.5" PointY="25.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TchotchoLoto.PointDeVente" Width="1.5" PointX="1.5" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TchotchoLoto.RapportDeVente" Width="1.5" PointX="3.75" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TchotchoLoto.RapportTirage" Width="1.5" PointX="3" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TchotchoLoto.Role" Width="1.5" PointX="1.5" PointY="29.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TchotchoLoto.RolePermission" Width="1.5" PointX="6.75" PointY="30.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TchotchoLoto.TicketDetail" Width="1.5" PointX="6" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TchotchoLoto.Ticket" Width="1.5" PointX="3.75" PointY="15.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TchotchoLoto.Tirage" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TchotchoLoto.User" Width="1.5" PointX="1.5" PointY="21.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TchotchoLoto.UserCompagnie" Width="1.5" PointX="3.75" PointY="29" IsExpanded="true" />
+        <EntityTypeShape EntityType="TchotchoLoto.UserPointDeVente" Width="1.5" PointX="1.5" PointY="16.375" IsExpanded="true" />
         <AssociationConnector Association="TchotchoLoto.FK_AccessTimeApplication_Application" ManuallyRouted="false" />
         <AssociationConnector Association="TchotchoLoto.FK_Agence_Compagnie" ManuallyRouted="false" />
         <AssociationConnector Association="TchotchoLoto.FK_Application_Compagnie" ManuallyRouted="false" />
@@ -27,14 +38,40 @@
         <AssociationConnector Association="TchotchoLoto.FK_AppNavigationApplication_AppNavigation" ManuallyRouted="false" />
         <AssociationConnector Association="TchotchoLoto.FK_AppNavigationPermission_AppNavigation" ManuallyRouted="false" />
         <AssociationConnector Association="TchotchoLoto.FK_AppNavigationPermission_Permission" ManuallyRouted="false" />
-        <AssociationConnector Association="TchotchoLoto.FK_PointDeVente_Compagnie" ManuallyRouted="false" />
+        <AssociationConnector Association="TchotchoLoto.FK_Lotterie_Boule1" ManuallyRouted="false" />
+        <AssociationConnector Association="TchotchoLoto.FK_Lotterie_Boule2" ManuallyRouted="false" />
+        <AssociationConnector Association="TchotchoLoto.FK_Lotterie_Boule3" ManuallyRouted="false" />
+        <AssociationConnector Association="TchotchoLoto.FK_Lotterie_Boule4" ManuallyRouted="false" />
+        <AssociationConnector Association="TchotchoLoto.FK_Lotterie_Boule5" ManuallyRouted="false" />
+        <AssociationConnector Association="TchotchoLoto.FK_Lotterie_Boule6" ManuallyRouted="false" />
+        <AssociationConnector Association="TchotchoLoto.FK_TicketDetails_Boule1" ManuallyRouted="false" />
+        <AssociationConnector Association="TchotchoLoto.FK_TicketDetails_Boule2" ManuallyRouted="false" />
+        <AssociationConnector Association="TchotchoLoto.FK_TicketDetails_Boule3" ManuallyRouted="false" />
+        <AssociationConnector Association="TchotchoLoto.FK_TicketDetails_Boule4" ManuallyRouted="false" />
+        <AssociationConnector Association="TchotchoLoto.FK_TicketDetails_Boule5" ManuallyRouted="false" />
+        <AssociationConnector Association="TchotchoLoto.FK_TicketDetails_Boule6" ManuallyRouted="false" />
         <AssociationConnector Association="TchotchoLoto.FK_UserCompagnie_Compagnie" ManuallyRouted="false" />
+        <AssociationConnector Association="TchotchoLoto.FK_GagnantLotterie_Ticket" ManuallyRouted="false" />
+        <AssociationConnector Association="TchotchoLoto.FK_GagnantLotterie_Tirage" ManuallyRouted="false" />
+        <AssociationConnector Association="TchotchoLoto.FK_Lotterie_Tirage" ManuallyRouted="false" />
         <AssociationConnector Association="TchotchoLoto.FK_RolePermission_Permission" ManuallyRouted="false" />
+        <AssociationConnector Association="TchotchoLoto.FK__UserPointDevente_PointDeVente" ManuallyRouted="false" />
+        <AssociationConnector Association="TchotchoLoto.FK__RapportDeVente_Tirage" ManuallyRouted="false" />
+        <AssociationConnector Association="TchotchoLoto.FK__RapportDeVente_UserPointDeVente" ManuallyRouted="false" />
+        <AssociationConnector Association="TchotchoLoto.FK_RapportTirage_Tirage" ManuallyRouted="false" />
         <AssociationConnector Association="TchotchoLoto.FK_RolePermission_Role" ManuallyRouted="false" />
         <AssociationConnector Association="TchotchoLoto.FK_User_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="TchotchoLoto.FK_TicketDetails_Tickets" ManuallyRouted="false" />
+        <AssociationConnector Association="TchotchoLoto.FK_Tickets_Tirage" ManuallyRouted="false" />
+        <AssociationConnector Association="TchotchoLoto.FK_Tickets_UserPointDeVente" ManuallyRouted="false" />
+        <AssociationConnector Association="TchotchoLoto.FK__UserPointDevente_User" ManuallyRouted="false" />
         <AssociationConnector Association="TchotchoLoto.FK_UserCompagnie_User" ManuallyRouted="false" />
         <AssociationConnector Association="TchotchoLoto.FK_UserPointDeVente_PointDeVente" ManuallyRouted="false" />
         <AssociationConnector Association="TchotchoLoto.FK_UserPointDeVente_User" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="TchotchoLoto.Paiement" Width="1.5" PointX="8.25" PointY="10.875" />
+        <AssociationConnector Association="TchotchoLoto.FK_GagnantLotterie_Paiement" />
+        <EntityTypeShape EntityType="TchotchoLoto.TirageEnExecution" Width="1.5" PointX="3" PointY="50.25" />
+        <AssociationConnector Association="TchotchoLoto.FK_TirageEnExecution_Tirage" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -1,0 +1,72 @@
+﻿
+<input type="hidden" id="nbre-actionHistories" value="@if (ViewBag.ActionHistories != null) { @ViewBag.ActionHistories.Count}else{ Write(0); }" />
+
+<div id="pv-overlay-loading" class="overlay-loading" style="display:none;">
+    <img src="~/Content/images/loading-gif.gif" alt="Loading" width="50" height="50" />
+</div>
+
+
+<div class="table-responsive">
+    <table id="datatable" class="table table-hover display" style="width:100%;">
+
+        <thead class="bg-success">
+
+            <tr>
+                <th>
+                    No
+                </th>
+                
+                <th>
+                    User Infos
+                </th>
+                <th>
+                    Action
+                </th>
+                <th>
+                    Action Description
+                </th>
+                <th>
+                    Action Date
+                </th>
+
+            </tr>
+
+        </thead>
+
+        <tbody class="big-table-height">
+            @if (ViewBag.ActionHistories != null)
+            {
+                int i = 1;
+
+                foreach (var item in (List<TchotchoLoto.Models.AddUserActionLog>)ViewBag.ActionHistories)
+                {
+                    <tr>
+                        <td>
+                            @i )
+                        </td>
+                        @*<td>
+                            @item.UserId
+                        </td>*@
+                        
+                        <td>
+                            @item.Info
+                        </td>
+                        <td>
+                            @item.Action
+                        </td>
+                        <td>
+                            @item.ActionDesc
+                        </td>
+                        <td>
+                            @item.DateModif
+                        </td>
+
+                    </tr>
+
+                    i++;
+                }
+            }
+        </tbody>
+
+    </table>
+</div>

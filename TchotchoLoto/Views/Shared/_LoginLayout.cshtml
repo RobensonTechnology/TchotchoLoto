@@ -24,17 +24,19 @@
     </div>
 
     <div class="navbar navbar-inverse navbar-fixed-top" style="background-color: #0078d7;">
-        @*background-color:#0078d7*@
+       
 
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="#"> <span class="glyphicon glyphicon-registration-mark brand-glyph"></span><b> TCHOTCHO LOTO VVV </b></a>
+                <img src="~/Content/images/tchotcholotologo.jpg" alt="logo" class="img-rounded" width="100" height="50" />
+                <a class="navbar-brand" href="#"> <span class="glyphicon glyphicon-registration-mark brand-glyph img-circle"></span><b> </b></a>
             </div>
         </div>
     </div>
     <div class="login-body">
         @RenderBody()
     </div>
+
 
     <input type="hidden" id="url-get-notif-info" data-url="@Url.Action("GetNotifInfo", "Account")" />
 

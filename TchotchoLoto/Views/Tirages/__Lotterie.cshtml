@@ -1,0 +1,117 @@
+﻿
+<input type="hidden" id="hb-nbre-tirage-list-Filled" value="@if (ViewBag.LotterieTirages != null){@ViewBag.LotterieTirages.Count}else { Write(0); }" />
+
+
+<div id="pv-overlay-loading" class="overlay-loading" style="display:none;">
+    <img src="~/Content/images/loading-gif.gif" alt="Loading" width="50" height="50" />
+</div>
+
+<div class="table-responsive" style="padding-top: 10px; width:100%;" id="containerDemande">
+    <table id="datatable" class="table table-hover display table-fixed-head-foot">
+
+        <thead class="bg-success">
+
+            <tr>
+
+                <th>
+                    Tour
+                </th>
+
+                <th>
+                    Draw Date
+                </th>
+
+
+                <th>
+                    Lottery Balls
+                </th>
+
+                <th>
+                    Jacpot
+                </th>
+
+                <th>
+                    Winner QT.
+                </th>
+
+                <th>
+                    Loser QT.
+                </th>
+
+                <th>
+                    Players Amount
+                </th>
+                <th>
+                    Amount Total Win
+                </th>
+
+
+            </tr>
+
+        </thead>
+
+        <tbody class="big-table-height">
+            @if (ViewBag.LotterieTirages != null)
+            {
+                foreach (var item in (List<TchotchoLoto.Models.LotterieTirage>)ViewBag.LotterieTirages)
+                {
+                    <tr>
+                        <td>
+                            @item.Tirage.Tour
+                        </td>
+
+
+                        <td>
+                            @(item.Tirage.DateTirage + item.Tirage.Heure)
+                        </td>
+
+                        <td>
+                            @{
+
+
+                                var boule = new List<string>();
+                                boule.Add(item.Boule.Description);
+                                boule.Add(item.Boule1.Description);
+                                boule.Add(item.Boule2.Description);
+                                boule.Add(item.Boule3.Description);
+                                boule.Add(item.Boule4.Description);
+
+                            }
+
+                            @string.Join(", ", boule)
+                        </td>
+
+                        <td>
+                            @item.Boule5.Description
+                        </td>
+
+                        <td>
+                            @item.Tirage.Tickets.Where(t => t.GagnantLotteries.Count() > 0).Count()
+                        </td>
+
+                        <td>
+                            @item.Tirage.Tickets.Where(t => t.GagnantLotteries.Count() == 0).Count()
+                        </td>
+
+                        <td>
+                            @item.Tirage.Tickets.Sum(ss => ss.Prix.Value) HTG
+
+                        </td>
+
+                        <td>
+                            @item.Tirage.GagnantLotteries.Sum(ss => ss.MontantGagner) HTG
+
+                        </td>
+
+
+                    </tr>
+
+
+                }
+            }
+        </tbody>
+
+    </table>
+
+
+</div>

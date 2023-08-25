@@ -1,0 +1,106 @@
+﻿@model TchotchoLoto.Models.AddUserActionLog
+
+@{
+
+    ViewBag.Title = "Action Histories";
+    Layout = null;
+}
+
+<input type="hidden" class="title" data-title="Action Histories" />
+
+<div class="indicator">
+    Security  &nbsp;&nbsp; <span class="glyphicon glyphicon-chevron-right"></span> &nbsp; &nbsp; Action Histories
+
+</div>
+
+
+
+<div class="header-body">
+
+    <p style="display:inline-block;" class="qt-dataTable">
+        &nbsp;&nbsp;Action Histories (<span id="hb-nbre-actionHistories">
+            @if (ViewBag.ActionHistories != null)
+            {@ViewBag.ActionHistories.Count}
+        else { Write(0); }
+        </span>)
+        &nbsp;<span class="glyphicon star glyphicon-star text-success"></span>
+
+        @using (Html.BeginForm("__Index", "AddUserActionLogs", FormMethod.Get, htmlAttributes: new { id = "actionHistories-list-form" }))
+        {
+
+            <div class="form-group col-md-3 col-sm-4 col-xs-4" title="Begin Date" style="padding-left:1px; width: 200px;">
+                <input type="datetime-local" name="dateDebut" id="dateDebut" class="form-control date-picker-resetable" style="border: 1px solid #31b0d5; background: #31b0d5; color:white;">
+            </div>
+
+            <div class="form-group col-md-3 col-sm-4 col-xs-4" title="End Date" style="margin-left:-25px; width: 200px;">
+                <input type="datetime-local" name="dateFin" id="dateFin" class="form-control date-picker-resetable" style="border: 1px solid #31b0d5; background: #31b0d5; color:white;">
+            </div>
+            <div class="form-group col-md-2 col-sm-2 col-xs-2" style="margin-left:-25px;">
+                <button style="margin-right:10px; background: #31b0d5; color: dimgrey; border: none; color:white;" class="btn btn-md  submit" title="Search for this Date">
+                    <span class="glyphicon glyphicon-search"></span>
+                </button>
+
+
+            </div>
+        }
+
+
+        <button data-url="@Url.Action("SendAllActionUserParDateParEmail", "Emails")" class="envoie-email-rapport-par-date-btn btn btn-sm btn-primary" title="Send report by E-mail">
+            <span class="glyphicon glyphicon-send"></span> &nbsp;<span class="glyphicon glyphicon-envelope"></span>
+        </button>
+    </p>
+
+
+    <div style="display:inline-block;" class="header-buttons">
+        <button style="margin-right: 10px;" data-url="@Url.Action("SendAllActionUserParEmail", "Emails")" class="send-current-rapport-btn btn btn-sm btn-primary">  <span class="glyphicon glyphicon-send"></span> <span> Send Action Users by E-mail</span> <span class="glyphicon glyphicon-envelope"> </span> </button>
+    </div>
+
+
+
+</div>
+
+<br />
+
+
+
+<div class="page-scroll-content" id="actionHistories-list-pv">
+
+    @Html.Partial("__Index")
+
+</div>
+
+
+
+
+
+<a id="validation-link" data-toggle="modal" data-target="#modal-dialog-message"></a>
+
+<div id="modal-dialog-message" class="modal fade" app-navigation="dialog" data-backdrop="static">
+    <div class="modal-dialog modal-sm">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #0078d7; border-radius:5px 5px 0 0;">
+
+                <h4 style="display: inline;">Message</h4>
+
+            </div>
+            <div class="modal-body row" style="padding:7%; text-align:center;">
+
+                <span class="glyphicon glyphicon-info-sign" style="display:block; font-size: 20px;"></span>
+                <h5 class="text-info" style="display:block;">@ViewBag.message</h5>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">
+                    OK
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="pv-overlay-loading" class="overlay-loading bc-overlay-loading" style="display:none;">
+    <img src="~/Content/images/loading-gif.gif" alt="Loading" width="50" height="50" />
+</div>

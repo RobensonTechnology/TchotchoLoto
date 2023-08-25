@@ -31,7 +31,26 @@ namespace TchotchoLoto
                       "~/Scripts/moment.js",
                       "~/Content/Chart-js.2.9.3/Chart.min.js",
                       "~/Scripts/cj-plug-gantt.min.js",
+                      //"~/Scripts/mapcontrol.js",
+                      //"~/Scripts/modernizr-2.8.3.js",
                       "~/Content/Chart-js.2.9.3/chartjs-plugin-labels.js"));
+
+
+
+
+            bundles.Add(new ScriptBundle("~/bundles/shp2geojson").Include(
+                     "~/Scripts/shp2geojson/lib/proj4.js",
+                     "~/Scripts/shp2geojson/lib/jszip.js",
+                     "~/Scripts/shp2geojson/lib/jszip-utils.js",
+                     "~/Scripts/shp2geojson/preprocess.js",
+                     "~/Scripts/shp2geojson/preview.js"));
+
+
+            bundles.Add(new ScriptBundle("~/bundles/OpenLayers").Include(
+                      "~/Content/OpenLayers-6.9.0/ol.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/mapcontrol").Include(
+                      "~/Scripts/mapcontrol.js"));
 
 
             bundles.Add(new ScriptBundle("~/bundles/site").Include(

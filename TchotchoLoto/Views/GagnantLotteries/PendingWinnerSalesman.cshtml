@@ -1,0 +1,115 @@
+﻿@model TchotchoLoto.Models.GagnantLotterie
+
+@{
+
+    ViewBag.Title = "Pending Winner";
+    Layout = null;
+}
+
+<input type="hidden" class="title" data-title="Boule" />
+
+<div class="indicator">
+    payment  &nbsp;&nbsp; <span class="glyphicon glyphicon-chevron-right"></span> &nbsp; &nbsp; Pending Winners Salesman
+
+</div>
+
+
+<div class="header-body">
+    <p style="display:inline-block;">
+        &nbsp;&nbsp; Pending Winners (<span id="hb-nbre-gagnantLotterie">
+            @if (ViewBag.GagnantLotteries != null)
+            {@ViewBag.GagnantLotteries.Count}
+        else { Write(0); }
+        </span>)
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon star glyphicon-star text-success"></span>
+
+    </p>
+
+</div>
+
+<br />
+
+<div class="page-scroll-content" id="gagnantLotterie-list-pv">
+
+    @Html.Partial("__PendingWinnerSalesman")
+
+</div>
+
+<input id="url-get-gagnantLotterie-list" type="hidden" data-url="@Url.Action("__PendingWinnerSalesman", "GagnantLotteries")" />
+
+
+
+
+
+<!-- Modal 2 Dialog for delete option -->
+<div id="paiment-modal" class="modal fade" role="dialog" data-backdrop="static">
+    <div class="modal-dialog modal-sm">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+
+            <div class="modal-header" style="background-color: #0078d7; border-radius:5px 5px 0 0;">
+
+                <h4 style="display: inline;">Payment Confirmation</h4>
+
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+
+            <div class="modal-body row" style="padding:7%; text-align:center;">
+
+                <span class="glyphicon glyphicon-alert" style="display:block; font-size: 20px;"></span>
+                <h5 class="text-warning" style="display:block;">Do you really want to Pay this Winner ?</h5>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <a class="paiment-confirmed btn btn-sm btn-danger" href="#">
+                    YES
+                </a>
+
+                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">
+                    NO
+                </button>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+<a id="validation-link" data-toggle="modal" data-target="#modal-dialog-message"></a>
+
+<div id="modal-dialog-message" class="modal fade" app-navigation="dialog" data-backdrop="static">
+    <div class="modal-dialog modal-sm">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #0078d7; border-radius:5px 5px 0 0;">
+
+                <h4 style="display: inline;">Message</h4>
+
+            </div>
+            <div class="modal-body row" style="padding:7%; text-align:center;">
+
+                <span class="glyphicon glyphicon-info-sign" style="display:block; font-size: 20px;"></span>
+                <h5 class="text-info" style="display:block;">@ViewBag.message</h5>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">
+                    OK
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="pv-overlay-loading" class="overlay-loading bc-overlay-loading" style="display:none;">
+    <img src="~/Content/images/loading-gif.gif" alt="Loading" width="50" height="50" />
+</div>

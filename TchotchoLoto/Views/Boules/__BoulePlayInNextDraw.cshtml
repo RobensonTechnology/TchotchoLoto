@@ -1,0 +1,67 @@
+﻿
+
+<input type="hidden" id="nbre-boule" value="@if (ViewBag.BoulePlayInNextDraw != null) { @ViewBag.BoulePlayInNextDraw.Count}else{ Write(0); }" />
+
+<div id="pv-overlay-loading" class="overlay-loading" style="display:none;">
+    <img src="~/Content/images/loading-gif.gif" alt="Loading" width="50" height="50" />
+</div>
+
+
+<div class="table-responsive">
+    <table id="datatable" class="table table-hover display" style="width:100%;">
+
+        <thead class="bg-success">
+
+            <tr>
+
+                <th>
+                    Ball
+                </th>
+                
+                <th>
+                    Play Quantity
+                </th>
+                 <th>
+                    Jacpot Quantity
+                </th>
+
+               <th>
+                    Current Draw Date
+                </th>
+               
+            </tr>
+
+        </thead>
+
+        <tbody>
+            @if (ViewBag.BoulePlayInNextDraw != null)
+            {
+                foreach (var item in (List<TchotchoLoto.Models.BouleForNextDraw>)ViewBag.BoulePlayInNextDraw)
+                {
+                    <tr>
+
+                        <td>
+                            @item.Boule.Description
+                        </td>
+
+                        <td>
+                            @item.TotalPlay
+                        </td>
+
+                        
+                        <td>
+                            @item.TotalPlayJacpot
+                        </td>
+
+                        <td>
+                            @item.DateTirage.ToString("dd/MM/yyyy")
+                        </td>
+
+                      
+                    </tr>
+                }
+            }
+        </tbody>
+
+    </table>
+</div>

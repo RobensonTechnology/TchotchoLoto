@@ -25,6 +25,8 @@ namespace TchotchoLoto.Controllers
                 return Json(new { returnToLogin = true }, JsonRequestBehavior.AllowGet);
             }
 
+            new AccountController().AddUserActionLog(currentUser, currentCompagnie, "Roles/Index", "Button Role [Roles]");
+
             int sessionIdExist = db.Users.Where(u => u.SessionId == HttpContext.Session.SessionID).Count();
 
             if (sessionIdExist == 0)
@@ -60,6 +62,9 @@ namespace TchotchoLoto.Controllers
             {
                 return Json(new { returnToLogin = true }, JsonRequestBehavior.AllowGet);
             }
+
+
+            new AccountController().AddUserActionLog(currentUser, currentCompagnie, "Roles/__Index", "Button Add Role => Save [Roles]");
 
             int sessionIdExist = db.Users.Where(u => u.SessionId == HttpContext.Session.SessionID).Count();
 
@@ -99,6 +104,8 @@ namespace TchotchoLoto.Controllers
             {
                 return Json(new { returnToLogin = true }, JsonRequestBehavior.AllowGet);
             }
+
+            new AccountController().AddUserActionLog(currentUser, currentCompagnie, "Roles/_Index", "Button Edit Or Add Role => Save [Roles]");
 
             int sessionIdExist = db.Users.Where(u => u.SessionId == HttpContext.Session.SessionID).Count();
 
@@ -147,6 +154,7 @@ namespace TchotchoLoto.Controllers
                             db.Roles.Add(role);
 
                         }
+
                         db.SaveChanges();
 
                         message = "Saved successfully!";
@@ -198,6 +206,9 @@ namespace TchotchoLoto.Controllers
             {
                 return Json(new { returnToLogin = true }, JsonRequestBehavior.AllowGet);
             }
+
+
+            new AccountController().AddUserActionLog(currentUser, currentCompagnie, "Roles/_Edit", "Button Edit [Roles]");
 
             int sessionIdExist = db.Users.Where(u => u.SessionId == HttpContext.Session.SessionID).Count();
 
@@ -251,6 +262,9 @@ namespace TchotchoLoto.Controllers
             {
                 return Json(new { returnToLogin = true }, JsonRequestBehavior.AllowGet);
             }
+
+
+            new AccountController().AddUserActionLog(currentUser, currentCompagnie, "Roles/Delete", "Button Delete [Roles]");
 
             int sessionIdExist = db.Users.Where(u => u.SessionId == HttpContext.Session.SessionID).Count();
 

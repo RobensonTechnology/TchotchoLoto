@@ -1,0 +1,173 @@
+﻿<input type="hidden" id="nbre-ticket-vendeur" value="@if (ViewBag.TicketVendeurPrinters != null) { @ViewBag.TicketVendeurPrinters.Count}else{ Write(0); }" />
+
+<div id="pv-overlay-loading" class="overlay-loading" style="display:none;">
+    <img src="~/Content/images/loading-gif.gif" alt="Loading" width="50" height="50" />
+</div>
+
+
+
+<div>
+    <button type="submit" class="btn btn-success waves-effect waves-light right" id="submit" onclick="imprimer();">Imprimer</button>
+
+</div>
+
+
+<div id="imprimer">
+    <center>
+        <p style="color:black; clear: both; padding: 0; width: 100%; display: inline-block; font-size: 26px;  clear: both;">
+            <b>
+                <img src="~/Content/images/tchotcholotologo.jpg" class="img-rounded" alt="logo" style="margin-top:-10px; width:200px; height:100px;" />
+
+            </b>
+        </p>
+    </center>
+
+
+    <center>
+        <p style="color:black; clear: both; margin-top:-30px; padding: 0; display: inline-block; clear: both; ">
+            <b>
+                rue st-jean #3, Hinche HAITI.
+
+                Dirigée par PARYAJ LOTO  <br>
+                T&eacute;l: (509) 0000- 0000
+            </b>
+        </p>
+    </center>
+    <span style="color:black; clear: both;">
+
+        <hr style="border:1px solid black; width: 100%; margin-top:-7px; display: inline-block;">
+    </span>
+
+
+    @if (ViewBag.TicketVendeurPrinters != null)
+    {
+        foreach (var item in (List<TchotchoLoto.Models.Ticket>)ViewBag.TicketVendeurPrinters)
+        {
+            <center>
+
+                <div class="col-md-12 col-sm-12 col-xs-12 bg-prints" style="color: black; clear: both; display: block; ">
+
+
+                    <p>
+                        <b>
+                            Code:
+                        </b>
+
+                        <span>
+                            @item.CodeTicket
+                        </span>
+                    </p>
+
+
+                    <p>
+                        <b>
+                            Ticket Date:
+                        </b>
+
+                        <span>
+                            @item.DateVente.Value.ToString("dd/MM/yyyy")
+                        </span>
+                    </p>
+                    @if (item.BouleListes != null && item.BouleListes.Length > 0)
+                    {
+                        string[] listBoule = item.BouleListes.ToString().Split(',');
+
+                        <p>
+                            <b>
+                                Balls :
+                            </b>
+                            <span>
+
+                                <span> @string.Join(", ", listBoule) </span>
+
+                            </span>
+                        </p>
+                    }
+
+
+
+                    <p>
+                        <b>
+                            Jacpot Ball:
+                        </b>
+
+                        <span class="text-danger bg-success">
+                            @item.JacpotBoule
+                        </span>
+                    </p>
+
+                    <p>
+                        <b>
+                            Player Name:
+                        </b>
+
+                        <span>
+                            @item.NomJoueur
+                        </span>
+                    </p>
+
+
+
+                    <p>
+                        <b>
+                            Price:
+                        </b>
+
+                        <span>
+                            @item.Prix.Value HTG
+                        </span>
+                    </p>
+
+
+
+                    <p>
+                        <b>
+                            Draw Date:
+                        </b>
+
+                        <span>
+                            @(item.Tirage.DateTirage + item.Tirage.Heure)
+                        </span>
+                    </p>
+
+
+                    <p>
+                        <b>
+                            Sale date:
+                        </b>
+
+                        <span>
+                            @item.DateVente
+                        </span>
+                    </p>
+
+                    <p>
+                        <b>
+                            Salesman:
+                        </b>
+
+                        <span>
+                            @item.UserPointDeVente.User.FirstName   @item.UserPointDeVente.User.LastName
+                        </span>
+                    </p>
+
+                    <p>
+                        <b>
+                            Point of Sale:
+                        </b>
+
+                        <span>
+                            @item.UserPointDeVente.PointDeVente.Adresse
+                        </span>
+                    </p>
+
+
+
+
+                </div>
+
+            </center>
+        }
+    }
+
+</div>

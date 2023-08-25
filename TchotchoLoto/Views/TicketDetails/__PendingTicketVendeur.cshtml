@@ -1,0 +1,248 @@
+﻿
+<input type="hidden" id="nbre-ticket-vendeur" value="@if (ViewBag.TicketVendeurs != null) { @ViewBag.TicketVendeurs.Count}else{ Write(0); }" />
+
+<div id="pv-overlay-loading" class="overlay-loading" style="display:none;">
+    <img src="~/Content/images/loading-gif.gif" alt="Loading" width="50" height="50" />
+</div>
+
+
+<div class="table-responsive">
+    <table id="datatable" class="table table-hover display" style="width:100%;">
+
+        <thead class="bg-success">
+
+            <tr>
+                <th>
+                    code
+
+                </th>
+
+                <th>
+                    Create Date
+                </th>
+
+                <th>
+                    infos
+                </th>
+
+
+                <th style="text-align:center;">
+                    Actions
+                </th>
+            </tr>
+
+        </thead>
+
+
+
+        <tbody class="big-table-height">
+            @if (ViewBag.TicketVendeurs != null)
+            {
+                foreach (var item in (List<TchotchoLoto.Models.TicketDetail>)ViewBag.TicketVendeurs)
+                {
+                    <tr>
+
+                        <td>
+                            @item.Ticket.CodeTicket
+                        </td>
+
+                        <td>
+                            @item.Ticket.DateCreation.ToString("dd/MM/yyyy")
+                        </td>
+
+
+                        <td>
+                            <button id="info-@item.TicketId" class="btn btn-xs btn-primary ticket-info-action" data-toggle="modal" data-target="#ticket-info-modal">
+                                <span class="glyphicon glyphicon-eye-open"></span>&nbsp; View
+
+                            </button>
+
+                            <div style="display: none;" id="ticket-info-val-@item.TicketId">
+
+                                <div class="modal-content">
+                                    <div class="modal-header" style="background-color: #0078d7; border-radius:5px 5px 0 0;">
+
+                                        <h4 style="display: inline;">Info @item.Ticket.CodeTicket</h4>
+
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+                                    <div class="row modal-body">
+
+                                        <div class="form">
+
+                                            <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                                @Html.Label("Jackpot", htmlAttributes: new { @class = "control-label" })
+                                                <div class="form-control" style="overflow-y:auto;" readonly="readonly">
+                                                    @if (item.Ticket.IsDjapot)
+                                                    {
+                                                        <span>Yes</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>No</span>
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-6 col-sm-6 col-xs-12">
+
+                                                @Html.Label("Win", htmlAttributes: new { @class = "control-label" })
+
+                                                <div class="form-control" style="overflow-y:auto;" readonly="readonly">
+                                                    @if (item.Ticket.IsGagnant)
+                                                    {
+                                                        <span>Yes</span>
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>No</span>
+                                                    }
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                                @Html.Label("Sale", htmlAttributes: new { @class = "control-label" })
+
+                                                <div class="form-control" style="overflow-y:auto;" readonly="readonly">
+                                                    @if (item.Ticket.IsVente)
+                                                    {
+                                                        <span>Yes</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>No</span>
+                                                    }
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                                @Html.Label("Sale Date", htmlAttributes: new { @class = "control-label" })
+
+                                                <div class="form-control" style="overflow-y:auto;" readonly="readonly">
+                                                    @if (item.Ticket.DateVente.HasValue)
+                                                    {
+                                                        @item.Ticket.DateVente.Value.ToString("dd/MM/yyyy")
+
+                                                    }
+
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                                @Html.Label("Jackpot", htmlAttributes: new { @class = "control-label" })
+
+                                                <div class="form-control" style="overflow-y:auto;" readonly="readonly">
+                                                    @if (item.Ticket.IsDjapot)
+                                                    {
+                                                        <span>Yes</span>
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>No</span>
+                                                    }
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                                @Html.Label("Player Name", htmlAttributes: new { @class = "control-label" })
+                                                <div class="form-control" style="overflow-y:auto;" readonly="readonly">
+                                                    @item.NomJoueur
+                                                </div>
+                                            </div>
+
+
+
+                                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                                @Html.Label("Adress", htmlAttributes: new { @class = "control-label" })
+                                                <div class="form-control" style="overflow-y:auto;" readonly="readonly">
+                                                    @item.Ticket.UserPointDeVente.PointDeVente.Adresse
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group col-md-4 col-sm-3 col-xs-6">
+                                                @Html.Label("Ball 1", htmlAttributes: new { @class = "control-label" })
+                                                <div class="form-control" style="overflow-y:auto;" readonly="readonly">
+                                                    @item.Boule1
+                                                </div>
+                                            </div>
+
+
+
+                                            <div class="form-group col-md-4 col-sm-3 col-xs-6">
+                                                @Html.Label("Ball 2", htmlAttributes: new { @class = "control-label" })
+                                                <div class="form-control" style="overflow-y:auto;" readonly="readonly">
+                                                    @item.Boule2
+                                                </div>
+                                            </div>
+
+
+
+                                            <div class="form-group col-md-4 col-sm-3 col-xs-6">
+                                                @Html.Label("Ball 3", htmlAttributes: new { @class = "control-label" })
+                                                <div class="form-control" style="overflow-y:auto;" readonly="readonly">
+                                                    @item.Boule3
+                                                </div>
+                                            </div>
+
+
+
+                                            <div class="form-group col-md-4 col-sm-3 col-xs-6">
+                                                @Html.Label("Ball 4", htmlAttributes: new { @class = "control-label" })
+                                                <div class="form-control" style="overflow-y:auto;" readonly="readonly">
+                                                    @item.Boule4
+                                                </div>
+                                            </div>
+
+
+
+                                            <div class="form-group col-md-4 col-sm-3 col-xs-6">
+                                                @Html.Label("Ball 5", htmlAttributes: new { @class = "control-label" })
+                                                <div class="form-control" style="overflow-y:auto;" readonly="readonly">
+                                                    @item.Boule5
+                                                </div>
+                                            </div>
+
+
+
+                                            <div class="form-group col-md-4 col-sm-3 col-xs-6">
+                                                @Html.Label("Ball 6", htmlAttributes: new { @class = "control-label" })
+                                                <div class="form-control" style="overflow-y:auto;" readonly="readonly">
+                                                    @item.Boule6
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-md-12 col-sm-12 col-xs-12" style="border-top:1px solid #d7d7d7; padding-top:10px; text-align:right;">
+
+                                                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Ok</button>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+
+
+                        <td style="text-align:center;">
+
+                            <button id="@item.TicketId" data-toggle="collapse" data-target="#action-button-collapse-@item.TicketId" class="btn btn-xs btn-warning view-action-button-collapse-btn" style="min-width:120px;">Select &nbsp;&nbsp;<span class="glyphicon glyphicon-menu-down"></span></button>
+
+                            <div id="action-button-collapse-@item.TicketId" class="action-button-collapse collapse" style="right:4.6%;">
+                                <button data-url="@Url.Action("_Edit", "Ticketdetails", new { id = item.TicketId })" class="edit-boule-in-ticket-btn btn btn-xs btn-primary"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+                                <button data-url="@Url.Action("__IndexVendeurPrinter", "Ticketdetails", new { id = item.TicketId })" class="print-boule-in-ticket-btn btn btn-xs btn-info"><span class="glyphicon glyphicon-print"></span> Print</button>
+                            </div>
+
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+
+    </table>
+</div>

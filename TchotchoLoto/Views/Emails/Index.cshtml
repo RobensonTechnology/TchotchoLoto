@@ -1,0 +1,197 @@
+﻿@model TchotchoLoto.Models.Email
+
+@{
+
+    ViewBag.Title = "Email";
+    Layout = null;
+}
+
+<input type="hidden" class="title" data-title="Email" />
+
+<div class="indicator">
+    Message  &nbsp;&nbsp; <span class="glyphicon glyphicon-chevron-right"></span> &nbsp; &nbsp; Email
+
+</div>
+
+
+@*<div class="header-body" id="send-mail">
+
+    @using (Html.BeginForm("SendMailToAllUser", "Email", FormMethod.Get, htmlAttributes: new { id = "Send-Email-Form" }))
+    {
+        <div class="form">
+
+            <div class="form-group col-md-12 col-sm-12">
+                @Html.LabelFor(model => model.Message, "Message", htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.Message, new { htmlAttributes = new { @class = "form-control editor-resetable", row = 2 } })
+            </div>
+
+
+        </div>
+
+        <div class="form-group col-md-2 col-sm-2 col-xs-2" style="margin-left:-25px;">
+            <button style="margin-right:10px; background: #31b0d5; color: dimgrey; border: none; color:white;" class="btn btn-md  submit">
+                <span class="">Ok</span>
+            </button>
+        </div>
+    }
+
+</div>*@
+
+
+<div class="row bg-primary" id="send-mail" style="width: 100%; height: 80%; margin-top: 10%; color: black; color: white; border-radius: 8px 8px 8px 8px;">
+
+    @using (Html.BeginForm("_Index", "Emails", FormMethod.Post, htmlAttributes: new { id = "Send-Email-Form" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form" style="padding-top: 3%; ">
+
+            <div class="form-group col-md-12 col-sm-12">
+                @Html.LabelFor(model => model.Subject, "Subject", htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.Subject, new { htmlAttributes = new { @class = "form-control editor-resetable" } })
+            </div>
+            
+            <div class="form-group col-md-12 col-sm-12">
+                @Html.LabelFor(model => model.Message, "Message", htmlAttributes: new { @class = "control-label" })
+                <textarea class = "form-control editor-resetable" id="Message" name="Message" style="width: 100%; height: 224px;"></textarea>
+            </div>
+
+        </div>
+
+        <div class="col-md-12 col-sm-12 col-xs-12" style="border-top:1px solid #d7d7d7; padding-top:10px; text-align:right;">
+
+            <button type="submit" class="btn btn-sm btn-info add-after-edit submit "><span class="glyphicon glyphicon-save-file"></span> Send <span class="glyphicon glyphicon-refresh loader" style="display:none;"></span> </button>
+          
+        </div>
+
+
+    }
+
+</div>
+
+@*<div id="create-boule-modal" class="modal fade" role"dialog" data-backdrop="static">
+    <div class="modal-dialog modal-m">
+
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #0078d7; border-radius:5px 5px 0 0;">
+
+                <h4 style="display: inline;">Add Boule</h4>
+
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+            <div class="modal-body row" style="padding:6%;">
+
+                @using (Html.BeginForm("SendMailToAllUser", "Email", FormMethod.Post, htmlAttributes: new { id = "Send-Email-Form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    
+                    <div class="form">
+
+                        <div class="form-group col-md-12 col-sm-12">
+                            @Html.LabelFor(model => model.Message, "Message", htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.Message, new { htmlAttributes = new { @class = "form-control editor-resetable" } })
+                        </div>
+
+
+
+
+                    </div>
+
+                    <div class="col-md-12 col-sm-12 col-xs-12" style="border-top:1px solid #d7d7d7; padding-top:10px; text-align:right;">
+
+                        <button type="submit" class="btn btn-sm btn-info submit"><span class="glyphicon glyphicon-save-file"></span> Save <span class="glyphicon glyphicon-refresh loader" style="display:none;"></span> </button>
+                        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Close</button>
+
+                    </div>
+
+
+                }
+
+            </div>
+
+        </div>
+    </div>
+</div>*@
+
+
+
+
+<div id="edit-boule-modal" class="modal fade" role="dialog" data-backdrop="static">
+    <div class="modal-dialog modal-sm">
+
+
+    </div>
+</div>
+
+<!-- Modal 2 Dialog for delete option -->
+<div id="delete-modal" class="modal fade" role="dialog" data-backdrop="static">
+    <div class="modal-dialog modal-sm">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+
+            <div class="modal-header" style="background-color: #0078d7; border-radius:5px 5px 0 0;">
+
+                <h4 style="display: inline;">Deletion</h4>
+
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+
+            <div class="modal-body row" style="padding:7%; text-align:center;">
+
+                <span class="glyphicon glyphicon-alert" style="display:block; font-size: 20px;"></span>
+                <h5 class="text-warning" style="display:block;">Do you really want to Delete this Ball ?</h5>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <a class="delete-confirmed btn btn-sm btn-danger" href="#">
+                    YES
+                </a>
+
+                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">
+                    NO
+                </button>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+<a id="validation-link" data-toggle="modal" data-target="#modal-dialog-message"></a>
+
+<div id="modal-dialog-message" class="modal fade" app-navigation="dialog" data-backdrop="static">
+    <div class="modal-dialog modal-sm">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #0078d7; border-radius:5px 5px 0 0;">
+
+                <h4 style="display: inline;">Message</h4>
+
+            </div>
+            <div class="modal-body row" style="padding:7%; text-align:center;">
+
+                <span class="glyphicon glyphicon-info-sign" style="display:block; font-size: 20px;"></span>
+                <h5 class="text-info" style="display:block;">@ViewBag.message</h5>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">
+                    OK
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="pv-overlay-loading" class="overlay-loading bc-overlay-loading" style="display:none;">
+    <img src="~/Content/images/loading-gif.gif" alt="Loading" width="50" height="50" />
+</div>

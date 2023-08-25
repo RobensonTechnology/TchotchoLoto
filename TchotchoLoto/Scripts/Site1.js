@@ -1,14 +1,33 @@
-﻿$(document).ready(function () {
+﻿////const { input } = require("modernizr");
+
+$(document).ready(function () {
 
     $('.ly-overlay-loading').fadeOut();
 
-    var audioElement = document.createElement('audio');
-    audioElement.setAttribute('src', $('#notif-sound-1').data('src'));
 
 
     if ($('.home-body').length) {
 
+
+        let tempsSeconde = $('#secondeRestanteProchainTirage').val();
+
+        TimeToExecuteDrawNavBare(tempsSeconde);
+
+
+        //$.ajax({
+        //    url: 'https://api.positionstack.com/v1/forward',
+        //    data: {
+        //        access_key: '47e329f6bc86866c85a3ac65c6ff5b9a',
+        //        limit: 1
+        //    }
+        //}).done(function (data) {
+        //    console.log(JSON.parse(data));
+        //});
+
+        playAudio();
+
         $('.body-content').addClass('bg-image');
+
 
     } else {
 
@@ -165,6 +184,7 @@
 
 
 
+
     //Begin Side Menu Sub Menu Click Evt
 
     $('.main-menu-menu').on("click", ".nav-sub li a", function (e) {
@@ -233,6 +253,27 @@
                     initializeMultiSelectSA();
 
 
+                    //TableMS2Initialiser();
+                    TableMSInvertInitialiser();
+                    TableMSNoSAInitialiser();
+                    datatableListEmpInitializer();
+                    tableReportInitializer();
+                    //tableReport2Initializer();
+                    datatableMSCVFEInitializer();
+                    datatableMSCVEInitializer();
+
+
+                    //if (typeof google !== 'undefined') {
+                    //    menuStopoverResumeChart();
+                    //    detenuByDepartementChart();
+                    //    detenuDecedeByDepartementChart();
+                    //    detentionJuridictionRatioChart();
+                    //    detentionJuridictionPourcentageChart();
+
+
+                    //}
+
+
                     var title = $('title');
                     title.text($('.title').data('title') + " | " + title.text().split(' | ')[1]);
 
@@ -268,6 +309,7 @@
 
     }
     );
+
 
 
     //End Side Menu Sub Menu Click Evt
@@ -394,6 +436,7 @@
 
         var mobileUserTypeId = $(this).data('mobile-user-type-id');
 
+
         $('.bc-overlay-loading').fadeIn();
 
         $.get({
@@ -441,6 +484,11 @@
                     $('#validation-link').trigger("click");
                 }
                 else {
+
+
+
+                    $('#noPrintTicket').show();
+                    $('#printTicket').hide();
 
                     $('.body-content').html(data);
 
@@ -560,7 +608,15 @@
     $(document).on('click', '.delete-link-app-navigation-application', function () { $('.delete-confirmed').attr('href', '/AppNavigationApplications/Delete/' + $(this).attr('id')); });
     $(document).on('click', '.delete-link-rop', function () { $('.delete-confirmed').attr('href', '/RolePermissions/Delete/' + $(this).attr('id')); });
     $(document).on('click', '.delete-link-application', function () { $('.delete-confirmed').attr('href', '/Applications/Delete/' + $(this).attr('id')); });
+    $(document).on('click', '.delete-link-pointDeVente', function () { $('.delete-confirmed').attr('href', '/PointDeVentes/Delete/' + $(this).attr('id')); });
+    $(document).on('click', '.delete-link-boule', function () { $('.delete-confirmed').attr('href', '/Boules/Delete/' + $(this).attr('id')); });
+    $(document).on('click', '.delete-link-user-pointDeVente', function () { $('.delete-confirmed').attr('href', '/UserPointDeVentes/Delete/' + $(this).attr('id')); });
+    $(document).on('click', '.delete-link-ticket', function () { $('.delete-confirmed').attr('href', '/Tickets/Delete/' + $(this).attr('id')); });
+    $(document).on('click', '.delete-link-tirage', function () { $('.delete-confirmed').attr('href', '/Tirages/Delete/' + $(this).attr('id')); });
+    $(document).on('click', '.delete-link-livJwetLa', function () { $('.delete-confirmed').attr('href', '/LivJwetLa/Delete/' + $(this).attr('id')); });
 
+    $(document).on('click', '.paiement-link-gagnant-lotterie', function () { $('.paiment-confirmed').attr('href', '/GagnantLotteries/PaymentGagnantLotterie/' + $(this).attr('id')); });
+    $(document).on('click', '.paiement-link-gagnant-lotterie-vendeur', function () { $('.paiment-confirmed').attr('href', '/GagnantLotteries/PaymentGagnantLotterieVendeur/' + $(this).attr('id')); });
 
 
     $(document).on("click", ".lock-confirmed",
@@ -841,9 +897,108 @@
                                 }, 1500);
 
                             }
+                            else if (data["ctrlName"] == "PointDeVentes") {
+
+
+                                $('.text-info').text(data["message"]);
+                                $('#validation-link').trigger("click");
+
+                                setTimeout(function () {
+
+                                    if ($('#pointDeVente-list-pv').length) {
+                                        fillPointDeVenteListPV();
+                                    }
+
+                                }, 1500);
 
 
 
+                            }
+                            else if (data["ctrlName"] == "Boules") {
+
+
+                                $('.text-info').text(data["message"]);
+                                $('#validation-link').trigger("click");
+
+                                setTimeout(function () {
+
+                                    if ($('#boule-list-pv').length) {
+                                        fillBouleListPV();
+                                    }
+
+                                }, 1500);
+
+
+
+                            }
+                            else if (data["ctrlName"] == "UserPointDeVentes") {
+
+
+                                $('.text-info').text(data["message"]);
+                                $('#validation-link').trigger("click");
+
+                                setTimeout(function () {
+
+                                    if ($('#userPointDeVentes-list-pv').length) {
+                                        fillUserPointDeVenteListPV();
+                                    }
+
+                                }, 1500);
+
+
+
+                            }
+                            else if (data["ctrlName"] == "Tickets") {
+
+
+                                $('.text-info').text(data["message"]);
+                                $('#validation-link').trigger("click");
+
+                                setTimeout(function () {
+
+                                    if ($('#ticket-list-pv').length) {
+                                        fillTicketListPV();
+                                    }
+
+                                }, 1500);
+
+
+
+                            }
+                            else if (data["ctrlName"] == "Tirages") {
+
+
+                                $('.text-info').text(data["message"]);
+                                $('#validation-link').trigger("click");
+
+                                setTimeout(function () {
+
+                                    if ($('#tirage-list-pv').length) {
+                                        fillTirageListPV();
+                                    }
+
+                                }, 1500);
+
+
+
+                            }
+                            else if (data["ctrlName"] == "LivJwetLas") {
+
+
+                                $('.text-info').text(data["message"]);
+                                $('#validation-link').trigger("click");
+
+                                setTimeout(function () {
+
+                                    if ($('#livJwetLa-list-pv').length) {
+                                        fillLivJwetLaListPV();
+                                    }
+
+                                }, 1500);
+
+
+
+                            }
                         }
                         else if (data["notFound"] != null && data["notFound"] == true && data["message"] != null) {
 
@@ -907,6 +1062,155 @@
 
         }
     );
+
+
+
+
+
+    $(document).on("click", ".paiment-confirmed",
+        function (e) {
+
+            e.preventDefault();
+
+            var url = $(this).attr('href');
+
+            $.ajax({
+                traditional: true,
+                async: true,
+                type: "GET",
+                url: url,
+                contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                success: function (data) {
+
+                    if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
+
+                        $('#paiment-modal').modal('hide');
+
+                        $('.text-info').text("You are not Logged In!");
+                        $('#validation-link').trigger("click");
+
+                        setTimeout(function () {
+
+                            window.location.reload();
+
+                        },
+                            2000
+                        );
+
+                    }
+                    else if (data["newSession"] != null && data["newSession"] == true) {
+
+                        $('.text-info').text(data["message1"]);
+                        $('#validation-link').trigger("click");
+
+                        setTimeout(function () {
+
+                            window.location.reload();
+
+                        },
+                            2000
+                        );
+
+                    }
+                    else if (data["noPermission"] != null && data["noPermission"] == true) {
+
+                        $('#paiment-modal').modal('hide');
+
+                        $('.text-info').text("Access Denied. No Permission!");
+                        $('#validation-link').trigger("click");
+                    }
+                    else if (data["saved"] != null && data["saved"] == true && data["message"] != null) {
+
+                        $('#paiment-modal').modal('hide');
+                        $('.modal-backdrop').hide();
+
+                        if (data["ctrlName"] != null) {
+
+                            if (data["ctrlName"] == "GagnantLotteries") {
+
+
+                                $('.text-info').text(data["message"]);
+                                $('#validation-link').trigger("click");
+
+                                setTimeout(function () {
+
+                                    if ($('#gagnantLotterie-list-pv').length) {
+                                        fillGagnantLotterieListPV();
+                                    }
+
+                                }, 1500);
+
+
+
+                            }
+
+                        }
+                        else if (data["notFound"] != null && data["notFound"] == true && data["message"] != null) {
+
+                            $('#paiment-modal').modal('hide');
+
+                            $('.text-info').text(data["message"]);
+                            $('#validation-link').trigger("click");
+                        }
+                        else if (data["dbEx"] != null && data["dbEx"] == true && data["message"] != null) {
+
+                            $('#paiment-modal').modal('hide');
+
+                            $('.text-info').text(data["message"]);
+                            $('#validation-link').trigger("click");
+                        }
+                        else if (data["validationError"] != null && data["validationError"] == true && data["message"] != null) {
+
+                            $('#paiment-modal').modal('hide');
+
+                            $('.text-info').text(data["message"]);
+                            $('#validation-link').trigger("click");
+                        }
+
+
+                    }
+                    else if (data["notFound"] != null && data["notFound"] == true && data["message"] != null) {
+
+                        $('#paiment-modal').modal('hide');
+
+                        $('.text-info').text(data["message"]);
+                        $('#validation-link').trigger("click");
+                    }
+                    else if (data["dbEx"] != null && data["dbEx"] == true && data["message"] != null) {
+
+                        $('#paiment-modal').modal('hide');
+
+                        $('.text-info').text(data["message"]);
+                        $('#validation-link').trigger("click");
+                    }
+                    else if (data["validationError"] != null && data["validationError"] == true && data["message"] != null) {
+
+                        $('#paiment-modal').modal('hide');
+
+                        $('.text-info').text(data["message"]);
+                        $('#validation-link').trigger("click");
+
+                    }
+
+
+                },
+                error: function (error) {
+
+                    $('#paiment-modal').modal('hide');
+
+                    $('.text-info').text('An error has occurred. Please try again or contact Admin if this persists!');
+                    $('#validation-link').trigger("click");
+                }
+
+
+            });
+
+        }
+    );
+
+
+
+
 
 
 
@@ -1020,6 +1324,48 @@
     );
 
 
+
+
+
+
+    $(document).on("change", "#SignatureResponsable", function () {
+
+        var file = this.files[0],
+            reader = new FileReader();
+
+        if ((file.size / 1024) <= 1024) {
+
+            reader.onloadend = function () {
+
+                var img = new Image();
+
+                img.height = 80;
+                img.width = 80;
+
+                img.src = reader.result;
+
+                $('#SignatureResponsable-photo-preview').html(img);
+
+
+            };
+
+            reader.readAsDataURL(file);
+
+        }
+        else {
+
+            $(this).val('');
+
+            $('.text-info').text('Image size should not exceed 1MB (About 300x300px)');
+            $('#validation-link').trigger("click");
+        }
+
+
+    }
+    );
+
+
+
     $(document).on("change", "#LogoApplication", function () {
 
         var file = this.files[0],
@@ -1037,6 +1383,49 @@
                 img.src = reader.result;
 
                 $('#LogoApplication-photo-preview').html(img);
+
+
+            };
+
+            reader.readAsDataURL(file);
+
+        }
+        else {
+
+            $(this).val('');
+
+            $('.text-info').text('Image size should not exceed 1MB (About 300x300px)');
+            $('#validation-link').trigger("click");
+        }
+
+
+    }
+    );
+
+
+
+
+
+
+
+
+    $(document).on("change", "#LogoCompagnie", function () {
+
+        var file = this.files[0],
+            reader = new FileReader();
+
+        if ((file.size / 1024) <= 1024) {
+
+            reader.onloadend = function () {
+
+                var img = new Image();
+
+                img.height = 80;
+                img.width = 80;
+
+                img.src = reader.result;
+
+                $('#LogoCompagnie-photo-preview').html(img);
 
 
             };
@@ -1209,21 +1598,982 @@
     );
 
 
+
+
+
+
+
+    $(document).on("change", "#tirage-list-form", function (e) {
+
+        e.preventDefault();
+
+        var datatable = $("#datatable").DataTable();
+        datatable.clear();
+        datatable.draw();
+
+        $('#hb-nbre-tirage-list').text(" 0 ");
+        if ($("#dateDebut").val() != "" && $("#dateFin").val() != "") {
+            var url = $('#tirage-list-form').attr('action');
+            var data = { dateDebut: $('#tirage-list-form #dateDebut').val(), dateFin: $('#tirage-list-form #dateFin').val() };
+
+
+            var currentBtn = $(this);
+            currentBtn.addClass('button-processing');
+            $('#pv-overlay-loading').fadeIn();
+
+            $.ajax({
+                traditional: true,
+                type: "GET",
+                url: url,
+                data: data,
+                contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                success: function (data) {
+
+
+                    currentBtn.removeClass('button-processing');
+                    $('#pv-overlay-loading').fadeOut();
+                    if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
+
+                        $('.text-info').text("You are not Logged In!");
+                        $('#validation-link').trigger("click");
+
+                        setTimeout(function () {
+
+                            window.location.reload();
+
+                        },
+                            2000
+                        );
+
+                    }
+                    else if (data["newSession"] != null && data["newSession"] == true) {
+
+                        $('.text-info').text(data["message1"]);
+                        $('#validation-link').trigger("click");
+
+                        setTimeout(function () {
+
+                            window.location.reload();
+
+                        },
+                            2000
+                        );
+
+                    }
+                    else if (data["noPermission"] != null && data["noPermission"] == true) {
+
+                        $('.text-info').text("Access Denied. No Permission!");
+                        $('#validation-link').trigger("click");
+                    }
+                    else if (data["validationError"] != null && data["validationError"] == true && data["message"] != null) {
+
+                        $('.text-info').text(data["message"]);
+                        $('#validation-link').trigger("click");
+                    }
+                    else if (data["notFound"] != null && data["notFound"] == true && data["message"] != null) {
+
+                        $('.text-info').text(data["message"]);
+                        $('#validation-link').trigger("click");
+                    }
+                    else if (data["dbEx"] != null && data["dbEx"] == true && data["message"] != null) {
+
+                        $('.text-info').text(data["message"]);
+                        $('#validation-link').trigger("click");
+                    }
+                    else {
+
+                        fillTirageListPV();
+
+                    }
+
+
+                },
+                error: function (error) {
+                    currentBtn.removeClass('button-processing');
+                    $('#pv-overlay-loading').fadeOut();
+                    $('.text-info').text('An error has occurred. Please try again or contact Admin if this persists!');
+                    $('#validation-link').trigger("click");
+
+                }
+
+
+            });
+
+        }
+    }
+    );
+
+
+    $(document).on("click", "#tirage-list-form .submit", function (e) {
+
+        e.preventDefault();
+
+        var datatable = $("#datatable").DataTable();
+        datatable.clear();
+        datatable.draw();
+
+
+        $('#hb-nbre-tirage-list').text(" 0 ");
+
+        var url = $('#tirage-list-form').attr('action');
+        var data = { dateDebut: $('#tirage-list-form #dateDebut').val(), dateFin: $('#tirage-list-form #dateFin').val() };
+
+
+        var currentBtn = $(this);
+        currentBtn.addClass('button-processing');
+        $('#pv-overlay-loading').fadeIn();
+
+        $.ajax({
+            traditional: true,
+            type: "GET",
+            url: url,
+            data: data,
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            success: function (data) {
+
+
+                currentBtn.removeClass('button-processing');
+                $('#pv-overlay-loading').fadeOut();
+                if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
+
+                    $('.text-info').text("You are not Logged In!");
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["newSession"] != null && data["newSession"] == true) {
+
+                    $('.text-info').text(data["message1"]);
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["noPermission"] != null && data["noPermission"] == true) {
+
+                    $('.text-info').text("Access Denied. No Permission!");
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["validationError"] != null && data["validationError"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["notFound"] != null && data["notFound"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["dbEx"] != null && data["dbEx"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else {
+
+                    fillTirageListPV();
+
+                }
+
+
+            },
+            error: function (error) {
+                currentBtn.removeClass('button-processing');
+                $('#pv-overlay-loading').fadeOut();
+                $('.text-info').text('An error has occurred. Please try again or contact Admin if this persists!');
+                $('#validation-link').trigger("click");
+
+            }
+
+
+        });
+
+
+
+    }
+    );
+
+
+
+
+
+
+    $(document).on("change", "#actionHistories-list-form", function (e) {
+
+        e.preventDefault();
+
+        var datatable = $("#datatable").DataTable();
+        datatable.clear();
+        datatable.draw();
+
+        $('#hb-nbre-actionHistories-list').text(" 0 ");
+        if ($("#dateDebut").val() != "" && $("#dateFin").val() != "") {
+            var url = $('#actionHistories-list-form').attr('action');
+            var data = { dateDebut: $('#actionHistories-list-form #dateDebut').val(), dateFin: $('#actionHistories-list-form #dateFin').val() };
+
+
+            var currentBtn = $(this);
+            currentBtn.addClass('button-processing');
+            $('#pv-overlay-loading').fadeIn();
+
+            $.ajax({
+                traditional: true,
+                type: "GET",
+                url: url,
+                data: data,
+                contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                success: function (data) {
+
+
+                    currentBtn.removeClass('button-processing');
+                    $('#pv-overlay-loading').fadeOut();
+                    if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
+
+                        $('.text-info').text("You are not Logged In!");
+                        $('#validation-link').trigger("click");
+
+                        setTimeout(function () {
+
+                            window.location.reload();
+
+                        },
+                            2000
+                        );
+
+                    }
+                    else if (data["newSession"] != null && data["newSession"] == true) {
+
+                        $('.text-info').text(data["message1"]);
+                        $('#validation-link').trigger("click");
+
+                        setTimeout(function () {
+
+                            window.location.reload();
+
+                        },
+                            2000
+                        );
+
+                    }
+                    else if (data["noPermission"] != null && data["noPermission"] == true) {
+
+                        $('.text-info').text("Access Denied. No Permission!");
+                        $('#validation-link').trigger("click");
+                    }
+                    else if (data["validationError"] != null && data["validationError"] == true && data["message"] != null) {
+
+                        $('.text-info').text(data["message"]);
+                        $('#validation-link').trigger("click");
+                    }
+                    else if (data["notFound"] != null && data["notFound"] == true && data["message"] != null) {
+
+                        $('.text-info').text(data["message"]);
+                        $('#validation-link').trigger("click");
+                    }
+                    else if (data["dbEx"] != null && data["dbEx"] == true && data["message"] != null) {
+
+                        $('.text-info').text(data["message"]);
+                        $('#validation-link').trigger("click");
+                    }
+                    else {
+
+                        fillActionHistoriesListPV();
+
+                    }
+
+
+                },
+                error: function (error) {
+                    currentBtn.removeClass('button-processing');
+                    $('#pv-overlay-loading').fadeOut();
+                    $('.text-info').text('An error has occurred. Please try again or contact Admin if this persists!');
+                    $('#validation-link').trigger("click");
+
+                }
+
+
+            });
+
+        }
+    }
+    );
+
+
+
+
+    $(document).on("click", "#actionHistories-list-form .submit", function (e) {
+
+        e.preventDefault();
+
+        var datatable = $("#datatable").DataTable();
+        datatable.clear();
+        datatable.draw();
+
+
+        $('#hb-nbre-actionHistories').text(" 0 ");
+
+        var url = $('#actionHistories-list-form').attr('action');
+        var data = { dateDebut: $('#actionHistories-list-form #dateDebut').val(), dateFin: $('#actionHistories-list-form #dateFin').val() };
+
+
+        var currentBtn = $(this);
+        currentBtn.addClass('button-processing');
+        $('#pv-overlay-loading').fadeIn();
+
+        $.ajax({
+            traditional: true,
+            type: "GET",
+            url: url,
+            data: data,
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            success: function (data) {
+
+
+                currentBtn.removeClass('button-processing');
+                $('#pv-overlay-loading').fadeOut();
+                if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
+
+                    $('.text-info').text("You are not Logged In!");
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["newSession"] != null && data["newSession"] == true) {
+
+                    $('.text-info').text(data["message1"]);
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["noPermission"] != null && data["noPermission"] == true) {
+
+                    $('.text-info').text("Access Denied. No Permission!");
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["validationError"] != null && data["validationError"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["notFound"] != null && data["notFound"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["dbEx"] != null && data["dbEx"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else {
+
+                    fillActionHistoriesListPV();
+
+                }
+
+
+            },
+            error: function (error) {
+                currentBtn.removeClass('button-processing');
+                $('#pv-overlay-loading').fadeOut();
+                $('.text-info').text('An error has occurred. Please try again or contact Admin if this persists!');
+                $('#validation-link').trigger("click");
+
+            }
+
+
+        });
+
+
+
+    }
+    );
+
+
+
+
+
+
+
+
+
+
+    $(document).on("change", "#allTicketHistories-list-form", function (e) {
+
+        e.preventDefault();
+
+        var datatable = $("#datatable").DataTable();
+        datatable.clear();
+        datatable.draw();
+
+        $('#hb-nbre-allTicketHistories').text(" 0 ");
+        if ($("#dateDebut").val() != "" && $("#dateFin").val() != "") {
+            var url = $('#allTicketHistories-list-form').attr('action');
+            var data = { dateDebut: $('#allTicketHistories-list-form #dateDebut').val(), dateFin: $('#allTicketHistories-list-form #dateFin').val() };
+
+
+            var currentBtn = $(this);
+            currentBtn.addClass('button-processing');
+            $('#pv-overlay-loading').fadeIn();
+
+            $.ajax({
+                traditional: true,
+                type: "GET",
+                url: url,
+                data: data,
+                contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                success: function (data) {
+
+
+                    currentBtn.removeClass('button-processing');
+                    $('#pv-overlay-loading').fadeOut();
+                    if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
+
+                        $('.text-info').text("You are not Logged In!");
+                        $('#validation-link').trigger("click");
+
+                        setTimeout(function () {
+
+                            window.location.reload();
+
+                        },
+                            2000
+                        );
+
+                    }
+                    else if (data["newSession"] != null && data["newSession"] == true) {
+
+                        $('.text-info').text(data["message1"]);
+                        $('#validation-link').trigger("click");
+
+                        setTimeout(function () {
+
+                            window.location.reload();
+
+                        },
+                            2000
+                        );
+
+                    }
+                    else if (data["noPermission"] != null && data["noPermission"] == true) {
+
+                        $('.text-info').text("Access Denied. No Permission!");
+                        $('#validation-link').trigger("click");
+                    }
+                    else if (data["validationError"] != null && data["validationError"] == true && data["message"] != null) {
+
+                        $('.text-info').text(data["message"]);
+                        $('#validation-link').trigger("click");
+                    }
+                    else if (data["notFound"] != null && data["notFound"] == true && data["message"] != null) {
+
+                        $('.text-info').text(data["message"]);
+                        $('#validation-link').trigger("click");
+                    }
+                    else if (data["dbEx"] != null && data["dbEx"] == true && data["message"] != null) {
+
+                        $('.text-info').text(data["message"]);
+                        $('#validation-link').trigger("click");
+                    }
+                    else {
+
+
+                        fillAllTicketHistoriesListPV();
+
+
+                    }
+
+
+                },
+                error: function (error) {
+                    currentBtn.removeClass('button-processing');
+                    $('#pv-overlay-loading').fadeOut();
+                    $('.text-info').text('An error has occurred. Please try again or contact Admin if this persists!');
+                    $('#validation-link').trigger("click");
+
+                }
+
+
+            });
+
+        }
+    }
+    );
+
+
+    $(document).on("click", "#allTicketHistories-list-form .submit", function (e) {
+
+        e.preventDefault();
+
+        var datatable = $("#datatable").DataTable();
+        datatable.clear();
+        datatable.draw();
+
+
+        $('#hb-nbre-allTicketHistories').text(" 0 ");
+
+        var url = $('#allTicketHistories-list-form').attr('action');
+        var data = { dateDebut: $('#allTicketHistories-list-form #dateDebut').val(), dateFin: $('#allTicketHistories-list-form #dateFin').val() };
+
+
+        var currentBtn = $(this);
+        currentBtn.addClass('button-processing');
+        $('#pv-overlay-loading').fadeIn();
+
+
+        $.ajax({
+            traditional: true,
+            type: "GET",
+            url: url,
+            data: data,
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            success: function (data) {
+
+
+                currentBtn.removeClass('button-processing');
+                $('#pv-overlay-loading').fadeOut();
+                if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
+
+                    $('.text-info').text("You are not Logged In!");
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["newSession"] != null && data["newSession"] == true) {
+
+                    $('.text-info').text(data["message1"]);
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["noPermission"] != null && data["noPermission"] == true) {
+
+                    $('.text-info').text("Access Denied. No Permission!");
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["validationError"] != null && data["validationError"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["notFound"] != null && data["notFound"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["dbEx"] != null && data["dbEx"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else {
+
+
+                    fillAllTicketHistoriesListPV();
+
+
+                }
+
+
+            },
+            error: function (error) {
+                currentBtn.removeClass('button-processing');
+                $('#pv-overlay-loading').fadeOut();
+                $('.text-info').text('An error has occurred. Please try again or contact Admin if this persists!');
+                $('#validation-link').trigger("click");
+
+            }
+
+
+        });
+
+
+
+    }
+    );
+
+
+
+
+
+
+
+
+
+    $(document).on("click", ".envoie-email-rapport-par-date-btn", function (e) {
+
+        e.preventDefault();
+
+        var url = $('.envoie-email-rapport-par-date-btn').data('url');
+        var data = { dateDebut: $('#actionHistories-list-form #dateDebut').val(), dateFin: $('#actionHistories-list-form #dateFin').val() };
+
+
+        var currentBtn = $(this);
+        currentBtn.addClass('button-processing');
+        $('#pv-overlay-loading').fadeIn();
+
+        $.ajax({
+            traditional: true,
+            type: "GET",
+            url: url,
+            data: data,
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            success: function (data) {
+
+
+                currentBtn.removeClass('button-processing');
+                $('#pv-overlay-loading').fadeOut();
+                if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
+
+                    $('.text-info').text("You are not Logged In!");
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["newSession"] != null && data["newSession"] == true) {
+
+                    $('.text-info').text(data["message1"]);
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["noPermission"] != null && data["noPermission"] == true) {
+
+                    $('.text-info').text("Access Denied. No Permission!");
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["validationError"] != null && data["validationError"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["notFound"] != null && data["notFound"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["dbEx"] != null && data["dbEx"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+
+                }
+
+
+            },
+            error: function (error) {
+                currentBtn.removeClass('button-processing');
+                $('#pv-overlay-loading').fadeOut();
+                $('.text-info').text('An error has occurred. Please try again or contact Admin if this persists!');
+                $('#validation-link').trigger("click");
+
+            }
+
+
+        });
+
+
+
+    }
+    );
+
+
+
+
+
+    //$(document).on("click", "#Send-Email-form .submit", function (e) {
+
+    //    e.preventDefault();
+
+    //    var url = $('#Send-Email-Form').attr('action');
+    //    var data = { message: $('#Send-Email-form #Message').val()};
+
+
+    //    var currentBtn = $(this);
+    //    currentBtn.addClass('button-processing');
+    //    $('#pv-overlay-loading').fadeIn();
+
+    //    $.ajax({
+    //        traditional: true,
+    //        type: "GET",
+    //        url: url,
+    //        data: data,
+    //        contentType: "application/x-www-form-urlencoded; charset=utf-8",
+    //        success: function (data) {
+
+
+    //            currentBtn.removeClass('button-processing');
+    //            $('#pv-overlay-loading').fadeOut();
+    //            if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
+
+    //                $('.text-info').text("You are not Logged In!");
+    //                $('#validation-link').trigger("click");
+
+    //                setTimeout(function () {
+
+    //                    window.location.reload();
+
+    //                },
+    //                    2000
+    //                );
+
+    //            }
+    //            else if (data["newSession"] != null && data["newSession"] == true) {
+
+    //                $('.text-info').text(data["message1"]);
+    //                $('#validation-link').trigger("click");
+
+    //                setTimeout(function () {
+
+    //                    window.location.reload();
+
+    //                },
+    //                    2000
+    //                );
+
+    //            }
+    //            else if (data["noPermission"] != null && data["noPermission"] == true) {
+
+    //                $('.text-info').text("Access Denied. No Permission!");
+    //                $('#validation-link').trigger("click");
+    //            }
+    //            else if (data["validationError"] != null && data["validationError"] == true && data["message"] != null) {
+
+    //                $('.text-info').text(data["message"]);
+    //                $('#validation-link').trigger("click");
+    //            }
+    //            else if (data["notFound"] != null && data["notFound"] == true && data["message"] != null) {
+
+    //                $('.text-info').text(data["message"]);
+    //                $('#validation-link').trigger("click");
+    //            }
+    //            else if (data["dbEx"] != null && data["dbEx"] == true && data["message"] != null) {
+
+    //                $('.text-info').text(data["message"]);
+    //                $('#validation-link').trigger("click");
+    //            }
+    //            else {
+
+    //                fillActionHistoriesListPV();
+
+    //            }
+
+
+    //        },
+    //        error: function (error) {
+    //            currentBtn.removeClass('button-processing');
+    //            $('#pv-overlay-loading').fadeOut();
+    //            $('.text-info').text('An error has occurred. Please try again or contact Admin if this persists!');
+    //            $('#validation-link').trigger("click");
+
+    //        }
+
+
+    //    });
+
+
+
+    //}
+    //);
+
+
+
+
     // End Image File EventListener
+
+
+
+    //Event for ticket Info Modal
+    $(document).on('click', '.ticket-info-action', function () {
+        var id = this.id.split("-")[1];
+        $('#ticket-info-modal .modal-dialog').html($('#ticket-info-val-' + id).html());
+    });
+
+
+
+    //Event for printer 
+    //$(document).on('click', '.printer-ticket-action', function () {
+    //    imprimer();
+
+    //});
+
+
+
+
+    //Event for ticket boule Info Modal
+    $(document).on('click', '.ticket-detail-add-boule-action', function () {
+        var id = this.id.split("-")[2];
+
+        $('#Add-Boule-In-Ticket-Form #TicketId').val(id);
+
+        $('#create-boule-in-ticket-modal').modal('show');
+
+    });
+
+
+
+
 
 
     //Auto Submit Form
 
-    $(document).on("change", "#activation-client-form #ddlActivationId", function () {
+    $(document).on("change", "#statut-pointDeVente-form #ddlStatutId", function () {
 
-        $(".ActivationId").val($(this).val());
+        $(".StatutId").val($(this).val());
 
         if ($(this).val() != "") {
-            fillClientListPV();
+            fillPointDeVenteListPV();
 
 
         }
     });
+
+    $(document).on("change", "#statut-ticket-form #ddlStatutId", function () {
+
+        $(".StatutId").val($(this).val());
+
+        if ($(this).val() != "") {
+            fillTicketListPV();
+
+
+        }
+    });
+
+
+
+
+    //$(document).on("change", "#Add-Ticket-Form #quantite", function () {
+
+    //    var qt = $('#Add-Ticket-Form #quantite').val();
+    //    var prix = $('#Add-Ticket-Form #Prix').val();
+
+    //    if (qt != null && qt < 0) {
+    //        $('.text-info').text("The Ticket Quantity cannot be a negative number");
+    //        $('#validation-link').trigger("click");
+    //    }
+
+
+    //    if (qt != null && qt == 0) {
+    //        $('.text-info').text("The Ticket Quantity most be Greater than Zero ");
+    //        $('#validation-link').trigger("click");
+    //    }
+
+    //    if (prix != null && prix < 0) {
+    //        $('.text-info').text("The Ticket Quantity cannot be a negative number");
+    //        $('#validation-link').trigger("click");
+    //    }
+
+    //    if (prix != null && prix == 0) {
+    //        $('.text-info').text("The Price most be Greater than Zero");
+    //        $('#validation-link').trigger("click");
+    //    }
+
+
+    //    var prixTot = prix * qt;
+    //    $('#Add-Ticket-Form #prixTotal').val(prixTot);
+
+
+    //}
+    //);
+
+
+
+
+    //$(document).on("change", "#Add-Ticket-Form #Prix", function () {
+
+    //    var qt = $('#Add-Ticket-Form #quantite').val();
+    //    var prix = $('#Add-Ticket-Form #Prix').val();
+
+    //    if (qt != null && qt < 0) {
+    //        $('.text-info').text("The Ticket Quantity cannot be a negative number");
+    //        $('#validation-link').trigger("click");
+    //    }
+
+
+    //    if (qt != null && qt == 0) {
+    //        $('.text-info').text("The Ticket Quantity most be Greater than Zero ");
+    //        $('#validation-link').trigger("click");
+    //    }
+
+    //    if (prix < 0) {
+    //        $('.text-info').text("The Ticket Quantity cannot be a negative number");
+    //        $('#validation-link').trigger("click");
+    //    }
+
+    //    if (prix == 0) {
+    //        $('.text-info').text("The Price most be Greater than Zero");
+    //        $('#validation-link').trigger("click");
+    //    }
+
+
+
+    //    var prixTot = prix * qt;
+    //    $('#Add-Ticket-Form #prixTotal').val(prixTot);
+
+
+    //}
+    //);
+
 
 
 
@@ -1306,6 +2656,1213 @@
 
     }
     );
+
+
+    $(document).on("click", ".change-statut-boule-btn", function (e) {
+
+        e.preventDefault();
+
+        var url = $(this).attr('href');
+        $.ajax({
+            traditional: true,
+            type: "GET",
+            url: url,
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            success: function (data) {
+
+                if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
+
+                    $('.text-info').text("You are not Logged In!");
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["newSession"] != null && data["newSession"] == true) {
+
+                    $('.text-info').text(data["message1"]);
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["noPermission"] != null && data["noPermission"] == true) {
+
+                    $('.text-info').text("Access Denied. No Permission!");
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["saved"] != null && data["saved"] == true && data["message"] != null) {
+
+                    fillBouleListPV();
+
+                }
+                else if (data["notFound"] != null && data["notFound"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["validationError"] != null && data["validationError"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+
+
+            },
+            error: function (error) {
+                $('.text-info').text('An error has occurred. Please try again or contact Admin if this persists!');
+                $('#validation-link').trigger("click");
+            }
+
+
+        });
+
+    }
+    );
+
+
+    $(document).on("click", ".change-statut-user-pointDeVente-btn", function (e) {
+
+        e.preventDefault();
+
+        var url = $(this).attr('href');
+        $.ajax({
+            traditional: true,
+            type: "GET",
+            url: url,
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            success: function (data) {
+
+                if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
+
+                    $('.text-info').text("You are not Logged In!");
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["newSession"] != null && data["newSession"] == true) {
+
+                    $('.text-info').text(data["message1"]);
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["noPermission"] != null && data["noPermission"] == true) {
+
+                    $('.text-info').text("Access Denied. No Permission!");
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["saved"] != null && data["saved"] == true && data["message"] != null) {
+
+                    fillUserPointDeVenteListPV();
+
+                }
+                else if (data["notFound"] != null && data["notFound"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["validationError"] != null && data["validationError"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+
+
+            },
+            error: function (error) {
+                $('.text-info').text('An error has occurred. Please try again or contact Admin if this persists!');
+                $('#validation-link').trigger("click");
+            }
+
+
+        });
+
+    }
+    );
+
+
+
+    $(document).on("click", ".generate-tirage-btn", function (e) {
+
+        e.preventDefault();
+
+
+        $('#pv-overlay-loading').fadeIn();
+
+
+        var url = $(this).attr('href');
+        $.ajax({
+            traditional: true,
+            type: "GET",
+            url: url,
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            success: function (data) {
+
+
+                $('#pv-overlay-loading').fadeOut();
+
+
+
+
+                if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
+
+                    $('.text-info').text("You are not Logged In!");
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["newSession"] != null && data["newSession"] == true) {
+
+                    $('.text-info').text(data["message1"]);
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["noPermission"] != null && data["noPermission"] == true) {
+
+                    $('.text-info').text("Access Denied. No Permission!");
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["notFound"] != null && data["notFound"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["validationError"] != null && data["validationError"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+
+                } else if (data["dbEx"] != null && data["dbEx"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+
+                } else if (data["drawInExecution"] != null && data["drawInExecution"] == true && data["message"] != null) {
+
+
+
+                    var tempsSeconde = data["totalSeconde"];
+
+                    //Begin Timer
+                    TimeToExecuteDraw(tempsSeconde);
+                    //End Timer
+
+                    playAudio();
+
+                    //End Timer
+                    //Begin Execution Draw
+
+
+                    setTimeout(function () {
+
+                        var tempsEnMilliSeconde = tempsSeconde * 1000;
+                        setTimeout(function () {
+
+                            WaitingForTimeToExecuteDraw();
+
+                        },
+                            tempsEnMilliSeconde
+                        );
+
+
+
+                    },
+                        2000
+                    );
+
+
+
+
+
+                    //End draw Execution 
+
+
+
+                } else {
+
+
+                    $('#view-last-draw').html(data);
+
+                    var SecondeRestant = $('#SecondeRestant').val();
+                    var TirageEffectue = $('#tirageEffectue').val();
+
+                    let tempsSeconde = SecondeRestant;
+
+                    if (SecondeRestant > 0) {
+
+
+
+                        //StartTreadDraw();
+
+
+                        // on Joue un audio
+                        playAudio();
+
+
+                        TimeToExecuteDraw(tempsSeconde);
+
+                        //Execute Fonction after Timer
+
+                        setTimeout(function () {
+
+                            var tempsEnMilliSeconde = tempsSeconde * 1000;
+
+                            setTimeout(function () {
+
+
+
+                                WaitingForTimeToExecuteDraw();
+
+                            },
+                                tempsEnMilliSeconde
+                            );
+                        },
+                            2000
+                        );
+
+
+
+
+
+                    }
+
+
+
+
+
+
+
+
+                    if (TirageEffectue > 0) {
+
+                        tirageAudio();
+
+                        setTimeout(function () {
+
+                            playAudio();
+                            $('.boule1').show();
+
+
+
+                        },
+                            2000
+                        );
+
+                        setTimeout(function () {
+
+                            playAudio();
+                            $('.boule2').show();
+
+                        },
+                            7000
+                        );
+
+                        setTimeout(function () {
+
+                            playAudio();
+                            $('.boule3').show();
+
+                        },
+                            12000
+                        );
+
+                        setTimeout(function () {
+                            playAudio();
+                            $('.boule4').show();
+                            //tirageBellsAudio();
+                            tirageAudio();
+
+                        },
+                            17000
+                        );
+
+                        setTimeout(function () {
+
+                            playAudio();
+                            $('.boule5').show();
+
+                        },
+                            22000
+                        );
+
+                        setTimeout(function () {
+                            playAudio();
+
+                            $('.bouleJacpot').show();
+
+                        },
+                            27000
+                        );
+
+
+                    }
+
+
+
+
+
+
+                    tableInitializer();
+
+
+
+                }
+
+
+            },
+            error: function (error) {
+
+                $('#pv-overlay-loading').fadeOut();
+
+                $('.text-info').text('An error has occurred. Please try again or contact Admin if this persists!');
+                $('#validation-link').trigger("click");
+            }
+
+
+        });
+
+    }
+    );
+
+
+
+
+
+
+    $(document).on("click", ".view-last-generate-tirage-btn", function (e) {
+
+        e.preventDefault();
+
+
+        $('#pv-overlay-loading').fadeIn();
+
+
+        var url = $(this).attr('href');
+        $.ajax({
+            traditional: true,
+            type: "GET",
+            url: url,
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            success: function (data) {
+
+
+                $('#pv-overlay-loading').fadeOut();
+
+
+
+
+                if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
+
+                    $('.text-info').text("You are not Logged In!");
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["newSession"] != null && data["newSession"] == true) {
+
+                    $('.text-info').text(data["message1"]);
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["noPermission"] != null && data["noPermission"] == true) {
+
+                    $('.text-info').text("Access Denied. No Permission!");
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["notFound"] != null && data["notFound"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["validationError"] != null && data["validationError"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                } else if (data["dbEx"] != null && data["dbEx"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+
+                } else if (data["drawInExecution"] != null && data["drawInExecution"] == true && data["message"] != null) {
+
+                    var tempsSeconde = data["totalSeconde"];
+
+
+                    TimeToExecuteDraw(tempsSeconde);
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+
+                    playAudio();
+
+
+
+                    setTimeout(function () {
+
+                        var tempsEnMilliSeconde = tempsSeconde * 1000;
+
+                        setTimeout(function () {
+
+                            WaitingForTimeToExecuteDraw();
+
+                        },
+                            tempsEnMilliSeconde
+                        );
+
+                    },
+                        2000
+                    );
+
+
+
+
+
+
+
+
+                } else {
+
+
+
+                    $('#view-last-draw').html(data);
+                    var trouver = $('#tirageEffectue').val();
+
+                    if (trouver > 0) {
+
+
+
+                        tirageAudio();
+
+                        setTimeout(function () {
+
+                            playAudio();
+                            $('.boule1').show();
+
+
+
+                        },
+                            2000
+                        );
+
+                        setTimeout(function () {
+
+                            playAudio();
+                            $('.boule2').show();
+
+                        },
+                            7000
+                        );
+
+                        setTimeout(function () {
+
+                            playAudio();
+                            $('.boule3').show();
+
+                        },
+                            12000
+                        );
+
+                        setTimeout(function () {
+                            playAudio();
+                            $('.boule4').show();
+                            //tirageBellsAudio();
+                            tirageAudio();
+
+                        },
+                            17000
+                        );
+
+                        setTimeout(function () {
+
+                            playAudio();
+                            $('.boule5').show();
+
+                        },
+                            22000
+                        );
+
+                        setTimeout(function () {
+                            playAudio();
+
+                            $('.bouleJacpot').show();
+
+                        },
+                            27000
+                        );
+
+
+
+                        tableInitializer();
+                    } else {
+                        $('.text-info').text("No Draw found...!");
+                        $('#validation-link').trigger("click");
+                    }
+
+
+                }
+
+
+            },
+            error: function (error) {
+
+                $('#pv-overlay-loading').fadeOut();
+
+                $('.text-info').text('An error has occurred. Please try again or contact Admin if this persists!');
+                $('#validation-link').trigger("click");
+            }
+
+
+        });
+
+    }
+    );
+
+
+
+
+
+
+    $(document).on("click", ".change-statut-tirage-btn", function (e) {
+
+        e.preventDefault();
+        var url = $(this).attr('href');
+        $.ajax({
+            traditional: true,
+            type: "GET",
+            url: url,
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            success: function (data) {
+
+                if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
+
+                    $('.text-info').text("You are not Logged In!");
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["newSession"] != null && data["newSession"] == true) {
+
+                    $('.text-info').text(data["message1"]);
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["noPermission"] != null && data["noPermission"] == true) {
+
+                    $('.text-info').text("Access Denied. No Permission!");
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["saved"] != null && data["saved"] == true && data["message"] != null) {
+
+                    fillTirageListPV();
+
+                }
+                else if (data["notFound"] != null && data["notFound"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["validationError"] != null && data["validationError"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+
+
+            },
+            error: function (error) {
+                $('.text-info').text('An error has occurred. Please try again or contact Admin if this persists!');
+                $('#validation-link').trigger("click");
+            }
+
+
+        });
+
+    }
+    );
+
+
+
+
+
+
+
+    $(document).on("click", ".liste-ticket-gagnant-btn", function (e) {
+
+        e.preventDefault();
+
+        var url = $(this).data('url');
+
+        $('#pv-overlay-loading').fadeIn();
+
+        $.get({
+            url: url,
+            success: function (data) {
+                $('#pv-overlay-loading').fadeOut();
+                if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
+
+                    $('.text-info').text("You are not Logged In!");
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["newSession"] != null && data["newSession"] == true) {
+
+                    $('.text-info').text(data["message1"]);
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["noPermission"] != null && data["noPermission"] == true) {
+
+                    $('.text-info').text("Access Denied. No Permission!");
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["validationError"] != null && data["validationError"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["notFound"] != null && data["notFound"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else {
+                    $('#ticket-gagnant-list-pv').html(data);
+                    $('#hb-nbre-ticket-gagnant').html($('#nbre-ticket-gagnant').val());
+
+                    tableInitializer();
+                    TableMSInitialiser();
+
+                    TableMSInvertInitialiser();
+                    TableMSNoSAInitialiser();
+                    tableReportInitializer();
+                    //tableReport2Initializer();
+
+                }
+
+            },
+            error: function (error) {
+                $('#pv-overlay-loading').fadeOut();
+                $('.text-info').text('An error has occurred. Please try again or contact Admin if this persists!');
+                $('#validation-link').trigger("click");
+            }
+
+        });
+    }
+    );
+
+
+
+
+    $(document).on("click", ".liste-tirage-rapport-btn", function (e) {
+
+        e.preventDefault();
+
+        var url = $(this).data('url');
+
+        $('#pv-overlay-loading').fadeIn();
+
+        $.get({
+            url: url,
+            success: function (data) {
+                $('#pv-overlay-loading').fadeOut();
+                if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
+
+                    $('.text-info').text("You are not Logged In!");
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["newSession"] != null && data["newSession"] == true) {
+
+                    $('.text-info').text(data["message1"]);
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["noPermission"] != null && data["noPermission"] == true) {
+
+                    $('.text-info').text("Access Denied. No Permission!");
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["validationError"] != null && data["validationError"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["notFound"] != null && data["notFound"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else {
+                    $('#raportDeVente-list-pv').html(data);
+                    $('#hb-nbre-rapportDeVente').html($('#nbre-rapportDeVente').val());
+
+                    tableInitializer();
+                    TableMSInitialiser();
+                    //tablePrint();
+
+
+
+
+
+                }
+
+            },
+            error: function (error) {
+                $('#pv-overlay-loading').fadeOut();
+                $('.text-info').text('An error has occurred. Please try again or contact Admin if this persists!');
+                $('#validation-link').trigger("click");
+            }
+
+        });
+    }
+    );
+
+
+
+
+
+
+
+
+
+    $(document).on("click", ".send-rapport-btn", function (e) {
+
+        e.preventDefault();
+
+        var url = $(this).data('url');
+
+        $('#pv-overlay-loading').fadeIn();
+
+        $.get({
+            url: url,
+            success: function (data) {
+                $('#pv-overlay-loading').fadeOut();
+                if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
+
+                    $('.text-info').text("You are not Logged In!");
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["newSession"] != null && data["newSession"] == true) {
+
+                    $('.text-info').text(data["message1"]);
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["noPermission"] != null && data["noPermission"] == true) {
+
+                    $('.text-info').text("Access Denied. No Permission!");
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["validationError"] != null && data["validationError"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["notFound"] != null && data["notFound"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else {
+
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+
+                }
+
+            },
+            error: function (error) {
+                $('#pv-overlay-loading').fadeOut();
+                $('.text-info').text('An error has occurred. Please try again or contact Admin if this persists!');
+                $('#validation-link').trigger("click");
+            }
+
+        });
+    }
+    );
+
+
+
+
+
+
+    $(document).on("click", ".send-current-rapport-btn", function (e) {
+
+        e.preventDefault();
+
+        var url = $(this).data('url');
+
+        $('#pv-overlay-loading').fadeIn();
+
+        $.get({
+            url: url,
+            success: function (data) {
+                $('#pv-overlay-loading').fadeOut();
+                if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
+
+                    $('.text-info').text("You are not Logged In!");
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["newSession"] != null && data["newSession"] == true) {
+
+                    $('.text-info').text(data["message1"]);
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["noPermission"] != null && data["noPermission"] == true) {
+
+                    $('.text-info').text("Access Denied. No Permission!");
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["validationError"] != null && data["validationError"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["notFound"] != null && data["notFound"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else {
+
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+
+                }
+
+            },
+            error: function (error) {
+                $('#pv-overlay-loading').fadeOut();
+                $('.text-info').text('An error has occurred. Please try again or contact Admin if this persists!');
+                $('#validation-link').trigger("click");
+            }
+
+        });
+    }
+    );
+
+
+
+
+
+
+
+
+
+    $(document).on("click", ".liste-ticket-perdant-btn", function (e) {
+
+        e.preventDefault();
+
+        var url = $(this).data('url');
+
+        $('#pv-overlay-loading').fadeIn();
+
+        $.get({
+            url: url,
+            success: function (data) {
+                $('#pv-overlay-loading').fadeOut();
+                if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
+
+                    $('.text-info').text("You are not Logged In!");
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["newSession"] != null && data["newSession"] == true) {
+
+                    $('.text-info').text(data["message1"]);
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["noPermission"] != null && data["noPermission"] == true) {
+
+                    $('.text-info').text("Access Denied. No Permission!");
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["validationError"] != null && data["validationError"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["notFound"] != null && data["notFound"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else {
+
+                    $('#ticket-perdant-list-pv').html(data);
+                    $('#hb-nbre-ticket-perdant').html($('#nbre-ticket-perdant').val());
+
+                    tableInitializer();
+                    TableMSInitialiser();
+
+                    TableMSInvertInitialiser();
+                    TableMSNoSAInitialiser();
+                    tableReportInitializer();
+
+                }
+
+            },
+            error: function (error) {
+                $('#pv-overlay-loading').fadeOut();
+                $('.text-info').text('An error has occurred. Please try again or contact Admin if this persists!');
+                $('#validation-link').trigger("click");
+            }
+
+        });
+    }
+    );
+
+
+
+
+
+
+
+    $(document).on("click", ".liste-rapport-tirage-btn", function (e) {
+
+        e.preventDefault();
+
+        var url = $(this).data('url');
+
+        $('#pv-overlay-loading').fadeIn();
+
+        $.get({
+            url: url,
+            success: function (data) {
+                $('#pv-overlay-loading').fadeOut();
+                if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
+
+                    $('.text-info').text("You are not Logged In!");
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["newSession"] != null && data["newSession"] == true) {
+
+                    $('.text-info').text(data["message1"]);
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["noPermission"] != null && data["noPermission"] == true) {
+
+                    $('.text-info').text("Access Denied. No Permission!");
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["validationError"] != null && data["validationError"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["notFound"] != null && data["notFound"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else {
+                    $('#rapport-tirage-list-pv').html(data);
+                    $('#hb-nbre-rapport-tirage').html($('#nbre-rapport-tirage').val());
+
+
+                    tableInitializer();
+                    TableMSInitialiser();
+
+
+                    tableReportInitializer();
+
+                    TableMSInvertInitialiser();
+                    TableMSNoSAInitialiser();
+                    datatableListEmpInitializer();
+                    tableReportInitializer();
+
+
+                }
+
+            },
+            error: function (error) {
+                $('#pv-overlay-loading').fadeOut();
+                $('.text-info').text('An error has occurred. Please try again or contact Admin if this persists!');
+                $('#validation-link').trigger("click");
+            }
+
+        });
+    }
+    );
+
+
+
 
 
     //End Change Status Table Object EventListener
@@ -1523,6 +4080,113 @@
 
     }
     );
+
+
+
+
+
+    $(document).on("click", "#Add-LivJwetLa-Form .submit", function (e) {
+
+        e.preventDefault();
+
+        $('#create-livJwetLa-modal .form-overlay-loading').fadeIn();
+
+        var url = $('#Add-LivJwetLa-Form').attr('action');
+        var data = $('#Add-LivJwetLa-Form').serialize();
+
+        var currentBtn = $(this);
+        currentBtn.addClass('button-processing');
+
+        $.ajax({
+            traditional: true,
+            type: "POST",
+            url: url,
+            data: data,
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            success: function (data) {
+
+                $('#create-livJwetLa-modal .form-overlay-loading').fadeOut();
+                currentBtn.removeClass('button-processing');
+
+                if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
+                    $('#create-livJwetLa-modal').modal('hide');
+                    $('.text-info').text("You are not Logged In!");
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["newSession"] != null && data["newSession"] == true) {
+
+                    $('.text-info').text(data["message1"]);
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["noPermission"] != null && data["noPermission"] == true) {
+                    $('#create-livJwetLa-modal').modal('hide');
+                    $('.text-info').text("Access Denied. No Permission!");
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["saved"] != null && data["saved"] == true && data["message"] != null) {
+
+                    $('#create-livJwetLa-modal').modal('hide');
+
+                    setTimeout(function () {
+
+                        fillLivJwetLaListPV();
+
+                    },
+                        2000
+                    );
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+
+                }
+                else if (data["validationError"] != null && data["validationError"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["dbEx"] != null && data["dbEx"] == true && data["message"] != null) {
+
+                    $('#create-livJwetLa-modal').modal('hide');
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+
+
+            },
+            error: function (error) {
+                currentBtn.removeClass('button-processing');
+                $('#create-livJwetLa-modal').modal('hide');
+
+                $('.text-info').text('An error has occurred. Please try again or contact Admin if this persists!');
+                $('#validation-link').trigger("click");
+
+            }
+
+
+        });
+
+    }
+    );
+
+
 
 
 
@@ -2040,6 +4704,115 @@
     );
 
 
+
+
+    $(document).on("click", "#Add-Permission-Application-Form .submit", function (e) {
+
+        e.preventDefault();
+
+        $('#add-permission-application-modal .form-overlay-loading').fadeIn();
+
+        var url = $('#Add-Permission-Application-Form').attr('action');
+        var data = $('#Add-Permission-Application-Form').serialize() + '&ApplicationIds=' + $('#Add-Permission-Application-Form #ddlApplicationId').val();
+
+        var currentBtn = $(this);
+        currentBtn.addClass('button-processing');
+
+        $.ajax({
+            async: true,
+            traditional: true,
+            type: "POST",
+            url: url,
+            data: data,
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            success: function (data) {
+
+                currentBtn.removeClass('button-processing');
+                $('#add-permission-application-modal .form-overlay-loading').fadeOut();
+
+                if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
+                    $('#add-permission-application-modal').modal('hide');
+                    $('.text-info').text("You are not Logged In!");
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["newSession"] != null && data["newSession"] == true) {
+
+                    $('.text-info').text(data["message1"]);
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["noPermission"] != null && data["noPermission"] == true) {
+                    $('#add-permission-application-modal').modal('hide');
+                    $('.text-info').text("Access Denied. No Permission!");
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["saved"] != null && data["saved"] == true && data["message"] != null) {
+
+
+                    $('#add-permission-application-modal').modal('hide');
+
+                    setTimeout(function () {
+
+                        fillPermissionApplicationListPV();
+
+                    },
+                        1500
+                    );
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+
+                }
+                else if (data["validationError"] != null && data["validationError"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["dbEx"] != null && data["dbEx"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+
+
+            },
+            error: function (error) {
+
+                currentBtn.removeClass('button-processing');
+                $('#add-permission-application-modal').modal('hide');
+
+                $('.text-info').text('An error has occurred. Please try again or contact Admin if this persists!');
+                $('#validation-link').trigger("click");
+
+            }
+
+
+        });
+
+    }
+    );
+
+
+
+
+
     $(document).on("click", "#Add-App-Navigation-Application-Form .submit", function (e) {
 
         e.preventDefault();
@@ -2139,6 +4912,10 @@
 
     }
     );
+
+
+
+
 
 
     $(document).on("click", "#Add-Logo-Form .submit", function (e) {
@@ -2329,10 +5106,10 @@
 
                     setTimeout(function () {
 
-                        //$('.current-user-info-btn').html($('#profilPictureAfterEdit').html());
-                        //if ($('#url-get-compagnie').length) {
-                        //    fillCompagniePV();
-                        //}
+                        $('.current-user-info-btn').html($('#profilPictureAfterEdit').html());
+                        if ($('#url-get-compagnie').length) {
+                            fillCompagniePV();
+                        }
 
                     },
                         2000
@@ -2393,7 +5170,7 @@
             contentType: "application/x-www-form-urlencoded; charset=utf-8",
             success: function (data) {
 
-                $('#create-client-modal .form-overlay-loading').fadeOut();
+                $('#create-pointDeVente-modal .form-overlay-loading').fadeOut();
                 currentBtn.removeClass('button-processing');
 
                 if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
@@ -2471,7 +5248,650 @@
     }
     );
 
-    // Edit Table Object EventListener
+
+
+
+
+    $(document).on("click", "#Add-Boule-Form .submit", function (e) {
+
+        e.preventDefault();
+
+        $('#create-boule-modal .form-overlay-loading').fadeIn();
+
+        var url = $('#Add-Boule-Form').attr('action');
+        var data = $('#Add-Boule-Form').serialize();
+
+        var currentBtn = $(this);
+        currentBtn.addClass('button-processing');
+
+        $.ajax({
+            traditional: true,
+            type: "POST",
+            url: url,
+            data: data,
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            success: function (data) {
+
+                $('#create-boule-modal .form-overlay-loading').fadeOut();
+                currentBtn.removeClass('button-processing');
+
+                if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
+                    $('#create-boule-modal').modal('hide');
+                    $('.text-info').text("You are not Logged In!");
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["newSession"] != null && data["newSession"] == true) {
+
+                    $('.text-info').text(data["message1"]);
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["noPermission"] != null && data["noPermission"] == true) {
+                    $('#create-boule-modal').modal('hide');
+                    $('.text-info').text("Access Denied. No Permission!");
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["saved"] != null && data["saved"] == true && data["message"] != null) {
+
+                    $('#create-boule-modal').modal('hide');
+
+                    setTimeout(function () {
+
+                        fillBouleListPV();
+
+                    },
+                        2000
+                    );
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+
+                }
+                else if (data["validationError"] != null && data["validationError"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["dbEx"] != null && data["dbEx"] == true && data["message"] != null) {
+
+                    $('#create-boule-modal').modal('hide');
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+
+
+            },
+            error: function (error) {
+                currentBtn.removeClass('button-processing');
+                $('#create-boule-modal').modal('hide');
+
+                $('.text-info').text('An error has occurred. Please try again or contact Admin if this persists!');
+                $('#validation-link').trigger("click");
+
+            }
+
+
+        });
+
+    }
+    );
+
+
+
+    //Boul
+    $(document).on("click", "#Send-Email-Form .submit", function (e) {
+
+        e.preventDefault();
+
+        $('#send-mail .form-overlay-loading').fadeIn();
+
+        var url = $('#Send-Email-Form').attr('action');
+        var data = $('#Send-Email-Form').serialize();
+
+        var currentBtn = $(this);
+        currentBtn.addClass('button-processing');
+
+        $.ajax({
+            traditional: true,
+            type: "POST",
+            url: url,
+            data: data,
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            success: function (data) {
+
+                $('#send-mail .form-overlay-loading').fadeOut();
+                currentBtn.removeClass('button-processing');
+
+                if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
+
+                    $('.text-info').text("You are not Logged In!");
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["newSession"] != null && data["newSession"] == true) {
+
+                    $('.text-info').text(data["message1"]);
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["noPermission"] != null && data["noPermission"] == true) {
+
+                    $('.text-info').text("Access Denied. No Permission!");
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["saved"] != null && data["saved"] == true && data["message"] != null) {
+
+                    //setTimeout(function () {
+
+                    //    fillEmailListPV();
+
+                    //},
+                    //    2000
+                    //);
+
+                    $('.editor-resetable').prop('value', '');
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+
+                }
+                else if (data["validationError"] != null && data["validationError"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["notFound"] != null && data["notFound"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["dbEx"] != null && data["dbEx"] == true && data["message"] != null) {
+
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+
+
+            },
+            error: function (error) {
+                currentBtn.removeClass('button-processing');
+                $('#send-mail .form-overlay-loading').fadeOut();
+
+                $('.text-info').text('An error has occurred. Please try again or contact Admin if this persists!');
+                $('#validation-link').trigger("click");
+
+            }
+
+
+        });
+
+    }
+    );
+
+
+
+
+
+    $(document).on("click", "#Add-User-PointDeVente-Form .submit", function (e) {
+
+        e.preventDefault();
+
+        $('#create-user-pointDeVente-modal .form-overlay-loading').fadeIn();
+
+        var url = $('#Add-User-PointDeVente-Form').attr('action');
+        var data = $('#Add-User-PointDeVente-Form').serialize();
+
+        var currentBtn = $(this);
+        currentBtn.addClass('button-processing');
+
+
+        $.ajax({
+            traditional: true,
+            type: "POST",
+            url: url,
+            data: data,
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            success: function (data) {
+
+                $('#create-userPointDeVente-modal .form-overlay-loading').fadeOut();
+                currentBtn.removeClass('button-processing');
+
+
+                if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
+                    $('#create-userPointDeVente-modal').modal('hide');
+                    $('.text-info').text("You are not Logged In!");
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["newSession"] != null && data["newSession"] == true) {
+
+                    $('.text-info').text(data["message1"]);
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+                        window.location.reload();
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["noPermission"] != null && data["noPermission"] == true) {
+                    $('#create-user-pointDeVente-modal').modal('hide');
+                    $('.text-info').text("Access Denied. No Permission!");
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["saved"] != null && data["saved"] == true && data["message"] != null) {
+
+
+
+
+
+                    $('#create-user-pointDeVente-modal').modal('hide');
+
+
+                    setTimeout(function () {
+
+                        fillUserPointDeVenteListPV();
+
+                    },
+                        1500
+                    );
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+
+                }
+                else if (data["validationError"] != null && data["validationError"] == true && data["message"] != null) {
+
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["dbEx"] != null && data["dbEx"] == true && data["message"] != null) {
+
+                    $('#create-user-pointDeVente-modal').modal('hide');
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+
+
+            },
+            error: function (error) {
+                currentBtn.removeClass('button-processing');
+                $('#create-user-pointDeVente-modal').modal('hide');
+
+                $('.text-info').text('An error has occurred. Please try again or contact Admin if this persists!');
+                $('#validation-link').trigger("click");
+            }
+
+
+        });
+
+    }
+    );
+
+
+
+
+
+    $(document).on("click", "#Add-Ticket-Form .submit", function (e) {
+
+        e.preventDefault();
+
+        $('#create-ticket-modal .form-overlay-loading').fadeIn();
+
+        var url = $('#Add-Ticket-Form').attr('action');
+        var data = $('#Add-Ticket-Form').serialize() + '&quantite=' + $('#Add-Boule-In-Ticket-Form #quantite').val();
+
+        var currentBtn = $(this);
+        currentBtn.addClass('button-processing');
+
+        $.ajax({
+            traditional: true,
+            type: "POST",
+            url: url,
+            data: data,
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            success: function (data) {
+
+                $('#create-ticket-modal .form-overlay-loading').fadeOut();
+                currentBtn.removeClass('button-processing');
+
+                if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
+                    $('#create-ticket-modal').modal('hide');
+                    $('.text-info').text("You are not Logged In!");
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["newSession"] != null && data["newSession"] == true) {
+
+                    $('.text-info').text(data["message1"]);
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+                        window.location.reload();
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["noPermission"] != null && data["noPermission"] == true) {
+                    $('#create-ticket-modal').modal('hide');
+                    $('.text-info').text("Access Denied. No Permission!");
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["saved"] != null && data["saved"] == true && data["message"] != null) {
+
+                    $('#create-ticket-modal').modal('hide');
+
+                    setTimeout(function () {
+
+                        fillTicketListPV();
+
+                    },
+                        2000
+                    );
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+
+                }
+                else if (data["validationError"] != null && data["validationError"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["dbEx"] != null && data["dbEx"] == true && data["message"] != null) {
+
+                    $('#create-ticket-modal').modal('hide');
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+
+
+            },
+            error: function (error) {
+                currentBtn.removeClass('button-processing');
+                $('#create-ticket-modal').modal('hide');
+
+                $('.text-info').text('An error has occurred. Please try again or contact Admin if this persists!');
+                $('#validation-link').trigger("click");
+            }
+
+
+        });
+
+    }
+    );
+
+
+
+
+
+
+    $(document).on("click", "#Add-Boule-In-Ticket-Form .submit", function (e) {
+
+        e.preventDefault();
+
+        $('#create-boule-in-ticket-modal .form-overlay-loading').fadeIn();
+
+
+        var url = $('#Add-Boule-In-Ticket-Form').attr('action');
+        var data = $('#Add-Boule-In-Ticket-Form').serialize();
+        //var data = $('#Add-Boule-In-Ticket-Form').serialize() + '&Tour=' + $('#Add-Boule-In-Ticket-Form #Tour').val() + '&NomJoueur=' + $('#Add-Boule-In-Ticket-Form #NomJoueur').val();
+
+        var currentBtn = $(this);
+
+        currentBtn.addClass('button-processing');
+
+        $.ajax({
+            traditional: true,
+            type: "POST",
+            url: url,
+            data: data,
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            success: function (data) {
+
+                $('#create-boule-in-ticket-modal .form-overlay-loading').fadeOut();
+                currentBtn.removeClass('button-processing');
+
+                if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
+                    $('#create-boule-in-ticket-modal').modal('hide');
+                    $('.text-info').text("You are not Logged In!");
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["newSession"] != null && data["newSession"] == true) {
+
+                    $('.text-info').text(data["message1"]);
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["noPermission"] != null && data["noPermission"] == true) {
+                    $('#create-boule-in-ticket-modal').modal('hide');
+                    $('.text-info').text("Access Denied. No Permission!");
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["saved"] != null && data["saved"] == true && data["message"] != null) {
+
+                    $('#create-boule-in-ticket-modal').modal('hide');
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        //fillTicketVendeurListPV();
+                        fillTicketVendeurPrinterListPV();
+
+                    },
+                        1500
+                    );
+
+
+                }
+                else if (data["validationError"] != null && data["validationError"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["dbEx"] != null && data["dbEx"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+
+
+            },
+            error: function (error) {
+                currentBtn.removeClass('button-processing');
+                $('#create-boule-in-ticket-modal').modal('hide');
+                $('.text-info').text('An error has occurred. Please try again or contact Admin if this persists!');
+                $('#validation-link').trigger("click");
+            }
+
+
+        });
+
+    }
+    );
+
+
+
+
+    $(document).on("click", "#Add-Tirage-Form .submit", function (e) {
+
+        e.preventDefault();
+
+        $('#create-tirage-modal .form-overlay-loading').fadeIn();
+
+        var url = $('#Add-Tirage-Form').attr('action');
+        var data = $('#Add-Tirage-Form').serialize();
+
+        var currentBtn = $(this);
+        currentBtn.addClass('button-processing');
+
+        $.ajax({
+            traditional: true,
+            type: "POST",
+            url: url,
+            data: data,
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            success: function (data) {
+
+                $('#create-tirage-modal .form-overlay-loading').fadeOut();
+                currentBtn.removeClass('button-processing');
+
+                if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
+                    $('#create-tirage-modal').modal('hide');
+                    $('.text-info').text("You are not Logged In!");
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["newSession"] != null && data["newSession"] == true) {
+
+                    $('.text-info').text(data["message1"]);
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+                        window.location.reload();
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["noPermission"] != null && data["noPermission"] == true) {
+                    $('#create-tirage-modal').modal('hide');
+                    $('.text-info').text("Access Denied. No Permission!");
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["saved"] != null && data["saved"] == true && data["message"] != null) {
+
+                    $('#create-tirage-modal').modal('hide');
+
+                    setTimeout(function () {
+
+                        fillTirageListPV();
+
+                    },
+                        1500
+                    );
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+
+                }
+                else if (data["validationError"] != null && data["validationError"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["dbEx"] != null && data["dbEx"] == true && data["message"] != null) {
+
+                    $('#create-tirage-modal').modal('hide');
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+
+
+            },
+            error: function (error) {
+                currentBtn.removeClass('button-processing');
+                $('#create-tirage-modal').modal('hide');
+
+                $('.text-info').text('An error has occurred. Please try again or contact Admin if this persists!');
+                $('#validation-link').trigger("click");
+            }
+
+
+        });
+
+    }
+    );
+
+
+
+
+    // End Add submit
+
+
+    // Begin Edit Sumbit Table Object EventListener
+
+
 
     $(document).on("click", "#Edit-User-Form .submit", function (e) {
 
@@ -2689,6 +6109,7 @@
 
         var formData = new FormData(form.get(0));
         formData.append('LogoApplication', $('#Edit-Application-Form input[type="file"]')[0].files[0]);
+        formData.append('SignatureResponsable', $('#Edit-Application-Form input[type="file"]')[1].files[1]);
 
         var currentBtn = $(this);
         currentBtn.addClass('button-processing');
@@ -2770,6 +6191,118 @@
 
                 currentBtn.removeClass('button-processing');
                 $('#edit-application-modal .form-overlay-loading').fadeOut();
+                $('.text-info').text('An error has occurred. Please try again or contact Admin if this persists!');
+                $('#validation-link').trigger("click");
+            }
+
+
+        });
+
+    }
+    );
+
+
+
+
+
+
+
+
+    $(document).on("click", "#Edit-Compagnie-Form .submit", function (e) {
+
+        e.preventDefault();
+
+        var fileName = $('#fileName').text();
+
+        $('#edit-compagnie-modal .form-overlay-loading').fadeIn();
+
+        var url = $('#Edit-Compagnie-Form').attr('action');
+        var form = $('#Edit-Compagnie-Form');
+
+        var formData = new FormData(form.get(0));
+        formData.append('LogoCompagnie', $('#Edit-Compagnie-Form input[type="file"]')[0].files[0]);
+        formData.append('SignatureResponsable', $('#Edit-Compagnie-Form input[type="file"]')[1].files[1]);
+
+        var currentBtn = $(this);
+        currentBtn.addClass('button-processing');
+
+        $.ajax({
+            traditional: true,
+            type: "POST",
+            url: url,
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+
+                $('#edit-compagnie-modal .form-overlay-loading').fadeOut();
+                currentBtn.removeClass('button-processing');
+
+                if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
+                    $('#edit-compagnie-modal').modal('hide');
+                    $('.text-info').text("You are not Logged In!");
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["newSession"] != null && data["newSession"] == true) {
+
+                    $('.text-info').text(data["message1"]);
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["noPermission"] != null && data["noPermission"] == true) {
+                    $('#edit-compagnie-modal').modal('hide');
+                    $('.text-info').text("Access Denied. No Permission!");
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["saved"] != null && data["saved"] == true && data["message"] != null) {
+
+                    $('#edit-compagnie-modal').modal('hide');
+
+                    setTimeout(function () {
+
+                        fillCompagnieListPV();
+
+                    },
+                        1500
+                    );
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+
+                }
+                else if (data["validationError"] != null && data["validationError"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["dbEx"] != null && data["dbEx"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+
+            },
+            error: function (error) {
+
+                currentBtn.removeClass('button-processing');
+                $('#edit-compagnie-modal .form-overlay-loading').fadeOut();
                 $('.text-info').text('An error has occurred. Please try again or contact Admin if this persists!');
                 $('#validation-link').trigger("click");
             }
@@ -2986,111 +6519,6 @@
 
 
 
-
-    $(document).on("click", "#Add-Permission-Application-Form .submit", function (e) {
-
-        e.preventDefault();
-
-        $('#add-permission-application-modal .form-overlay-loading').fadeIn();
-
-        var url = $('#Add-Permission-Application-Form').attr('action');
-        var data = $('#Add-Permission-Application-Form').serialize() + '&ApplicationIds=' + $('#Add-Permission-Application-Form #ddlApplicationId').val();
-
-        var currentBtn = $(this);
-        currentBtn.addClass('button-processing');
-
-        $.ajax({
-            async: true,
-            traditional: true,
-            type: "POST",
-            url: url,
-            data: data,
-            contentType: "application/x-www-form-urlencoded; charset=utf-8",
-            success: function (data) {
-
-                currentBtn.removeClass('button-processing');
-                $('#add-permission-application-modal .form-overlay-loading').fadeOut();
-
-                if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
-                    $('#add-permission-application-modal').modal('hide');
-                    $('.text-info').text("You are not Logged In!");
-                    $('#validation-link').trigger("click");
-
-                    setTimeout(function () {
-
-                        window.location.reload();
-
-                    },
-                        2000
-                    );
-
-                }
-                else if (data["newSession"] != null && data["newSession"] == true) {
-
-                    $('.text-info').text(data["message1"]);
-                    $('#validation-link').trigger("click");
-
-                    setTimeout(function () {
-
-                        window.location.reload();
-
-                    },
-                        2000
-                    );
-
-                }
-                else if (data["noPermission"] != null && data["noPermission"] == true) {
-                    $('#add-permission-application-modal').modal('hide');
-                    $('.text-info').text("Access Denied. No Permission!");
-                    $('#validation-link').trigger("click");
-                }
-                else if (data["saved"] != null && data["saved"] == true && data["message"] != null) {
-
-
-                    $('#add-permission-application-modal').modal('hide');
-
-                    setTimeout(function () {
-
-                        fillPermissionApplicationListPV();
-
-                    },
-                        1500
-                    );
-
-                    $('.text-info').text(data["message"]);
-                    $('#validation-link').trigger("click");
-
-                }
-                else if (data["validationError"] != null && data["validationError"] == true && data["message"] != null) {
-
-                    $('.text-info').text(data["message"]);
-                    $('#validation-link').trigger("click");
-                }
-                else if (data["dbEx"] != null && data["dbEx"] == true && data["message"] != null) {
-
-                    $('.text-info').text(data["message"]);
-                    $('#validation-link').trigger("click");
-                }
-
-
-            },
-            error: function (error) {
-
-                currentBtn.removeClass('button-processing');
-                $('#add-permission-application-modal').modal('hide');
-
-                $('.text-info').text('An error has occurred. Please try again or contact Admin if this persists!');
-                $('#validation-link').trigger("click");
-
-            }
-
-
-        });
-
-    }
-    );
-
-
     $(document).on("click", "#Edit-App-Navigation-Permission-Order-Form .submit", function (e) {
 
         e.preventDefault();
@@ -3194,9 +6622,6 @@
 
     }
     );
-
-
-
 
 
 
@@ -3305,6 +6730,644 @@
     );
 
 
+
+
+    $(document).on("click", "#Edit-Boule-Form .submit", function (e) {
+
+        e.preventDefault();
+
+        $('#edit-boule-modal .form-overlay-loading').fadeIn();
+
+        var url = $('#Edit-Boule-Form').attr('action');
+        var data = $('#Edit-Boule-Form').serialize();
+
+        var currentBtn = $(this);
+        currentBtn.addClass('button-processing');
+
+        $.ajax({
+            traditional: true,
+            type: "POST",
+            url: url,
+            data: data,
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            success: function (data) {
+
+                $('#edit-boule-modal .form-overlay-loading').fadeOut();
+                currentBtn.removeClass('button-processing');
+
+                if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
+                    $('#edit-boule-modal').modal('hide');
+                    $('.text-info').text("You are not Logged In!");
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["newSession"] != null && data["newSession"] == true) {
+
+                    $('.text-info').text(data["message1"]);
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["noPermission"] != null && data["noPermission"] == true) {
+                    $('#edit-boule-modal').modal('hide');
+                    $('.text-info').text("Access Denied. No Permission!");
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["saved"] != null && data["saved"] == true && data["message"] != null) {
+
+                    $('#edit-boule-modal').modal('hide');
+
+                    setTimeout(function () {
+
+                        fillBouleListPV();
+
+                    },
+                        1500
+                    );
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+
+                }
+                else if (data["validationError"] != null && data["validationError"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["dbEx"] != null && data["dbEx"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+
+
+            },
+            error: function (error) {
+                currentBtn.removeClass('button-processing');
+                $('#edit-boule-modal').modal('hide');
+                $('.text-info').text('An error has occurred. Please try again or contact Admin if this persists!');
+                $('#validation-link').trigger("click");
+            }
+
+
+        });
+
+    }
+    );
+
+
+
+
+
+    $(document).on("click", "#Edit-LivJwetLa-Form .submit", function (e) {
+
+        e.preventDefault();
+
+        $('#edit-livJwetLa-modal .form-overlay-loading').fadeIn();
+
+        var url = $('#Edit-LivJwetLa-Form').attr('action');
+        var data = $('#Edit-LivJwetLa-Form').serialize();
+
+        var currentBtn = $(this);
+        currentBtn.addClass('button-processing');
+
+        $.ajax({
+            traditional: true,
+            type: "POST",
+            url: url,
+            data: data,
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            success: function (data) {
+
+                $('#edit-livJwetLa-modal .form-overlay-loading').fadeOut();
+                currentBtn.removeClass('button-processing');
+
+                if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
+                    $('#edit-livJwetLa-modal').modal('hide');
+                    $('.text-info').text("You are not Logged In!");
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["newSession"] != null && data["newSession"] == true) {
+
+                    $('.text-info').text(data["message1"]);
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["noPermission"] != null && data["noPermission"] == true) {
+                    $('#edit-livJwetLa-modal').modal('hide');
+                    $('.text-info').text("Access Denied. No Permission!");
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["saved"] != null && data["saved"] == true && data["message"] != null) {
+
+                    $('#edit-livJwetLa-modal').modal('hide');
+
+                    setTimeout(function () {
+
+                        fillLivJwetLaListPV();
+
+                    },
+                        1500
+                    );
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+
+                }
+                else if (data["validationError"] != null && data["validationError"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["dbEx"] != null && data["dbEx"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+
+
+            },
+            error: function (error) {
+                currentBtn.removeClass('button-processing');
+                $('#edit-livJwetLa-modal').modal('hide');
+                $('.text-info').text('An error has occurred. Please try again or contact Admin if this persists!');
+                $('#validation-link').trigger("click");
+            }
+
+
+        });
+
+    }
+    );
+
+
+
+
+    $(document).on("click", "#Edit-User-PointDeVente-Form .submit", function (e) {
+
+        e.preventDefault();
+
+        $('#edit-user-pointDeVente-modal .form-overlay-loading').fadeIn();
+
+        var url = $('#Edit-User-PointDeVente-Form').attr('action');
+        var data = $('#Edit-User-PointDeVente-Form').serialize();
+
+        var currentBtn = $(this);
+        currentBtn.addClass('button-processing');
+
+        $.ajax({
+            async: true,
+            traditional: true,
+            type: "POST",
+            url: url,
+            data: data,
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            success: function (data) {
+
+                currentBtn.removeClass('button-processing');
+                $('#edit-user-pointDeVente-modal .form-overlay-loading').fadeOut();
+
+                if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
+                    $('#edit-pointDeVente-modal').modal('hide');
+                    $('.text-info').text("You are not Logged In!");
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["newSession"] != null && data["newSession"] == true) {
+
+                    $('.text-info').text(data["message1"]);
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["noPermission"] != null && data["noPermission"] == true) {
+                    $('#edit-user-pointDeVente-modal').modal('hide');
+                    $('.text-info').text("Access Denied. No Permission!");
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["saved"] != null && data["saved"] == true && data["message"] != null) {
+
+                    $('#edit-user-pointDeVente-modal').modal('hide');
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        fillUserPointDeVenteListPV();
+
+                    },
+                        1500
+                    );
+
+                }
+                else if (data["validationError"] != null && data["validationError"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["dbEx"] != null && data["dbEx"] == true && data["message"] != null) {
+
+                    $('#edit-user-pointDeVente-modal').modal('hide');
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+
+
+            },
+            error: function (error) {
+
+                currentBtn.removeClass('button-processing');
+                $('#edit-user-pointDeVente-modal .form-overlay-loading').fadeOut();
+
+                $('.text-info').text('An error has occurred. Please try again or contact Admin if this persists!');
+                $('#validation-link').trigger("click");
+
+            }
+
+
+        });
+
+    }
+    );
+
+
+
+
+
+
+    $(document).on("click", "#Edit-Ticket-Form .submit", function (e) {
+
+        e.preventDefault();
+
+        $('#edit-ticket-modal .form-overlay-loading').fadeIn();
+
+        var url = $('#Edit-Ticket-Form').attr('action');
+        var data = $('#Edit-Ticket-Form').serialize();
+
+        var currentBtn = $(this);
+        currentBtn.addClass('button-processing');
+
+        $.ajax({
+            async: true,
+            traditional: true,
+            type: "POST",
+            url: url,
+            data: data,
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            success: function (data) {
+
+                currentBtn.removeClass('button-processing');
+                $('#edit-ticket-modal .form-overlay-loading').fadeOut();
+
+                if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
+                    $('#edit-ticket-modal').modal('hide');
+                    $('.text-info').text("You are not Logged In!");
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["newSession"] != null && data["newSession"] == true) {
+
+                    $('.text-info').text(data["message1"]);
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["noPermission"] != null && data["noPermission"] == true) {
+                    $('#edit-ticket-modal').modal('hide');
+                    $('.text-info').text("Access Denied. No Permission!");
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["saved"] != null && data["saved"] == true && data["message"] != null) {
+
+                    $('#edit-ticket-modal').modal('hide');
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        fillTicketListPV();
+
+                    },
+                        1500
+                    );
+
+                }
+                else if (data["validationError"] != null && data["validationError"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["dbEx"] != null && data["dbEx"] == true && data["message"] != null) {
+
+                    $('#edit-ticket-modal').modal('hide');
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+
+
+            },
+            error: function (error) {
+
+                currentBtn.removeClass('button-processing');
+                $('#edit-ticket-modal .form-overlay-loading').fadeOut();
+
+                $('.text-info').text('An error has occurred. Please try again or contact Admin if this persists!');
+                $('#validation-link').trigger("click");
+
+            }
+
+
+        });
+
+    }
+    );
+
+
+
+
+
+
+    $(document).on("click", "#Edit-Boule-In-Ticket-Form .submit", function (e) {
+
+        e.preventDefault();
+
+        $('#edit-boule-in-ticket-modal .form-overlay-loading').fadeIn();
+
+        var url = $('#Edit-Boule-In-Ticket-Form').attr('action');
+        var data = $('#Edit-Boule-In-Ticket-Form').serialize();
+
+        var currentBtn = $(this);
+        currentBtn.addClass('button-processing');
+
+        $.ajax({
+            traditional: true,
+            type: "POST",
+            url: url,
+            data: data,
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            success: function (data) {
+
+                $('#edit-boule-in-ticket-modal .form-overlay-loading').fadeOut();
+                currentBtn.removeClass('button-processing');
+
+                if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
+                    $('#edit-boule-in-ticket-modal').modal('hide');
+                    $('.text-info').text("You are not Logged In!");
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["newSession"] != null && data["newSession"] == true) {
+
+                    $('.text-info').text(data["message1"]);
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["noPermission"] != null && data["noPermission"] == true) {
+                    $('#edit-boule-in-ticket-modal').modal('hide');
+                    $('.text-info').text("Access Denied. No Permission!");
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["saved"] != null && data["saved"] == true && data["message"] != null) {
+
+                    $('#edit-boule-in-ticket-modal').modal('hide');
+                    $('#noPrintTicket').hide();
+                    $('#printTicket').show();
+
+
+                    setTimeout(function () {
+
+                        fillTicketVendeurBouleListPV();
+
+                    },
+                        1500
+                    );
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+
+                }
+                else if (data["validationError"] != null && data["validationError"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["dbEx"] != null && data["dbEx"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+
+
+            },
+            error: function (error) {
+                currentBtn.removeClass('button-processing');
+                $('#edit-boule-in-ticket-modal').modal('hide');
+                $('.text-info').text('An error has occurred. Please try again or contact Admin if this persists!');
+                $('#validation-link').trigger("click");
+            }
+
+
+        });
+
+    }
+    );
+
+
+
+
+
+
+
+
+    $(document).on("click", "#Edit-Tirage-Form .submit", function (e) {
+
+        e.preventDefault();
+
+        $('#edit-tirage-modal .form-overlay-loading').fadeIn();
+
+        var url = $('#Edit-Tirage-Form').attr('action');
+        var data = $('#Edit-Tirage-Form').serialize();
+
+        var currentBtn = $(this);
+        currentBtn.addClass('button-processing');
+
+        $.ajax({
+            async: true,
+            traditional: true,
+            type: "POST",
+            url: url,
+            data: data,
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            success: function (data) {
+
+                currentBtn.removeClass('button-processing');
+                $('#edit-tirage-modal .form-overlay-loading').fadeOut();
+
+                if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
+                    $('#edit-tirage-modal').modal('hide');
+                    $('.text-info').text("You are not Logged In!");
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["newSession"] != null && data["newSession"] == true) {
+
+                    $('.text-info').text(data["message1"]);
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["noPermission"] != null && data["noPermission"] == true) {
+                    $('#edit-tirage-modal').modal('hide');
+                    $('.text-info').text("Access Denied. No Permission!");
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["saved"] != null && data["saved"] == true && data["message"] != null) {
+
+                    $('#edit-tirage-modal').modal('hide');
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        fillTirageListPV();
+
+                    },
+                        1500
+                    );
+
+                }
+                else if (data["validationError"] != null && data["validationError"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["dbEx"] != null && data["dbEx"] == true && data["message"] != null) {
+
+                    $('#edit-tirage-modal').modal('hide');
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+
+
+            },
+            error: function (error) {
+
+                currentBtn.removeClass('button-processing');
+                $('#edit-tirage-modal .form-overlay-loading').fadeOut();
+
+                $('.text-info').text('An error has occurred. Please try again or contact Admin if this persists!');
+                $('#validation-link').trigger("click");
+
+            }
+
+
+        });
+
+    }
+    );
+
+
+
+    // End Edit submit
 
     // Edit Button EventListener
 
@@ -3452,6 +7515,10 @@
         });
     }
     );
+
+
+
+
 
     $(document).on("click", ".edit-user-btn", function (e) {
 
@@ -3673,6 +7740,92 @@
     }
     );
 
+
+
+
+
+
+
+
+
+
+    $(document).on("click", ".edit-compagnie-btn", function (e) {
+
+        e.preventDefault();
+
+        var url = $(this).data('url');
+
+        $('#pv-overlay-loading').fadeIn();
+
+        $.get({
+            url: url,
+            success: function (data) {
+                $('#pv-overlay-loading').fadeOut();
+                if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
+
+                    $('.text-info').text("You are not Logged In!");
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["newSession"] != null && data["newSession"] == true) {
+
+                    $('.text-info').text(data["message1"]);
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["noPermission"] != null && data["noPermission"] == true) {
+
+                    $('.text-info').text("Access Denied. No Permission!");
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["validationError"] != null && data["validationError"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["notFound"] != null && data["notFound"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else {
+                    $('#edit-compagnie-modal .modal-dialog').html(data);
+
+                    $('#edit-compagnie-modal').modal('show');
+                }
+
+            },
+            error: function (error) {
+                $('#pv-overlay-loading').fadeout();
+                $('.text-info').text('An error has occurred. Please try again or contact Admin if this persists!');
+                $('#validation-link').trigger("click");
+            }
+
+        });
+    }
+    );
+
+
+
+
+
+
     $(document).on("click", ".edit-permission-btn", function (e) {
 
         e.preventDefault();
@@ -3821,6 +7974,634 @@
 
 
 
+
+
+
+    $(document).on("click", ".edit-pointDeVente-btn", function (e) {
+
+        e.preventDefault();
+
+        var url = $(this).data('url');
+
+        $('#pv-overlay-loading').fadeIn();
+
+        $.get({
+            url: url,
+            success: function (data) {
+                $('#pv-overlay-loading').fadeOut();
+                if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
+
+                    $('.text-info').text("You are not Logged In!");
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["newSession"] != null && data["newSession"] == true) {
+
+                    $('.text-info').text(data["message1"]);
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["noPermission"] != null && data["noPermission"] == true) {
+
+                    $('.text-info').text("Access Denied. No Permission!");
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["validationError"] != null && data["validationError"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["notFound"] != null && data["notFound"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else {
+
+                    $('#edit-pointDeVente-modal .modal-dialog').html(data);
+
+                    $('#edit-pointDeVente-modal').modal('show');
+                }
+
+            },
+            error: function (error) {
+                $('#pv-overlay-loading').fadeOut();
+                $('.text-info').text('An error has occurred. Please try again or contact Admin if this persists!');
+                $('#validation-link').trigger("click");
+            }
+
+        });
+    }
+    );
+
+
+
+
+
+    $(document).on("click", ".edit-boule-btn", function (e) {
+
+        e.preventDefault();
+
+        var url = $(this).data('url');
+
+        $('#pv-overlay-loading').fadeIn();
+
+        $.get({
+            url: url,
+            success: function (data) {
+                $('#pv-overlay-loading').fadeOut();
+                if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
+
+                    $('.text-info').text("You are not Logged In!");
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["newSession"] != null && data["newSession"] == true) {
+
+                    $('.text-info').text(data["message1"]);
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["noPermission"] != null && data["noPermission"] == true) {
+
+                    $('.text-info').text("Access Denied. No Permission!");
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["validationError"] != null && data["validationError"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["notFound"] != null && data["notFound"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else {
+
+                    $('#edit-boule-modal .modal-dialog').html(data);
+
+                    $('#edit-boule-modal').modal('show');
+                }
+
+            },
+            error: function (error) {
+                $('#pv-overlay-loading').fadeOut();
+                $('.text-info').text('An error has occurred. Please try again or contact Admin if this persists!');
+                $('#validation-link').trigger("click");
+            }
+
+        });
+    }
+    );
+
+
+
+
+
+
+    $(document).on("click", ".edit-livJwetLa-btn", function (e) {
+
+        e.preventDefault();
+
+        var url = $(this).data('url');
+
+        $('#pv-overlay-loading').fadeIn();
+
+        $.get({
+            url: url,
+            success: function (data) {
+                $('#pv-overlay-loading').fadeOut();
+                if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
+
+                    $('.text-info').text("You are not Logged In!");
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["newSession"] != null && data["newSession"] == true) {
+
+                    $('.text-info').text(data["message1"]);
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["noPermission"] != null && data["noPermission"] == true) {
+
+                    $('.text-info').text("Access Denied. No Permission!");
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["validationError"] != null && data["validationError"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["notFound"] != null && data["notFound"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else {
+
+                    $('#edit-livJwetLa-modal .modal-dialog').html(data);
+
+                    $('#edit-livJwetLa-modal').modal('show');
+                }
+
+            },
+            error: function (error) {
+                $('#pv-overlay-loading').fadeOut();
+                $('.text-info').text('An error has occurred. Please try again or contact Admin if this persists!');
+                $('#validation-link').trigger("click");
+            }
+
+        });
+    }
+    );
+
+
+
+
+
+
+    $(document).on("click", ".edit-user-pointDeVente-btn", function (e) {
+
+        e.preventDefault();
+
+        var url = $(this).data('url');
+
+        $('#pv-overlay-loading').fadeIn();
+
+        $.get({
+            url: url,
+            success: function (data) {
+                $('#pv-overlay-loading').fadeOut();
+                if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
+
+                    $('.text-info').text("You are not Logged In!");
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["newSession"] != null && data["newSession"] == true) {
+
+                    $('.text-info').text(data["message1"]);
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["noPermission"] != null && data["noPermission"] == true) {
+
+                    $('.text-info').text("Access Denied. No Permission!");
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["validationError"] != null && data["validationError"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["notFound"] != null && data["notFound"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else {
+
+                    $('#edit-user-pointDeVente-modal .modal-dialog').html(data);
+
+                    $('#edit-user-pointDeVente-modal').modal('show');
+                }
+
+            },
+            error: function (error) {
+                $('#pv-overlay-loading').fadeOut();
+                $('.text-info').text('An error has occurred. Please try again or contact Admin if this persists!');
+                $('#validation-link').trigger("click");
+            }
+
+        });
+    }
+    );
+
+
+
+
+
+
+
+
+    $(document).on("click", ".edit-ticket-btn", function (e) {
+
+        e.preventDefault();
+
+        var url = $(this).data('url');
+
+        $('#pv-overlay-loading').fadeIn();
+
+        $.get({
+            url: url,
+            success: function (data) {
+                $('#pv-overlay-loading').fadeOut();
+                if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
+
+                    $('.text-info').text("You are not Logged In!");
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["newSession"] != null && data["newSession"] == true) {
+
+                    $('.text-info').text(data["message1"]);
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["noPermission"] != null && data["noPermission"] == true) {
+
+                    $('.text-info').text("Access Denied. No Permission!");
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["validationError"] != null && data["validationError"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["notFound"] != null && data["notFound"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else {
+
+                    $('#edit-ticket-modal .modal-dialog').html(data);
+
+                    $('#edit-ticket-modal').modal('show');
+                }
+
+            },
+            error: function (error) {
+                $('#pv-overlay-loading').fadeOut();
+                $('.text-info').text('An error has occurred. Please try again or contact Admin if this persists!');
+                $('#validation-link').trigger("click");
+            }
+
+        });
+    }
+    );
+
+
+
+
+
+
+
+    $(document).on("click", ".edit-boule-in-ticket-btn", function (e) {
+
+        e.preventDefault();
+
+        var url = $(this).data('url');
+
+        $('#pv-overlay-loading').fadeIn();
+
+        $.get({
+            url: url,
+            success: function (data) {
+                $('#pv-overlay-loading').fadeOut();
+                if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
+
+                    $('.text-info').text("You are not Logged In!");
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["newSession"] != null && data["newSession"] == true) {
+
+                    $('.text-info').text(data["message1"]);
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["noPermission"] != null && data["noPermission"] == true) {
+
+                    $('.text-info').text("Access Denied. No Permission!");
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["validationError"] != null && data["validationError"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["notFound"] != null && data["notFound"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else {
+
+                    $('#edit-boule-in-ticket-modal .modal-dialog').html(data);
+
+                    $('#edit-boule-in-ticket-modal').modal('show');
+                }
+
+            },
+            error: function (error) {
+                $('#pv-overlay-loading').fadeOut();
+                $('.text-info').text('An error has occurred. Please try again or contact Admin if this persists!');
+                $('#validation-link').trigger("click");
+            }
+
+        });
+    }
+    );
+
+
+    $(document).on("click", ".print-boule-in-ticket-btn", function (e) {
+
+        e.preventDefault();
+
+        var url = $(this).data('url');
+
+
+        $('#noPrintTicket').hide();
+        $('#printTicket').show();
+
+        $('#pv-overlay-loading').fadeIn();
+
+        $.get({
+            url: url,
+            success: function (data) {
+                $('#pv-overlay-loading').fadeOut();
+                if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
+
+                    $('.text-info').text("You are not Logged In!");
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["newSession"] != null && data["newSession"] == true) {
+
+                    $('.text-info').text(data["message1"]);
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["noPermission"] != null && data["noPermission"] == true) {
+
+                    $('.text-info').text("Access Denied. No Permission!");
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["validationError"] != null && data["validationError"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["notFound"] != null && data["notFound"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else {
+
+                    $('#ticket-vendeur-list-pv').html(data);
+
+                    $('#hb-nbre-ticket-vendeur').text($('#nbre-ticket-vendeur').val());
+
+                    tableInitializer();
+
+                }
+
+            },
+            error: function (error) {
+                $('#pv-overlay-loading').fadeOut();
+                $('.text-info').text('An error has occurred. Please try again or contact Admin if this persists!');
+                $('#validation-link').trigger("click");
+            }
+
+        });
+    }
+    );
+
+
+
+
+
+    $(document).on("click", ".edit-tirage-btn", function (e) {
+
+        e.preventDefault();
+
+        var url = $(this).data('url');
+
+        $('#pv-overlay-loading').fadeIn();
+
+        $.get({
+            url: url,
+            success: function (data) {
+                $('#pv-overlay-loading').fadeOut();
+                if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
+
+                    $('.text-info').text("You are not Logged In!");
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["newSession"] != null && data["newSession"] == true) {
+
+                    $('.text-info').text(data["message1"]);
+                    $('#validation-link').trigger("click");
+
+                    setTimeout(function () {
+
+                        window.location.reload();
+
+                    },
+                        2000
+                    );
+
+                }
+                else if (data["noPermission"] != null && data["noPermission"] == true) {
+
+                    $('.text-info').text("Access Denied. No Permission!");
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["validationError"] != null && data["validationError"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else if (data["notFound"] != null && data["notFound"] == true && data["message"] != null) {
+
+                    $('.text-info').text(data["message"]);
+                    $('#validation-link').trigger("click");
+                }
+                else {
+                    $('#edit-tirage-modal .modal-dialog').html(data);
+
+                    $('#edit-tirage-modal').modal('show');
+                }
+
+            },
+            error: function (error) {
+                $('#pv-overlay-loading').fadeOut();
+                $('.text-info').text('An error has occurred. Please try again or contact Admin if this persists!');
+                $('#validation-link').trigger("click");
+            }
+
+        });
+    }
+    );
+
+
+
+
     // End Edit Button EventListener
 
 
@@ -3846,11 +8627,11 @@
             data: data,
             contentType: "application/x-www-form-urlencoded; charset=utf-8",
             success: function (data) {
-                console.log(data);
+
+
+                currentBtn.removeClass('button-processing');
 
                 if (data["notFound"] != null && data["notFound"] == true && data["message"] != null) {
-
-                    currentBtn.removeClass('button-processing');
 
                     $('.text-info').text(data["message"]);
                     $('#validation-link').trigger("click");
@@ -3879,8 +8660,7 @@
                 }
                 else if (data["authForm"] != null && data["authForm"] == true) {
 
-                    currentBtn.removeClass('button-processing');
-
+                   
                     ShowTwoFactorAuthForm(data["url"]);
 
                 }
@@ -3920,11 +8700,13 @@
     );
 
 
+    
+
     $(document).on("click", "#Account-User-Form .submit", function (e) {
 
         e.preventDefault();
 
-        $('#account-user-modal .form-overlay-loading').fadeIn();
+        $('#edit-user-modal .form-overlay-loading').fadeIn();
 
         var url = $('#Account-User-Form').attr('action');
         var data = $('#Account-User-Form').serialize();
@@ -3979,9 +8761,15 @@
                 }
                 else if (data["logged"] != null && data["logged"] == true) {
 
-
                     window.location.replace(data["url"]);
 
+                }
+                else if (data["authForm"] != null && data["authForm"] == true) {
+
+                    $('#account-user-modal').modal('hide');
+
+
+                    ShowTwoFactorAuthForm(data["url"]);
 
                 }
                 else if (data["saved"] != null && data["saved"] == true && data["message"] != null) {
@@ -4009,12 +8797,8 @@
                 }
                 else if (data["dbEx"] != null && data["dbEx"] == true && data["message"] != null) {
 
-
                     $('.text-info').text(data["message"]);
                     $('#validation-link').trigger("click");
-
-                    $('#account-user-modal').modal('hide');
-
                 }
 
 
@@ -4032,6 +8816,143 @@
 
     }
     );
+
+
+
+
+    //$(document).on("click", "#Account-User-Form .submit", function (e) {
+
+    //    e.preventDefault();
+
+    //    $('#account-user-modal .form-overlay-loading').fadeIn();
+
+    //    var url = $('#Account-User-Form').attr('action');
+    //    var data = $('#Account-User-Form').serialize();
+
+    //    var currentBtn = $(this);
+    //    currentBtn.addClass('button-processing');
+
+    //    $.ajax({
+    //        traditional: true,
+    //        type: "POST",
+    //        url: url,
+    //        data: data,
+    //        contentType: "application/x-www-form-urlencoded; charset=utf-8",
+    //        success: function (data) {
+
+    //            currentBtn.removeClass('button-processing');
+
+    //            $('#account-user-modal .form-overlay-loading').fadeOut();
+
+    //            if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
+    //                $('#account-user-modal').modal('hide');
+
+    //                $('#two-factor-auth-modal').modal('hide');
+
+
+    //                $('.text-info').text("You are not Logged In!");
+    //                $('#validation-link').trigger("click");
+
+    //                setTimeout(function () {
+
+    //                    window.location.reload();
+
+    //                },
+    //                    2000
+    //                );
+
+
+    //            }
+    //            else if (data["newSession"] != null && data["newSession"] == true) {
+
+    //                $('.text-info').text(data["message1"]);
+    //                $('#validation-link').trigger("click");
+
+    //                setTimeout(function () {
+
+    //                    window.location.reload();
+
+    //                },
+    //                    2000
+    //                );
+
+    //            }
+    //            else if (data["noPermission"] != null && data["noPermission"] == true) {
+
+    //                $('.text-info').text("Access Denied. No Permission!");
+    //                $('#validation-link').trigger("click");
+
+    //                $('#account-user-modal').modal('hide');
+    //            }
+    //            else if (data["logged"] != null && data["logged"] == true) {
+
+    //                $('#account-user-modal').hide();
+
+
+
+    //                window.location.replace(data["url"]);
+
+
+    //            }
+    //            else if (data["saved"] != null && data["saved"] == true && data["message"] != null) {
+
+    //                alert("Ici");
+    //                $('#account-user-modal').hide();
+
+
+    //                $('.text-info').text(data["message"]);
+    //                $('#validation-link').trigger("click");
+
+
+
+    //            }
+    //            else if (data["authForm"] != null && data["authForm"] == true) {
+
+    //                alert("LABA");
+
+    //                //$('#account-user-modal').hide();
+
+
+    //                window.location.replace(data["url"]);
+
+    //                $('#two-factor-auth-modal .modal-dialog').html(data["html"]);
+
+
+    //                $('#two-factor-auth-modal').show();
+
+    //            }
+    //            else if (data["validationError"] != null && data["validationError"] == true && data["message"] != null) {
+
+    //                $('.text-info').text(data["message"]);
+    //                $('#validation-link').trigger("click");
+    //            }
+    //            else if (data["dbEx"] != null && data["dbEx"] == true && data["message"] != null) {
+
+    //                $('.text-info').text(data["message"]);
+    //                $('#validation-link').trigger("click");
+    //                $('#account-user-modal').modal('hide');
+
+
+    //            }
+
+
+    //        },
+    //        error: function (error) {
+
+    //            currentBtn.removeClass('button-processing');
+    //            $('#account-user-modal').modal('hide');
+    //            $('#two-factor-auth-modal').modal('hide');
+
+
+    //            $('.text-info').text('An error has occurred. Please try again or contact Admin if this persists!');
+    //            $('#validation-link').trigger("click");
+    //        }
+
+
+    //    });
+
+    //}
+    //);
 
 
     $(document).on("click", "#Two-Factor-Auth-Form .submit", function (e) {
@@ -4255,6 +9176,7 @@
 
     $(document).on("click", ".account-user-btn", function (e) {
 
+        alert("Difisil men se vre");
         e.preventDefault();
 
         var url = $(this).data('url');
@@ -4457,8 +9379,6 @@
                 }
                 else if (data["authForm"] != null && data["authForm"] == true) {
 
-                    currentBtn.removeClass('button-processing');
-
                     ShowTwoFactorAuthForm(data["url"]);
 
                 }
@@ -4512,6 +9432,23 @@
     //End Event Listener Delegation
 
 
+    $(document).on("click", "#Edit-Compagnie-Form .show-phone-2", function () {
+        $(this).toggleClass('glyphicon-plus').toggleClass('glyphicon-minus');
+        $('#Edit-Compagnie-Form #phone-2').slideToggle(300);
+
+    }
+    );
+
+
+    $(document).on("focusout", "#Edit-Compagnie-Form #phone-2", function () {
+        $(this).removeClass('glyphicon-minus').addClass('glyphicon-plus');
+        $(this).hide(300);
+    }
+    );
+
+
+
+
     $(document).on("click", ".add-after-edit", function () {
 
         $('.id-resetable').attr('value', 0);
@@ -4557,11 +9494,18 @@
 
 
     $('#menu-liste').slideToggle(10);
+    $('#menu-ticket').slideToggle(10);
+    $('#menu-boule').slideToggle(10);
+    $('#menu-tirage').slideToggle(10);
+    $('#menu-pointDeVente').slideToggle(10);
     $('#menu-client').slideToggle(10);
+    $('#menu-payment').slideToggle(10);
     $('#menu-personne').slideToggle(10);
+    $('#menu-message').slideToggle(10);
     $('#menu-container').slideToggle(10);
     $('#menu-operation').slideToggle(10);
     $('#menu-verification').slideToggle(10);
+    $('#menu-book').slideToggle(10);
     $('#menu-imex').slideToggle(10);
     $('#menu-tally').slideToggle(10);
     $('#menu-dommage').slideToggle(10);
@@ -4569,6 +9513,35 @@
     $('#menu-report').slideToggle(10);
     $('#menu-statistique').slideToggle(10);
     $('#menu-securite').slideToggle(10);
+
+    $('#option-ticket').click(function () {
+        $('#menu-ticket').slideToggle(50);
+        $('#chevron-ticket').toggleClass('glyphicon-chevron-down').toggleClass('glyphicon-chevron-up');
+    });
+
+
+    $('#option-boule').click(function () {
+        $('#menu-boule').slideToggle(50);
+        $('#chevron-boule').toggleClass('glyphicon-chevron-down').toggleClass('glyphicon-chevron-up');
+    });
+
+
+    $('#option-tirage').click(function () {
+        $('#menu-tirage').slideToggle(50);
+        $('#chevron-tirage').toggleClass('glyphicon-chevron-down').toggleClass('glyphicon-chevron-up');
+    });
+
+
+    $('#option-payment').click(function () {
+        $('#menu-payment').slideToggle(50);
+        $('#chevron-payment').toggleClass('glyphicon-chevron-down').toggleClass('glyphicon-chevron-up');
+    });
+
+    $('#option-message').click(function () {
+        $('#menu-message').slideToggle(50);
+        $('#chevron-message').toggleClass('glyphicon-chevron-down').toggleClass('glyphicon-chevron-up');
+    });
+
 
     $('#option-liste').click(function () {
         $('#menu-liste').slideToggle(50);
@@ -4597,11 +9570,31 @@
         $('#chevron-operation').toggleClass('glyphicon-chevron-down').toggleClass('glyphicon-chevron-up');
     });
 
+    $('#option-pointDeVente').click(function () {
+        $('#menu-pointDeVente').slideToggle(50);
+        $('#chevron-pointDeVente').toggleClass('glyphicon-chevron-down').toggleClass('glyphicon-chevron-up');
+    });
+
 
 
     $('#option-verification').click(function () {
         $('#menu-verification').slideToggle(50);
         $('#chevron-verification').toggleClass('glyphicon-chevron-down').toggleClass('glyphicon-chevron-up');
+    });
+
+
+
+
+    $('#option-book').click(function () {
+        $('#menu-book').slideToggle(50);
+        $('#chevron-book').toggleClass('glyphicon-chevron-down').toggleClass('glyphicon-chevron-up');
+    });
+
+
+
+    $('#option-report').click(function () {
+        $('#menu-report').slideToggle(50);
+        $('#chevron-report').toggleClass('glyphicon-chevron-down').toggleClass('glyphicon-chevron-up');
     });
 
 
@@ -4827,6 +9820,66 @@
     }
 
 
+    var urltirage = $('#url-get-tirage-info').data('url');
+
+    if (urltirage != null) {
+        $.get({
+            url: url,
+            success: function (data) {
+
+                if (data != null && data["notifInfo"]) {
+
+                    if (data["notifInfo"]["notifications"] != null && data["notifInfo"]["notifications"].length > 0) {
+
+                        var notifDDM = $('.notification-dropdown .dropdown .dropdown-menu');
+
+                        if ($('#old-notif').val() != JSON.stringify(data["notifInfo"]["notifications"])) {
+
+                            notifDDM.html('<li style="display:block; width:100%; font-weight:bold; padding:5px;"> Notifications </li >');
+
+                            for (var item in data["notifInfo"]["notifications"]) {
+
+                                notifDDM.append('<li style="">' +
+                                    '<a style = "cursor:pointer; min-height:60px; padding:8px;" data-url="' + data["notifInfo"]["notifications"][item]["Url"] + '" class= "sub-view" title = "Cliquez pour voir les détails" >' +
+                                    '<span style="display:inline-block; width:12%; margin-right:8px; top:50%; float:left;">' +
+                                    '<span style="text-align:center; display:inline-block; background:#0aafca; border-radius:50px; height:35px; width:35px;">' +
+                                    '<span class="glyphicon ' + data["notifInfo"]["notifications"][item]["Icon"] + '" style="transform:translateY(50%);"></span>' +
+                                    '</span>' +
+                                    '</span>' +
+                                    '<span style="display:inline-block; width: 80%;white-space: normal;">' +
+                                    '' + data["notifInfo"]["notifications"][item]["Label"] + ' : <strong class="text-danger">' + data["notifInfo"]["notifications"][item]["Value"] + '</strong>' +
+                                    '</span></a></li>');
+
+                            }
+
+                            $('.notif-icon .badge').text(data["notifInfo"]["notifications"].length);
+
+                            $('.notification-dropdown').show();
+
+                            $('#old-notif').val(JSON.stringify(data["notifInfo"]["notifications"]));
+
+
+                        }
+
+
+                    }
+                    else {
+
+                        $('.notification-dropdown').hide(100);
+
+                    }
+
+                }
+
+            },
+            error: function (error) {
+
+            }
+
+        });
+    }
+
+
     //Init Notification
 
     $(document).on("click", ".notif-icon", function () {
@@ -4961,9 +10014,7 @@
 
                 if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
 
-                    $('.text-info').text("You are not Logged In!");
-                    $('#validation-link').trigger("click");
-
+                   
                     setTimeout(function () {
 
                         window.location.reload();
@@ -5015,6 +10066,276 @@
 
 });
 
+
+
+
+
+
+
+function TimeToExecuteDraw(seconde) {
+
+    $('.div-timer').addClass('tirage-lotterie-bg');
+
+
+
+    let tempsSeconde = seconde;
+
+    const timerElement = document.getElementById("timer")
+
+
+    setInterval(() => {
+
+        let tempMinute = parseInt(tempsSeconde / 60, 10);
+
+        let heure = parseInt(tempMinute / 60, 10);
+        let minute = parseInt(tempMinute % 60, 10);
+
+        let secondes = parseInt(tempsSeconde % 60, 10);
+
+
+        heure = heure < 10 ? "0" + heure : heure;
+        minute = minute < 10 ? "0" + minute : minute;
+        secondes = secondes < 10 ? "0" + secondes : secondes;
+
+        timerElement.innerText = " The Current draw will be execute in : " + `${heure}:${minute}:${secondes}`;
+
+        tempsSeconde = tempsSeconde <= 0 ? 0 : tempsSeconde - 1;
+
+
+
+    }, 1000)
+
+
+}
+
+
+
+
+
+function TimeToExecuteDrawNavBare(seconde) {
+
+
+    let tempsSeconde = seconde;
+
+    const timerElement = document.getElementById("tempsRestant")
+
+
+    setInterval(() => {
+
+        let tempMinute = parseInt(tempsSeconde / 60, 10);
+
+        let heure = parseInt(tempMinute / 60, 10);
+        let minute = parseInt(tempMinute % 60, 10);
+
+        let secondes = parseInt(tempsSeconde % 60, 10);
+
+
+        heure = heure < 10 ? "0" + heure : heure;
+        minute = minute < 10 ? "0" + minute : minute;
+        secondes = secondes < 10 ? "0" + secondes : secondes;
+
+        timerElement.innerText = `${heure}:${minute}:${secondes}`;
+
+        tempsSeconde = tempsSeconde <= 0 ? 0 : tempsSeconde - 1;
+
+
+        //if (tempsSeconde == 0) {
+
+        //    setTimeout(function () {
+        //        WaitingForTimeToExecuteDraw();
+        //    },
+        //        5000
+        //    );
+
+        //}
+
+
+    }, 1000)
+
+
+}
+
+
+
+
+
+
+
+
+
+function WaitingForTimeToExecuteDraw() {
+
+
+    $.get({
+        url: $('#url-get-waitingForTreadTirage').data('url'),
+        success: function (data) {
+
+            if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
+
+                $('.text-info').text("You are not Logged In!");
+                $('#validation-link').trigger("click");
+
+                setTimeout(function () {
+
+                    window.location.reload();
+
+                },
+                    2000
+                );
+
+            }
+            else if (data["newSession"] != null && data["newSession"] == true) {
+
+                $('.text-info').text(data["message1"]);
+                $('#validation-link').trigger("click");
+
+                setTimeout(function () {
+
+                    window.location.reload();
+
+                },
+                    2000
+                );
+
+            }
+            else if (data["noPermission"] != null && data["noPermission"] == true) {
+
+                $('.text-info').text("Access Denied. No Permission!");
+                $('#validation-link').trigger("click");
+            }
+            else if (data["notFound"] != null && data["notFound"] == true && data["message"] != null) {
+
+                $('.text-info').text(data["message"]);
+                $('#validation-link').trigger("click");
+            }
+            else if (data["validationError"] != null && data["validationError"] == true && data["message"] != null) {
+
+                $('.text-info').text(data["message"]);
+                $('#validation-link').trigger("click");
+            }
+            else {
+
+
+                $('.div-timer').removeClass('tirage-lotterie-bg');
+
+                $('#view-last-draw').html(data);
+
+
+                //Home Page
+
+                var TirageEffectue = $('#tirageEffectue').val();
+
+                // on Joue un audio
+                playAudio();
+
+
+
+                if (TirageEffectue > 0) {
+
+                    tirageAudio();
+
+                    setTimeout(function () {
+
+                        playAudio();
+                        $('.boule1').show();
+
+
+
+                    },
+                        2000
+                    );
+
+                    setTimeout(function () {
+
+                        playAudio();
+                        $('.boule2').show();
+
+                    },
+                        7000
+                    );
+
+                    setTimeout(function () {
+
+                        playAudio();
+                        $('.boule3').show();
+
+                    },
+                        12000
+                    );
+
+                    setTimeout(function () {
+                        playAudio();
+                        $('.boule4').show();
+
+                        tirageAudio();
+
+                        //tirageBellsAudio();
+                    },
+                        17000
+                    );
+
+                    setTimeout(function () {
+
+                        playAudio();
+                        $('.boule5').show();
+
+                    },
+                        22000
+                    );
+
+                    setTimeout(function () {
+                        playAudio();
+
+                        $('.bouleJacpot').show();
+
+                    },
+                        27000
+                    );
+
+
+                }
+
+
+
+
+
+
+            }
+
+        },
+        error: function (error) {
+
+
+        }
+    });
+
+
+
+}
+
+
+
+
+
+function playAudio() {
+
+    var audioElement = document.createElement('audio');
+    audioElement.setAttribute('src', $('#notif-sound-1').data('src'));
+    audioElement.play();
+
+    //const audio = new Audio($('#notif-sound-1').data('src'));
+    //audio.play();
+}
+
+function tirageAudio() {
+    const audio = new Audio($('#tolling').data('src'));
+    audio.play();
+}
+
+function tirageBellsAudio() {
+    const audio = new Audio($('#bells').data('src'));
+    audio.play();
+}
 
 function TableMSInitialiser() {
 
@@ -5200,6 +10521,72 @@ function fillApplicationListPV() {
             else {
                 $('#application-list-pv').html(data);
                 $('#hb-nbre-application').text($('#nbre-application').val());
+                tableInitializer();
+                $('#pv-overlay-loading').fadeOut();
+            }
+
+        },
+        error: function (error) {
+            $('#pv-overlay-loading').fadeOut();
+
+        }
+    });
+
+}
+
+
+
+function fillCompagnieListPV() {
+
+
+    $('#pv-overlay-loading').fadeIn();
+    $.get({
+        async: true,
+        url: $('#url-get-compagnie-list').data('url'),
+        success: function (data) {
+
+            if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
+
+                $('.text-info').text("You are not Logged In!");
+                $('#validation-link').trigger("click");
+
+                setTimeout(function () {
+
+                    window.location.reload();
+
+                },
+                    2000
+                );
+
+
+            }
+            else if (data["newSession"] != null && data["newSession"] == true) {
+
+                $('.text-info').text(data["message1"]);
+                $('#validation-link').trigger("click");
+
+                setTimeout(function () {
+
+                    window.location.reload();
+
+                },
+                    2000
+                );
+
+            }
+            else if (data["noPermission"] != null && data["noPermission"] == true) {
+
+                $('.text-info').text("Access Denied. No Permission!");
+                $('#validation-link').trigger("click");
+            }
+            else if (data["notFound"] != null && data["notFound"] == true && data["message"] != null) {
+
+                $('.text-info').text(data["message"]);
+                $('#validation-link').trigger("click");
+            }
+            else {
+                $('#compagnie-list-pv').html(data);
+                $('#hb-nbre-compagnie').text($('#nbre-compagnie').val());
                 tableInitializer();
                 $('#pv-overlay-loading').fadeOut();
             }
@@ -5789,6 +11176,578 @@ function datatableMSCVFEInitializer() {
 
 
 
+
+
+function menuStopoverResumeChart() {
+
+    if (navigator.onLine == true) {
+
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(loadMenuStopoverResumeChart);
+
+        function loadMenuStopoverResumeChart() {
+
+            var url = $('#url-get-menu-stopover-resume-chart-data').data('url');
+
+            if (url != null) {
+
+                $.get({
+                    url: url,
+                    success: function (data) {
+
+                        if (data["stopoverResumeData"] != null) {
+
+                            var chartDiv = document.getElementById('menu-stopover-resume-chart');
+
+                            if (chartDiv != null) {
+
+                                var datas = data["stopoverResumeData"];
+
+                                var arrayData = [['Title', 'Qty', { role: "style" }, { type: 'string', role: 'annotation' }]];
+
+                                for (var item in datas) {
+                                    arrayData.push(['' + datas[item]["Titre"], datas[item]["Quantite"], datas[item]["Couleur"], datas[item]["Quantite"]]);
+                                }
+
+                                var data = new google.visualization.arrayToDataTable(arrayData);
+
+                                var options = {
+                                    title: 'Stopover (Last 3 months)',
+                                    annotations: {
+                                        alwaysOutside: false,
+                                        textStyle: {
+                                            fontSize: 10,
+                                            color: '#000'
+                                        }
+                                    },
+                                    legend: {
+                                        position: "none"
+                                    }
+                                    ,
+                                    hAxis: {
+                                        minValue: 0,
+                                        textStyle: {
+                                            fontSize: 9,
+                                            color: '#053061',
+                                            bold: true,
+                                            italic: false
+                                        }
+                                    },
+                                    chartArea: { width: '80%' }
+                                };
+
+                                var chart = new google.visualization.ColumnChart(chartDiv);
+                                chart.draw(data, options);
+
+                            }
+
+                        }
+
+                    },
+                    error: function (error) {
+                    }
+                });
+            }
+
+        }
+
+    }
+
+}
+
+function initStopoverTEUByMonthChart() {
+
+    if (navigator.onLine == true) {
+
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(loadStopoverTEUByMonthChart);
+
+        function loadStopoverTEUByMonthChart() {
+
+            var chartDiv = document.getElementById('stopover-teu-by-month-chart');
+
+            if (chartDiv != null) {
+
+                var datas = $('#stopover-teu-by-month-data').data('json');
+                var chartTitle = $('#chart-title-val').val();
+                var lineChart = $('#line-chart-val').val();
+
+                var arrayData = [['Title', 'Quantity', { type: 'string', role: 'annotation' }]];
+
+                for (var item in datas) {
+                    arrayData.push(['' + datas[item]["Titre"], datas[item]["Quantite"], datas[item]["Quantite"]]);
+                }
+
+                var data = new google.visualization.arrayToDataTable(arrayData);
+
+                var options = {
+                    title: chartTitle,
+                    annotations: {
+                        alwaysOutside: false,
+                        textStyle: {
+                            fontSize: 10,
+                            color: '#000'
+                        }
+                    },
+                    legend: {
+                        position: "none"
+                    }
+                    ,
+                    hAxis: {
+                        minValue: 0,
+                        textStyle: {
+                            fontSize: 9,
+                            color: '#053061',
+                            bold: true,
+                            italic: false
+                        }
+                    },
+                    chartArea: { width: '90%' }
+                };
+
+                var chart = (lineChart + '').trim().toLowerCase() == "true" ? new google.visualization.LineChart(chartDiv) : new google.visualization.ColumnChart(chartDiv);
+                chart.draw(data, options);
+
+                $('#stopover-teu-by-month-data').attr('data-json', '{}');
+            }
+
+
+        }
+
+    }
+
+}
+
+
+function initStopoverTEUByYearChart() {
+
+    if (navigator.onLine == true) {
+
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(loadStopoverTEUByYearChart);
+
+        function loadStopoverTEUByYearChart() {
+
+            var chartDiv = document.getElementById('stopover-teu-by-year-chart');
+
+            if (chartDiv != null) {
+
+                var datas = $('#stopover-teu-by-year-data').data('json');
+                var chartTitle = $('#chart-title-val').val();
+                var lineChart = $('#line-chart-val').val();
+
+                var arrayData = [['Title', 'Year 1', 'Year 2', { type: 'string', role: 'annotation' }]];
+
+                for (var item in datas) {
+                    arrayData.push(['' + datas[item]["Titre"], datas[item]["Annee1"], datas[item]["Annee2"], '']);
+                }
+
+                var data = new google.visualization.arrayToDataTable(arrayData);
+
+                var options = {
+                    title: chartTitle,
+                    annotations: {
+                        alwaysOutside: false,
+                        textStyle: {
+                            fontSize: 10,
+                            color: '#000'
+                        }
+                    },
+                    legend: {
+                        position: "none"
+                    }
+                    ,
+                    hAxis: {
+                        minValue: 0,
+                        textStyle: {
+                            fontSize: 9,
+                            color: '#053061',
+                            bold: true,
+                            italic: false
+                        }
+                    },
+                    chartArea: { width: '90%' }
+                };
+
+                var chart = (lineChart + '').trim().toLowerCase() == "true" ? new google.visualization.LineChart(chartDiv) : new google.visualization.ColumnChart(chartDiv);
+                chart.draw(data, options);
+
+                $('#stopover-teu-by-year-data').attr('data-json', '{}');
+            }
+
+        }
+
+    }
+
+}
+
+function detenuByDepartementChart() {
+
+    if (window.navigator.onLine == true) {
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(loadDetetenuByDepartementResumeChart);
+
+        function loadDetetenuByDepartementResumeChart() {
+
+            var url = $('#url-get-data-analyste-detenu-chart-data').data('url');
+
+            if (url != null) {
+
+                $.get({
+                    url: url,
+                    success: function (data) {
+
+                        if (data["DetenuDatas"] != null) {
+
+                            var chartDiv = document.getElementById('detenu-analyste-statistique-chart');
+                            var chartTile = $("#chart-title-val").val();
+                            if (chartDiv != null) {
+
+                                var datas = data["DetenuDatas"];
+
+                                var arrayData = [['Title', 'Quantité', { role: "style" }, { type: 'string', role: 'annotation' }]];
+
+                                for (var item in datas) {
+
+                                    arrayData.push(['' + datas[item]["Titre"], datas[item]["Quantite"], datas[item]["Couleur"], datas[item]["Quantite"]]);
+                                }
+
+                                var data = new google.visualization.arrayToDataTable(arrayData);
+
+                                var options = {
+                                    title: chartTile,
+                                    annotations: {
+                                        alwaysOutside: false,
+                                        textStyle: {
+                                            fontSize: 10,
+                                            color: '#000'
+                                        }
+                                    },
+                                    legend: {
+                                        position: "none"
+                                    }
+                                    ,
+                                    hAxis: {
+                                        minValue: 0,
+                                        textStyle: {
+                                            fontSize: 9,
+                                            color: '#053061',
+                                            bold: true,
+                                            italic: false
+                                        }
+                                    },
+                                    chartArea: { width: '80%' }
+                                };
+
+                                var chart = new google.visualization.ColumnChart(chartDiv);
+                                chart.draw(data, options);
+
+                            }
+
+                        }
+
+                    },
+                    error: function (error) {
+
+
+                    }
+                });
+            }
+
+        }
+
+    } else {
+
+    }
+
+}
+
+
+function detenuDecedeByDepartementChart() {
+
+    if (window.navigator.onLine == true) {
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(loadStatistiqueDetenuDecedeResumeChart);
+
+        function loadStatistiqueDetenuDecedeResumeChart() {
+
+            var url = $('#url-get-data-analyste-detenu-decede-chart-data').data('url');
+
+            if (url != null) {
+
+                $.get({
+                    url: url,
+                    success: function (data) {
+
+                        if (data["DetenuDatas"] != null) {
+
+                            var chartDiv = document.getElementById('detenu-decede-analyste-statistique-chart');
+                            var chartTile = $("#chart-title-val").val();
+                            if (chartDiv != null) {
+
+                                var datas = data["DetenuDatas"];
+
+                                var arrayData = [['Title', 'Quantité', { role: "style" }, { type: 'string', role: 'annotation' }]];
+
+                                for (var item in datas) {
+
+                                    arrayData.push(['' + datas[item]["Titre"], datas[item]["Quantite"], datas[item]["Couleur"], datas[item]["Quantite"]]);
+                                }
+
+                                var data = new google.visualization.arrayToDataTable(arrayData);
+
+                                var options = {
+                                    title: chartTile,
+                                    annotations: {
+                                        alwaysOutside: false,
+                                        textStyle: {
+                                            fontSize: 10,
+                                            color: '#000'
+                                        }
+                                    },
+                                    legend: {
+                                        position: "none"
+                                    }
+                                    ,
+                                    hAxis: {
+                                        minValue: 0,
+                                        textStyle: {
+                                            fontSize: 9,
+                                            color: '#053061',
+                                            bold: true,
+                                            italic: false
+                                        }
+                                    },
+                                    chartArea: { width: '80%' }
+                                };
+
+                                var chart = new google.visualization.ColumnChart(chartDiv);
+                                chart.draw(data, options);
+
+                            }
+
+                        }
+
+                    },
+                    error: function (error) {
+
+
+                    }
+                });
+            }
+
+        }
+
+    } else {
+
+    }
+
+}
+
+
+
+
+function detenuTopSurpopulationChart() {
+
+    if (window.navigator.onLine == true) {
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(loadStatistiqueDetenuTauxOccupperResumeChart);
+
+        function loadStatistiqueDetenuTauxOccupperResumeChart() {
+
+            var url = $('#url-get-data-analyste-detenu-top-surpopulation-chart-data').data('url');
+
+            if (url != null) {
+
+                $.get({
+                    url: url,
+                    success: function (data) {
+
+                        if (data["DetenuDatas"] != null) {
+
+                            var chartDiv = document.getElementById('detenu-analyste-top-surpopulation-statistique-chart');
+                            var chartTile = $("#chart-title-val").val();
+                            if (chartDiv != null) {
+
+                                var datas = data["DetenuDatas"];
+
+                                var arrayData = [['Title', 'Quantité', { role: "style" }, { type: 'string', role: 'annotation' }]];
+
+                                for (var item in datas) {
+
+                                    arrayData.push(['' + datas[item]["Titre"], datas[item]["Quantite"], datas[item]["Couleur"], datas[item]["Quantite"] + '%']);
+                                }
+
+                                var data = new google.visualization.arrayToDataTable(arrayData);
+
+                                var options = {
+                                    title: "Taux Occupation nationale par Juridiction",
+                                    annotations: {
+                                        alwaysOutside: false,
+                                        textStyle: {
+                                            fontSize: 10,
+                                            color: '#000'
+                                        }
+                                    },
+                                    legend: {
+                                        position: "none"
+                                    }
+                                    ,
+                                    hAxis: {
+                                        minValue: 0,
+                                        textStyle: {
+                                            fontSize: 9,
+                                            color: '#053061',
+                                            bold: true,
+                                            italic: false
+                                        }
+                                    },
+                                    chartArea: { width: '80%' }
+                                };
+
+                                var chart = new google.visualization.ColumnChart(chartDiv);
+                                chart.draw(data, options);
+
+                            }
+
+                        }
+
+                    },
+                    error: function (error) {
+
+
+                    }
+                });
+            }
+
+        }
+
+    } else {
+
+    }
+
+}
+
+
+
+
+
+
+function detentionJuridictionRatioChart() {
+
+    google.charts.load('current', { 'packages': ['corechart'] });
+    $('#pv-overlay-loading.employe-par-category-chart').show();
+    google.charts.setOnLoadCallback(loadEmpByCategoryChart);
+    function loadEmpByCategoryChart() {
+
+        var chartDiv = document.getElementById('detention-jirudiction-ratio-statistique-chart');
+
+        if (chartDiv != null) {
+            var datas = JSON.parse(JSON.stringify($('#detention-by-juridiction-ratio-data').data('json')));
+
+            var arrayData = [['Title', 'Quantité en (Mois / Détenu)', { role: "style" }, { type: 'string', role: 'annotation' }]];
+
+            for (var item in datas) {
+                arrayData.push(['' + datas[item]["Description"], datas[item]["KeyValue"], datas[item]["Couleur"], datas[item]["KeyValue"] + 'M/D']);
+            }
+
+            var data = new google.visualization.arrayToDataTable(arrayData);
+
+            var options = {
+                title: 'Ratio Détention / Juridiction  (Mois / Détenu)',
+                annotations: {
+                    alwaysOutside: false,
+                    textStyle: {
+                        fontSize: 10,
+                        color: '#000'
+                    }
+                },
+                legend: {
+                    position: "none"
+                },
+                hAxis: {
+                    textStyle: {
+                        fontSize: 9,
+                        color: '#053061',
+                        bold: true,
+                        italic: false
+                    }
+                },
+                chartArea: { width: '75%' }
+            };
+
+            var chart = new google.visualization.ColumnChart(chartDiv);
+            chart.draw(data, options);
+
+            $('#pv-overlay-loading.employe-par-category-chart').hide();
+
+
+        }
+
+    }
+
+}
+
+
+function detentionJuridictionPourcentageChart() {
+
+    google.charts.load('current', { 'packages': ['corechart'] });
+    $('#pv-overlay-loading.employe-par-category-chart').show();
+    google.charts.setOnLoadCallback(loadEmpByCategoryChart);
+    function loadEmpByCategoryChart() {
+
+        var chartDiv = document.getElementById('detention-jirudiction-pourcentage-statistique-chart');
+
+        if (chartDiv != null) {
+
+            var datas = JSON.parse(JSON.stringify($('#detention-by-juridiction-pourcentage-data').data('json')));
+
+            var arrayData = [['Title', 'Quantité en (%)', { role: "style" }, { type: 'string', role: 'annotation' }]];
+
+            for (var item in datas) {
+                console.log(datas[item]);
+                arrayData.push(['' + datas[item]["Description"], datas[item]["KeyValue"], datas[item]["Couleur"], datas[item]["KeyValue"] + '%']);
+            }
+
+            var data = new google.visualization.arrayToDataTable(arrayData);
+
+            var options = {
+                title: 'Détention / Juridiction  (%)',
+                annotations: {
+                    alwaysOutside: false,
+                    textStyle: {
+                        fontSize: 10,
+                        color: '#000'
+                    }
+                },
+                legend: {
+                    position: "none"
+                },
+                hAxis: {
+                    textStyle: {
+                        fontSize: 9,
+                        color: '#053061',
+                        bold: true,
+                        italic: false
+                    }
+                },
+                chartArea: { width: '75%' }
+            };
+
+            var chart = new google.visualization.ColumnChart(chartDiv);
+            chart.draw(data, options);
+
+            $('#pv-overlay-loading.employe-par-category-chart').hide();
+
+        }
+
+    }
+
+}
+
+
+
+
 function tableInitializer() {
 
     var table = $('#datatable').DataTable({
@@ -5812,6 +11771,36 @@ function tableInitializer() {
         .appendTo('#datatable_wrapper .col-sm-6:eq(0)');
 
 }
+
+
+
+
+
+
+//function tablePrint() {
+
+
+//    var table = $('#datatablePrint').DataTable({
+//        destroy: true,
+//        lengthChange: false,
+//        buttons: [{
+//            extend: 'excel', exportOptions: { columns: ':not(.no-print)' }
+//        },
+//        {
+//            extend: 'pdf', exportOptions: { columns: ':not(.no-print)' }
+//        },
+//        {
+//            extend: 'print', exportOptions: { columns: ':visible :not(.no-print)' }
+//        },
+//        { extend: 'colvis' }
+//        ],
+//        "aaSorting": []
+//    });
+
+//    table.buttons().container().appendTo('#datatable_wrapper');
+
+
+//}
 
 
 function table1Initializer() {
@@ -6021,6 +12010,70 @@ function fillRoleListPV() {
             else {
                 $('#role-list-pv').html(data);
                 $('#hb-nbre-role').text($('#nbre-role').val());
+                tableInitializer();
+                $('#pv-overlay-loading').fadeOut();
+            }
+
+        },
+        error: function (error) {
+            $('#pv-overlay-loading').fadeOut();
+
+        }
+    });
+
+}
+
+
+
+function fillLivJwetLaListPV() {
+
+    $('#pv-overlay-loading').fadeIn();
+
+    $.get({
+        url: $('#url-get-livJwetLa-list').data('url'),
+        success: function (data) {
+
+            if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
+
+                $('.text-info').text("You are not Logged In!");
+                $('#validation-link').trigger("click");
+
+                setTimeout(function () {
+
+                    window.location.reload();
+
+                },
+                    2000
+                );
+
+            }
+            else if (data["newSession"] != null && data["newSession"] == true) {
+
+                $('.text-info').text(data["message1"]);
+                $('#validation-link').trigger("click");
+
+                setTimeout(function () {
+
+                    window.location.reload();
+
+                },
+                    2000
+                );
+
+            }
+            else if (data["noPermission"] != null && data["noPermission"] == true) {
+
+                $('.text-info').text("Access Denied. No Permission!");
+                $('#validation-link').trigger("click");
+            }
+            else if (data["notFound"] != null && data["notFound"] == true && data["message"] != null) {
+
+                $('.text-info').text(data["message"]);
+                $('#validation-link').trigger("click");
+            }
+            else {
+                $('#livJwetLa-list-pv').html(data);
+                $('#hb-nbre-livJwetLa').text($('#nbre-livJwetLa').val());
                 tableInitializer();
                 $('#pv-overlay-loading').fadeOut();
             }
@@ -6487,12 +12540,246 @@ function initializeMultiSelectSA() {
 
 
 
+
+
 function fillPointDeVenteListPV() {
 
     $('#pv-overlay-loading').fadeIn();
+
+    var url = $('#statut-pointDeVente-form').attr('action');
+    var data = { id: $('#statut-pointDeVente-form #ddlStatutId').val() };
+
     $.get({
-        async: true,
-        url: $('#url-get-pointDeVente-list').data('url'),
+        url: url,
+        data: data,
+        success: function (data) {
+            $('#pv-overlay-loading').fadeOut();
+
+            if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
+                $('.text-info').text("You are not Logged In!");
+                $('#validation-link').trigger("click");
+
+                setTimeout(function () {
+
+                    window.location.reload();
+
+                },
+                    2000
+                );
+
+            }
+            else if (data["newSession"] != null && data["newSession"] == true) {
+
+                $('.text-info').text(data["message1"]);
+                $('#validation-link').trigger("click");
+
+                setTimeout(function () {
+
+                    window.location.reload();
+
+                },
+                    2000
+                );
+
+            }
+            else if (data["noPermission"] != null && data["noPermission"] == true) {
+
+                $('.text-info').text("Access Denied. No Permission!");
+                $('#validation-link').trigger("click");
+            }
+            else if (data["notFound"] != null && data["notFound"] == true && data["message"] != null) {
+                $('.text-info').text(data["message"]);
+                $('#validation-link').trigger("click");
+            }
+            else {
+                $('#pointDeVente-list-pv').html(data);
+                $('#hb-nbre-pointDeVente').text($('#nbre-pointDeVente').val());
+
+                tableInitializer();
+
+
+            }
+
+        },
+        error: function (error) {
+
+            $('#pv-overlay-loading').fadeOut();
+
+        }
+    });
+
+}
+
+
+
+
+
+
+function fillUserPointDeVenteListPV() {
+
+    $('#pv-overlay-loading').fadeIn();
+
+    $.get({
+        url: $('#url-get-userPointDeVente-list').data('url'),
+        success: function (data) {
+            $('#pv-overlay-loading').fadeOut();
+
+
+            if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
+
+                $('.text-info').text("You are not Logged In!");
+                $('#validation-link').trigger("click");
+
+                setTimeout(function () {
+
+                    window.location.reload();
+
+                },
+                    2000
+                );
+
+            }
+            else if (data["newSession"] != null && data["newSession"] == true) {
+
+                $('.text-info').text(data["message1"]);
+                $('#validation-link').trigger("click");
+
+                setTimeout(function () {
+
+                    window.location.reload();
+
+                },
+                    2000
+                );
+
+            }
+            else if (data["noPermission"] != null && data["noPermission"] == true) {
+
+                $('.text-info').text("Access Denied. No Permission!");
+                $('#validation-link').trigger("click");
+            }
+            else if (data["notFound"] != null && data["notFound"] == true && data["message"] != null) {
+
+                $('.text-info').text(data["message"]);
+                $('#validation-link').trigger("click");
+            }
+            else if (data["validationError"] != null && data["validationError"] == true && data["message"] != null) {
+
+                $('.text-info').text(data["message"]);
+                $('#validation-link').trigger("click");
+            }
+            else {
+
+                $('#userPointDeVentes-list-pv').html(data);
+                $('#hb-nbre-userPointDeVente').text($('#nbre-userPointDeVente').val());
+                $('#ddlUserId').html($('#ddlUserIdFilled').html());
+                $('#ddlPointDeVenteId').html($('#ddlPointDeVenteIdFilled').html());
+
+                tableInitializer();
+
+
+
+            }
+
+        },
+        error: function (error) {
+
+            $('#pv-overlay-loading').fadeOut();
+
+        }
+    });
+
+}
+
+
+
+
+
+
+function StartTreadDraw() {
+
+    $('#pv-overlay-loading').fadeIn();
+
+    $.get({
+        url: $('#url-get-treadTirage').data('url'),
+        success: function (data) {
+            $('#pv-overlay-loading').fadeOut();
+
+
+            if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
+
+                $('.text-info').text("You are not Logged In!");
+                $('#validation-link').trigger("click");
+
+                setTimeout(function () {
+
+                    window.location.reload();
+
+                },
+                    2000
+                );
+
+            }
+            else if (data["newSession"] != null && data["newSession"] == true) {
+
+                $('.text-info').text(data["message1"]);
+                $('#validation-link').trigger("click");
+
+                setTimeout(function () {
+
+                    window.location.reload();
+
+                },
+                    2000
+                );
+
+            }
+            else if (data["noPermission"] != null && data["noPermission"] == true) {
+
+                $('.text-info').text("Access Denied. No Permission!");
+                $('#validation-link').trigger("click");
+            }
+            else if (data["notFound"] != null && data["notFound"] == true && data["message"] != null) {
+
+                $('.text-info').text(data["message"]);
+                $('#validation-link').trigger("click");
+            }
+            else if (data["validationError"] != null && data["validationError"] == true && data["message"] != null) {
+
+                $('.text-info').text(data["message"]);
+                $('#validation-link').trigger("click");
+            }
+            else {
+
+                $('.text-info').text("This Draw is running...");
+                $('#validation-link').trigger("click");
+
+
+            }
+
+        },
+        error: function (error) {
+
+            $('#pv-overlay-loading').fadeOut();
+
+        }
+    });
+
+}
+
+
+
+
+
+
+
+
+function fillBouleListPV() {
+
+    $('#pv-overlay-loading').fadeIn();
+
+    $.get({
+        url: $('#url-get-boule-list').data('url'),
         success: function (data) {
 
             if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
@@ -6508,6 +12795,358 @@ function fillPointDeVenteListPV() {
                     2000
                 );
 
+            }
+            else if (data["newSession"] != null && data["newSession"] == true) {
+
+                $('.text-info').text(data["message1"]);
+                $('#validation-link').trigger("click");
+
+                setTimeout(function () {
+
+                    window.location.reload();
+
+                },
+                    2000
+                );
+
+            }
+            else if (data["noPermission"] != null && data["noPermission"] == true) {
+
+                $('.text-info').text("Access Denied. No Permission!");
+                $('#validation-link').trigger("click");
+            }
+            else if (data["notFound"] != null && data["notFound"] == true && data["message"] != null) {
+
+                $('.text-info').text(data["message"]);
+                $('#validation-link').trigger("click");
+            }
+            else {
+                $('#boule-list-pv').html(data);
+                $('#hb-nbre-boule').text($('#nbre-boule').val());
+                tableInitializer();
+                $('#pv-overlay-loading').fadeOut();
+            }
+
+        },
+        error: function (error) {
+            $('#pv-overlay-loading').fadeOut();
+
+        }
+    });
+
+}
+
+
+
+
+
+function fillGagnantLotterieListPV() {
+
+    $('#pv-overlay-loading').fadeIn();
+
+    $.get({
+        url: $('#url-get-gagnantLotterie-list').data('url'),
+        success: function (data) {
+
+            $('#pv-overlay-loading').fadeOut();
+
+            if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
+
+                $('.text-info').text("You are not Logged In!");
+                $('#validation-link').trigger("click");
+
+                setTimeout(function () {
+
+                    window.location.reload();
+
+                },
+                    2000
+                );
+
+            }
+            else if (data["newSession"] != null && data["newSession"] == true) {
+
+                $('.text-info').text(data["message1"]);
+                $('#validation-link').trigger("click");
+
+                setTimeout(function () {
+
+                    window.location.reload();
+
+                },
+                    2000
+                );
+
+            }
+            else if (data["noPermission"] != null && data["noPermission"] == true) {
+
+                $('.text-info').text("Access Denied. No Permission!");
+                $('#validation-link').trigger("click");
+            }
+            else if (data["notFound"] != null && data["notFound"] == true && data["message"] != null) {
+
+                $('.text-info').text(data["message"]);
+                $('#validation-link').trigger("click");
+            }
+            else {
+                $('#gagnantLotterie-list-pv').html(data);
+                $('#hb-nbre-gagnantLotterie').text($('#nbre-gagnantLotterie').val());
+                tableInitializer();
+            }
+
+        },
+        error: function (error) {
+            $('#pv-overlay-loading').fadeOut();
+
+        }
+    });
+
+}
+
+
+
+
+
+
+
+
+function fillTicketListPV() {
+
+    $('#pv-overlay-loading').fadeIn();
+
+    var url = $('#statut-ticket-form').attr('action');
+    var data = { id: $('#statut-ticket-form #ddlStatutId').val() };
+
+    $.get({
+        url: url,
+        data: data,
+        success: function (data) {
+            $('#pv-overlay-loading').fadeOut();
+
+            if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
+                $('.text-info').text("You are not Logged In!");
+                $('#validation-link').trigger("click");
+
+                setTimeout(function () {
+
+                    window.location.reload();
+
+                },
+                    2000
+                );
+
+            }
+            else if (data["newSession"] != null && data["newSession"] == true) {
+
+                $('.text-info').text(data["message1"]);
+                $('#validation-link').trigger("click");
+
+                setTimeout(function () {
+
+                    window.location.reload();
+
+                },
+                    2000
+                );
+
+            }
+            else if (data["noPermission"] != null && data["noPermission"] == true) {
+
+                $('.text-info').text("Access Denied. No Permission!");
+                $('#validation-link').trigger("click");
+            }
+            else if (data["notFound"] != null && data["notFound"] == true && data["message"] != null) {
+                $('.text-info').text(data["message"]);
+                $('#validation-link').trigger("click");
+            }
+            else {
+                $('#ticket-list-pv').html(data);
+                $('#hb-nbre-ticket').text($('#nbre-ticket').val());
+
+                tableInitializer();
+
+
+            }
+
+        },
+        error: function (error) {
+
+            $('#pv-overlay-loading').fadeOut();
+
+        }
+    });
+
+}
+
+
+
+function fillTicketVendeurListPV() {
+
+    $('#pv-overlay-loading').fadeIn();
+
+    var url = $('#statut-ticket-vendeur-form').attr('action');
+    var data = { id: $('#statut-ticket-vendeur-form #ddlStatutId').val() };
+
+    $.get({
+        url: url,
+        data: data,
+        success: function (data) {
+            $('#pv-overlay-loading').fadeOut();
+
+            if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
+                $('.text-info').text("You are not Logged In!");
+                $('#validation-link').trigger("click");
+
+                setTimeout(function () {
+
+                    window.location.reload();
+
+                },
+                    2000
+                );
+
+            }
+            else if (data["newSession"] != null && data["newSession"] == true) {
+
+                $('.text-info').text(data["message1"]);
+                $('#validation-link').trigger("click");
+
+                setTimeout(function () {
+
+                    window.location.reload();
+
+                },
+                    2000
+                );
+
+            }
+            else if (data["noPermission"] != null && data["noPermission"] == true) {
+
+                $('.text-info').text("Access Denied. No Permission!");
+                $('#validation-link').trigger("click");
+            }
+            else if (data["notFound"] != null && data["notFound"] == true && data["message"] != null) {
+                $('.text-info').text(data["message"]);
+                $('#validation-link').trigger("click");
+            }
+            else {
+
+                $('#ticket-vendeur-list-pv').html(data);
+                $('#hb-nbre-ticket-vendeur').text($('#nbre-ticket-vendeur').val());
+
+                tableInitializer();
+
+
+
+
+            }
+
+        },
+        error: function (error) {
+
+            $('#pv-overlay-loading').fadeOut();
+
+        }
+    });
+
+}
+
+
+
+function fillTicketVendeurBouleListPV() {
+
+    $('#pv-overlay-loading').fadeIn();
+
+    $.get({
+        url: $('#url-get-ticket-vendeur-Printer-list').data('url'),
+        success: function (data) {
+            $('#pv-overlay-loading').fadeOut();
+
+            if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
+                $('.text-info').text("You are not Logged In!");
+                $('#validation-link').trigger("click");
+
+                setTimeout(function () {
+
+                    window.location.reload();
+
+                },
+                    2000
+                );
+
+            }
+            else if (data["newSession"] != null && data["newSession"] == true) {
+
+                $('.text-info').text(data["message1"]);
+                $('#validation-link').trigger("click");
+
+                setTimeout(function () {
+
+                    window.location.reload();
+
+                },
+                    2000
+                );
+
+            }
+            else if (data["noPermission"] != null && data["noPermission"] == true) {
+
+                $('.text-info').text("Access Denied. No Permission!");
+                $('#validation-link').trigger("click");
+            }
+            else if (data["notFound"] != null && data["notFound"] == true && data["message"] != null) {
+                $('.text-info').text(data["message"]);
+                $('#validation-link').trigger("click");
+            }
+            else {
+
+                $('#ticket-vendeur-list-pv').html(data);
+                $('#hb-nbre-ticket-vendeur').text($('#nbre-ticket-vendeur').val());
+
+                tableInitializer();
+
+
+
+
+            }
+
+        },
+        error: function (error) {
+
+            $('#pv-overlay-loading').fadeOut();
+
+        }
+    });
+
+}
+
+
+
+
+
+
+function fillTicketVendeurPrinterListPV() {
+
+    $('#pv-overlay-loading').fadeIn();
+
+    $.get({
+        url: $('#url-get-ticket-vendeur-Printer-list').data('url'),
+        success: function (data) {
+
+            $('#pv-overlay-loading').fadeOut();
+
+            if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
+
+                $('.text-info').text("You are not Logged In!");
+                $('#validation-link').trigger("click");
+
+                setTimeout(function () {
+
+                    window.location.reload();
+
+                },
+                    2000
+                );
 
             }
             else if (data["newSession"] != null && data["newSession"] == true) {
@@ -6536,17 +13175,13 @@ function fillPointDeVenteListPV() {
             }
             else {
 
+                $('#ticket-vendeur-list-pv').html(data);
 
-                $('#pointDeVente-list-pv').html(data);
+                $('#hb-nbre-ticket-vendeur').text($('#nbre-ticket-vendeur').val());
 
-                $('#hb-nbre-pointDeVente').text($('#nbre-pointDeVente').val());
-                $('#ddlLigneTransportId').html($('#ddlLigneTransportIdFilled').html());
+
 
                 tableInitializer();
-
-                initializeMultiSelect();
-
-                $('#pv-overlay-loading').fadeOut();
 
             }
 
@@ -6559,3 +13194,328 @@ function fillPointDeVenteListPV() {
     });
 
 }
+
+
+
+
+
+
+function fillTirageListPV() {
+
+    $('#pv-overlay-loading').fadeIn();
+
+    var dt = $('#datatable').DataTable();
+    dt.clear();
+    dt.draw();
+
+    $('#hb-nbre-tirage-list').text(" 0 ");
+
+    var url = $('#tirage-list-form').attr('action');
+    var data = { dateDebut: $('#tirage-list-form #dateDebut').val(), dateFin: $('#tirage-list-form #dateFin').val() };
+
+    $.get({
+        url: url,
+        data: data,
+        success: function (data) {
+
+            $('#pv-overlay-loading').fadeOut();
+            if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
+                $('.text-info').text("You are not Logged In!");
+                $('#validation-link').trigger("click");
+
+                setTimeout(function () {
+
+                    window.location.reload();
+
+                },
+                    2000
+                );
+
+            }
+            else if (data["newSession"] != null && data["newSession"] == true) {
+
+                $('.text-info').text(data["message1"]);
+                $('#validation-link').trigger("click");
+
+                setTimeout(function () {
+
+                    window.location.reload();
+
+                },
+                    2000
+                );
+
+            }
+            else if (data["noPermission"] != null && data["noPermission"] == true) {
+
+                $('.text-info').text("Access Denied. No Permission!");
+                $('#validation-link').trigger("click");
+            }
+            else if (data["notFound"] != null && data["notFound"] == true && data["message"] != null) {
+                $('.text-info').text(data["message"]);
+                $('#validation-link').trigger("click");
+            }
+            else {
+                $('#tirage-list-pv').html(data);
+                $('#hb-nbre-tirage-list').text(" " + $('#hb-nbre-tirage-list-Filled').val() + " ");
+
+                tableInitializer();
+
+
+            }
+
+        },
+        error: function (error) {
+
+            $('#pv-overlay-loading').fadeOut();
+
+        }
+    });
+
+}
+
+
+
+function fillAllTicketHistoriesListPV() {
+
+    $('#pv-overlay-loading').fadeIn();
+
+    var dt = $('#datatable').DataTable();
+    dt.clear();
+    dt.draw();
+
+    $('#hb-nbre-allTicketHistories').text(" 0 ");
+
+    var url = $('#allTicketHistories-list-form').attr('action');
+    var data = { dateDebut: $('#allTicketHistories-list-form #dateDebut').val(), dateFin: $('#allTicketHistories-list-form #dateFin').val() };
+
+    $.get({
+        url: url,
+        data: data,
+        success: function (data) {
+
+            $('#pv-overlay-loading').fadeOut();
+            if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
+                $('.text-info').text("You are not Logged In!");
+                $('#validation-link').trigger("click");
+
+                setTimeout(function () {
+
+                    window.location.reload();
+
+                },
+                    2000
+                );
+
+            }
+            else if (data["newSession"] != null && data["newSession"] == true) {
+
+                $('.text-info').text(data["message1"]);
+                $('#validation-link').trigger("click");
+
+                setTimeout(function () {
+
+                    window.location.reload();
+
+                },
+                    2000
+                );
+
+            }
+            else if (data["noPermission"] != null && data["noPermission"] == true) {
+
+                $('.text-info').text("Access Denied. No Permission!");
+                $('#validation-link').trigger("click");
+            }
+            else if (data["notFound"] != null && data["notFound"] == true && data["message"] != null) {
+                $('.text-info').text(data["message"]);
+                $('#validation-link').trigger("click");
+            }
+            else {
+                $('#allTicketHistories-list-pv').html(data);
+                $('#hb-nbre-allTicketHistories').text(" " + $('#nbre-allTicketHistories').val() + " ");
+
+                tableInitializer();
+
+
+            }
+
+        },
+        error: function (error) {
+
+            $('#pv-overlay-loading').fadeOut();
+
+        }
+    });
+
+}
+
+
+
+
+
+function fillActionHistoriesListPV() {
+
+    $('#pv-overlay-loading').fadeIn();
+
+    var dt = $('#datatable').DataTable();
+    dt.clear();
+    dt.draw();
+
+    $('#hb-nbre-actionHistories').text(" 0 ");
+
+    var url = $('#actionHistories-list-form').attr('action');
+    var data = { dateDebut: $('#actionHistories-list-form #dateDebut').val(), dateFin: $('#actionHistories-list-form #dateFin').val() };
+
+    $.get({
+        url: url,
+        data: data,
+        success: function (data) {
+
+            $('#pv-overlay-loading').fadeOut();
+            if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
+                $('.text-info').text("You are not Logged In!");
+                $('#validation-link').trigger("click");
+
+                setTimeout(function () {
+
+                    window.location.reload();
+
+                },
+                    2000
+                );
+
+            }
+            else if (data["newSession"] != null && data["newSession"] == true) {
+
+                $('.text-info').text(data["message1"]);
+                $('#validation-link').trigger("click");
+
+                setTimeout(function () {
+
+                    window.location.reload();
+
+                },
+                    2000
+                );
+
+            }
+            else if (data["noPermission"] != null && data["noPermission"] == true) {
+
+                $('.text-info').text("Access Denied. No Permission!");
+                $('#validation-link').trigger("click");
+            }
+            else if (data["notFound"] != null && data["notFound"] == true && data["message"] != null) {
+                $('.text-info').text(data["message"]);
+                $('#validation-link').trigger("click");
+            }
+            else {
+                $('#actionHistories-list-pv').html(data);
+                $('#hb-nbre-actionHistories').html(" " + $('#nbre-actionHistories').val() + " ");
+
+                tableInitializer();
+
+
+            }
+
+        },
+        error: function (error) {
+
+            $('#pv-overlay-loading').fadeOut();
+
+        }
+    });
+
+}
+
+
+
+function imprimer() {
+    var imprimer = document.getElementById('imprimer');
+    var popupcontenu = window.open('', '_blank');
+    popupcontenu.document.open();
+    popupcontenu.document.write('<html><body onload="window.print()">' + imprimer.innerHTML + '</html>');
+    popupcontenu.document.close();
+
+
+
+}
+
+
+
+//function fillGenerateTirageListPV() {
+
+//    $('#pv-overlay-loading').fadeIn();
+
+//    $.get({
+//        url: $('#url-get-userPointDeVente-list').data('url'),
+//        success: function (data) {
+//            $('#pv-overlay-loading').fadeOut();
+
+
+//            if (data["returnToLogin"] != null && data["returnToLogin"] == true) {
+
+//                $('.text-info').text("You are not Logged In!");
+//                $('#validation-link').trigger("click");
+
+//                setTimeout(function () {
+
+//                    window.location.reload();
+
+//                },
+//                    2000
+//                );
+
+//            }
+//            else if (data["newSession"] != null && data["newSession"] == true) {
+
+//                $('.text-info').text(data["message1"]);
+//                $('#validation-link').trigger("click");
+
+//                setTimeout(function () {
+
+//                    window.location.reload();
+
+//                },
+//                    2000
+//                );
+
+//            }
+//            else if (data["noPermission"] != null && data["noPermission"] == true) {
+
+//                $('.text-info').text("Access Denied. No Permission!");
+//                $('#validation-link').trigger("click");
+//            }
+//            else if (data["notFound"] != null && data["notFound"] == true && data["message"] != null) {
+
+//                $('.text-info').text(data["message"]);
+//                $('#validation-link').trigger("click");
+//            }
+//            else if (data["validationError"] != null && data["validationError"] == true && data["message"] != null) {
+
+//                $('.text-info').text(data["message"]);
+//                $('#validation-link').trigger("click");
+//            }
+//            else {
+
+//                $('#userPointDeVentes-list-pv').html(data);
+//                $('#hb-nbre-userPointDeVente').text($('#nbre-userPointDeVente').val());
+//                $('#ddlUserId').html($('#ddlUserIdFilled').html());
+//                $('#ddlPointDeVenteId').html($('#ddlPointDeVenteIdFilled').html());
+
+//                tableInitializer();
+
+
+
+//            }
+
+//        },
+//        error: function (error) {
+
+//            $('#pv-overlay-loading').fadeOut();
+
+//        }
+//    });
+
+//}
+

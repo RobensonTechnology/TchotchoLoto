@@ -1,0 +1,99 @@
+﻿
+
+
+<div id="pv-overlay-loading" class="overlay-loading" style="display:none;">
+    <img src="~/Content/images/loading-gif.gif" alt="Loading" width="50" height="50" />
+</div>
+
+
+
+<div class="table-responsive">
+
+    <table id="datatable" class="table table-hover display table-fixed-head-foot" style="width:100% !important; height:100% !important;">
+
+        <thead class="bg-success">
+
+            <tr>
+                <th>
+                    Code
+                </th>
+                <th>
+                   Player Name
+                </th>
+
+                <th>
+                    Ball Play
+                </th>
+                <th>
+                    Ball Win
+                </th>
+
+                <th>
+                    Jacpot
+                </th>
+
+
+                <th>
+                    Amount Win
+                </th>
+
+            </tr>
+
+        </thead>
+        @if (ViewBag.GagnantLotteries != null)
+        {
+
+
+            <tbody style=" overflow-y: auto; max-height: 15em;">
+
+
+
+                @foreach (var item in (List<TchotchoLoto.Models.GagnantLotterie>)ViewBag.GagnantLotteries)
+                {
+
+
+                    <tr>
+                        <td>
+
+                            @item.Ticket.CodeTicket
+
+                        </td>
+
+                        <td>
+                            @item.Ticket.NomJoueur
+
+                        </td>
+
+                        <td class="bg-info">
+                            @string.Join(", ", item.BouleJouer.Split(','))
+                        </td>
+
+
+                        <td class="bg-success">
+                            @string.Join(", ", item.BouleGagner.Split(','))
+                        </td>
+
+
+                        <td class="bg-warning">
+
+                            @item.JacpotBoule
+
+                        </td>
+
+                        <td class="bg-primary">
+                            @item.MontantGagner HTG
+                        </td>
+
+
+
+                    </tr>
+                }
+
+            </tbody>
+        }
+    </table>
+
+
+</div>
+
+

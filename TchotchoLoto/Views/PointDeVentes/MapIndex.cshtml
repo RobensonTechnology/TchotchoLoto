@@ -1,0 +1,199 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<style>
+
+    #map-footer-info-box {
+        height: 30px;
+        background: #324a5e;
+        width: 100%;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        padding-left: 8px;
+    }
+
+        #map-footer-info-box p {
+            margin: 0;
+        }
+
+    #map-layer-control {
+        position: absolute;
+        z-index: 9999;
+        right: 0;
+        padding: 8px;
+    }
+
+        #map-layer-control #control-option-box {
+            background: #fff;
+            border: 1px solid #0078d7;
+            padding: 8px;
+            width: 200px;
+            margin: 0 auto;
+            padding: 0;
+            border-radius: 6px;
+        }
+
+        #map-layer-control ul li {
+            list-style: none;
+            padding: 8px;
+            cursor: pointer;
+        }
+
+            #map-layer-control ul li:hover {
+                background: rgb(0 120 215 / 0.3);
+            }
+
+    #map-layer-control-option .active {
+        background: rgb(0 120 215 / 0.3);
+    }
+
+
+    .draw-feature-option.active {
+        background: rgb(0 120 215 / 0.3);
+    }
+
+    .ol-popup {
+        position: absolute;
+        background-color: white;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+        padding: 15px;
+        border-radius: 10px;
+        border: 1px solid #cccccc;
+        bottom: 12px;
+        left: -50px;
+        min-width: 280px;
+    }
+
+        .ol-popup:after, .ol-popup:before {
+            top: 100%;
+            border: solid transparent;
+            content: " ";
+            height: 0;
+            width: 0;
+            position: absolute;
+            pointer-events: none;
+        }
+
+        .ol-popup:after {
+            border-top-color: white;
+            border-width: 10px;
+            left: 48px;
+            margin-left: -10px;
+        }
+
+        .ol-popup:before {
+            border-top-color: #cccccc;
+            border-width: 11px;
+            left: 48px;
+            margin-left: -11px;
+        }
+
+    .ol-popup-closer {
+        text-decoration: none;
+        position: absolute;
+        top: 2px;
+        right: 8px;
+    }
+
+        .ol-popup-closer:after {
+            content: "✖";
+        }
+
+    .ol-tooltip {
+        position: relative;
+        background: rgba(0, 0, 0, 0.5);
+        border-radius: 4px;
+        color: white;
+        padding: 4px 8px;
+        opacity: 0.7;
+        white-space: nowrap;
+        font-size: 12px;
+        cursor: default;
+        user-select: none;
+    }
+
+    .ol-tooltip-measure {
+        opacity: 1;
+        font-weight: bold;
+    }
+
+    .ol-tooltip-static {
+        background-color: #ffcc33;
+        color: black;
+        border: 1px solid white;
+    }
+
+        .ol-tooltip-measure:before,
+        .ol-tooltip-static:before {
+            border-top: 6px solid rgba(0, 0, 0, 0.5);
+            border-right: 6px solid transparent;
+            border-left: 6px solid transparent;
+            content: "";
+            position: absolute;
+            bottom: -6px;
+            margin-left: -7px;
+            left: 50%;
+        }
+
+        .ol-tooltip-static:before {
+            border-top-color: #ffcc33;
+        }
+</style>
+<html>
+<head>
+
+    @Styles.Render("~/Content/OpenLayers-6.9.0/ol.css")
+    @Styles.Render("~/Content/bootstrap.min.css")
+</head>
+<body>
+
+    <input type="hidden" id="map-datas" data-json="@if (ViewBag.mapDatas != null) { @ViewBag.mapDatas } else { Write("[]"); }" />
+    <input type="hidden" id="prison-icon" data-url="@Url.Content("~/Content/images/icons/map-position.png")" />
+    <input type="hidden" id="draw-feature-option-val" value="None" />
+
+    <div style="height: 90%; width: 100%; position: absolute; right:0;">
+        <div id="map-layer-control">
+            <div style="text-align:right;">
+                <button id="map-layer-control-btn" style="color: #013f8c; background: #ffffffb0; line-height: 1; border-radius: 5px; font-size: 2.5rem; font-weight: normal; border: none; ">
+                    <span class="glyphicon glyphicon-menu-hamburger"></span>
+                </button>
+            </div>
+            <div id="control-option-box">
+                <ul id="map-layer-control-option" style="padding:20px; ">
+                    <li class="map-layer-control-option" data-code="std">Standard</li>
+                    <li class="map-layer-control-option active" data-code="sat">Satellite</li>
+                </ul>
+                <ul style=" padding: 0; border-top: 1px solid lightgrey; margin-bottom: 0; background: #6e97b8; color: #fff; border-radius: 0 0 5px 5px;">
+                    <li class="draw-feature-option" data-val="LineString"> <span style="display: inline-block; height: 16px; width: 25px; background: url(/Content/images/icons/rule-white.png); background-size: cover; "></span> Length</li>
+                    <li class="draw-feature-option" data-val="Polygon"> <span style="display: inline-block; height: 16px; width: 17px; background: url(/Content/images/icons/area-white.png); background-size: cover; "></span> Area</li>
+                    <li style="border-top: 1px solid lightgrey;" id="reset-draw-feature"> <span class="glyphicon glyphicon-erase"></span> Clear</li>
+                </ul>
+            </div>
+
+        </div>
+        <div id="country-map" style="height: 95%; width: 100%;">
+
+        </div>
+        <div id="map-footer-info-box">
+            <p>
+                Lat : <span id="lat-cursor-current-pos"></span> &nbsp;&nbsp;&nbsp;&nbsp; Lon : <span id="lon-cursor-current-pos"></span>
+            </p>
+        </div>
+        <div id="popup" class="ol-popup">
+            <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+            <div id="popup-content-prison"></div>
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/shp2geojson")
+    @Scripts.Render("~/bundles/OpenLayers")
+    @Scripts.Render("~/bundles/mapcontrol")
+</body>
+</html>
+
+

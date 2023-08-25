@@ -1,0 +1,96 @@
+﻿
+
+<input type="hidden" id="nbre-rapportDeVente" value="@if (ViewBag.RapportDeVenteEnCours != null) { @ViewBag.RapportDeVenteEnCours.Count}else{ Write(0); }" />
+
+<div id="pv-overlay-loading" class="overlay-loading" style="display:none;">
+    <img src="~/Content/images/loading-gif.gif" alt="Loading" width="50" height="50" />
+</div>
+
+
+<div class="table-responsive">
+    <table id="datatable" class="table table-hover display" style="width:100%;">
+
+        <thead class="bg-success">
+
+            <tr>
+
+                <th>
+                    Draw
+                </th>
+                <th>
+                    Salesman
+                </th>
+
+                <th>
+                    Point Of sale
+                </th>
+
+                <th>
+                    50 HTG
+                </th>
+
+                <th>
+                    125 HTG
+                </th>
+
+                <th>
+                   Tot. Ticket sold
+                </th>
+                <th>
+                    Amount Tot.
+                </th>
+                <th>
+                    Last sale
+                </th>
+            </tr>
+
+        </thead>
+
+        <tbody>
+            @if (ViewBag.RapportDeVenteEnCours != null)
+            {
+                foreach (var item in (List<TchotchoLoto.Models.RapportDeVente>)ViewBag.RapportDeVenteEnCours)
+                {
+                    <tr>
+                        <td>
+                            @(item.Tirage.DateTirage + item.Tirage.Heure)
+                        </td>
+
+                        <td>
+                            @item.UserPointDeVente.User.UserName
+                        </td>
+
+                        <td>
+                            @item.UserPointDeVente.PointDeVente.NomPointDeVente
+                        </td>
+
+
+                        <td>
+                            @item.Tirage.Tickets.Where(p => p.Prix.Value == 50 && p.UserPointDeVenteId == item.UserPointDeVenteId).Count() to 50 HTG, Amount: @item.Tirage.Tickets.Where(w => w.Prix.Value == 50 && w.UserPointDeVenteId == item.UserPointDeVenteId).Sum(r => r.Prix.Value) HTG
+                        </td>
+
+                        <td>
+                            @item.Tirage.Tickets.Where(p => p.Prix.Value == 125 && p.UserPointDeVenteId == item.UserPointDeVenteId).Count() to 125 HTG, Amount: @item.Tirage.Tickets.Where(w => w.Prix.Value == 125 && w.UserPointDeVenteId == item.UserPointDeVenteId).Sum(r => r.Prix.Value) HTG
+                        </td>
+
+                        <td>
+                            @item.NbreTicketVendu
+                        </td>
+
+                        <td>
+                            @item.Montant HTG
+                        </td>
+
+
+                        <td>
+                            @item.ModifieDate
+                        </td>
+
+
+                    </tr>
+                }
+            }
+        </tbody>
+
+    </table>
+</div>

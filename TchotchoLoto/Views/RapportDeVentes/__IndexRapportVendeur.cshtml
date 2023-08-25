@@ -1,0 +1,185 @@
+﻿
+<input type="hidden" id="nbre-rapportDeVente" value="@if (ViewBag.RapportDeVenteEnCours != null) { @ViewBag.RapportDeVenteEnCours.Count}else{ Write(0); }" />
+
+<div id="pv-overlay-loading" class="overlay-loading" style="display:none;">
+    <img src="~/Content/images/loading-gif.gif" alt="Loading" width="50" height="50" />
+</div>
+
+
+
+<div id="imprimer">
+    <center>
+        <p style="color:black; clear: both; padding: 0; width: 100%; display: inline-block; font-size: 26px;  clear: both;">
+            <b>
+                <img src="~/Content/images/tchotcholotologo.jpg" class="img-rounded" alt="logo" style="margin-top:-10px; width:200px; height:100px;" />
+
+            </b>
+        </p>
+    </center>
+
+
+    @if (ViewBag.RapportDeVenteEnCours != null)
+    {
+        foreach (var item in (List<TchotchoLoto.Models.RapportDeVente>)ViewBag.RapportDeVenteEnCours)
+        {
+            <center>
+                <p style="color:black; clear: both; margin-top:-30px; padding: 0; display: inline-block; clear: both; ">
+                    <b>
+                        @item.UserPointDeVente.PointDeVente.Adresse
+
+                        Dirigée par PARYAJ LOTO  <br>
+                        T&eacute;l: (509) 0000- 0000 
+                    </b>
+                </p>
+            </center>
+            <span style="color:black; clear: both;">
+
+                <hr style="border:1px solid black; width: 100%; margin-top:-7px; display: inline-block;">
+            </span>
+
+
+            <center>
+
+                <div class="col-md-12 col-sm-12 col-xs-12 bg-prints" style="color: black; clear: both; display: block; ">
+                   
+
+                    <p>
+                        <b>
+                            Draw:
+                        </b>
+
+                        <span>
+
+                            @(item.Tirage.DateTirage + item.Tirage.Heure)
+
+
+                        </span>
+                    </p>
+
+                    <p>
+                        <b>
+                            Salesman:
+                        </b>
+
+                        <span>
+                            @item.UserPointDeVente.User.UserName
+                        </span>
+                    </p>
+
+
+                    <p>
+                        <b>
+                            Point Of sale:
+                        </b>
+
+                        <span>
+                            @item.UserPointDeVente.PointDeVente.NomPointDeVente
+                        </span>
+                    </p>
+
+                    <p>
+                        <b>
+                            Ticket sold total :
+                        </b>
+                        <span>
+
+                            @item.NbreTicketVendu
+
+                        </span>
+                    </p>
+
+
+
+
+                    <p>
+                        <b>
+                            Amount total:
+                        </b>
+
+                        <span class="text-danger bg-success">
+                            @item.Montant HTG
+                        </span>
+                    </p>
+
+                    <p>
+                        <b>
+                            Ticket sold (50 HTG) :
+                        </b>
+                        <span>
+
+                            @item.Tirage.Tickets.Count(r => r.UserPointDeVenteId == item.UserPointDeVenteId && r.Prix.Value == 50)
+
+                        </span>
+                    </p>
+
+
+
+
+                    <p>
+                        <b>
+                            Amount total  (50 HTG):
+                        </b>
+
+                        <span class="text-danger bg-success">
+                            @item.Tirage.Tickets.Where(r => r.UserPointDeVenteId == item.UserPointDeVenteId && r.Prix.Value == 50).Sum(s => s.Prix.Value) HTG
+                        </span>
+                    </p>
+                    <p>
+                        <b>
+                            Ticket sold (125 HTG) :
+                        </b>
+                        <span>
+
+                            @item.Tirage.Tickets.Count(r => r.UserPointDeVenteId == item.UserPointDeVenteId && r.Prix.Value == 125)
+
+                        </span>
+                    </p>
+
+
+
+
+                    <p>
+                        <b>
+                            Amount total  (125 HTG):
+                        </b>
+
+                        <span class="text-danger bg-success">
+                            @item.Tirage.Tickets.Where(r => r.UserPointDeVenteId == item.UserPointDeVenteId && r.Prix.Value == 125).Sum(s => s.Prix.Value) HTG
+                        </span>
+                    </p>
+
+                    <p>
+                        <b>
+                            Last sale:
+                        </b>
+
+                        <span>
+                            @item.ModifieDate
+                        </span>
+                    </p>
+
+                    <p>
+                        <b>
+                            Draw Date:
+                        </b>
+
+                        <span>
+                            @(item.Tirage.DateTirage +  item.Tirage.Heure)
+                        </span>
+                    </p>
+
+                   
+
+
+
+
+
+                </div>
+
+
+            </center>
+        }
+    }
+
+</div>
+

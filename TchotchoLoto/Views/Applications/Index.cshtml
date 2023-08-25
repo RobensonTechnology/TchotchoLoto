@@ -37,61 +37,6 @@
 
 <input id="url-get-application-list" type="hidden" data-url="@Url.Action("__Index", "Applications")" />
 
-<div id="create-application-modal" class="modal fade" app-navigation="dialog" data-backdrop="static">
-    <div class="modal-dialog modal-sm">
-
-        <div class="modal-content">
-            <div class="modal-header" style="background-color: #0078d7; border-radius:5px 5px 0 0;">
-
-                <h4 style="display: inline;">Add Application</h4>
-
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-
-            </div>
-            <div class="modal-body row" style="padding:6%;">
-
-                @using (Html.BeginForm("_Index", "Applications", FormMethod.Post, htmlAttributes: new { id = "Add-Application-Form" }))
-                {
-                    @Html.AntiForgeryToken()
-
-                    @Html.HiddenFor(model => model.ApplicationId, htmlAttributes: new { @class = "id-resetable" })
-
-                    <div class="form">
-
-                        <div class="form-group col-md-12 col-sm-12">
-                            @Html.LabelFor(model => model.CompagnieId, "Company", htmlAttributes: new { @class = "control-label" })
-                            @Html.DropDownList("CompagnieId", null, "Select a company", htmlAttributes: new { @class = "form-control ", id = "ddlCompagnieId" })
-                        </div>
-
-                        <div class="form-group col-md-12 col-sm-12">
-                            @Html.LabelFor(model => model.ApplicationName, "Application Name", htmlAttributes: new { @class = "control-label" })
-                            @Html.EditorFor(model => model.ApplicationName, new { htmlAttributes = new { @class = "form-control editor-resetable" } })
-                        </div>
-
-                        <div class="form-group col-md-12 col-sm-12">
-                            @Html.LabelFor(model => model.Description, "Description", htmlAttributes: new { @class = "control-label" })
-                            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control editor-resetable" } })
-                        </div>
-
-                    </div>
-
-                    <div class="col-md-12 col-sm-12 col-xs-12" style="border-top:1px solid #d7d7d7; padding-top:10px; text-align:right;">
-
-                        <button type="submit" class="btn btn-sm btn-info submit"><span class="glyphicon glyphicon-save-file"></span> Save <span class="glyphicon glyphicon-refresh loader" style="display:none;"></span> </button>
-                        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Close</button>
-
-                    </div>
-
-
-                }
-
-            </div>
-
-        </div>
-    </div>
-</div>
-
-
 
 <div id="edit-application-modal" class="modal fade" role="dialog" data-backdrop="static">
     <div class="modal-dialog modal-md">
@@ -100,47 +45,6 @@
     </div>
 </div>
 
-
-
-
-
-<!-- Modal 2 Dialog for delete option -->
-<div id="delete-modal" class="modal fade" role="dialog" data-backdrop="static">
-    <div class="modal-dialog modal-sm">
-
-        <!-- Modal content-->
-        <div class="modal-content">
-
-            <div class="modal-header" style="background-color: #0078d7; border-radius:5px 5px 0 0;">
-
-                <h4 style="display: inline;">Deletion</h4>
-
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-
-            </div>
-
-            <div class="modal-body row" style="padding:7%; text-align:center;">
-
-                <span class="glyphicon glyphicon-alert" style="display:block; font-size: 20px;"></span>
-                <h5 class="text-warning" style="display:block;">Do you really want to Delete this Application ?</h5>
-
-            </div>
-
-            <div class="modal-footer">
-
-                <a class="delete-confirmed btn btn-sm btn-danger" href="#">
-                    YES
-                </a>
-
-                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">
-                    NO
-                </button>
-
-            </div>
-        </div>
-
-    </div>
-</div>
 
 
 

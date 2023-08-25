@@ -1,0 +1,69 @@
+﻿
+<input type="hidden" id="hb-nbre-tirage-rapport" value="@if (ViewBag.ListTirageRapports != null){@ViewBag.ListTirageRapports.Count}else { Write(0); }" />
+
+
+<div id="pv-overlay-loading" class="overlay-loading" style="display:none;">
+    <img src="~/Content/images/loading-gif.gif" alt="Loading" width="50" height="50" />
+</div>
+
+<div class="table-responsive" style="padding-top: 10px; width:auto;" id="">
+    <table id="datatable" class="table table-hover display table-fixed-head-foot">
+
+        <thead class="bg-success">
+
+            <tr>
+
+
+                <th>
+                    Tour
+                </th>
+
+                <th>
+                    Draw Date
+                </th>
+
+
+                <th style="text-align:center;">
+                    Actions
+                </th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+            @if (ViewBag.ListTirageRapports != null)
+            {
+                foreach (var item in (List<TchotchoLoto.Models.Tirage>)ViewBag.ListTirageRapports)
+                {
+                    <tr>
+                        <td>
+                            @item.Tour
+                        </td>
+
+
+                        <td>
+                            @item.DateTirage.ToString("dd-MM-yyyy")
+                        </td>
+
+                        <td>
+                            <button data-url="@Url.Action("__IndexAllRapportVendeur", "RapportDeVentes", new { id = item.TirageId})" class="liste-tirage-rapport-btn btn btn-md btn-info" title="Click to view"><span class="glyphicon glyphicon-eye-open"> </span> <span class="glyphicon glyphicon-print">  </span> </button>
+                       
+                            <button data-url="@Url.Action("SendRapportVendeurParEmail", "Emails", new { id = item.TirageId})" class="send-rapport-btn btn btn-md btn-primary"  title="Click to send the report by E-mail">  <span class="glyphicon glyphicon-send"></span> <span class="glyphicon glyphicon-envelope"> </span> </button>
+                        
+                        
+                        </td>
+
+
+
+                    </tr>
+
+
+                }
+            }
+        </tbody>
+
+    </table>
+
+
+</div>

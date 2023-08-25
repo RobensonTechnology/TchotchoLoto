@@ -30,6 +30,12 @@ namespace TchotchoLoto.Controllers
                 return Json(new { returnToLogin = true }, JsonRequestBehavior.AllowGet);
             }
 
+
+
+            new AccountController().AddUserActionLog(currentUser, currentCompagnie, "Users/Index", "Button User [Security]");
+
+
+
             int sessionIdExist = db.Users.Where(u => u.SessionId == HttpContext.Session.SessionID).Count();
 
             if (sessionIdExist == 0)
@@ -69,6 +75,12 @@ namespace TchotchoLoto.Controllers
             {
                 return Json(new { returnToLogin = true }, JsonRequestBehavior.AllowGet);
             }
+
+
+
+            new AccountController().AddUserActionLog(currentUser, currentCompagnie, "Users/Index", "Button Add User [Security]");
+
+
 
             int sessionIdExist = db.Users.Where(u => u.SessionId == HttpContext.Session.SessionID).Count();
 
@@ -112,6 +124,11 @@ namespace TchotchoLoto.Controllers
             {
                 return Json(new { returnToLogin = true }, JsonRequestBehavior.AllowGet);
             }
+
+
+            new AccountController().AddUserActionLog(currentUser, currentCompagnie, "Users/_Index", "Button Add User [Security]");
+
+
 
             int sessionIdExist = db.Users.Where(u => u.SessionId == HttpContext.Session.SessionID).Count();
 
@@ -262,8 +279,7 @@ namespace TchotchoLoto.Controllers
                     message = "Incorrect Email!";
                     return Json(new { validationError = true, message }, JsonRequestBehavior.AllowGet);
                 }
-
-                else if (userExist.Email == user.Email)
+                else if (userExist != null && userExist.Email == user.Email)
                 {
                     message = "This Email is already supported. Try to another!";
                     return Json(new { validationError = true, message }, JsonRequestBehavior.AllowGet);
@@ -287,6 +303,8 @@ namespace TchotchoLoto.Controllers
         }
 
 
+
+
         [AjaxOnly]
         public ActionResult _Edit(int? id)
         {
@@ -297,6 +315,11 @@ namespace TchotchoLoto.Controllers
             {
                 return Json(new { returnToLogin = true }, JsonRequestBehavior.AllowGet);
             }
+
+
+
+            new AccountController().AddUserActionLog(currentUser, currentCompagnie, "Users/_Edit", "Button Edit [Security]");
+
 
             int sessionIdExist = db.Users.Where(u => u.SessionId == HttpContext.Session.SessionID).Count();
 
@@ -355,6 +378,10 @@ namespace TchotchoLoto.Controllers
             {
                 return Json(new { returnToLogin = true }, JsonRequestBehavior.AllowGet);
             }
+
+
+            new AccountController().AddUserActionLog(currentUser, currentCompagnie, "Users/Delete", "Button Delete [Security]");
+
 
             int sessionIdExist = db.Users.Where(u => u.SessionId == HttpContext.Session.SessionID).Count();
 
@@ -422,6 +449,12 @@ namespace TchotchoLoto.Controllers
             {
                 return Json(new { returnToLogin = true }, JsonRequestBehavior.AllowGet);
             }
+
+
+
+            new AccountController().AddUserActionLog(currentUser, currentCompagnie, "Users/LockToggle", "Button Lock [Security]");
+
+
 
             int sessionIdExist = db.Users.Where(u => u.SessionId == HttpContext.Session.SessionID).Count();
 

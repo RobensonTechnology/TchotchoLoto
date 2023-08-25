@@ -1,0 +1,70 @@
+﻿@model TchotchoLoto.Models.Boule
+
+@{
+
+    ViewBag.Title = "Boule Play";
+    Layout = null;
+}
+
+<input type="hidden" class="title" data-title="Boule" />
+
+<div class="indicator">
+    Ball  &nbsp;&nbsp; <span class="glyphicon glyphicon-chevron-right"></span> &nbsp; &nbsp; Playing Ball for the Current draw
+
+</div>
+
+
+<div class="header-body">
+    <p style="display:inline-block;">
+        &nbsp;&nbsp;Ball Quantity (<span id="hb-nbre-boule">
+            @if (ViewBag.BoulePlayInNextDraw != null)
+            {@ViewBag.BoulePlayInNextDraw.Count}
+        else { Write(0); }
+        </span>)
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon star glyphicon-star text-success"></span>
+
+    </p>
+
+</div>
+
+<br />
+
+<div class="page-scroll-content" id="boule-play-current-draw-list-pv">
+
+    @Html.Partial("__BoulePlayInNextDraw")
+
+</div>
+
+
+
+<a id="validation-link" data-toggle="modal" data-target="#modal-dialog-message"></a>
+
+<div id="modal-dialog-message" class="modal fade" app-navigation="dialog" data-backdrop="static">
+    <div class="modal-dialog modal-sm">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #0078d7; border-radius:5px 5px 0 0;">
+
+                <h4 style="display: inline;">Message</h4>
+
+            </div>
+            <div class="modal-body row" style="padding:7%; text-align:center;">
+
+                <span class="glyphicon glyphicon-info-sign" style="display:block; font-size: 20px;"></span>
+                <h5 class="text-info" style="display:block;">@ViewBag.message</h5>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">
+                    OK
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="pv-overlay-loading" class="overlay-loading bc-overlay-loading" style="display:none;">
+    <img src="~/Content/images/loading-gif.gif" alt="Loading" width="50" height="50" />
+</div>

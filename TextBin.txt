@@ -1,0 +1,368 @@
+    <div style="display:inline-block;" class="header-buttons">
+        <button class="add-after-edit add-after-edit btn btn-success btn-sm pull-right" data-toggle="modal" data-target="#create-boule-modal">
+            <span class="glyphicon glyphicon-plus"></span> Add new Ball
+        </button>
+    </div>
+
+
+
+    
+                        @*<td style="text-align:center;">
+
+                            <button id="@item.BouleId" data-toggle="collapse" data-target="#action-button-collapse-@item.BouleId" class="btn btn-xs btn-warning view-action-button-collapse-btn" style="min-width:120px;">Select &nbsp;&nbsp;<span class="glyphicon glyphicon-menu-down"></span></button>
+
+                            <div id="action-button-collapse-@item.BouleId" class="action-button-collapse collapse" style="right:4.6%;">
+
+                                <button data-url="@Url.Action("_Edit", "Boules", new { id = item.BouleId })" class="edit-boule-btn btn btn-xs btn-info"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+                                <button id="@item.BouleId" class="delete-link-boule btn btn-xs btn-danger" data-toggle="modal" data-target="#delete-modal"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+
+                            </div>
+
+                        </td>*@
+
+
+
+
+                           @*<button id="@item.ApplicationId" class="btn btn-xs btn-warning view-action-button-collapse-btn" data-toggle="collapse" data-target="#action-button-collapse-@item.ApplicationId" style="min-width:120px;">Select <span class="glyphicon glyphicon-menu-down"></span></button>
+
+                            <div class="action-button-collapse collapse" id="action-button-collapse-@item.ApplicationId">
+
+                                <button data-url="@Url.Action("_Edit", "Applications", new { id = item.ApplicationId })" class="edit-application-btn btn btn-xs btn-info"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+
+
+                            </div>*@
+
+
+
+                            
+
+                @*<div class="form-group col-md-6 col-sm-12 col-xs-12">
+                        <label class="control-label pull-left">Logo Application</label>
+                        <input type="file" name="SignatureResponsableApplication" , id="SignatureResponsableApplication" class="form-control editor-resetable" />
+                    </div>
+
+
+                    <div class="form-group col-md-12 col-sm-12 col-xs-12" style="height:40%;" id="SignatureResponsableApplication-photo-preview">
+
+                        <center>
+                            <img src="data:image/png;base64, @ViewBag.profilPictureData" />
+
+                        </center>
+                    </div>*@
+
+
+                @* alt="Red dot" *@
+
+
+
+
+                
+                            @*<button id="@item.LivJwetlaId" class="delete-link-livJwetLa btn btn-xs btn-danger" data-toggle="modal" data-target="#delete-modal"><span class="glyphicon glyphicon-trash"></span> Delete</button>*@
+
+
+
+
+
+                            
+                        @*<td style="text-align:center;">
+
+                                <button id="@item.TicketId" data-toggle="collapse" data-target="#action-button-collapse-@item.TicketId" class="btn btn-xs btn-warning view-action-button-collapse-btn" style="min-width:120px;">Select &nbsp;&nbsp;<span class="glyphicon glyphicon-menu-down"></span></button>
+
+                                <div id="action-button-collapse-@item.TicketId" class="action-button-collapse collapse" style="right:4.6%;">
+
+                                    <button data-url="@Url.Action("_Edit", "Tickets", new { id = item.TicketId })" class="edit-ticket-btn btn btn-xs btn-info"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+
+                                    <button data-url="@Url.Action("Index", "Tickets", new { id = item.TicketId})" class="btn btn-xs btn-success sub-view"><span class="glyphicon"></span> Sale</button>
+
+                                    <button id="@item.TicketId" class="delete-link-ticket btn btn-xs btn-danger" data-toggle="modal" data-target="#delete-modal"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+
+                                </div>
+
+                            </td>*@
+
+
+
+
+                            
+
+                            @*<button id="@item.TirageId" data-toggle="collapse" data-target="#action-button-collapse-@item.TirageId" class="btn btn-xs btn-warning view-action-button-collapse-btn" style="min-width:120px;">Select &nbsp;&nbsp;<span class="glyphicon glyphicon-menu-down"></span></button>
+
+                            <div id="action-button-collapse-@item.TirageId" class="action-button-collapse collapse" style="right:4.6%;">
+
+                                <button data-url="@Url.Action("_Edit", "Tirages", new { id = item.TirageId })" class="edit-tirage-btn btn btn-xs btn-info"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+
+                                <button id="@item.TirageId" class="delete-link-tirage btn btn-xs btn-danger" data-toggle="modal" data-target="#delete-modal"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+
+                            </div>*@
+
+
+
+
+
+
+
+
+                            
+@*<div class="table-responsive">
+        <table id="datatable" class="table table-hover display" style="width:100%;">
+
+            <thead class="bg-success">
+
+                <tr>
+
+                    <th>
+                        Infos
+                    </th>
+
+                    <th>
+                        Details
+                    </th>
+
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+                @if (ViewBag.TicketVendeurPrinters != null)
+                {
+                    foreach (var item in (List<TchotchoLoto.Models.Ticket>)ViewBag.TicketVendeurPrinters)
+                    {
+                        <tr>
+                            <td>
+                                Code
+                            </td>
+
+                            <td>
+                                @item.CodeTicket
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                Ticket Date
+                            </td>
+
+                            <td>
+                                @item.DateVente.Value.ToString("dd/MM/yyyy")
+                            </td>
+                        </tr>
+
+
+                        <tr>
+                            <td>
+                                Draw Date
+                            </td>
+
+                            <td>
+                                @item.Tirage.DateTirage.Date.ToString("dd/MM/yyyy")
+                            </td>
+                        </tr>
+
+
+                        <tr>
+                            <td>
+                                Time
+                            </td>
+
+                            <td>
+                                @item.Tirage.Heure
+                            </td>
+                        </tr>
+
+
+
+                            int i = 1;
+
+                            if (item.BouleListes != null && item.BouleListes.Length > 0)
+                            {
+                                string[] listBoule = item.BouleListes.ToString().Split(',');
+
+
+                                foreach (var boule in listBoule)
+                                {
+                                    <tr>
+                                        <td>
+                                            Ball @i
+                                        </td>
+                                        <td>
+
+                                            <span> @boule <br /></span>
+
+                                        </td>
+                                    </tr>
+                                i++;
+                            }
+
+                        }
+
+
+
+
+                        <tr>
+                            <td>
+                                Player Name
+                            </td>
+
+                            <td>
+                                @item.NomJoueur
+                            </td>
+                        </tr>
+
+
+
+                        <tr>
+                            <td>
+                                Prix
+                            </td>
+
+                            <td>
+                                @item.Prix.Value
+                            </td>
+                        </tr>
+
+
+
+
+
+
+
+                    }
+                }
+            </tbody>
+
+        </table>
+    </div>*@
+
+
+
+
+
+
+    
+
+                            @*<button id="@item.TirageId" data-toggle="collapse" data-target="#action-button-collapse-@item.TirageId" class="btn btn-xs btn-warning view-action-button-collapse-btn" style="min-width:120px;">Select &nbsp;&nbsp;<span class="glyphicon glyphicon-menu-down"></span></button>
+
+                            <div id="action-button-collapse-@item.TirageId" class="action-button-collapse collapse" style="right:4.6%;">
+
+                                <button data-url="@Url.Action("_Edit", "Tirages", new { id = item.TirageId })" class="edit-tirage-btn btn btn-xs btn-info"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+
+                                <button id="@item.TirageId" class="delete-link-tirage btn btn-xs btn-danger" data-toggle="modal" data-target="#delete-modal"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+
+                            </div>*@
+
+
+
+
+
+                            
+                @*<div class="col-md-6 col-sm-12 col-xs-12 right">
+
+                        @{
+
+                            int i = 1;
+
+                            if (item.BouleListes != null && item.BouleListes.Length > 0)
+                            {
+                                string[] listBoule = item.BouleListes.ToString().Split(',');
+
+                                <p style="color:black; clear: both;  display: block; ">
+                                    <b>
+                                        Balls :
+                                    </b>
+                                    <span>
+
+                                        <span> @string.Join(", ", listBoule) </span>
+
+                                    </span>
+                                </p>
+
+                                foreach (var boule in listBoule)
+                                    {
+                                        <p style="color:black; clear: both;  display: block; ">
+                                            <b>
+                                                Ball @i :
+                                            </b>
+                                            <span>
+
+                                                <span> @boule <br /></span>
+
+                                            </span>
+                                        </p>
+                                        i++;
+                                    }
+
+                            }
+
+
+                        }
+
+
+
+
+                        <p style="color:black; clear: both;  display: block; ">
+                            <b>
+                                Jacpot Ball:
+                            </b>
+
+                            <span>
+                                @item.JacpotBoule
+                            </span>
+                        </p>
+
+                    </div>*@
+
+
+
+
+
+
+
+                    
+                            @*<button id="@item.TicketId" data-toggle="collapse" data-target="#action-button-collapse-@item.TicketId" class="btn btn-xs btn-warning view-action-button-collapse-btn" style="min-width:120px;">Select &nbsp;&nbsp;<span class="glyphicon glyphicon-menu-down"></span></button>
+
+                                <div id="action-button-collapse-@item.TicketId" class="action-button-collapse collapse" style="right:4.6%;">
+
+                                </div>*@
+
+
+
+
+
+                                
+                                            @*<div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                                <table>
+                                                    <thead>
+                                                        <tr>
+                                                            <th>
+                                                                code
+                                                            </th>
+                                                            <th>
+                                                                code
+                                                            </th>
+                                                        </tr>
+
+
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                @item.CodeTicket
+                                                            </td>
+                                                            <td>
+                                                                @item.CodeTicket
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>*@
+
+
+
+
+
+
+                                            
+                @*<th style="text-align:center;">
+                    Actions
+                </th>*@

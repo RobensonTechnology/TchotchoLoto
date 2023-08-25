@@ -1,0 +1,221 @@
+﻿@model TchotchoLoto.Models.Tirage
+@{
+    ViewBag.Title = "Draw";
+    Layout = null;
+}
+
+
+
+<input type="hidden" class="title" data-title="Draw List" />
+
+<div class="indicator">
+    Draw &nbsp;&nbsp; <span class="glyphicon glyphicon-chevron-right"></span>  &nbsp; &nbsp; Draw List
+</div>
+
+
+<div class="header-body">
+
+    <p style="display:inline-block;" class="qt-dataTable">
+        &nbsp;&nbsp; Draw List(<span id="hb-nbre-tirage-list">
+            @if (ViewBag.Tirages != null)
+            {@ViewBag.Tirages.Count}
+        else { Write(0); }
+        </span>)
+        &nbsp;<span class="glyphicon star glyphicon-star text-success"></span>
+
+        @using (Html.BeginForm("__Index", "Tirages", FormMethod.Get, htmlAttributes: new { id = "tirage-list-form" }))
+        {
+
+            <div class="form-group col-md-3 col-sm-4 col-xs-4" title="Begin Date" style="padding-left:1px; width: 200px;">
+                <input type="date" name="dateDebut" id="dateDebut" class="form-control" style="border: 1px solid #31b0d5; background: #31b0d5; color:white;">
+            </div>
+
+            <div class="form-group col-md-3 col-sm-4 col-xs-4" title="End Date" style="margin-left:-25px; width: 200px;">
+                <input type="date" name="dateFin" id="dateFin" class="form-control" style="border: 1px solid #31b0d5; background: #31b0d5; color:white;">
+            </div>
+            <div class="form-group col-md-2 col-sm-2 col-xs-2" style="margin-left:-25px;">
+                <button style="margin-right:10px; background: #31b0d5; color: dimgrey; border: none; color:white;" class="btn btn-md  submit" title="Search for this Date">
+                    <span class="glyphicon glyphicon-search"></span>
+                </button>
+            </div>
+        }
+    </p>
+
+
+
+    <div style="display:inline-block;" class="header-buttons">
+        <button class="add-after-edit btn btn-success btn-sm pull-right" data-toggle="modal" data-target="#create-tirage-modal">
+            <span class="glyphicon glyphicon-plus"></span> New Draw
+        </button>
+
+
+    </div>
+
+</div>
+
+<br />
+
+
+
+
+<div class="page-scroll-content" id="tirage-list-pv">
+
+    @Html.Partial("__Index")
+
+</div>
+
+
+
+
+
+
+
+
+<div id="create-tirage-modal" class="modal fade" role="dialog" data-backdrop="static">
+    <div class="modal-dialog modal-md">
+
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #0078d7; border-radius:5px 5px 0 0;">
+
+                <h4 class="title-conditionned" style="display: inline;">Add Draw</h4>
+
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+            <div class="modal-body row" style="padding:3%;">
+
+                @using (Html.BeginForm("_Index", "Tirages", FormMethod.Post, htmlAttributes: new { id = "Add-Tirage-Form" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    @Html.HiddenFor(model => model.TirageId, htmlAttributes: new { @class = "id-resetable" })
+
+                    <div class="form">
+
+
+
+                        <div class="form-group col-md-4 col-sm-6 col-xs-12">
+                            @Html.LabelFor(model => model.DateTirage, "Draw Date", htmlAttributes: new { @class = "control-label" })
+                            <input type="date" name="DateTirage" id="DateTirage" class="form-control date-picker-resetable" />
+
+                        </div>
+
+
+                        <div class="form-group col-md-4 col-sm-6 col-xs-12">
+                            @Html.LabelFor(model => model.Tour, "Tower", htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.Tour, new { htmlAttributes = new { @class = "form-control editor-resetable" } })
+
+                        </div>
+
+
+                        <div class="form-group col-md-4 col-sm-6 col-xs-12">
+                            @Html.LabelFor(model => model.Heure, "Hour", htmlAttributes: new { @class = "control-label" })
+                            <input type="time" name="Heure" id="Heure" class="form-control editor-resetable" />
+                        </div>
+
+
+
+
+
+                    </div>
+
+                    <div class="col-md-12 col-sm-12 col-xs-12" style="border-top:1px solid #d7d7d7; padding-top:10px; text-align:right;">
+
+                        <button type="submit" class="btn btn-sm btn-info submit"><span class="glyphicon glyphicon-save-file"></span> Save <span class="glyphicon glyphicon-refresh loader" style="display:none;"></span> </button>
+                        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Close</button>
+
+                    </div>
+
+                }
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<div id="edit-tirage-modal" class="modal fade" role="dialog" data-backdrop="static">
+    <div class="modal-dialog modal-md">
+
+
+    </div>
+</div>
+
+
+
+<!-- Modal 2 Dialog for delete option -->
+<div id="delete-modal" class="modal fade" role="dialog" data-backdrop="static">
+    <div class="modal-dialog modal-sm">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+
+            <div class="modal-header" style="background-color: #0078d7; border-radius:5px 5px 0 0;">
+
+                <h4 style="display: inline;">Delete</h4>
+
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+
+            <div class="modal-body row" style="padding:7%; text-align:center;">
+
+                <span class="glyphicon glyphicon-alert" style="display:block; font-size: 20px;"></span>
+                <h5 class="text-warning" style="display:block;">Do you really want to Delete this Draw ?</h5>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <a class="delete-confirmed btn btn-sm btn-danger" href="#">
+                    YES
+                </a>
+
+                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">
+                    NO
+                </button>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<a id="validation-link" data-toggle="modal" data-target="#modal-dialog-message"></a>
+
+<div id="modal-dialog-message" class="modal fade" role="dialog" data-backdrop="static">
+    <div class="modal-dialog modal-sm">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #0078d7; border-radius:5px 5px 0 0;">
+
+                <h4 style="display: inline;">Message</h4>
+
+            </div>
+            <div class="modal-body row" style="padding:7%; text-align:center;">
+
+                <span class="glyphicon glyphicon-info-sign" style="display:block; font-size: 20px;"></span>
+                <h5 class="text-info" style="display:block;">@ViewBag.message</h5>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">
+                    OK
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
